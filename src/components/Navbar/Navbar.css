@@ -1,0 +1,107 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1c1c1c;
+    padding: 10px 20px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    margin: 30px;
+    position: relative;
+}
+  
+.navbar-left .app-name {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+  
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+  
+.icon-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+  
+.icon {
+    width: 25px;
+    height: 25px;
+}
+  
+.download-button {
+    background-color: #f7cc4d;
+    color: #1c1c1c;
+    border: none;
+    padding: 8px 15px;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.download-button:hover {
+    background-color: #e6b645;
+}
+  
+.menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+  
+.menu span {
+    height: 0.4rem;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 0.2rem;
+}
+  
+@media (max-width: 480px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+  
+    .menu {
+        display: flex;
+        position: absolute;
+        right: 20px;
+    }
+  
+    .navbar-right {
+        display: none; 
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        margin-top: 20px;
+    }
+  
+    .navbar-right.open {
+        display: flex;
+    }
+  
+    .navbar-right.open a,
+    .navbar-right.open button {
+        text-align: center;
+        margin: 0;
+        width: 100%;
+    }
+  
+    .navbar-right.open a {
+        padding: 10px;
+        background-color: #333;
+        border-radius: 5px;
+    }
+  
+    .navbar-right.open button {
+        background-color: #f7cc4d;
+    }
+}
