@@ -1,0 +1,39 @@
+.download-app-section {
+  padding: 4rem 20px;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+}
+
+.download-app-card {
+  background-color: #1a1a1a;
+  border-radius: 20px;
+  padding: 4rem 2rem;
+  text-align: center;
+  width: 100%;
+  max-width: 1000px;
+  color: white;
+}
+
+.download-app-card h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.store-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.store-btn img {
+  height: 50px;
+  width: auto;
+  transition: transform 0.2s;
+}
+
+.store-btn:hover img {
+  transform: scale(1.05);
+}
