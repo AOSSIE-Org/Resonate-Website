@@ -27,7 +27,7 @@ A modern, responsive landing page for Resonate, showcasing the platform's featur
 - [Deployment](#deployment)
 - [Contributing](#contributing)
 - [Links](#links)
-- [Acknowledgments](#Acknowledgments)
+- [acknowledgments](#acknowledgments)
 
 ## Getting Started
 
@@ -185,7 +185,7 @@ Contributions are welcome! Please follow these steps:
 - **GitHub Repository**: [View on GitHub](https://github.com/AOSSIE-Org/Resonate-Website)
 - **Report Issues**: [Open an Issue](https://github.com/AOSSIE-Org/Resonate-Website/issues)
 
-## Acknowledgments
+## acknowledgments
 
 - Design inspiration from the Figma design file
 - React community for excellent documentation and tools
