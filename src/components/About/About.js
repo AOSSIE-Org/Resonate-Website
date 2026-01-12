@@ -19,10 +19,10 @@ const About = () => {
           <div className="social-links">
             <a href="mailto:contact@aossie.org"><FaEnvelope /></a>
             <a href="https://gitlab.com/aossie"><SiGitlab /></a> 
-            <a href="https://github.com/AOSSIE"><FaGithub /></a>
-            <a href="https://discord.gg/yourlink"><FaDiscord /></a>
+            <a href="https://github.com/AOSSIE-Org"><FaGithub /></a>
+            <a href="https://discord.com/invite/MMZBadkYFm"><FaDiscord /></a>
             <a href="https://twitter.com/aossie_org"><FaTwitter /></a>
-          </div>
+          </div>x
         </div>
       </div>
     </section>
