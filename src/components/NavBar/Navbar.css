@@ -27,6 +27,13 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navbar-logo:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
 }
 
 .logo-icon {

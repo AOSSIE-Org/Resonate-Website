@@ -19,9 +19,11 @@ const Hero = () => {
             <button className="btn btn-primary">
               Create/Join Room <FaArrowRight />
             </button>
+            <a href="https://github.com/AOSSIE-Org/Resonate">
             <button className="btn btn-secondary">
               Contribute to the Project <FaGithub />
             </button>
+              </a>
           </div>
         </div>
       </div>
