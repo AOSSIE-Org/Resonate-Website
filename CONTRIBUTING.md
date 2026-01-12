@@ -86,10 +86,9 @@ git commit -m "Add feature: describe what you added"
 ```
 
 **Commit message guidelines:**
-- Use imperative mood ("Add" not "Added" or "Adds")
-- Limit the first line to 72 characters
-- Reference any relevant issues: "Fixes #123"
-- Provide additional context in the commit body if needed
+This project follows Conventional Commits.
+All commit messages must conform to the Conventional Commits specification:
+https://www.conventionalcommits.org/en/v1.0.0/
 
 ### 5. **Push to Your Fork**
 
