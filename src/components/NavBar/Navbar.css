@@ -26,9 +26,12 @@
   align-items: center;
   font-size: 1.2rem;
   font-weight: bold;
-  color: white;
   cursor: pointer;
   transition: all 0.3s ease;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
 }
 
 .navbar-logo:hover {
