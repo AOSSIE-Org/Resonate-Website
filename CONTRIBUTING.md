@@ -193,10 +193,7 @@ When you submit a pull request:
 
 ## Licensing
 
-This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**.  
-By contributing to the Resonate Website, you agree that your contributions will also be licensed under the **GPL-3.0**.
-
-See the `LICENSE` file in the repository for full details.
+There is no licence but will add soon
 
 ## Questions?
 
