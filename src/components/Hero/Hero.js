@@ -1,7 +1,7 @@
 import React from 'react';
 import './Hero.css';
 import { FaGithub, FaArrowRight } from 'react-icons/fa';
-import phoneImage from '../../assets/resonate1 1.png'; 
+import phoneImage from '../../assets/resonate_app.png';
 
 const Hero = () => {
   return (
@@ -11,21 +11,22 @@ const Hero = () => {
           <img src={phoneImage} alt="Resonate App on Phone" />
         </div>
         <div className="hero-content">
+          <div className="yellow-gradient-bg"></div>
           <h1>Clubhouse,<br />but Open Source</h1>
           <h2>A social voice platform.</h2>
           <p className="maintained-by">A Project Maintained by <a href="https://aossie.org" className="aossie-link">AOSSIE</a></p>
-          
+
           <div className="hero-buttons">
-            <button className="btn btn-primary">
+            <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
               Create/Join Room <FaArrowRight />
-            </button>
-            <button className="btn btn-secondary">
+            </a>
+            <a href="https://github.com/AOSSIE-Org/Resonate" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
               Contribute to the Project <FaGithub />
-            </button>
+            </a>
           </div>
         </div>
       </div>
-      
+
       <div className="hero-description-container">
         <p>
           With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is high time for an Open Source alternative. A platform like this would not only enhance credibility within the open-source community but also attract more users and foster growth. An engagement platform that is Open Source has the potential to drive significant traction and help establish a strong presence.
