@@ -2,10 +2,6 @@
 
 Thank you for your interest in contributing to the **Resonate Website**! We're excited to have you help us improve this landing page for the open-source social voice platform. This guide will help you get started.
 
-## Code of Conduct
-
-Please be respectful and constructive in all interactions. We're committed to providing a welcoming and inclusive environment for all contributors.
-
 ## How to Contribute
 
 ### 1. **Report Bugs**
@@ -30,7 +26,7 @@ Have an idea to improve the website? Submit a feature request:
 Follow these steps to contribute code:
 
 #### Prerequisites
-- Node.js (v14 or higher)
+- Node.js (v18 or higher)
 - npm or yarn
 - Git
 
@@ -75,7 +71,7 @@ Follow these steps to contribute code:
    npm test
    ```
 
-8. **Build the project** (optional, to test production build)
+8. **Build the project** ( compulsory to test production build)
    ```bash
    npm run build
    ```
@@ -117,13 +113,13 @@ git push origin feature/your-feature-name
 
 The project follows this structure:
 ```text
-src/
-├── components/        # React components (About, Features, Hero, etc.)
-├── assets/           # Images, fonts, and static files
-├── App.js            # Main app component
-├── App.css           # Global styles
-├── index.js          # App entry point
-└── index.css         # Global styles
+Resonate-Website/
+├── public/                  # Static assets (HTML, icons, images)
+├── src/                     # Source code (React components, styles)
+├── .gitignore               # Git ignore rules
+├── README.md                # Project overview
+├── package.json             # Dependencies and scripts
+└── package-lock.json        # Locked dependency versions
 ```
 
 ### Code Style
@@ -160,24 +156,7 @@ This website is built with:
 - **React Icons** (v5.5.0): Icon library
 - **React Scripts** (v5.0.1): Build tooling
 
-## Testing
 
-Before submitting a pull request:
-
-1. **Manual Testing**: Test your changes in the development server
-   ```bash
-   npm start
-   ```
-
-2. **Run Tests**: Execute the test suite
-   ```bash
-   npm test
-   ```
-
-3. **Build Check**: Ensure the project builds successfully
-   ```bash
-   npm run build
-   ```
 
 ## Pull Request Review Process
 
@@ -198,22 +177,6 @@ When you submit a pull request:
 - ✅ Responsive design maintained
 - ✅ Performance impact considered
 
-## Development Tips
-
-### Useful Commands
-
-```bash
-npm start          # Start development server
-npm test           # Run tests
-npm run build      # Create production build
-npm run eject      # Eject from Create React App (⚠️ irreversible)
-```
-
-### Browser DevTools
-
-- Use React Developer Tools browser extension for debugging
-- Check the Console tab for warnings/errors
-- Use the Network tab to monitor API calls and assets
 
 ### Performance Considerations
 
@@ -231,7 +194,10 @@ npm run eject      # Eject from Create React App (⚠️ irreversible)
 
 ## Licensing
 
-By contributing to Resonate Website, you agree that your contributions will be licensed under the same license as the project.
+This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**.  
+By contributing to the Resonate Website, you agree that your contributions will also be licensed under the **GPL-3.0**.
+
+See the `LICENSE` file in the repository for full details.
 
 ## Questions?
 
@@ -243,9 +209,6 @@ By contributing to Resonate Website, you agree that your contributions will be l
 
 We appreciate all contributions! Contributors will be recognized in:
 - GitHub contributors list
-- Release notes (for significant contributions)
-- Project documentation
-
 ---
 
 **Thank you for contributing to Resonate! Together, we're building an amazing open-source platform.** 🎉
