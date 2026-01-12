@@ -116,7 +116,7 @@ git push origin feature/your-feature-name
 ### Project Structure
 
 The project follows this structure:
-```
+```text
 src/
 ├── components/        # React components (About, Features, Hero, etc.)
 ├── assets/           # Images, fonts, and static files
