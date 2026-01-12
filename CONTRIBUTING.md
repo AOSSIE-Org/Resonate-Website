@@ -152,12 +152,13 @@ src/
 
 ## Technologies Used
 
+
 This website is built with:
 - **React** (v18.2.0): UI library
 - **GSAP** (v3.14.0): Animations and interactions
-- **Lenis**: Smooth scrolling
-- **React Icons**: Icon library
-- **React Scripts**: Build tooling
+- **Lenis** (v1.3.15): Smooth scrolling
+- **React Icons** (v5.5.0): Icon library
+- **React Scripts** (v5.0.1): Build tooling
 
 ## Testing
 
