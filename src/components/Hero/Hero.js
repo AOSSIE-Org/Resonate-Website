@@ -16,12 +16,23 @@ const Hero = () => {
           <p className="maintained-by">A Project Maintained by <a href="https://aossie.org" className="aossie-link">AOSSIE</a></p>
           
           <div className="hero-buttons">
-            <button className="btn btn-primary">
+            <a
+              href="https://github.com/AOSSIE-Org/Resonate"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
               Create/Join Room <FaArrowRight />
-            </button>
-            <button className="btn btn-secondary">
+            </a>
+
+            <a
+              href="https://github.com/AOSSIE-Org/Resonate"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
+            >
               Contribute to the Project <FaGithub />
-            </button>
+            </a>
           </div>
         </div>
       </div>

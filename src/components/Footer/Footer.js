@@ -10,10 +10,10 @@ const Footer = () => {
           &copy; 2025
         </div>
         <div className="footer-socials">
-          <a href="#"><FaInstagram /></a>
-          <a href="#"><FaFacebookF /></a>
-          <a href="#"><FaTwitter /></a>
-          <a href="#"><FaLinkedinIn /></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebookF /></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><FaLinkedinIn /></a>
         </div>
       </div>
     </footer>
