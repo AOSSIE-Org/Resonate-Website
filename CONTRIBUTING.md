@@ -193,7 +193,7 @@ When you submit a pull request:
 
 ## Licensing
 
-There is no licence but will add soon
+By contributing to Resonate Website, you agree that your contributions will be licensed under the MIT License.
 
 ## Questions?
 
