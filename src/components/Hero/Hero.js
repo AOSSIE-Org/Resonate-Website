@@ -17,16 +17,14 @@ const Hero = () => {
           
           <div className="hero-buttons">
             <a
-              href="https://github.com/AOSSIE-Org/Resonate"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
               className="btn btn-primary"
             >
               Create/Join Room <FaArrowRight />
             </a>
 
             <a
-              href="https://github.com/AOSSIE-Org/Resonate"
+              href="https://github.com/AOSSIE-Org/Resonate/issues"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"
