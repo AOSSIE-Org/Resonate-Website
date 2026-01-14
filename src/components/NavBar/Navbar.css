@@ -151,3 +151,9 @@
     transform: translateY(0);
   }
 }
+.hamburger:focus,
+.nav-link:focus,
+.download-btn:focus {
+  outline: 2px solid #FFC107;
+  outline-offset: 3px;
+}
