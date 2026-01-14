@@ -1,7 +1,7 @@
 import React from 'react';
 import './DownloadApp.css';
-import appStoreBtn from '../../assets/Button.png'; 
-import playStoreBtn from '../../assets/Button-1.png'; 
+import appStoreBtn from '../../assets/Button.png';
+import playStoreBtn from '../../assets/Button-1.png';
 
 const DownloadApp = () => {
   return (
@@ -10,9 +10,8 @@ const DownloadApp = () => {
         <h2>Get the Resonate Mobile app.</h2>
         <div className="store-buttons">
           <a href="#" className="store-btn">
-            <img src={appStoreBtn} alt="Download on App Store" />
           </a>
-          <a href="#" className="store-btn">
+          <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener noreferrer" className="store-btn">
             <img src={playStoreBtn} alt="Get it on Google Play" />
           </a>
         </div>
