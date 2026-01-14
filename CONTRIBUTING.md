@@ -193,7 +193,7 @@ When you submit a pull request:
 
 ## Licensing
 
-By contributing to Resonate Website, you agree that your contributions will be licensed under the MIT License.
+By contributing to Resonate Website, you agree that your contributions will be licensed under the GNU General Public License v3.0 (GPLv3).
 
 ## Questions?
 
