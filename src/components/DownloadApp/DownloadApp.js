@@ -8,9 +8,16 @@ const DownloadApp = () => {
       <div className="download-app-card">
         <h2>Get the Resonate Mobile app.</h2>
         <div className="store-buttons">
-          <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener noreferrer" className="store-btn">
+          <button
+            type="button"
+            className="store-btn"
+            aria-label="Google Play app coming soon"
+            onClick={() => {
+              alert("Mobile App is coming soon! Check back after GSoC 2026.");
+                }}
+                >
             <img src={playStoreBtn} alt="Get it on Google Play" />
-          </a>
+          </button>
         </div>
       </div>
     </section>

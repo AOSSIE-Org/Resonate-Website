@@ -33,7 +33,7 @@ Follow these steps to set up the project locally.
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/AOSSIE/Resonate-Website.git
+    git clone https://github.com/AOSSIE-Org/Resonate-Website.git
     cd Resonate-Website
     ```
 
