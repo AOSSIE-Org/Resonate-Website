@@ -1,3 +1,6 @@
+/* DownloadApp.css */
+
+/* Section wrapper */
 .download-app-section {
   padding: 4rem 20px;
   display: flex;
@@ -5,6 +8,7 @@
   background-color: white;
 }
 
+/* Card container */
 .download-app-card {
   background-color: #1a1a1a;
   border-radius: 20px;
@@ -15,12 +19,14 @@
   color: white;
 }
 
+/* Heading */
 .download-app-card h2 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
   font-weight: 400;
 }
 
+/* Button container */
 .store-buttons {
   display: flex;
   justify-content: center;
@@ -28,12 +34,31 @@
   flex-wrap: wrap;
 }
 
-.store-btn img {
-  height: 50px;
-  width: auto;
-  transition: transform 0.2s;
+/* General button styles */
+.store-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.store-btn:hover img {
+/* Hover effect */
+.store-btn:hover {
   transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
+
+/* Google Play button */
+.playstore {
+  background-color: #34a853; /* Google Play green */
+}
+
+/* App Store button */
+.appstore {
+  background-color: #000; /* App Store black */
+}
+
