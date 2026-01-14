@@ -22,14 +22,14 @@ const Navbar = () => {
           <span className="logo-text">Resonate</span>
         </div>
 
-        <button
+       <button
           className="hamburger"
           onClick={() => setOpen(!open)}
           aria-label="Toggle navigation"
           aria-expanded={open}
         >
           ☰
-        </button>
+        </button> 
 
         <div className={`navbar-links ${open ? 'open' : ''}`}>
           <a
