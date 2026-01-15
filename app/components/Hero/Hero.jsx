@@ -1,6 +1,6 @@
 import "./Hero.css";
 import { FaGithub, FaArrowRight } from "react-icons/fa";
-import phoneImage from "../../assets/resonate1.png";
+import phoneImage from "../../assets/resonate_app.png";
 import Image from "next/image";
 
 const Hero = () => {

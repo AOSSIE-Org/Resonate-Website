@@ -1,31 +1,34 @@
 import "./Features.css";
-import featureImage from "../../assets/Group.png";
+import featureImage1 from "../../assets/roomscreen.png";
+import featureImage2 from "../../assets/createrooms.png";
+import featureImage3 from "../../assets/pairchat.png";
+import featureImage4 from "../../assets/chatscreen.png";
 
 const featuresData = [
   {
     id: 1,
     title:
       "Real-time Audio Communication by joining rooms and talking to people.",
-    image: featureImage,
+    image: featureImage1,
     align: "left",
   },
   {
     id: 2,
     title: "Ability to create rooms and moderate speakers and events.",
-    image: featureImage,
+    image: featureImage2,
     align: "right",
   },
   {
     id: 3,
     title:
       "Pair chatting to enable users to find random partners to talk to in the app.",
-    image: featureImage,
+    image: featureImage3,
     align: "left",
   },
   {
     id: 4,
-    title: "Real-time messaging(Coming Soon)",
-    image: featureImage,
+    title: "Real-time messaging",
+    image: featureImage4,
     align: "right",
   },
 ];
@@ -50,7 +53,8 @@ const Features = () => {
           </div>
           <div className="feature-content">
             <h3>
-              {feature.id}. {feature.title}
+              <span className="feature-number">{feature.id}.</span>{" "}
+              {feature.title}
             </h3>
           </div>
         </div>

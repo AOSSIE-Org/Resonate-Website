@@ -1,27 +1,20 @@
 import "./Footer.css";
-import {
-  FaInstagram,
-  FaFacebookF,
-  FaTwitter,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { FaLinkedinIn, FaGithub } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="copyright">© 2025. All rights reserved.</div>
+        <div className="copyright">&copy; 2025. All rights reserved.</div>
         <div className="footer-socials">
-          <a href="#">
-            <FaInstagram />
+          <a href="https://github.com/AOSSIE-Org">
+            <FaGithub />
           </a>
-          <a href="#">
-            <FaFacebookF />
+          <a href="https://x.com/aossie_org">
+            <BsTwitterX />
           </a>
-          <a href="#">
-            <FaTwitter />
-          </a>
-          <a href="#">
+          <a href="https://www.linkedin.com/company/aossie">
             <FaLinkedinIn />
           </a>
         </div>

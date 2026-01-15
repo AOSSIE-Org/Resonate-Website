@@ -1,7 +1,8 @@
 import "./About.css";
 import AossieLogo from "../../assets/logos/aossie_logo.png";
-import { FaEnvelope, FaGithub, FaDiscord, FaTwitter } from "react-icons/fa";
 import { SiGitlab } from "react-icons/si";
+import { FaEnvelope, FaGithub, FaDiscord } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
 
 const About = () => {
   return (
@@ -29,14 +30,14 @@ const About = () => {
             <a href="https://gitlab.com/aossie">
               <SiGitlab />
             </a>
-            <a href="https://github.com/AOSSIE">
+            <a href="https://github.com/AOSSIE-Org">
               <FaGithub />
             </a>
-            <a href="https://discord.gg/yourlink">
+            <a href="https://discord.com/invite/MMZBadkYFm">
               <FaDiscord />
             </a>
-            <a href="https://twitter.com/aossie_org">
-              <FaTwitter />
+            <a href="https://x.com/aossie_org">
+              <BsTwitterX />
             </a>
           </div>
         </div>
