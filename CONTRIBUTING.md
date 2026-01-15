@@ -33,9 +33,6 @@ Follow these steps to contribute code:
 #### Getting Started
 
 1. **Fork the repository**
-   ```md
-   # Navigate to the GitHub repo and click the "Fork" button
-   ```
 
 2. **Clone your fork locally**
    ```bash
