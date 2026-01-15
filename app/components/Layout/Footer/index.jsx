@@ -8,13 +8,28 @@ const Footer = () => {
       <div className="footer-container">
         <div className="copyright">&copy; 2025. All rights reserved.</div>
         <div className="footer-socials">
-          <a href="https://github.com/AOSSIE-Org">
+          <a
+            href="https://github.com/AOSSIE-Org"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="AOSSIE on LinkedIn"
+          >
             <FaGithub />
           </a>
-          <a href="https://x.com/aossie_org">
+          <a
+            href="https://x.com/aossie_org"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="AOSSIE on LinkedIn"
+          >
             <BsTwitterX />
           </a>
-          <a href="https://www.linkedin.com/company/aossie">
+          <a
+            href="https://www.linkedin.com/company/aossie"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="AOSSIE on LinkedIn"
+          >
             <FaLinkedinIn />
           </a>
         </div>
