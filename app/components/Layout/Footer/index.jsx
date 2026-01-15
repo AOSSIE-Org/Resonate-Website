@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="copyright">&copy; 2025</div>
+        <div className="copyright">© 2025. All rights reserved.</div>
         <div className="footer-socials">
           <a href="#">
             <FaInstagram />
