@@ -33,7 +33,7 @@ Follow these steps to contribute code:
 #### Getting Started
 
 1. **Fork the repository**
-   ```bash
+   ```md
    # Navigate to the GitHub repo and click the "Fork" button
    ```
 
@@ -106,20 +106,6 @@ git push origin feature/your-feature-name
    - Reference any related issues (e.g., "Fixes #123")
    - Screenshots for UI changes
 
-## Coding Guidelines
-
-### Project Structure
-
-The project follows this structure:
-```text
-Resonate-Website/
-├── public/                  # Static assets (HTML, icons, images)
-├── src/                     # Source code (React components, styles)
-├── .gitignore               # Git ignore rules
-├── README.md                # Project overview
-├── package.json             # Dependencies and scripts
-└── package-lock.json        # Locked dependency versions
-```
 
 ### Code Style
 
@@ -203,8 +189,7 @@ By contributing to Resonate Website, you agree that your contributions will be l
 
 ## Recognition
 
-We appreciate all contributions! Contributors will be recognized in:
-- GitHub contributors list
----
+We appreciate all contributions! Contributors will be recognized in the GitHub contributors list
+
 
 **Thank you for contributing to Resonate! Together, we're building an amazing open-source platform.** 🎉
