@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './App.css';
 import Navbar from './components/NavBar/Navbar';
 import Hero from './components/Hero/Hero';
 import Features from './components/Features/Features';
@@ -14,6 +13,21 @@ import Lenis from 'lenis';
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+  const [theme, setTheme] = React.useState(localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((curr) => (curr === "light" ? "dark" : "light"));
+  };
+
   useEffect(() => {
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
@@ -174,8 +188,8 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Navbar />
+    <div className="App min-h-screen flex flex-col dark:bg-[#121212] transition-colors duration-300">
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
       <Hero />
       <Features />
       <TechStack />
