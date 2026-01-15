@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Resonate Website
 
-## Getting Started
+The official landing page for **Resonate** - an Open Source social voice platform maintained by [AOSSIE](https://aossie.org).
 
-First, run the development server:
+## 🚀 About Resonate
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Resonate is a social voice platform, similar to Clubhouse and Twitter Spaces, but completely Open Source. It aims to enhance credibility within the open-source community, attract users, and foster growth through real-time audio communication.
+
+**Key Features of the App:**
+*   Real-time Audio Communication.
+*   Create rooms and moderate speakers/events.
+*   Pair chatting for random partner matching.
+*   Real-time messaging (Coming Soon).
+
+## 💻 Tech Stack
+
+This website has been overhauled (2026) to use a modern, high-performance architecture.
+
+*   **[Next.js 16](https://nextjs.org/)**: React Framework with App Router for SSR & SEO.
+*   **[TypeScript](https://www.typescriptlang.org/)**: For type safety and better developer experience.
+*   **[Tailwind CSS v4](https://tailwindcss.com/)**: Utility-first styling with the new CSS-based configuration.
+*   **[React](https://react.dev/)**: Latest React 19 features (including Compiler).
+
+## 🛠️ Installation & Setup
+
+Follow these steps to set up the project locally.
+
+### Prerequisites
+*   Node.js (v18.17 or higher required for Next.js)
+*   npm
+
+### Steps
+
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/AOSSIE/Resonate-Website.git
+    cd Resonate-Website
+    ```
+    *(Make sure to checkout the `new-design` branch if developing the overhaul)*
+
+2.  **Install dependencies**
+    ```bash
+    npm install
+    ```
+
+3.  **Start the development server**
+    ```bash
+    npm run dev
+    ```
+    The app will run at `http://localhost:3000`.
+
+4.  **Build for production**
+    ```bash
+    npm run build
+    ```
+    This creates an optimized production build.
+
+## 📂 Project Structure
+
+```
+src/
+├── app/ # App Router pages and layouts
+│ ├── globals.css # Global styles & Tailwind Design Tokens
+│ ├── layout.tsx # Root layout (Fonts & Metadata)
+│ └── page.tsx # Landing Page
+├── assets/ # (Legacy) Raw assets, prefer using public/
+└── public/ # Static assets served at root
+├── assets/ # Images and icons
+├── robots.txt # SEO Configuration
+└── llms.txt # AI Crawler Policy
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🤝 Contributing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+We welcome contributions! Please see the [AOSSIE contribution guidelines](https://github.com/AOSSIE/.github/blob/main/CONTRIBUTING.md) for more details.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'feat: Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
 
-## Learn More
+## 📄 License
 
-To learn more about Next.js, take a look at the following resources:
+This project is part of AOSSIE. Please check the repository for license details.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+<p align="center">
+  Maintained with ❤️ by <a href="https://aossie.org">AOSSIE</a>
+</p>
