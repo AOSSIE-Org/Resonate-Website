@@ -1,92 +1,36 @@
-# Resonate Website
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-The official landing page for **Resonate** - an Open Source social voice platform maintained by [AOSSIE](https://aossie.org).
+## Getting Started
 
-## 🚀 About Resonate
+First, run the development server:
 
-Resonate is a social voice platform, similar to Clubhouse and Twitter Spaces, but completely Open Source. It aims to enhance credibility within the open-source community, attract users, and foster growth through real-time audio communication.
-
-**Key Features of the App:**
-*   Real-time Audio Communication.
-*   Create rooms and moderate speakers/events.
-*   Pair chatting for random partner matching.
-*   Real-time messaging (Coming Soon).
-
-## 💻 Tech Stack
-
-This website is built using modern web technologies to ensure a smooth and engaging user experience.
-
-*   **[React](https://reactjs.org/)**: Frontend library for building the user interface.
-*   **[GSAP](https://greensock.com/gsap/)**: For high-performance animations (ScrollTrigger).
-*   **[Lenis](https://github.com/studio-freight/lenis)**: For smooth, inertial scrolling.
-*   **[React Icons](https://react-icons.github.io/react-icons/)**: For vector icons.
-
-## 🛠️ Installation & Setup
-
-Follow these steps to set up the project locally.
-
-### Prerequisites
-*   Node.js (v14 or higher)
-*   npm or yarn
-
-### Steps
-
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/AOSSIE/Resonate-Website.git
-    cd Resonate-Website
-    ```
-
-2.  **Install dependencies**
-    ```bash
-    npm install
-    ```
-
-3.  **Start the development server**
-    ```bash
-    npm start
-    ```
-    The app will run at `http://localhost:3000`.
-
-4.  **Build for production**
-    ```bash
-    npm run build
-    ```
-    This creates an optimized build in the `build` folder.
-
-## 📂 Project Structure
-
-```
-src/
-├── assets/          # Images and static assets
-├── components/      # Modular React components
-│   ├── NavBar/      # Navigation bar
-│   ├── Hero/        # Hero section
-│   ├── Features/    # Features showcase
-│   ├── TechStack/   # Tech stack display
-│   ├── About/       # About AOSSIE section
-│   ├── DownloadApp/ # App download links
-│   └── Footer/      # Footer section
-├── App.js           # Main application component (Animations & Layout)
-├── App.css          # Global styles
-└── index.js         # Entry point
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## 🤝 Contributing
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-We welcome contributions! Please see the [AOSSIE contribution guidelines](https://github.com/AOSSIE/.github/blob/main/CONTRIBUTING.md) for more details.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## 📄 License
+## Learn More
 
-This project is part of AOSSIE. Please check the repository for license details.
+To learn more about Next.js, take a look at the following resources:
 
----
-<p align="center">
-  Maintained with ❤️ by <a href="https://aossie.org">AOSSIE</a>
-</p>
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
