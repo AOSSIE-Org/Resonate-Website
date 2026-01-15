@@ -1,6 +1,6 @@
-import "./DownloadApp.css";
-import AppStoreBtn from "../../assets/AppleStore.png";
-import PlayStoreBtn from "../../assets/PlayStore.png";
+import React from 'react';
+import './DownloadApp.css';
+import playStoreBtn from '../../assets/Button-1.png';
 
 const DownloadApp = () => {
   return (
@@ -8,11 +8,8 @@ const DownloadApp = () => {
       <div className="download-app-card">
         <h2>Get the Resonate Mobile app.</h2>
         <div className="store-buttons">
-          <a href="#" className="store-btn">
-            <img src={AppStoreBtn.src} alt="Download on App Store" />
-          </a>
-          <a href="#" className="store-btn">
-            <img src={PlayStoreBtn.src} alt="Get it on Google Play" />
+          <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener noreferrer" className="store-btn">
+            <img src={playStoreBtn} alt="Get it on Google Play" />
           </a>
         </div>
       </div>

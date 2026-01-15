@@ -27,7 +27,14 @@ const Navbar = () => {
           >
             <FaGithub size={20} />
           </a>
-          <button className="download-btn">Download Now</button>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="download-btn"
+          >
+            Download Now
+          </a>
         </div>
       </div>
     </nav>

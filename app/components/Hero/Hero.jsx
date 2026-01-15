@@ -30,12 +30,22 @@ const Hero = () => {
           </p>
 
           <div className="hero-buttons">
-            <button className="btn btn-primary">
+            <a
+              href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
               Create/Join Room <FaArrowRight />
-            </button>
-            <button className="btn btn-secondary">
+            </a>
+            <a
+              href="https://github.com/AOSSIE-Org/Resonate"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
+            >
               Contribute to the Project <FaGithub />
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #1a1a1adc;
+  background-color: #030303dc;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: white;
@@ -94,11 +94,11 @@
   .logo-text {
     display: none;
   }
-  
+
   .nav-link {
     font-size: 0.8rem;
   }
-  
+
   .navbar-links {
     gap: 15px;
   }
