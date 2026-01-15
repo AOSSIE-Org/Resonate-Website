@@ -1,6 +1,5 @@
-import React from 'react';
 import './DownloadApp.css';
-import playStoreBtn from '../../assets/Button-1.png';
+import playStoreBtn from '../../assets/PlayStore.png';
 
 const DownloadApp = () => {
   return (

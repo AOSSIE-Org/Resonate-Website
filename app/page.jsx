@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import Navbar from "./components/NavBar/Navbar";
 import Hero from "./components/Hero/Hero";
 import Features from "./components/Features/Features";
 import TechStack from "./components/TechStack/TechStack";
 import About from "./components/About/About";
 import DownloadApp from "./components/DownloadApp/DownloadApp";
-import Footer from "./components/Footer/Footer";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -215,13 +213,11 @@ export default function Home() {
 
   return (
     <div className="App">
-      <Navbar />
       <Hero />
       <Features />
       <TechStack />
       <About />
       <DownloadApp />
-      <Footer />
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import "./globals.css";
+import NavBar from "./components/Layout/NavBar";
+import Footer from "./components/Layout/Footer";
 
 export const metadata = {
   title: "Resonate - Social Voice Platform",
@@ -16,7 +18,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <NavBar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

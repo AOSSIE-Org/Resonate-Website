@@ -1,8 +1,8 @@
 import "./Navbar.css";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-import Logo from "../../assets/resonate_logo_white.svg"; // Trying Vector.png as logo based on file list
+import Logo from "@/assets/resonate_logo_white.svg";
 
-const Navbar = () => {
+const NavBar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -20,7 +20,7 @@ const Navbar = () => {
             AOSSIE <FaExternalLinkAlt size={12} />
           </a>
           <a
-            href="https://github.com/AOSSIE/Resonate"
+            href="https://github.com/AOSSIE-Org/Resonate-Website"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-link"
@@ -41,4 +41,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;
