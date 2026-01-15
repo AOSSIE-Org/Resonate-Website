@@ -1,8 +1,8 @@
 import React from 'react';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaSun, FaMoon } from 'react-icons/fa';
 import logo from '../../assets/resonate_logo_white.svg';
 
-const Navbar = () => {
+const Navbar = ({ theme, toggleTheme }) => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -11,13 +11,20 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-5 z-[1000] mx-auto my-5 w-[90%] max-w-[1200px] rounded-[50px] bg-[#030303dc] px-[30px] py-[15px] text-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] backdrop-blur-[10px] transition-all md:w-[95%] md:px-5 md:py-2.5 md:my-2.5">
+    <nav className="sticky top-5 z-[1000] mx-auto my-5 w-[90%] max-w-[1200px] rounded-[50px] bg-[#030303dc] px-[30px] py-[15px] text-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] backdrop-blur-[10px] transition-all md:w-[95%] md:px-5 md:py-2.5 md:my-2.5 dark:bg-[#1E1E1E]/90">
       <div className="flex w-full items-center justify-between">
         <div className="flex cursor-pointer items-center text-[1.2rem] font-bold text-white" onClick={scrollToTop}>
           <img src={logo} alt="Resonate Logo" className="mr-[10px] h-6" />
           <span className="hidden min-[480px]:block">Resonate</span>
         </div>
         <div className="flex items-center gap-8 md:gap-5 sm:gap-[15px]">
+          <button 
+            onClick={toggleTheme} 
+            className="flex items-center justify-center rounded-full p-2 text-white transition-colors hover:bg-white/10"
+            aria-label="Toggle Dark Mode"
+          >
+            {theme === 'dark' ? <FaSun size={20} className="text-[#FFC107]" /> : <FaMoon size={20} />}
+          </button>
           <a href="https://aossie.org" target="_blank" rel="noopener noreferrer" className="flex items-center gap-[5px] text-[0.9rem] font-medium uppercase text-white transition-colors hover:text-[#FFC107] sm:text-[0.8rem]">
             AOSSIE <FaExternalLinkAlt size={12} />
           </a>
