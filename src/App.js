@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './App.css';
 import Navbar from './components/NavBar/Navbar';
 import Hero from './components/Hero/Hero';
 import Features from './components/Features/Features';
@@ -174,7 +173,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App min-h-screen flex flex-col">
       <Navbar />
       <Hero />
       <Features />
