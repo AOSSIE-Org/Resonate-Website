@@ -1,6 +1,13 @@
+import { Raleway } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/Layout/NavBar";
 import Footer from "./components/Layout/Footer";
+
+const raleway = Raleway({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
 
 export const metadata = {
   title: "Resonate - Social Voice Platform",
@@ -18,7 +25,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className={raleway.className}>
         <NavBar />
         {children}
         <Footer />

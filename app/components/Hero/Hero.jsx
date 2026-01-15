@@ -16,6 +16,7 @@ const Hero = () => {
           />
         </div>
         <div className="hero-content">
+          <div className="yellow-gradient-bg"></div>
           <h1>
             Clubhouse,
             <br />
