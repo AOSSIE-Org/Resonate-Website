@@ -10,10 +10,99 @@ body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .hero {
+  background: #0a0a0a !important;
+}
+
+body.dark-mode .hero-content h1,
+body.dark-mode .hero-content h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .maintained-by,
+body.dark-mode .hero-description-container p {
+  color: #b0b0b0;
+}
+
+body.dark-mode .aossie-link {
+  color: #b0b0b0;
+}
+
+body.dark-mode .features {
+  background-color: #0a0a0a;
+}
+
+body.dark-mode .feature-content h3,
+body.dark-mode .feature-content p {
+  color: #e0e0e0;
+}
+
+body.dark-mode .tech-stack {
+  background-color: #0a0a0a;
+}
+
+body.dark-mode .tech-stack h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .about {
+  background-color: #0a0a0a;
+}
+
+body.dark-mode .about-content h2,
+body.dark-mode .about-content p {
+  color: #e0e0e0;
+}
+
+body.dark-mode .download-app-section {
+  background-color: #0a0a0a;
+}
+
+body.dark-mode .download-app-card {
+  background-color: #1a1a1a;
+}
+
+body.dark-mode .download-app-card h2,
+body.dark-mode .download-app-card p {
+  color: #e0e0e0;
+}
+
+body.dark-mode .footer {
+  background-color: #0a0a0a;
+  color: #b0b0b0;
 }
 
 .App {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.cursor-gradient {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(255, 193, 7, 0.5) 0%,
+    rgba(255, 235, 59, 0.35) 20%,
+    rgba(255, 193, 7, 0.2) 40%,
+    rgba(255, 193, 7, 0.1) 60%,
+    transparent 80%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  filter: blur(50px);
+  transition: left 0.15s ease-out, top 0.15s ease-out;
+  mix-blend-mode: screen;
 }

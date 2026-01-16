@@ -1,9 +1,9 @@
 import React from 'react';
 import './Navbar.css';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
-import logo from '../../assets/resonate_logo_white.svg'; // Trying Vector.png as logo based on file list
+import { FaGithub, FaExternalLinkAlt, FaMoon, FaSun } from 'react-icons/fa';
+import logo from '../../assets/resonate_logo_white.svg';
 
-const Navbar = () => {
+const Navbar = ({ darkMode, toggleDarkMode }) => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -25,6 +25,9 @@ const Navbar = () => {
           <a href="https://github.com/AOSSIE-Org/Resonate" target="_blank" rel="noopener noreferrer" className="nav-link">
             <FaGithub size={20} />
           </a>
+          <button onClick={toggleDarkMode} className="dark-mode-toggle" aria-label="Toggle dark mode">
+            {darkMode ? <FaSun size={14} /> : <FaMoon size={14} />}
+          </button>
           <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener noreferrer" className="download-btn">Download Now</a>
         </div>
       </div>
