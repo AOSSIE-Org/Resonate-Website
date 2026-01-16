@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import Navbar from './components/NavBar/Navbar';
 import Hero from './components/Hero/Hero';
@@ -14,7 +14,35 @@ import Lenis from 'lenis';
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+  const cursorGradientRef = useRef(null);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   useEffect(() => {
+    // Apply dark mode class to body
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkMode]);
+
+  useEffect(() => {
+    // Cursor-following gradient animation
+    const handleMouseMove = (e) => {
+      if (cursorGradientRef.current) {
+        const { clientX, clientY } = e;
+        
+        cursorGradientRef.current.style.left = `${clientX}px`;
+        cursorGradientRef.current.style.top = `${clientY}px`;
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
@@ -168,6 +196,7 @@ function App() {
 
     // Cleanup function
     return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
       lenis.destroy();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
@@ -175,7 +204,8 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
+      <div className="cursor-gradient" ref={cursorGradientRef}></div>
+      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <Hero />
       <Features />
       <TechStack />

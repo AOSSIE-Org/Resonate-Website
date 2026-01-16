@@ -8,10 +8,19 @@
   border-radius: 50px;
   max-width: 1200px;
   width: 90%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .navbar {
+  background-color: #1a1a1adc;
+  box-shadow: 0 10px 40px rgba(255, 193, 7, 0.2), 0 4px 12px rgba(255, 193, 7, 0.15);
+  border: 1px solid rgba(255, 193, 7, 0.3);
 }
 
 .navbar-container {
@@ -71,6 +80,26 @@
 .download-btn:hover {
   background-color: #ffca2c;
   transform: scale(1.05);
+}
+
+.dark-mode-toggle {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  width: 30px;
+  height: 30px;
+}
+
+.dark-mode-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: rotate(20deg);
 }
 
 @media (max-width: 768px) {
