@@ -74,7 +74,7 @@ src/
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see the [AOSSIE contribution guidelines](https://github.com/AOSSIE/.github/blob/main/CONTRIBUTING.md) for more details.
+We welcome contributions! Please see the [Please see the AOSSIE contribution guidelines](https://github.com/AOSSIE-Org/Resonate-Website/blob/dev/CONTRIBUTING.md) for more details.
 
 1.  Fork the Project
 2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
