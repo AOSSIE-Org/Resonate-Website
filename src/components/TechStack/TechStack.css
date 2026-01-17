@@ -3,8 +3,8 @@
 }
 
 .tech-stack {
-  background-color: #1a1a1a;
-  color: white;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
   padding: 4rem 0;
   text-align: center;
   border-radius: 20px;

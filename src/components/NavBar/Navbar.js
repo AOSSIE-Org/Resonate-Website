@@ -2,6 +2,7 @@ import React from 'react';
 import './Navbar.css';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import logo from '../../assets/resonate_logo_white.svg'; // Trying Vector.png as logo based on file list
+import ThemeToggle from "../ThemeToggle/ThemeToggle"; 
 
 const Navbar = () => {
   const scrollToTop = () => {
@@ -26,6 +27,7 @@ const Navbar = () => {
             <FaGithub size={20} />
           </a>
           <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener noreferrer" className="download-btn">Download Now</a>
+          <ThemeToggle />
         </div>
       </div>
     </nav>

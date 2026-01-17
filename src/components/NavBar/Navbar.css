@@ -1,8 +1,8 @@
 .navbar {
-  background-color: #030303dc;
+  background-color: var(--bg-navbar);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  color: white;
+  color: var(--text-light);
   padding: 15px 30px;
   margin: 20px auto;
   border-radius: 50px;
@@ -26,7 +26,7 @@
   align-items: center;
   font-size: 1.2rem;
   font-weight: bold;
-  color: white;
+  color: var(--text-light);
 }
 
 .logo-icon {
@@ -41,7 +41,7 @@
 }
 
 .nav-link {
-  color: white;
+  color: var(--text-light);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -53,23 +53,23 @@
 }
 
 .nav-link:hover {
-  color: #FFC107;
+  color: var(--accent-yellow);
 }
 
 .download-btn {
-  background-color: #FFC107;
+  background-color: var(--accent-yellow);
   border: none;
   padding: 10px 24px;
   border-radius: 25px;
   font-weight: bold;
   cursor: pointer;
-  color: black;
+  color: var(--text-main);
   font-size: 0.9rem;
   transition: transform 0.2s, background-color 0.2s;
 }
 
 .download-btn:hover {
-  background-color: #ffca2c;
+  background-color: var(--accent-yellow-hover);
   transform: scale(1.05);
 }
 
@@ -102,4 +102,10 @@
   .navbar-links {
     gap: 15px;
   }
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 32px;
 }

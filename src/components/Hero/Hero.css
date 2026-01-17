@@ -1,5 +1,5 @@
 .hero {
-  background: #ffffff 100%;
+  background: var(--bg-main);
   padding: 4rem 0;
   overflow: hidden;
 }
@@ -65,24 +65,24 @@
   line-height: 1.1;
   margin-bottom: 0.5rem;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--text-main);  
 }
 
 .hero-content h2 {
   font-size: 2.5rem;
   font-weight: 400;
   margin-bottom: 1rem;
-  color: #1a1a1a;
+  color: var(--text-main);  
 }
 
 .maintained-by {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 2rem;
 }
 
 .aossie-link {
-  color: #666;
+  color: var(--text-muted);
   text-decoration: underline;
 }
 
@@ -113,13 +113,13 @@
 }
 
 .btn-primary {
-  background-color: #FFC107;
-  color: black;
+  background-color: var(--accent-yellow);
+  color: var(--text-main);
 }
 
 .btn-secondary {
-  background-color: #1a1a1a;
-  color: white;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
 }
 
 .hero-description-container {
@@ -132,7 +132,7 @@
 .hero-description-container p {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #333;
+  color: var(--text-main);
 }
 
 @media (max-width: 768px) {

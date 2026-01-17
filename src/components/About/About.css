@@ -1,6 +1,6 @@
 .about {
   padding: 4rem 0;
-  background-color: white;
+   background-color: var(--bg-main);
 }
 
 .about-container {
@@ -34,13 +34,13 @@
   line-height: 1.2;
   margin-bottom: 1.5rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text-main);
 }
 
 .about-content p {
   font-size: 1rem;
   line-height: 1.6;
-  color: #555;
+  color: var(--text-muted);
   margin-bottom: 2rem;
 }
 
@@ -50,13 +50,13 @@
 }
 
 .social-links a {
-  color: #888;
+  color: var(--text-muted);
   font-size: 1.5rem;
   transition: color 0.2s;
 }
 
 .social-links a:hover {
-  color: #1a1a1a;
+  color: var(--text-main);
 }
 
 @media (max-width: 768px) {
