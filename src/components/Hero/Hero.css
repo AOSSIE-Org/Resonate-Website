@@ -83,7 +83,14 @@
 
 .aossie-link {
   color: #666;
+  text-decoration: none;
+  transition: color 0.5s, transform 0.5s, font-weight 0.5s;
+}
+.aossie-link:hover {
+  color: #4b4b4a;
+  transform: scale(1.2);
   text-decoration: underline;
+  font-weight: 500;
 }
 
 .hero-buttons {
@@ -115,11 +122,13 @@
 .btn-primary {
   background-color: #FFC107;
   color: black;
+  text-decoration: none;
 }
 
 .btn-secondary {
   background-color: #1a1a1a;
   color: white;
+  text-decoration: none;
 }
 
 .hero-description-container {

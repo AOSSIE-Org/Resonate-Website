@@ -20,7 +20,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-links">
           <a href="https://aossie.org" target="_blank" rel="noopener noreferrer" className="nav-link">
-            AOSSIE <FaExternalLinkAlt size={12} />
+            AOSSIE 
           </a>
           <a href="https://github.com/AOSSIE-Org/Resonate" target="_blank" rel="noopener noreferrer" className="nav-link">
             <FaGithub size={20} />
