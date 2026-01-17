@@ -2,23 +2,27 @@
   height: 50px;
   padding: 0 24px;
   border-radius: 999px;
-  background: #ffffff;              /* same as Play button */
+  background-color: #ffffff;
   color: #000000;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  cursor: pointer;                  /* ✅ pointer fix */
+  cursor: pointer;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
   font-weight: 500;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    background-color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .apple-download-btn:hover {
-  transform: translateY(-1px);      /* ✅ same lift */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* ✅ same hover shadow */
+  background-color: #ffd525;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* ICON */
@@ -35,17 +39,4 @@
 /* TEXT */
 .apple-text {
   white-space: nowrap;
-}
-
-
-.apple-download-btn {
-  background-color: #ffffff;
-  transition:
-    background-color 0.25s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.apple-download-btn:hover {
-  background-color: #ffd525;
 }
