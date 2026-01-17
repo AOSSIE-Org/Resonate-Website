@@ -1,6 +1,6 @@
 .footer {
-  background-color: #1a1a1a;
-  color: white;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
   padding: 1.5rem 0;
 }
 
@@ -15,7 +15,7 @@
 
 .copyright {
   font-size: 0.9rem;
-  color: #ccc;
+  color: var(--text-muted);
 }
 
 .footer-socials {
@@ -24,8 +24,8 @@
 }
 
 .footer-socials a {
-  color: #1a1a1a; 
-  background-color: #FFC107; /* Yellow background for icons */
+  color: var(--text-main);
+  background-color: var(--accent-yellow);
   width: 30px;
   height: 30px;
   display: flex;

@@ -1,0 +1,27 @@
+.theme-toggle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.2rem;
+  background-color: var(--card-bg);
+  color: var(--text-main);
+
+  transition: 
+    background-color 0.25s ease,
+    transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}

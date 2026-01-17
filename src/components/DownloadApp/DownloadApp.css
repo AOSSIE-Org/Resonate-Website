@@ -2,17 +2,17 @@
   padding: 4rem 20px;
   display: flex;
   justify-content: center;
-  background-color: white;
+  background-color: var(--bg-main);
 }
 
 .download-app-card {
-  background-color: #1a1a1a;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
   border-radius: 20px;
   padding: 4rem 2rem;
   text-align: center;
   width: 100%;
   max-width: 1000px;
-  color: white;
 }
 
 .download-app-card h2 {
