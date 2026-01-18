@@ -3,7 +3,7 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: white;
-  padding: 15px 30px;
+  padding: 7px 30px;
   margin: 20px auto;
   border-radius: 50px;
   max-width: 1200px;
@@ -57,15 +57,17 @@
 }
 
 .download-btn {
+  margin-right: -22px;
   background-color: #FFC107;
   border: none;
-  padding: 10px 24px;
+  padding: 7px 20px;
   border-radius: 25px;
   font-weight: bold;
   cursor: pointer;
   color: black;
   font-size: 0.9rem;
   transition: transform 0.2s, background-color 0.2s;
+  text-decoration: none;
 }
 
 .download-btn:hover {
