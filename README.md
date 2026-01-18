@@ -1,16 +1,17 @@
 # Resonate Website
 
-The official landing page for **Resonate** - an Open Source social voice platform maintained by [AOSSIE](https://aossie.org).
+The official landing page for **Resonate** - an open-source social voice platform maintained by [AOSSIE](https://aossie.org).
 
 ## 🚀 About Resonate
 
-Resonate is a social voice platform, similar to Clubhouse and Twitter Spaces, but completely Open Source. It aims to enhance credibility within the open-source community, attract users, and foster growth through real-time audio communication.
+**Resonate**, an open-source social voice platform, similar to Clubhouse and Twitter Spaces, but completely Open Source. It aims to enhance credibility within the open-source community, attract users, and foster growth through real-time audio communication.
 
-**Key Features of the App:**
-*   Real-time Audio Communication.
+### Key Features of the App
+*   Real-time audio communication.
 *   Create rooms and moderate speakers/events.
-*   Pair chatting for random partner matching.
-*   Real-time messaging (Coming Soon).
+*   Pair chat for random partner matching.
+*   Real-time messaging *(coming soon)*
+
 
 ## 💻 Tech Stack
 
