@@ -45,11 +45,11 @@
   color: #fff;
   border: 1px solid #4a4a4a;
   border-radius: 8px;
-  padding: 8px 16px;
+  padding: 10px 20px;
   text-decoration: none;
   transition: all 0.2s ease;
-  min-width: 160px;
-  height: 52px;
+  min-width: 180px;
+  height: 60px;
 }
 
 .store-badge:hover {
@@ -59,8 +59,10 @@
 }
 
 .store-icon {
-  font-size: 26px;
-  margin-right: 12px;
+  width: 32px;
+  height: 32px;
+  margin-right: 14px;
+  flex-shrink: 0;
 }
 
 .store-text {
