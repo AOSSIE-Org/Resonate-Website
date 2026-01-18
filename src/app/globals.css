@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  /* --- PALETTE (Our Raw Figma Colors) --- */
+  
+  /* Brand Colors */
+  --color-brand-yellow: #FFC100;  /* Resonate's Classic Yellow */
+  --color-brand-dark: #101010;    /* Page Background (Dark) */
+  --color-brand-light: #F5F5F5;   /* Page Background (Light) */
+
+  /* Font Configuration */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* --- SEMANTIC TOKENS (The Logic) --- */
+
+/* LIGHT MODE */
+:root {
+  --background: var(--color-brand-light);
+  --foreground: #000000;
+  
+  /* 
+     The border color for Light Mode 
+  */
+  --border: #5D5D5D80; 
+}
+
+/* DARK MODE */
+.dark {
+  --background: var(--color-brand-dark);
+  --foreground: #B4B4B4;
+  
+  /* 
+     The border color for Dark Mode 
+  */
+  --border: #5D5D5D80; 
+}
+
+/* --- GLOBAL STYLES --- */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Optional: Add a utility class if you want to use it easily in HTML */
+@utility border-border {
+  border-color: var(--border);
+}
