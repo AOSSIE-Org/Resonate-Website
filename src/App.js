@@ -10,6 +10,7 @@ import Footer from './components/Footer/Footer';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -182,6 +183,7 @@ function App() {
       <About />
       <DownloadApp />
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }
