@@ -1,6 +1,7 @@
 import React from 'react';
 import './Footer.css';
-import { FaInstagram, FaFacebookF, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
+import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
+import { BsTwitterX } from 'react-icons/bs';
 
 const Footer = () => {
   return (
@@ -10,10 +11,9 @@ const Footer = () => {
           &copy; 2025
         </div>
         <div className="footer-socials">
-          <a href="#"><FaInstagram /></a>
-          <a href="#"><FaFacebookF /></a>
-          <a href="#"><FaTwitter /></a>
-          <a href="#"><FaLinkedinIn /></a>
+          <a href="https://github.com/AOSSIE-Org"><FaGithub /></a>
+          <a href="https://x.com/aossie_org"><BsTwitterX /></a>
+          <a href="https://www.linkedin.com/company/aossie"><FaLinkedinIn /></a>
         </div>
       </div>
     </footer>
