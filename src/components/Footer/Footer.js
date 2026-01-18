@@ -10,10 +10,34 @@ const Footer = () => {
         <div className="copyright">
           &copy; 2025
         </div>
+
         <div className="footer-socials">
-          <a href="https://github.com/AOSSIE-Org"><FaGithub /></a>
-          <a href="https://x.com/aossie_org"><BsTwitterX /></a>
-          <a href="https://www.linkedin.com/company/aossie"><FaLinkedinIn /></a>
+          <a
+            href="https://github.com/AOSSIE-Org"
+            aria-label="Visit AOSSIE on GitHub"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaGithub aria-hidden="true" />
+          </a>
+
+          <a
+            href="https://x.com/aossie_org"
+            aria-label="Follow AOSSIE on Twitter (X)"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <BsTwitterX aria-hidden="true" />
+          </a>
+
+          <a
+            href="https://www.linkedin.com/company/aossie"
+            aria-label="Connect with AOSSIE on LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaLinkedinIn aria-hidden="true" />
+          </a>
         </div>
       </div>
     </footer>
