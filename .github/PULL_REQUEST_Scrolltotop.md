@@ -5,9 +5,9 @@ This feature enhances usability, especially on mobile devices and content-heavy 
 Fixes #86
 
 ##Type of change
-[x]  New feature (non-breaking change which adds functionality)
-[x]  UI/UX update (design changes, interface improvements)
- 
+  New feature (non-breaking change which adds functionality)
+  UI/UX update (design changes, interface improvements)
+
 ##How Has This Been Tested?
 I have manually verified the changes locally and performed automated browser testing.
 
@@ -25,15 +25,14 @@ Screenshots/Video:
 
 
 ##Checklist:
-[x]  My code follows the style guidelines of this project
-[x]  I have performed a self-review of my own code
-[x]  I have commented my code, particularly in hard-to-understand areas
-[x]  My changes generate no new warnings
-[x]  I have added tests that prove my fix is effective or that my feature works
-[x]  New and existing unit tests pass locally with my changes
-[x]  I have checked my code and corrected any misspellings
+ My code follows the style guidelines of this project
+  I have performed a self-review of my own code
+  I have commented my code, particularly in hard-to-understand areas
+  My changes generate no new warnings
+  I have added tests that prove my fix is effective or that my feature works
+  New and existing unit tests pass locally with my changes
+  I have checked my code and corrected any misspellings
 
- 
+
 ##Maintainer Checklist
- closes #86 (Replace xxxx with the GitHub issue number)
- Tag the PR with the appropriate labels
+ closes #86
