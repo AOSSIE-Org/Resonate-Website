@@ -1,39 +1,67 @@
 @import "tailwindcss";
 
 @theme {
-  /* --- PALETTE (Our Raw Figma Colors) --- */
-  
-  /* Brand Colors */
-  --color-brand-yellow: #FFC100;  /* Resonate's Classic Yellow */
-  --color-brand-dark: #101010;    /* Page Background (Dark) */
-  --color-brand-light: #F5F5F5;   /* Page Background (Light) */
+  /* --- BRAND PALETTE --- */
+  --color-brand-yellow: #FFC100;
 
   /* Font Configuration */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* --- SEMANTIC TOKENS (The Logic) --- */
+/* --- SEMANTIC COLOR TOKENS --- */
 
-/* LIGHT MODE */
+/* LIGHT MODE (Default) */
 :root {
-  --background: var(--color-brand-light);
-  --foreground: #000000;
+  /* Surface Colors */
+  --background: #F5F5F5;
+  --nav-background: rgba(245, 245, 245, 0.8); /* Added for glassmorphism */
   
-  /* 
-     The border color for Light Mode 
-  */
-  --border: #5D5D5D80; 
+  /* Text Colors */
+  --foreground: linear-gradient(0deg, #1C1C1C 0%, #000 100%);
+  --foreground-secondary: #121212;
+  --foreground-muted: #4D4D4D;
+
+  /* Interactive States */
+  --hover-background: var(--color-neutral-200);
+  --active-background: var(--color-neutral-200);
+  
+  /* Border Colors */
+  --border: var(--color-neutral-200);
+  --border-subtle: var(--color-neutral-500);
+  
+  /* Button Styles */
+  --button-primary-bg: transparent;
+  --button-primary-text: #121212;
+  --button-primary-border: #121212;
+  --button-primary-hover-bg: var(--color-neutral-50);
+  --button-primary-hover-border: #121212;
 }
 
 /* DARK MODE */
 .dark {
-  --background: var(--color-brand-dark);
-  --foreground: #B4B4B4;
+   /* Surface Colors */
+  --background: #101010;
+  --nav-background: rgba(16, 16, 16, 0.8); /* Added for glassmorphism */
   
-  /* 
-     The border color for Dark Mode 
-  */
-  --border: #5D5D5D80; 
+  /* Text Colors */
+  --foreground: linear-gradient(0deg, #D3D3D3 0%, #FFF 100%);
+  --foreground-secondary: #B4B4B4;
+  --foreground-muted: #7F8188;
+
+  /* Interactive States */
+  --hover-background: var(--color-neutral-800);
+  --active-background: var(--color-neutral-700);
+  
+  /* Border Colors */
+  --border: var(--color-neutral-800);
+  --border-subtle: var(--color-neutral-800);
+  
+  /* Button Styles */
+  --button-primary-bg: #FFFFFF;
+  --button-primary-text: #101010;
+  --button-primary-border: transparent;
+  --button-primary-hover-bg: var(--color-neutral-100);
+  --button-primary-hover-border: var(--color-neutral-100);
 }
 
 /* --- GLOBAL STYLES --- */
@@ -41,9 +69,30 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
 }
 
-/* Optional: Add a utility class if you want to use it easily in HTML */
-@utility border-border {
-  border-color: var(--border);
+/* Utility Classes */
+@utility text-primary { color: var(--foreground); }
+@utility text-secondary { color: var(--foreground-secondary); }
+@utility text-muted { color: var(--foreground-muted); }
+@utility border-default { border-color: var(--border); }
+@utility border-subtle { border-color: var(--border-subtle); }
+
+/* --- THEME ICON --- */
+/* 
+   This forces the browser to listen to the .dark class on the HTML tag
+   instead of the Operating System preference.
+*/
+
+/* Default (Light Mode): Icon stays Black */
+.theme-icon {
+  filter: invert(0);
+  transition: filter 0.2s ease-in-out;
 }
+
+/* Dark Mode: Icon flips to White */
+:is(.dark .theme-icon) {
+  filter: invert(1) brightness(100);
+}
+
