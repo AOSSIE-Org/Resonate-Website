@@ -67,6 +67,8 @@ src/
 │   ├── About/       # About AOSSIE section
 │   ├── DownloadApp/ # App download links
 │   └── Footer/      # Footer section
+├── constants/       # Centralized immutable values used across the app
+|   └── urls.js      # Centralized URLs(external links, app links, socials)
 ├── App.js           # Main application component (Animations & Layout)
 ├── App.css          # Global styles
 └── index.js         # Entry point
