@@ -9,7 +9,7 @@ const DownloadApp = () => {
   return (
     <section className="download-app-section">
       <div className="download-app-card">
-        
+    
         <div className="download-text-wrapper">
           <h2>Get the Resonate Mobile app.</h2>
           <div className="store-buttons">
