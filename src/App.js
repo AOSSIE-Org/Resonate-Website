@@ -109,10 +109,14 @@ function App() {
       { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
       "-=0.4"
     )
+    .to('.tech-title .underline',
+    { scaleX: 1, duration: 0.6, ease: 'power2.out' },
+    "-=0.3"
+  )
     .fromTo('.tech-logo',
       { y: 30, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: 'back.out(1.7)' },
-      "-=0.6"
+      "-=0.4"
     );
 
     // About Animation

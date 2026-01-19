@@ -15,9 +15,23 @@
 .tech-stack h2 {
   font-size: 2rem;
   margin-bottom: 3rem;
-  text-decoration: underline;
-  text-underline-offset: 10px;
   text-transform: uppercase;
+}
+
+.tech-title {
+  position: relative;
+  display: inline-block;
+}
+
+.tech-title .underline {
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  height: 3px;
+  width: 100%;
+  background: #FFC107;;
+  transform: scaleX(0);
+  transform-origin: left;
 }
 
 .tech-logos {
