@@ -25,6 +25,10 @@
       "react-app",
       "react-app/jest"
     ]
+  },"jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!(gsap|lenis)/)"
+    ]
   },
   "browserslist": {
     "production": [

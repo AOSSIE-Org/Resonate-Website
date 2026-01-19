@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders Resonate app heading', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  // Use getByRole to specifically target the h1 heading
+  const headingElement = screen.getByRole('heading', { level: 1 });
+  expect(headingElement).toHaveTextContent(/Clubhouse/i);
 });
