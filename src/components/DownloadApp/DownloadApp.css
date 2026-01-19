@@ -8,11 +8,17 @@
 .download-app-card {
   background-color: #1a1a1a;
   border-radius: 20px;
-  padding: 4rem 2rem;
+  padding: 2rem 3rem;
   text-align: center;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .download-app-card h2 {
@@ -36,4 +42,87 @@
 
 .store-btn:hover img {
   transform: scale(1.05);
+}
+
+.download-app-section {
+    padding: 4rem 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.download-app-card {
+    background-color: #0a0a0a; 
+    border: 1px solid #333; 
+    border-radius: 24px;
+    padding: 3rem;
+    width: 100%;
+    max-width: 900px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem; 
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.download-text-wrapper {
+    flex: 1; 
+}
+
+.download-text-wrapper h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.qr-code-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0; 
+}
+
+.qr-glow-container {
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.03); 
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.15), inset 0 0 10px rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qr-glow-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 35px rgba(255, 255, 255, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.qr-code-img {
+    display: block;
+    width: 180px;
+    height: 180px;
+    border-radius: 10px;
+    border: 3px solid #ffffff; 
+}
+
+.qr-label {
+    margin-top: 12px;
+    color: #aaa;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+@media screen and (max-width: 850px) {
+    .download-app-card {
+        flex-direction: column; 
+        text-align: center;
+        padding: 2rem;
+        gap: 2rem;
+    }
+
+    .store-buttons {
+        justify-content: center;
+    }
 }
