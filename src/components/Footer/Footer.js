@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="copyright">
-          &copy; 2025
+          &copy; {new Date().getFullYear()}
         </div>
         <div className="footer-socials">
           <a href="https://github.com/AOSSIE-Org"><FaGithub /></a>
