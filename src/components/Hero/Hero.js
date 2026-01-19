@@ -2,6 +2,7 @@ import React from 'react';
 import './Hero.css';
 import { FaGithub, FaArrowRight } from 'react-icons/fa';
 import phoneImage from '../../assets/resonate_app.png';
+import { URLS } from '../../constants/urls';
 
 const Hero = () => {
   return (
@@ -14,13 +15,13 @@ const Hero = () => {
           <div className="yellow-gradient-bg"></div>
           <h1>Clubhouse,<br />but Open Source</h1>
           <h2>A social voice platform.</h2>
-          <p className="maintained-by">A Project Maintained by <a href="https://aossie.org" className="aossie-link">AOSSIE</a></p>
+          <p className="maintained-by">A Project Maintained by <a href={URLS.WEBSITE} className="aossie-link">AOSSIE</a></p>
 
           <div className="hero-buttons">
-            <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+            <a href={URLS.PLAY_STORE} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
               Create/Join Room <FaArrowRight />
             </a>
-            <a href="https://github.com/AOSSIE-Org/Resonate" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+            <a href={URLS.RESONATE_GITHUB} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
               Contribute to the Project <FaGithub />
             </a>
           </div>

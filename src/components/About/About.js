@@ -3,7 +3,7 @@ import './About.css';
 import aossieLogo from '../../assets/aossie_logo.png';
 import { FaEnvelope, FaGithub, FaDiscord } from 'react-icons/fa';
 import { BsTwitterX } from 'react-icons/bs';
-
+import { URLS } from '../../constants/urls';
 import { SiGitlab } from 'react-icons/si';
 
 const About = () => {
@@ -19,11 +19,11 @@ const About = () => {
             We are an Australian not-for-profit umbrella organization for open-source projects. We believe the open-source philosophy provides a resource-efficient channel to transfer knowledge and achieve innovation and education.
           </p>
           <div className="social-links">
-            <a href="mailto:contact@aossie.org"><FaEnvelope /></a>
-            <a href="https://gitlab.com/aossie"><SiGitlab /></a>
-            <a href="https://github.com/AOSSIE-Org"><FaGithub /></a>
-            <a href="https://discord.com/invite/MMZBadkYFm"><FaDiscord /></a>
-            <a href="https://x.com/aossie_org"><BsTwitterX /></a>
+            <a href={URLS.EMAIL}><FaEnvelope /></a>
+            <a href={URLS.GITLAB}><SiGitlab /></a>
+            <a href={URLS.GITHUB}><FaGithub /></a>
+            <a href={URLS.DISCORD}><FaDiscord /></a>
+            <a href={URLS.X_TWITTER}><BsTwitterX /></a>
           </div>
         </div>
       </div>
