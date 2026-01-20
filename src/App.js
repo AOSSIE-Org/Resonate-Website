@@ -27,52 +27,53 @@ function App() {
       touchMultiplier: 2,
     });
 
+    let rafId;
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     // GSAP Animations
-    
+
     // Hero Animation
     const heroTl = gsap.timeline();
-    heroTl.fromTo('.hero-content h1', 
+    heroTl.fromTo('.hero-content h1',
       { y: 100, opacity: 0, rotateX: -20 },
       { y: 0, opacity: 1, rotateX: 0, duration: 1, ease: 'power4.out' }
     )
-    .fromTo('.hero-content h2', 
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: 'power3.out' }, 
-      "-=0.8"
-    )
-    .fromTo('.hero-content p', 
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: 'power3.out' }, 
-      "-=0.8"
-    )
-    .fromTo('.hero-buttons', 
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: 'power3.out' }, 
-      "-=0.8"
-    )
-    .fromTo('.hero-image', 
-      { x: 100, opacity: 0, scale: 0.9 },
-      { x: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out' }, 
-      "-=1"
-    )
-    .fromTo('.hero-description-container p',
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
-      "-=0.5"
-    );
+      .fromTo('.hero-content h2',
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+        "-=0.8"
+      )
+      .fromTo('.hero-content p',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+        "-=0.8"
+      )
+      .fromTo('.hero-buttons',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+        "-=0.8"
+      )
+      .fromTo('.hero-image',
+        { x: 100, opacity: 0, scale: 0.9 },
+        { x: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out' },
+        "-=1"
+      )
+      .fromTo('.hero-description-container p',
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+        "-=0.5"
+      );
 
     // Features Animation
     gsap.utils.toArray('.feature-item').forEach((feature, i) => {
       const image = feature.querySelector('.feature-image');
       const text = feature.querySelector('.feature-content h3');
-      
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: feature,
@@ -85,11 +86,11 @@ function App() {
         { scale: 0.8, opacity: 0 },
         { scale: 1, opacity: 1, duration: 1, ease: 'power3.out' }
       )
-      .fromTo(text,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
-        "-=0.6"
-      );
+        .fromTo(text,
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+          "-=0.6"
+        );
     });
 
     // Tech Stack Animation
@@ -99,21 +100,21 @@ function App() {
         start: 'top 75%',
       }
     });
-    
+
     techStackTl.fromTo('.tech-stack',
       { scale: 0.95, opacity: 0 },
       { scale: 1, opacity: 1, duration: 0.8, ease: 'power2.out' }
     )
-    .fromTo('.tech-stack h2',
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
-      "-=0.4"
-    )
-    .fromTo('.tech-logo',
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: 'back.out(1.7)' },
-      "-=0.6"
-    );
+      .fromTo('.tech-stack h2',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
+        "-=0.4"
+      )
+      .fromTo('.tech-logo',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: 'back.out(1.7)' },
+        "-=0.6"
+      );
 
     // About Animation
     const aboutTl = gsap.timeline({
@@ -127,21 +128,21 @@ function App() {
       { x: -50, opacity: 0 },
       { x: 0, opacity: 1, duration: 1, ease: 'power3.out' }
     )
-    .fromTo('.about-content h2',
-      { x: 50, opacity: 0 },
-      { x: 0, opacity: 1, duration: 1, ease: 'power3.out' },
-      "-=0.8"
-    )
-    .fromTo('.about-content p',
-      { x: 50, opacity: 0 },
-      { x: 0, opacity: 1, duration: 1, ease: 'power3.out' },
-      "-=0.8"
-    )
-    .fromTo('.social-links a',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'back.out(1.7)' },
-      "-=0.6"
-    );
+      .fromTo('.about-content h2',
+        { x: 50, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+        "-=0.8"
+      )
+      .fromTo('.about-content p',
+        { x: 50, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+        "-=0.8"
+      )
+      .fromTo('.social-links a',
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'back.out(1.7)' },
+        "-=0.6"
+      );
 
     // Download App Animation
     const downloadTl = gsap.timeline({
@@ -155,19 +156,20 @@ function App() {
       { y: 50, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, ease: 'power2.out' }
     )
-    .fromTo('.download-app-card h2',
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
-      "-=0.6"
-    )
-    .fromTo('.store-btn',
-      { scale: 0.8, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.6, stagger: 0.2, ease: 'back.out(1.7)' },
-      "-=0.4"
-    );
+      .fromTo('.download-app-card h2',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
+        "-=0.6"
+      )
+      .fromTo('.store-btn',
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.6, stagger: 0.2, ease: 'back.out(1.7)' },
+        "-=0.4"
+      );
 
     // Cleanup function
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       lenis.destroy();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
