@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import logo from '../../assets/resonate_logo_white.svg';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsVisible(currentScrollY < lastScrollY || currentScrollY < 10);
+      setLastScrollY(currentScrollY);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -14,7 +26,7 @@ const Navbar = () => {
   const handleLinkClick = () => setOpen(false);
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${!isVisible ? 'navbar-hidden' : ''}`}>
       <div className="navbar-container">
 
         <div className="navbar-logo" onClick={scrollToTop} style={{ cursor: 'pointer' }}>
