@@ -41,20 +41,35 @@
 }
 
 .nav-link {
-  color: white;
-  text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  font-weight: 500;
-  transition: color 0.2s;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid #444;
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+/* arrow hatao */
+.nav-link::after {
+  content: none !important;
 }
 
 .nav-link:hover {
-  color: #FFC107;
+  background: #FFC107;
+  border-color: #666;
+  color:black;
 }
+
+.nav-link[target="_blank"]::after {
+  content: none !important;
+}
+
 
 .download-btn {
   background-color: #FFC107;
