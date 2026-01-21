@@ -12,6 +12,12 @@
   position: sticky;
   top: 20px;
   z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+/* Hidden state for auto-hide behavior */
+.navbar-hidden {
+  transform: translateY(-120%);
 }
 
 .navbar-container {
@@ -27,6 +33,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: white;
+  cursor: pointer;
 }
 
 .logo-icon {
@@ -49,15 +56,15 @@
   font-size: 0.9rem;
   text-transform: uppercase;
   font-weight: 500;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
 .nav-link:hover {
-  color: #FFC107;
+  color: #ffc107;
 }
 
 .download-btn {
-  background-color: #FFC107;
+  background-color: #ffc107;
   border: none;
   padding: 10px 24px;
   border-radius: 25px;
@@ -65,7 +72,7 @@
   cursor: pointer;
   color: black;
   font-size: 0.9rem;
-  transition: transform 0.2s, background-color 0.2s;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .download-btn:hover {
@@ -73,6 +80,7 @@
   transform: scale(1.05);
 }
 
+/* Tablet */
 @media (max-width: 768px) {
   .navbar {
     padding: 10px 20px;
@@ -90,6 +98,7 @@
   }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
   .logo-text {
     display: none;
