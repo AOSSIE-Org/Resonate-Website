@@ -67,14 +67,14 @@ const Features = () => {
   return (
     <section className="features" id="features">
       {featuresData.map((feature) => (
-        <div 
-          key={feature.id} 
+        <div
+          key={feature.id}
           className={`feature-item ${feature.align === 'reverse' ? 'reverse' : feature.align === 'right' ? 'reverse' : ''}`}
           tabIndex="0"
           role="article"
         >
-          <div className="feature-visual">
-            <div className="icon-wrapper" style={{ '--icon-color': feature.color }}>
+          <div className="feature-visual" style={{ '--icon-color': feature.color }}>
+            <div className="icon-wrapper">
               <feature.Icon className="feature-icon" aria-hidden="true" />
             </div>
             <div className="decorative-glow"></div>
