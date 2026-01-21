@@ -2,7 +2,10 @@
   padding: 8rem 20px;
   max-width: 1100px;
   margin: 0 auto;
+feat/Features-section-to-improve-visual-hierarchy-and-interactivity
   overflow: hidden;
+  font-family: 'Raleway', sans-serif;
+  main
 }
 
 .feature-item {
@@ -68,20 +71,35 @@
 
 .decorative-glow {
   position: absolute;
+ feat/Features-section-to-improve-visual-hierarchy-and-interactivity
   width: 350px;
   height: 350px;
   background: radial-gradient(circle, var(--icon-color) 0%, rgba(255,255,255,0) 70%);
   opacity: 0.15;
   z-index: 1;
+
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 241, 118, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+  z-index: -1;
+ main
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
+ feat/Features-section-to-improve-visual-hierarchy-and-interactivity
 .feature-item:hover .decorative-glow {
   opacity: 0.3;
   transform: translate(-50%, -50%) scale(1.2);
+
+.feature-image img {
+  max-width: 100%;
+  height: auto;
+  max-height: 400px;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+ main
 }
 
 .feature-content {
@@ -118,12 +136,22 @@
   }
 }
 
+.feature-number {
+  font-size: 0.85em;
+}
+
 @media (max-width: 768px) {
+ feat/Features-section-to-improve-visual-hierarchy-and-interactivity
   .features {
     padding: 4rem 20px;
   }
 
   .feature-item, .feature-item.reverse {
+
+
+  .feature-item,
+  .feature-item.reverse {
+ main
     flex-direction: column;
     text-align: center;
     gap: 3rem;
@@ -145,5 +173,9 @@
     width: 280px;
     height: 280px;
   }
+ feat/Features-section-to-improve-visual-hierarchy-and-interactivity
 }
 
+
+}
+ main
