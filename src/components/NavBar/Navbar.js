@@ -20,7 +20,7 @@ const Navbar = () => {
         return;
       }
 
-      // Ignore very small scroll movements to prevent flicker
+      // Prevent flicker on tiny scroll movements
       if (Math.abs(currentScrollY - lastScrollY.current) < SCROLL_THRESHOLD) {
         return;
       }
@@ -55,6 +55,12 @@ const Navbar = () => {
         <div
           className="navbar-logo"
           onClick={scrollToTop}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              scrollToTop();
+            }
+          }}
           role="button"
           tabIndex={0}
           aria-label="Scroll to top"
