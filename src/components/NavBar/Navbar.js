@@ -8,6 +8,9 @@ const Navbar = () => {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
+    // Initialize scroll position on mount
+    lastScrollY.current = window.scrollY;
+
     const SCROLL_THRESHOLD = 10;
 
     const handleScroll = () => {
@@ -20,7 +23,7 @@ const Navbar = () => {
         return;
       }
 
-      // Prevent flicker on tiny scroll movements
+      // Prevent flicker on very small scroll movements
       if (Math.abs(currentScrollY - lastScrollY.current) < SCROLL_THRESHOLD) {
         return;
       }
