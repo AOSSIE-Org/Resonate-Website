@@ -1,0 +1,6 @@
+<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .text { font: italic bold 40px sans-serif; fill: white; }
+  </style>
+  <text x="10" y="45" class="text">LENIS</text>
+</svg>
