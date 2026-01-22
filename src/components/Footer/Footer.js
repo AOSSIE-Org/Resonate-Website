@@ -4,7 +4,7 @@ import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
 import { BsTwitterX } from 'react-icons/bs';
 
 const Footer = () => {
-
+ 
   return (
     <footer className="footer">
       <div className="footer-container">
