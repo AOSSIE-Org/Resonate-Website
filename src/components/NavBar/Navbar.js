@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
 import { FaGithub, FaExternalLinkAlt, FaBars } from 'react-icons/fa';
 import logo from '../../assets/resonate_logo_white.svg';
@@ -7,6 +7,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const navRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +19,28 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape' && open) setOpen(false);
+    };
+    if (open) {
+      document.addEventListener('keydown', handleEsc);
+      return () => document.removeEventListener('keydown', handleEsc);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (open && navRef.current && !navRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [open]);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setOpen(false);
@@ -26,7 +49,7 @@ const Navbar = () => {
   const handleLinkClick = () => setOpen(false);
 
   return (
-    <nav className={`navbar ${!isVisible ? 'navbar-hidden' : ''}`}>
+    <nav ref={navRef} className={`navbar ${!isVisible ? 'navbar-hidden' : ''}`}>
       <div className="navbar-container">
 
         <div className="navbar-logo" onClick={scrollToTop} style={{ cursor: 'pointer' }}>
