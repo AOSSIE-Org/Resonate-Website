@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react'; // 👉 fixed useState
 import './App.css';
+import Preloader from "./components/Preloader/Preloader";
 import Navbar from './components/NavBar/Navbar';
 import Hero from './components/Hero/Hero';
 import Features from './components/Features/Features';
@@ -14,6 +15,9 @@ import Lenis from 'lenis';
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+
+  const [loading, setLoading] = useState(true); // 👉 added
+
   useEffect(() => {
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
@@ -172,7 +176,9 @@ function App() {
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, []);
-
+if (loading) {
+    return <Preloader onComplete={() => setLoading(false)} />;
+  }
   return (
     <div className="App">
       <Navbar />
