@@ -2,10 +2,8 @@
   padding: 8rem 20px;
   max-width: 1100px;
   margin: 0 auto;
-feat/Features-section-to-improve-visual-hierarchy-and-interactivity
   overflow: hidden;
   font-family: 'Raleway', sans-serif;
-  main
 }
 
 .feature-item {
@@ -52,54 +50,46 @@ feat/Features-section-to-improve-visual-hierarchy-and-interactivity
   align-items: center;
   font-size: 5rem;
   color: var(--icon-color, #1a1a1a);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
   position: relative;
   z-index: 2;
   transition: all 0.4s ease;
-  border: 1px solid rgba(0,0,0,0.03);
+  border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
 .feature-item:hover .icon-wrapper {
   transform: scale(1.05) rotate(5deg);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.12), 0 0 20px var(--icon-color);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12), 0 0 20px var(--icon-color);
   border-color: var(--icon-color);
 }
 
 .feature-icon {
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
 }
 
 .decorative-glow {
   position: absolute;
- feat/Features-section-to-improve-visual-hierarchy-and-interactivity
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, var(--icon-color) 0%, rgba(255,255,255,0) 70%);
-  opacity: 0.15;
-  z-index: 1;
-
   width: 300px;
   height: 300px;
   background: radial-gradient(circle, rgba(255, 241, 118, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+  opacity: 0.15;
   z-index: -1;
- main
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
- feat/Features-section-to-improve-visual-hierarchy-and-interactivity
 .feature-item:hover .decorative-glow {
   opacity: 0.3;
   transform: translate(-50%, -50%) scale(1.2);
+}
 
 .feature-image img {
   max-width: 100%;
   height: auto;
   max-height: 400px;
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
- main
 }
 
 .feature-content {
@@ -136,22 +126,13 @@ feat/Features-section-to-improve-visual-hierarchy-and-interactivity
   }
 }
 
-.feature-number {
-  font-size: 0.85em;
-}
-
 @media (max-width: 768px) {
- feat/Features-section-to-improve-visual-hierarchy-and-interactivity
   .features {
     padding: 4rem 20px;
   }
 
-  .feature-item, .feature-item.reverse {
-
-
   .feature-item,
   .feature-item.reverse {
- main
     flex-direction: column;
     text-align: center;
     gap: 3rem;
@@ -173,9 +154,4 @@ feat/Features-section-to-improve-visual-hierarchy-and-interactivity
     width: 280px;
     height: 280px;
   }
- feat/Features-section-to-improve-visual-hierarchy-and-interactivity
 }
-
-
-}
- main
