@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaBars } from 'react-icons/fa';
 import logo from '../../assets/resonate_logo_white.svg';
 
 const Navbar = () => {
@@ -40,7 +40,7 @@ const Navbar = () => {
           aria-label="Toggle navigation"
           aria-expanded={open}
         >
-          ☰
+          <FaBars size={24} />
         </button> 
 
         <div className={`navbar-links ${open ? 'open' : ''}`}>
