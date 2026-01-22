@@ -1,41 +1,117 @@
 .tech-stack-container {
-    padding: 0 20px;
+  padding: 0 20px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .tech-stack {
   background-color: #1a1a1a;
   color: white;
-  padding: 4rem 0;
+  padding: 6rem 0;
   text-align: center;
-  border-radius: 20px;
-  max-width: 1000px;
+  border-radius: 40px;
+  max-width: 1200px;
   margin: 0 auto 4rem;
+  position: relative;
 }
 
 .tech-stack h2 {
-  font-size: 2rem;
-  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  margin-bottom: 4rem;
   text-decoration: underline;
-  text-underline-offset: 10px;
+  text-underline-offset: 15px;
   text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.tech-logos-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  padding: 2rem 0;
+}
+
+/* Add a subtle fade effect on the edges */
+.tech-logos-wrapper::before,
+.tech-logos-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tech-logos-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #1a1a1a, transparent);
+}
+
+.tech-logos-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #1a1a1a, transparent);
 }
 
 .tech-logos {
   display: flex;
-  justify-content: center;
-  gap: 4rem;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 6rem;
+  width: max-content;
+  flex-wrap: nowrap;
 }
 
 .tech-logo {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  font-size: 2rem;
-  font-weight: bold;
+  gap: 1.5rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: grayscale(100%) opacity(0.6);
+}
+
+.tech-logo:hover {
+  transform: scale(1.1);
+  filter: grayscale(0%) opacity(1);
 }
 
 .tech-logo img {
-  height: 50px;
+  height: 60px;
   width: auto;
+  object-fit: contain;
+}
+
+.tech-logo span {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .tech-stack {
+    padding: 4rem 1rem;
+  }
+
+  .tech-stack h2 {
+    font-size: 1.8rem;
+  }
+
+  .tech-logos {
+    gap: 4rem;
+  }
+
+  .tech-logo img {
+    height: 45px;
+  }
+
+  .tech-logo span {
+    font-size: 0.9rem;
+  }
+
+  .tech-logos-wrapper::before,
+  .tech-logos-wrapper::after {
+    width: 50px;
+  }
 }
