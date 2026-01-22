@@ -7,45 +7,51 @@ const Preloader = ({ onComplete }) => {
   const textRef = useRef(null);
   const spinnerRef = useRef(null);
 
-  useEffect(() => {
-    // Spinner rotation
-    gsap.to(spinnerRef.current, {
-      rotate: 360,
-      repeat: -1,
-      duration: 1,
-      ease: "linear",
-    });
+ useEffect(() => {
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Timeline
-    const tl = gsap.timeline({
-      delay: 0.2, // avoid black flash
-      onComplete,
-    });
+  if (prefersReduced) {
+    // Make all elements visible immediately
+    gsap.set([textRef.current, spinnerRef.current, loaderRef.current], { opacity: 1 });
+    
+    // Call onComplete to continue
+    onComplete?.();
+    return; // exit early, skip animations
+  }
 
-    tl.fromTo(
-      textRef.current,
-      { opacity: 0, scale: 0.95 },
-      { opacity: 1, scale: 1, duration: 0.6 }
+  // Spinner rotation
+  gsap.to(spinnerRef.current, {
+    rotate: 360,
+    repeat: -1,
+    duration: 1,
+    ease: "linear",
+  });
+
+  // Timeline for text and spinner
+  const tl = gsap.timeline({
+    delay: 0.2, // avoid black flash
+    onComplete,
+  });
+
+  tl.fromTo(
+    textRef.current,
+    { opacity: 0, scale: 0.95 },
+    { opacity: 1, scale: 1, duration: 0.6 }
+  )
+    .fromTo(
+      spinnerRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4 },
+      "-=0.3"
     )
-      .fromTo(
-        spinnerRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.4 },
-        "-=0.3"
-      )
-      .to(
-        [textRef.current, spinnerRef.current],
-        {
-          opacity: 0,
-          duration: 0.4,
-        },
-        "+=0.4"
-      )
-      .to(loaderRef.current, {
-        opacity: 0,
-        duration: 0.3,
-      });
-  }, [onComplete]);
+    .to(
+      [textRef.current, spinnerRef.current],
+      { opacity: 0, duration: 0.4 },
+      "+=0.4"
+    )
+    .to(loaderRef.current, { opacity: 0, duration: 0.3 });
+}, [onComplete]);
+
 
   return (
     <div className="preloader" ref={loaderRef}>
