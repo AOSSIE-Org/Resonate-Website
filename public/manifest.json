@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Resonate",
+  "name": "Resonate - Social Voice Platform",
+  "description":"A social voice platform for real-time audio conversations and community building.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +21,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#FFCC00",
+  "background_color": "#FFFFFF"
 }
