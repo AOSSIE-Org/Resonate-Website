@@ -86,6 +86,10 @@
   text-decoration: underline;
 }
 
+.aossie-link:hover {
+  color: #FFC107;
+}
+
 .hero-buttons {
   display: flex;
   flex-direction: column;
