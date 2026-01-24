@@ -49,7 +49,7 @@
 }
 
 .feature-content h3 {
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, 5vw, 1.8rem);
   font-weight: 600;
   line-height: 1.4;
   color: #1a1a1a;

@@ -61,7 +61,7 @@
 }
 
 .hero-content h1 {
-  font-size: 3.5rem;
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
   line-height: 1.1;
   margin-bottom: 0.5rem;
   font-weight: 800;
@@ -69,7 +69,7 @@
 }
 
 .hero-content h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 6vw, 2.5rem);
   font-weight: 400;
   margin-bottom: 1rem;
   color: #1a1a1a;
