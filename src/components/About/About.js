@@ -11,7 +11,7 @@ const About = () => {
     <section className="about">
       <div className="about-container">
         <div className="about-logo">
-          <img src={aossieLogo} alt="AOSSIE Logo" />
+          <img src={aossieLogo} alt="AOSSIE Logo" loading="lazy" />
         </div>
         <div className="about-content">
           <h2>We Innovate<br />We Educate</h2>

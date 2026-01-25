@@ -8,7 +8,7 @@ const Hero = () => {
     <section className="hero">
       <div className="hero-container">
         <div className="hero-image">
-          <img src={phoneImage} alt="Resonate App on Phone" />
+          <img src={phoneImage} alt="Resonate App on Phone" loading="lazy" />
         </div>
         <div className="hero-content">
           <div className="yellow-gradient-bg"></div>
