@@ -10,6 +10,8 @@ import Footer from './components/Footer/Footer';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import FAQ from "./components/FAQ/FAQ";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -179,6 +181,7 @@ function App() {
       <Hero />
       <Features />
       <TechStack />
+      <FAQ />  
       <About />
       <DownloadApp />
       <Footer />
