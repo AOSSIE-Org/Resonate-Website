@@ -37,17 +37,22 @@ const testimonialsData = [
 
 const Testimonials = () => {
     const wrapperRef = useRef(null);
-    const cardsRef = useRef([]);
+    const tweenRef = useRef(null);
+
+    // Duplicate logic at data level for seamless loop
+    const displayTestimonials = [...testimonialsData, ...testimonialsData];
 
     useEffect(() => {
         const wrapper = wrapperRef.current;
         if (!wrapper) return;
 
-        // Duplicate content for seamless loop
-        const content = wrapper.innerHTML;
-        wrapper.innerHTML = content + content;
+        // Check prefers-reduced-motion BEFORE doing anything
+        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-        const cards = wrapper.querySelectorAll('.testimonial-card');
+        if (mediaQuery.matches) {
+            return; // Skip animation completely
+        }
+
         const totalWidth = wrapper.scrollWidth / 2; // Width of original set
 
         gsap.set(wrapper, { x: 0 });
@@ -62,6 +67,8 @@ const Testimonials = () => {
             }
         });
 
+        tweenRef.current = tween;
+
         const handleMouseEnter = () => tween.pause();
         const handleMouseLeave = () => tween.resume();
 
@@ -71,7 +78,9 @@ const Testimonials = () => {
         return () => {
             wrapper.removeEventListener('mouseenter', handleMouseEnter);
             wrapper.removeEventListener('mouseleave', handleMouseLeave);
-            tween.kill();
+            if (tweenRef.current) {
+                tweenRef.current.kill();
+            }
         };
     }, []);
 
@@ -83,9 +92,9 @@ const Testimonials = () => {
             </div>
             <div className="testimonials-container">
                 <div className="testimonials-wrapper" ref={wrapperRef}>
-                    {testimonialsData.map((testimonial) => (
+                    {displayTestimonials.map((testimonial, index) => (
                         <div
-                            key={testimonial.id}
+                            key={`${testimonial.id}-${index}`}
                             className="testimonial-card"
                         >
                             <div className="quote-icon">“</div>

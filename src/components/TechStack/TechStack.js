@@ -36,17 +36,41 @@ const TechStack = () => {
       }
     });
 
-    // Pause on hover for better UX
-    scrollContainer.addEventListener('mouseenter', () => animation.pause());
-    scrollContainer.addEventListener('mouseleave', () => animation.play());
-
-    // Respect prefers-reduced-motion
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const handleMouseEnter = () => {
+      if (!mediaQuery.matches) {
+        animation.pause();
+      }
+    };
+
+    const handleMouseLeave = () => {
+      if (!mediaQuery.matches) {
+        animation.play();
+      }
+    };
+
+    const handleMediaQueryChange = (e) => {
+      if (e.matches) {
+        animation.pause();
+      } else {
+        animation.play();
+      }
+    };
+
+    scrollContainer.addEventListener('mouseenter', handleMouseEnter);
+    scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+    mediaQuery.addEventListener('change', handleMediaQueryChange);
+
+    // Initial check
     if (mediaQuery.matches) {
       animation.pause();
     }
 
     return () => {
+      scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
+      scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+      mediaQuery.removeEventListener('change', handleMediaQueryChange);
       animation.kill();
     };
   }, []);
