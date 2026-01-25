@@ -1,5 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+:root {
+  /* Light theme (default) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-dark: #1a1a1a;
+  --bg-navbar: #030303dc;
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #333;
+  --text-tertiary: #555;
+  --text-muted: #666;
+  --text-light: #888;
+  --text-on-dark: #ffffff;
+  --text-on-dark-muted: #ccc;
+
+  --accent-primary: #FFC107;
+  --accent-hover: #ffca2c;
+
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --gradient-yellow: rgba(255, 193, 7, 0.4);
+  --gradient-yellow-light: rgba(255, 235, 59, 0.3);
+}
+
+[data-theme="dark"] {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-dark: #0a0a0a;
+  --bg-navbar: #1a1a1adc;
+
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --text-tertiary: #b0b0b0;
+  --text-muted: #909090;
+  --text-light: #707070;
+  --text-on-dark: #ffffff;
+  --text-on-dark-muted: #ccc;
+
+  --accent-primary: #FFC107;
+  --accent-hover: #ffca2c;
+
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --gradient-yellow: rgba(255, 193, 7, 0.3);
+  --gradient-yellow-light: rgba(255, 235, 59, 0.2);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,6 +55,9 @@ body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .App {
