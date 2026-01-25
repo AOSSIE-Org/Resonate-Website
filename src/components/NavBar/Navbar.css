@@ -12,6 +12,11 @@
   position: sticky;
   top: 20px;
   z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar-hidden {
+  transform: translateY(-150%);
 }
 
 .navbar-container {
@@ -102,4 +107,58 @@
   .navbar-links {
     gap: 15px;
   }
+}
+
+
+.hamburger {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    background-color: #1a1a1adc;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 16px;
+    display: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+  }
+
+  .navbar-links.open {
+    display: flex;
+    animation: slideDown 0.25s ease;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hamburger:focus,
+.nav-link:focus,
+.download-btn:focus {
+  outline: 2px solid #FFC107;
+  outline-offset: 3px;
 }

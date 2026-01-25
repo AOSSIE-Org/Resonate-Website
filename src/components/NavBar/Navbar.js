@@ -1,32 +1,103 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
-import logo from '../../assets/resonate_logo_white.svg'; // Trying Vector.png as logo based on file list
+import { FaGithub, FaExternalLinkAlt, FaBars } from 'react-icons/fa';
+import logo from '../../assets/resonate_logo_white.svg';
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsVisible(currentScrollY < lastScrollY || currentScrollY < 10);
+      setLastScrollY(currentScrollY);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape' && open) setOpen(false);
+    };
+    if (open) {
+      document.addEventListener('keydown', handleEsc);
+      return () => document.removeEventListener('keydown', handleEsc);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (open && navRef.current && !navRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [open]);
+
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setOpen(false);
   };
 
+  const handleLinkClick = () => setOpen(false);
+
   return (
-    <nav className="navbar">
+    <nav ref={navRef} className={`navbar ${!isVisible ? 'navbar-hidden' : ''}`}>
       <div className="navbar-container">
+
         <div className="navbar-logo" onClick={scrollToTop} style={{ cursor: 'pointer' }}>
           <img src={logo} alt="Resonate Logo" className="logo-icon" />
           <span className="logo-text">Resonate</span>
         </div>
-        <div className="navbar-links">
-          <a href="https://aossie.org" target="_blank" rel="noopener noreferrer" className="nav-link">
+
+       <button
+          className="hamburger"
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle navigation"
+          aria-expanded={open}
+        >
+          <FaBars size={24} />
+        </button> 
+
+        <div className={`navbar-links ${open ? 'open' : ''}`}>
+          <a
+            href="https://aossie.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-link"
+            onClick={handleLinkClick}
+          >
             AOSSIE <FaExternalLinkAlt size={12} />
           </a>
-          <a href="https://github.com/AOSSIE-Org/Resonate" target="_blank" rel="noopener noreferrer" className="nav-link">
+
+          <a
+            href="https://github.com/AOSSIE-Org/Resonate"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-link"
+            onClick={handleLinkClick}
+          >
             <FaGithub size={20} />
           </a>
-          <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener noreferrer" className="download-btn">Download Now</a>
+
+          <a
+            href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="download-btn"
+            onClick={handleLinkClick}
+          >
+            Download Now
+          </a>
         </div>
+
       </div>
     </nav>
   );
