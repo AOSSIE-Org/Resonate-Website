@@ -4,6 +4,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/NavBar/Navbar';
 import Hero from './components/Hero/Hero';
 import Features from './components/Features/Features';
+import Testimonials from './components/Testimonials/Testimonials';
 import TechStack from './components/TechStack/TechStack';
 import About from './components/About/About';
 import DownloadApp from './components/DownloadApp/DownloadApp';
@@ -93,6 +94,34 @@ function App() {
       );
     });
 
+    // Testimonials Animation
+    const testimonialsTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.testimonials',
+        start: 'top 75%',
+      }
+    });
+
+    testimonialsTl.fromTo('.testimonials-title',
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
+    )
+    .fromTo('.testimonials-subtitle',
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' },
+      "-=0.5"
+    )
+    .fromTo('.carousel-wrapper',
+      { y: 50, opacity: 0, scale: 0.95 },
+      { y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out' },
+      "-=0.4"
+    )
+    .fromTo('.carousel-dots',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
+      "-=0.4"
+    );
+
     // Tech Stack Animation
     const techStackTl = gsap.timeline({
       scrollTrigger: {
@@ -180,6 +209,7 @@ function App() {
         <Navbar />
         <Hero />
         <Features />
+        <Testimonials />
         <TechStack />
         <About />
         <DownloadApp />
