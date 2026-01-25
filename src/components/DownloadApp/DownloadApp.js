@@ -1,6 +1,6 @@
 import React from 'react';
 import './DownloadApp.css';
-import playStoreBtn from '../../assets/Button-1.png';
+import StoreButton from './StoreButton';
 
 const DownloadApp = () => {
   const playStoreUrl = "https://play.google.com/store/apps/details?id=com.resonate.resonate";
