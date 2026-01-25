@@ -1,0 +1,131 @@
+.testimonials-section {
+    padding: 6rem 0;
+    background-color: #f9f9f9;
+    text-align: center;
+    overflow: hidden;
+    /* Hide overflow for carousel */
+}
+
+.testimonials-header {
+    margin-bottom: 4rem;
+    padding: 0 20px;
+}
+
+.testimonials-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+}
+
+.testimonials-header p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.testimonials-container {
+    width: 100%;
+    position: relative;
+    /* Add fade effect on edges */
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.testimonials-wrapper {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    /* Ensure enough width for items */
+    padding-left: 20px;
+    /* Offset start */
+}
+
+.testimonial-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 350px;
+    /* Fixed width for consistency */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.quote-icon {
+    font-size: 4rem;
+    line-height: 1;
+    color: #e0e0e0;
+    margin-bottom: -1rem;
+    font-family: serif;
+}
+
+.testimonial-quote {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 2rem;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+}
+
+.testimonial-author h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.2rem;
+}
+
+.testimonial-author span {
+    font-size: 0.9rem;
+    color: #888;
+    font-weight: 500;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .testimonials-section {
+        padding: 4rem 0;
+    }
+
+    .testimonials-header h2 {
+        font-size: 2rem;
+    }
+
+    .testimonial-card {
+        width: 280px;
+        padding: 1.5rem;
+    }
+}
+
+/* Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+    .testimonials-wrapper {
+        animation: none;
+        transform: none !important;
+        /* Override GSAP */
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .testimonials-container {
+        mask-image: none;
+        -webkit-mask-image: none;
+    }
+
+    .testimonial-card {
+        margin-bottom: 20px;
+    }
+}
