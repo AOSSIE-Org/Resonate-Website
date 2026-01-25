@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/NavBar/Navbar';
 import Hero from './components/Hero/Hero';
 import Features from './components/Features/Features';
@@ -174,15 +175,17 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Navbar />
-      <Hero />
-      <Features />
-      <TechStack />
-      <About />
-      <DownloadApp />
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="App">
+        <Navbar />
+        <Hero />
+        <Features />
+        <TechStack />
+        <About />
+        <DownloadApp />
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 }
 

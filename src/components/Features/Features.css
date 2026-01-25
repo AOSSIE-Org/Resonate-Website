@@ -3,6 +3,8 @@
   max-width: 1000px;
   margin: 0 auto;
   font-family: 'Raleway', sans-serif;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
 }
 
 .feature-item {
@@ -30,7 +32,7 @@
   position: absolute;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(255, 241, 118, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(circle, var(--gradient-yellow-light) 0%, rgba(255, 255, 255, 0) 70%);
   z-index: -1;
   top: 50%;
   left: 50%;
@@ -41,7 +43,7 @@
   max-width: 100%;
   height: auto;
   max-height: 400px;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 10px 20px var(--shadow-color));
 }
 
 .feature-content {
@@ -52,7 +54,7 @@
   font-size: 1.8rem;
   font-weight: 600;
   line-height: 1.4;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .feature-number {

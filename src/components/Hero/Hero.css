@@ -1,7 +1,8 @@
 .hero {
-  background: #ffffff 100%;
+  background: var(--bg-primary);
   padding: 4rem 0;
   overflow: hidden;
+  transition: background-color 0.3s ease;
 }
 
 .hero-container {
@@ -25,8 +26,8 @@
   max-width: 800px;
   max-height: 600px;
   background: radial-gradient(ellipse at center,
-      rgba(255, 193, 7, 0.4) 0%,
-      rgba(255, 235, 59, 0.3) 25%,
+      var(--gradient-yellow) 0%,
+      var(--gradient-yellow-light) 25%,
       rgba(255, 193, 7, 0.2) 50%,
       rgba(255, 193, 7, 0.1) 75%,
       transparent 100%);
@@ -65,24 +66,24 @@
   line-height: 1.1;
   margin-bottom: 0.5rem;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .hero-content h2 {
   font-size: 2.5rem;
   font-weight: 400;
   margin-bottom: 1rem;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .maintained-by {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 2rem;
 }
 
 .aossie-link {
-  color: #666;
+  color: var(--text-muted);
   text-decoration: underline;
 }
 
@@ -113,13 +114,13 @@
 }
 
 .btn-primary {
-  background-color: #FFC107;
+  background-color: var(--accent-primary);
   color: black;
 }
 
 .btn-secondary {
-  background-color: #1a1a1a;
-  color: white;
+  background-color: var(--bg-dark);
+  color: var(--text-on-dark);
 }
 
 .hero-description-container {
@@ -132,7 +133,7 @@
 .hero-description-container p {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #333;
+  color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {
