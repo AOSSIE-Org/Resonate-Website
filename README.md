@@ -10,7 +10,12 @@ Resonate is a social voice platform, similar to Clubhouse and Twitter Spaces, bu
 *   Real-time Audio Communication.
 *   Create rooms and moderate speakers/events.
 *   Pair chatting for random partner matching.
-*   Real-time messaging (Coming Soon).
+*   Real-time messaging.
+
+## :link: Repository Links
+
+1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
+2. [Resonate Backend](https://github.com/AOSSIE-Org/Resonate-Backend)
 
 ## 💻 Tech Stack
 
@@ -18,7 +23,7 @@ This website is built using modern web technologies to ensure a smooth and engag
 
 *   **[React](https://reactjs.org/)**: Frontend library for building the user interface.
 *   **[GSAP](https://greensock.com/gsap/)**: For high-performance animations (ScrollTrigger).
-*   **[Lenis](https://github.com/studio-freight/lenis)**: For smooth, inertial scrolling.
+*   **[Lenis](https://github.com/darkroomengineering/lenis)**: For smooth, inertial scrolling.
 *   **[React Icons](https://react-icons.github.io/react-icons/)**: For vector icons.
 
 ## 🛠️ Installation & Setup
@@ -33,7 +38,7 @@ Follow these steps to set up the project locally.
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/AOSSIE/Resonate-Website.git
+    git clone https://github.com/AOSSIE-Org/Resonate-Website.git
     cd Resonate-Website
     ```
 
@@ -74,7 +79,7 @@ src/
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see the [AOSSIE contribution guidelines](https://github.com/AOSSIE/.github/blob/main/CONTRIBUTING.md) for more details.
+We welcome contributions! Please see the [AOSSIE contribution guidelines](https://github.com/AOSSIE-Org/Resonate-Website/blob/main/CONTRIBUTING.md) for more details.
 
 1.  Fork the Project
 2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
