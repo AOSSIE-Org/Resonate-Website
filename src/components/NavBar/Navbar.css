@@ -73,6 +73,10 @@
   transform: scale(1.05);
 }
 
+.hamburger {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .navbar {
     padding: 10px 20px;
@@ -99,10 +103,6 @@
     padding: 8px 16px;
     font-size: 0.8rem;
   }
-}
-
-.hamburger {
-  display: none;
 }
 
 /* Sidebar Styles */
@@ -156,6 +156,14 @@
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
   z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
 }
 
 @media (max-width: 480px) {

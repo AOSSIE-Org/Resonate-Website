@@ -60,9 +60,14 @@ const Navbar = () => {
             <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener noreferrer" className="download-btn">Download Now</a>
           </div>
 
-          <div className="hamburger" onClick={toggleMenu} aria-label="Toggle Navigation">
+          <button
+            className="hamburger"
+            onClick={toggleMenu}
+            aria-label="Toggle Navigation"
+            aria-expanded={isMenuOpen}
+          >
             {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-          </div>
+          </button>
         </div>
       </nav>
 
@@ -100,7 +105,10 @@ const Navbar = () => {
           </a>
         </div>
       </div>
-      {isMenuOpen && <div className="sidebar-overlay" onClick={toggleMenu}></div>}
+      <div
+        className={`sidebar-overlay ${isMenuOpen ? 'active' : ''}`}
+        onClick={toggleMenu}
+      ></div>
     </>
   );
 };
