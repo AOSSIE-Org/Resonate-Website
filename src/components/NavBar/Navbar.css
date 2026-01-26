@@ -21,6 +21,68 @@
   width: 100%;
 }
 
+.voice-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.voice-btn:hover {
+  background: rgba(255, 193, 7, 0.1);
+  color: #FFC107;
+}
+
+.voice-btn.listening {
+  color: #FFC107;
+  animation: pulse 1.5s infinite;
+}
+
+.voice-btn.listening::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 2px solid #FFC107;
+  animation: ripple 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
 .navbar-logo {
   display: flex;
   align-items: center;
