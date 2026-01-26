@@ -8,7 +8,7 @@
   border-radius: 50px;
   max-width: 1200px;
   width: 90%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
   position: sticky;
   top: 20px;
   z-index: 1000;
@@ -34,13 +34,22 @@
   margin-right: 10px;
 }
 
+.navbar-actions{
+  margin-right: 4px;
+}
+
 .navbar-links {
-  display: flex;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap;
   align-items: center;
-  gap: 32px;
+  white-space: nowrap;
+  overflow-x: auto;
+  gap: 24px;
 }
 
 .nav-link {
+  display: inline-flex;
   color: white;
   text-decoration: none;
   display: flex;
@@ -59,20 +68,47 @@
 .download-btn {
   background-color: #FFC107;
   border: none;
-  padding: 10px 24px;
+  padding: 10px 26px;
   border-radius: 25px;
   font-weight: bold;
   cursor: pointer;
   color: black;
   font-size: 0.9rem;
-  transition: transform 0.2s, background-color 0.2s;
+  transition: transform 0.2s,box-shadow 0.3s,background-color 0.2s;
 }
 
 .download-btn:hover {
   background-color: #ffca2c;
-  transform: scale(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(255, 193, 7, 0.7);
 }
 
+.download-btn:focus-visible{
+  outline: 2px solid #ffca2c;
+  outline-offset: 3px;
+}
+
+.theme-toggle{
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.theme-toggle:hover{
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle:focus-visible{
+  outline: 2px solid #FFC107;
+}
 @media (max-width: 768px) {
   .navbar {
     padding: 10px 20px;
