@@ -82,14 +82,14 @@ const Navbar = () => {
 
       const recognized = handleVoiceCommand(fullTranscript);
       if (recognized) {
-        console.log("✅ Command Recognized:", fullTranscript);
+        console.log("Command Recognized:", fullTranscript);
         recognition.stop();
         setIsListening(false);
       }
     };
 
     recognition.onerror = (event) => {
-      console.error("❌ Speech Recognition Error:", event.error);
+      console.error(" Speech Recognition Error:", event.error);
       if (event.error === 'not-allowed') {
         alert("Microphone access denied. Please enable microphone permissions in your browser settings.");
       }
