@@ -34,7 +34,8 @@ const Navbar = () => {
     };
 
     for (const key in scrollMap) {
-      if (command.includes(key)) {
+      const regex = new RegExp(`\\b${key}\\b`, 'i');
+      if (regex.test(command)) {
         const target = document.querySelector(scrollMap[key]);
         if (target) {
           window.scrollTo({
@@ -78,12 +79,10 @@ const Navbar = () => {
       }
 
       const fullTranscript = (finalTranscript + interimTranscript).toLowerCase().trim();
-      console.log("🎤 Hearing:", fullTranscript);
 
-      // Trigger scroll as soon as a keyword matches
       const recognized = handleVoiceCommand(fullTranscript);
       if (recognized) {
-        console.log("✅ Command Recognized! Stopping microphone.");
+        console.log("✅ Command Recognized:", fullTranscript);
         recognition.stop();
         setIsListening(false);
       }
@@ -103,6 +102,16 @@ const Navbar = () => {
     };
 
     recognitionRef.current = recognition;
+
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.abort();
+        recognitionRef.current.onstart = null;
+        recognitionRef.current.onresult = null;
+        recognitionRef.current.onerror = null;
+        recognitionRef.current.onend = null;
+      }
+    };
   }, [handleVoiceCommand]);
 
   const toggleVoice = () => {
