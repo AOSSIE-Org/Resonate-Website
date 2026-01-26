@@ -74,19 +74,25 @@ src/
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see the [AOSSIE contribution guidelines](https://github.com/AOSSIE/.github/blob/main/CONTRIBUTING.md) for more details.
+We welcome contributions! Please see the [AOSSIE contribution guidelines](CONTRIBUTING.md) for more details.
 
 1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+2.  **Check out the `dev` branch for the latest code**
+    ```bash
+    git checkout dev
+    git pull origin dev
+    ```
+3.  Create your Feature Branch from `dev` (`git checkout -b feature/AmazingFeature`)
+4.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+5.  Push to the Branch (`git push origin feature/AmazingFeature`)
+6.  Open a Pull Request to the `dev` branch
 
 ## 📄 License
 
 This project is part of AOSSIE. Please check the repository for license details.
 
 ---
+
 <p align="center">
   Maintained with ❤️ by <a href="https://aossie.org">AOSSIE</a>
 </p>

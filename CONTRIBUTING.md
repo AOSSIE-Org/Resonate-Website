@@ -40,7 +40,13 @@ Follow these steps to contribute code:
    cd Resonate-Website
    ```
 
-3. **Create a new branch**
+3. **Check out the dev branch for the latest code**
+   ```bash
+   git checkout -b dev
+   git pull origin dev
+   ```
+
+4. **Create a new branch from dev**
    ```bash
    git checkout -b feature/your-feature-name
    # or for bug fixes
@@ -92,6 +98,8 @@ https://www.conventionalcommits.org/en/v1.0.0/
 ```bash
 git push origin feature/your-feature-name
 ```
+
+**Note:** Always create your feature or fix branches from the `dev` branch and submit pull requests to the `dev` branch, not `main`. The `dev` branch contains the latest development code.
 
 ### 6. **Create a Pull Request**
 
