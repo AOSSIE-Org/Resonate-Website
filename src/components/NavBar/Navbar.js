@@ -25,10 +25,21 @@ const Navbar = () => {
     });
   };
 
+  const handleLogoClick = () => {
+    window.location.href = '/';
+  };
+  
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " "){
+      e.preventDefault();
+      handleLogoClick();
+    }
+  };
+
   return (
     <nav className="navbar ">
       <div className="navbar-container">
-        <div className="navbar-logo" onClick={scrollToTop} role="button" tabIndex={0} aria-label='Scroll to top'>
+        <div className="navbar-logo" onClick={handleLogoClick} onKeyDown={handleKeyDown} role="button" tabIndex={0} aria-label='Scroll to top'>
           <img src={logo} alt="Resonate Logo" className="logo-icon" />
           <span className="logo-text">Resonate</span>
         </div>
