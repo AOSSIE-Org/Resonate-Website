@@ -6,6 +6,7 @@ import logo from '../../assets/resonate_logo_white.svg';
 const Navbar = () => {
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef(null);
+  const shouldListenRef = useRef(false);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -88,6 +89,7 @@ const Navbar = () => {
       const recognized = handleVoiceCommand(fullTranscript);
       if (recognized) {
         console.log("Command Recognized:", fullTranscript);
+        shouldListenRef.current = false; 
         recognition.stop();
         setIsListening(false);
       }
@@ -97,24 +99,35 @@ const Navbar = () => {
       console.error(" Speech Recognition Error:", event.error);
       if (event.error === 'not-allowed') {
         alert("Microphone access denied. Please enable microphone permissions in your browser settings.");
+        shouldListenRef.current = false;
+        setIsListening(false);
       }
-      setIsListening(false);
+
     };
 
     recognition.onend = () => {
-      console.log("🎤 Voice recognition session ended.");
-      setIsListening(false);
+      if (shouldListenRef.current) {
+        console.log("🎤 Session timed out. Restarting...");
+        try {
+          recognition.start();
+        } catch (err) {
+          console.error("Failed to restart recognition:", err);
+          setIsListening(false);
+        }
+      } else {
+        console.log("🎤 Voice recognition session ended.");
+        setIsListening(false);
+      }
     };
 
     recognitionRef.current = recognition;
 
     return () => {
       if (recognitionRef.current) {
+        shouldListenRef.current = false;
         try {
           recognitionRef.current.stop();
-        } catch (e) {
-          // ignore if already stopped
-        }
+        } catch (e) { }
         recognitionRef.current.onstart = null;
         recognitionRef.current.onresult = null;
         recognitionRef.current.onerror = null;
@@ -131,8 +144,10 @@ const Navbar = () => {
     }
 
     if (isListening) {
+      shouldListenRef.current = false; 
       recognitionRef.current.stop();
     } else {
+      shouldListenRef.current = true; 
       try {
         recognitionRef.current.start();
       } catch (err) {
