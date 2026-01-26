@@ -14,6 +14,10 @@ const Navbar = () => {
     });
   };
 
+  const escapeRegex = (string) => {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  };
+
   const handleVoiceCommand = useCallback((command) => {
     const scrollMap = {
       'features': '.features',
@@ -34,7 +38,8 @@ const Navbar = () => {
     };
 
     for (const key in scrollMap) {
-      const regex = new RegExp(`\\b${key}\\b`, 'i');
+      const escapedKey = escapeRegex(key);
+      const regex = new RegExp(`\\b${escapedKey}\\b`, 'i');
       if (regex.test(command)) {
         const target = document.querySelector(scrollMap[key]);
         if (target) {
@@ -105,11 +110,16 @@ const Navbar = () => {
 
     return () => {
       if (recognitionRef.current) {
-        recognitionRef.current.abort();
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {
+          // ignore if already stopped
+        }
         recognitionRef.current.onstart = null;
         recognitionRef.current.onresult = null;
         recognitionRef.current.onerror = null;
         recognitionRef.current.onend = null;
+        recognitionRef.current = null;
       }
     };
   }, [handleVoiceCommand]);
