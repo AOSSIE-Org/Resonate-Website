@@ -1,0 +1,9 @@
+version: 2
+updates:
+  - package-ecosystem: "npm" # Monitors your package.json
+    directory: "/" # Look for package.json in the root directory
+    schedule:
+      interval: "weekly" # Check for updates once a week
+    open-pull-requests-limit: 5 # Limit the number of open PRs to avoid clutter
+    labels:
+      - "dependencies" # Automatically add this label to PRs
