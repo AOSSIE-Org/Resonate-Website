@@ -1,9 +1,18 @@
 version: 2
 updates:
-  - package-ecosystem: "npm" # Monitors your package.json
-    directory: "/" # Look for package.json in the root directory
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: "weekly" # Check for updates once a week
-    open-pull-requests-limit: 5 # Limit the number of open PRs to avoid clutter
+      interval: "weekly"
+    open-pull-requests-limit: 5
     labels:
-      - "dependencies" # Automatically add this label to PRs
+      - "dependencies"
+      - "security"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "development"
+    security-updates-only: true  # only security-updates no major version change
