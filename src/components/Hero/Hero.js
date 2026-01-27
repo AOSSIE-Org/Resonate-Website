@@ -7,21 +7,52 @@ const Hero = () => {
   return (
     <section className="hero">
       <div className="hero-container">
+        
         <div className="hero-image">
-          <img src={phoneImage} alt="Resonate App on Phone" />
+          <img 
+  src={phoneImage}
+  alt="Resonate open source social voice platform app interface"
+  width="420"
+  height="520"
+  fetchpriority="high"
+  loading="eager"
+  decoding="async"
+/>
         </div>
+
         <div className="hero-content">
           <div className="yellow-gradient-bg"></div>
-          <h1>Clubhouse,<br />but Open Source</h1>
-          <h2>A social voice platform.</h2>
-          <p className="maintained-by">A Project Maintained by <a href="https://aossie.org" className="aossie-link">AOSSIE</a></p>
+
+          {/* Main SEO heading */}
+          <h1>
+            Resonate – An Open Source <br />
+            <span className="highlight">Social Voice Platform</span>
+          </h1>
+
+          {/* Supporting subheading */}
+          <h2>Clubhouse-style audio rooms built for the open-source community.</h2>
+
+          <p className="maintained-by">
+            A Project Maintained by <a href="https://aossie.org" className="aossie-link">AOSSIE</a>
+          </p>
 
           <div className="hero-buttons">
-            <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-              Create/Join Room <FaArrowRight />
+            <a 
+              href="https://play.google.com/store/apps/details?id=com.resonate.resonate" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-primary"
+            >
+              Create or Join Audio Rooms <FaArrowRight />
             </a>
-            <a href="https://github.com/AOSSIE-Org/Resonate" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
-              Contribute to the Project <FaGithub />
+
+            <a 
+              href="https://github.com/AOSSIE-Org/Resonate" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-secondary"
+            >
+              Contribute to the Open Source Project <FaGithub />
             </a>
           </div>
         </div>
@@ -29,7 +60,10 @@ const Hero = () => {
 
       <div className="hero-description-container">
         <p>
-          With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is high time for an Open Source alternative. A platform like this would not only enhance credibility within the open-source community but also attract more users and foster growth. An engagement platform that is Open Source has the potential to drive significant traction and help establish a strong presence.
+          Resonate is an open-source social voice platform inspired by applications like Clubhouse and Twitter Spaces. 
+          It allows users to create and join live audio rooms, host community discussions, and collaborate through voice. 
+          As an open-source engagement platform, Resonate aims to foster transparency, community-driven development, 
+          and innovation in real-time audio communication.
         </p>
       </div>
     </section>
