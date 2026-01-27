@@ -20,7 +20,10 @@
   margin-bottom: 2rem;
   font-weight: 400;
 }
-
+.download-app-card:hover{
+  background-color:#FFC107;
+  color: #1a1a1a;
+}
 .store-buttons {
   display: flex;
   justify-content: center;
