@@ -7,6 +7,7 @@ import TechStack from './components/TechStack/TechStack';
 import Testimonials from './components/Testimonials/Testimonials';
 import About from './components/About/About';
 import DownloadApp from './components/DownloadApp/DownloadApp';
+import VoiceDemo from './components/VoiceDemo/VoiceDemo';
 import Footer from './components/Footer/Footer';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -144,6 +145,19 @@ function App() {
         "-=0.6"
       );
 
+    // Voice Demo Animation
+    const voiceTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.voice-demo-section',
+        start: 'top 80%',
+      }
+    });
+
+    voiceTl.fromTo('.voice-demo-container',
+      { y: 50, opacity: 0, scale: 0.95 },
+      { y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }
+    );
+
     // Download App Animation
     const downloadTl = gsap.timeline({
       scrollTrigger: {
@@ -178,6 +192,7 @@ function App() {
     <div className="App">
       <Navbar />
       <Hero />
+      <VoiceDemo />
       <Features />
       <TechStack />
       <Testimonials />
