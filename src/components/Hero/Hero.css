@@ -84,6 +84,7 @@
 .aossie-link {
   color: #666;
   text-decoration: underline;
+  font-weight:bold;
 }
 
 .hero-buttons {
@@ -121,12 +122,19 @@
   background-color: #1a1a1a;
   color: white;
 }
+.btn-secondary:hover{
+  /*background-color:#ffffff;*/
+  background-color: #FFC107;
+  color: #1a1a1a;
+}
 
 .hero-description-container {
   max-width: 900px;
   margin: 4rem auto 0;
   padding: 0 20px;
   text-align: center;
+  font-size: large;
+  font-weight: 700;
 }
 
 .hero-description-container p {
