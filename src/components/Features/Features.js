@@ -4,29 +4,34 @@ import featureImage1 from '../../assets/roomscreen.png';
 import featureImage2 from '../../assets/createrooms.png';
 import featureImage3 from '../../assets/pairchat.png';
 import featureImage4 from '../../assets/chatscreen.png';
+
 const featuresData = [
   {
     id: 1,
     title: "Real-time Audio Communication by joining rooms and talking to people.",
     image: featureImage1,
+    alt: "Resonate app room screen showing real-time audio conversation interface",
     align: "left"
   },
   {
     id: 2,
     title: "Ability to create rooms and moderate speakers and events.",
     image: featureImage2,
+    alt: "Create room screen in Resonate app with moderation controls",
     align: "right"
   },
   {
     id: 3,
     title: "Pair chatting to enable users to find random partners to talk to in the app.",
     image: featureImage3,
+    alt: "Pair chat feature screen allowing users to connect with random partners",
     align: "left"
   },
   {
     id: 4,
     title: "Real-time messaging",
     image: featureImage4,
+    alt: "Real-time messaging interface inside the Resonate application",
     align: "right"
   }
 ];
@@ -35,12 +40,17 @@ const Features = () => {
   return (
     <section className="features">
       {featuresData.map((feature) => (
-        <div key={feature.id} className={`feature-item ${feature.align === 'right' ? 'reverse' : ''}`}>
+        <div
+          key={feature.id}
+          className={`feature-item ${feature.align === 'right' ? 'reverse' : ''}`}
+        >
           <div className="feature-image">
-            <img src={feature.image} alt={`Feature ${feature.id}`} />
+            <img src={feature.image} alt={feature.alt} />
           </div>
           <div className="feature-content">
-            <h3><span className="feature-number">{feature.id}.</span> {feature.title}</h3>
+            <h3>
+              <span className="feature-number">{feature.id}.</span> {feature.title}
+            </h3>
           </div>
         </div>
       ))}
