@@ -5,7 +5,7 @@ import { BsTwitterX } from 'react-icons/bs';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-
+  
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -13,30 +13,9 @@ const Footer = () => {
           &copy; {currentYear}
         </div>
         <div className="footer-socials">
-          <a
-            href="https://github.com/AOSSIE-Org"
-            rel="noopener noreferrer"
-            target="_blank"
-            aria-label="AOSSIE GitHub profile"
-          >
-            <FaGithub />
-          </a>
-          <a
-            href="https://x.com/aossie_org"
-            rel="noopener noreferrer"
-            target="_blank"
-            aria-label="AOSSIE Twitter/X profile"
-          >
-            <BsTwitterX />
-          </a>
-          <a
-            href="https://www.linkedin.com/company/aossie"
-            rel="noopener noreferrer"
-            target="_blank"
-            aria-label="AOSSIE LinkedIn page"
-          >
-            <FaLinkedinIn />
-          </a>
+          <a href="https://github.com/AOSSIE-Org" rel="noopener noreferrer" target="_blank" aria-label="GitHub"><FaGithub /></a>
+          <a href="https://x.com/aossie_org" rel="noopener noreferrer" target="_blank" aria-label="Twitter/X"><BsTwitterX /></a>
+          <a href="https://www.linkedin.com/company/aossie" rel="noopener noreferrer" target="_blank" aria-label="LinkedIn"><FaLinkedinIn /></a>
         </div>
       </div>
     </footer>
