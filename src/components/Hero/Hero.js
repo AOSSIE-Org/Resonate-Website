@@ -14,8 +14,8 @@ const Hero = () => {
           <div className="yellow-gradient-bg"></div>
           <h1>Clubhouse,<br />but Open Source</h1>
           <h2>A social voice platform.</h2>
-          <p className="maintained-by">A Project Maintained by <a href="https://aossie.org" className="aossie-link">AOSSIE</a></p>
-
+          <p className="maintained-by">A Project Maintained by <a href="https://aossie.org" className="aossie-link" target="_blank" rel="noopener noreferrer">AOSSIE</a></p>
+          
           <div className="hero-buttons">
             <a href="https://play.google.com/store/apps/details?id=com.resonate.resonate" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
               Create/Join Room <FaArrowRight />
