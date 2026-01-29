@@ -35,21 +35,94 @@
   pointer-events: none;
 }
 
-.hero-image {
+.hero-image-3d-wrapper {
   flex: 1;
   min-width: 300px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  perspective: 2000px;
   margin-bottom: 2rem;
-  position: relative;
   z-index: 1;
+  height: 600px;
 }
 
-.hero-image img {
-  max-width: 100%;
-  height: auto;
-  max-height: 500px;
-  object-fit: contain;
+.device-container {
+  width: 300px;
+  height: 600px;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+  position: relative;
+}
+
+.device-body {
+  width: 100%;
+  height: 100%;
+  background: #1a1a1a;
+  border-radius: 40px;
+  position: relative;
+  transform-style: preserve-3d;
+  box-shadow:
+    0 50px 100px rgba(0, 0, 0, 0.5),
+    inset 0 0 20px rgba(255, 193, 7, 0.1);
+  border: 4px solid #333;
+}
+
+.device-screen {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: #000;
+  border-radius: 32px;
+  overflow: hidden;
+  transform: translateZ(5px);
+  border: 2px solid #222;
+}
+
+.screen-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-out;
+  transform: scale(1.1);
+}
+
+.screen-content.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.device-reflection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 255, 255, 0.05) 100%);
+  border-radius: 40px;
+  pointer-events: none;
+  transform: translateZ(10px);
+}
+
+.device-bezel-highlight {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateZ(8px);
+  width: 60px;
+  height: 5px;
+  background: #333;
+  border-radius: 10px;
 }
 
 .hero-content {
