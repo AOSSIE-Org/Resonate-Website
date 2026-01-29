@@ -7,6 +7,8 @@ import TechStack from './components/TechStack/TechStack';
 import About from './components/About/About';
 import DownloadApp from './components/DownloadApp/DownloadApp';
 import Footer from './components/Footer/Footer';
+import NotFound from './components/NotFound/NotFound';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
@@ -174,16 +176,29 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Navbar />
-      <Hero />
-      <Features />
-      <TechStack />
-      <About />
-      <DownloadApp />
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          {/* Home route */}
+          <Route path="/" element={
+            <>
+              <Hero />
+              <Features />
+              <TechStack />
+              <About />
+              <DownloadApp />
+            </>
+          } />
+
+          
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
+
 }
 
 export default App;
