@@ -69,7 +69,7 @@ src/
 │   ├── NavBar/      # Navigation bar
 │   ├── Hero/        # Hero section
 │   ├── Features/    # Features showcase
-    ├── NotFound/    # 404 Not Found Page
+│   ├── NotFound/    # 404 Not Found Page
 │   ├── TechStack/   # Tech stack display
 │   ├── About/       # About AOSSIE section
 │   ├── DownloadApp/ # App download links
