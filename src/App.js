@@ -26,13 +26,14 @@ function App() {
     const lenis = isDesktop
       ? new Lenis({ smooth: true, duration: 1.1 })
       : null;
+    let rafId;
 
     function raf(time) {
       lenis?.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    if (isDesktop) requestAnimationFrame(raf);
+   if (isDesktop) rafId = requestAnimationFrame(raf);
 
     /* ✅ Delay animations to allow page to paint first */
     const startAnimations = () => {
@@ -101,12 +102,13 @@ function App() {
       }
     };
 
-    setTimeout(startAnimations, 300); // ⭐ improves LCP
-
-    return () => {
-      lenis?.destroy();
-      ScrollTrigger.getAll().forEach(t => t.kill());
-    };
+const animationTimer = setTimeout(startAnimations, 300)
+     return () => {
+     clearTimeout(animationTimer);
+     if (rafId != null) cancelAnimationFrame(rafId);
+       lenis?.destroy();
+       ScrollTrigger.getAll().forEach(t => t.kill());
+     };
 
   }, []);
 
