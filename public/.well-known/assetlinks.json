@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.resonate.resonate",
+      "sha256_cert_fingerprints": [
+        "A6:3C:96:B7:4D:69:9D:CE:D5:31:F1:05:CA:EF:10:C7:12:DC:EC:FB:38:E9:2F:2F:36:09:81:37:79:1F:94:E2"
+      ]
+    }
+  }
+]
