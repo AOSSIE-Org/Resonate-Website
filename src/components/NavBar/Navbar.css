@@ -53,11 +53,11 @@
 }
 
 .nav-link:hover {
-  color: #FFC107;
+  color: #ffc107;
 }
 
 .download-btn {
-  background-color: #FFC107;
+  background-color: #ffc107;
   border: none;
   padding: 10px 24px;
   border-radius: 25px;
@@ -65,7 +65,9 @@
   cursor: pointer;
   color: black;
   font-size: 0.9rem;
-  transition: transform 0.2s, background-color 0.2s;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
 }
 
 .download-btn:hover {
@@ -103,7 +105,6 @@
     gap: 15px;
   }
 }
-
 
 .hamburger {
   display: none;
@@ -154,6 +155,6 @@
 .hamburger:focus,
 .nav-link:focus,
 .download-btn:focus {
-  outline: 2px solid #FFC107;
+  outline: 2px solid #ffc107;
   outline-offset: 3px;
 }
