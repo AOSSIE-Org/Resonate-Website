@@ -20,4 +20,11 @@ body.dark {
 body.light {
   background-color: #ffffff;
   color: #000000;
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  user-select: none;
 }
