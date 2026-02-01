@@ -2,6 +2,21 @@ import React from 'react';
 import { FaApple } from 'react-icons/fa';
 import './DownloadApp.css';
 
+const handleShare = async () => {
+  const shareData = {
+    title: "Resonate App",
+    text: "Check out the Resonate app!",
+    url: "https://play.google.com/store/apps/details?id=com.resonate.resonate"
+  };
+
+  if (navigator.share) {
+    await navigator.share(shareData);
+  } else {
+    await navigator.clipboard.writeText(shareData.url);
+    alert("Link copied to clipboard!");
+  }
+};
+
 const StoreButton = ({ store, url }) => {
   const isGoogle = store === 'google';
   const subtitle = isGoogle ? 'GET IT ON' : 'Download on the';
@@ -27,6 +42,9 @@ const StoreButton = ({ store, url }) => {
       <div className="store-text">
         <span className="store-subtitle">{subtitle}</span>
         <span className="store-title">{title}</span>
+      </div>
+      <div className='share-btn' onClick={handleShare}>
+        Share App
       </div>
     </a>
   );
