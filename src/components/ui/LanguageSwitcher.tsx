@@ -40,12 +40,14 @@ export default function LanguageSwitcher() {
         onClick={() => setOpen(!open)}
         aria-label="Switch language"
         aria-expanded={open}
-        className="group flex items-center gap-2 rounded-full border border-default 
-                   bg-surface px-3 py-1.5 text-sm font-medium 
-                   transition-all duration-200 hover:bg-(--hover-background)"
+
+        className="group flex items-center gap-2 rounded-lg border border-border 
+                   bg-background px-3 py-2 text-sm font-medium 
+                   transition-all duration-200 hover:border-brand-yellow hover:shadow-lg 
+                   hover:shadow-brand-yellow/20"
       >
         <span className="text-base">{activeLang.flag}</span>
-        <span className="text-muted group-hover:text-primary transition-colors">
+        <span className="text-foreground group-hover:text-brand-yellow transition-colors">
           {activeLang.code.toUpperCase()}
         </span>
         <svg
@@ -62,8 +64,9 @@ export default function LanguageSwitcher() {
 
       {open && (
         <div
-          className="absolute left-0 top-full z-50 mt-2 min-w-[160px] overflow-hidden 
-                     rounded-2xl border border-default bg-surface 
+
+          className="absolute left-0 top-full z-50 mt-2 min-w-40 overflow-hidden 
+                     rounded-lg border border-border bg-background 
                      shadow-xl animate-in fade-in slide-in-from-top-2 duration-200"
         >
           {LANGUAGES.map((lang) => {
@@ -75,18 +78,19 @@ export default function LanguageSwitcher() {
                 className={`flex w-full items-center gap-3 px-4 py-2.5 text-sm 
                           transition-colors duration-150
                           ${isActive
-                            ? 'bg-(--hover-background) text-primary font-medium'
-                            : 'text-muted hover:bg-(--hover-background) hover:text-primary'
-                          }`}
+
+                    ? 'bg-brand-yellow/10 text-brand-yellow font-medium'
+                    : 'text-foreground hover:bg-brand-yellow/5 hover:text-brand-yellow'
+                  }`}
               >
                 <span className="text-base">{lang.flag}</span>
                 <span className="flex-1 text-left">{lang.label}</span>
                 {isActive && (
-                  <svg 
-                    className="h-4 w-4" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2.5" 
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
                     viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
