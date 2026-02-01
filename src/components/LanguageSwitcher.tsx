@@ -1,0 +1,103 @@
+'use client';
+
+import { useLocale } from 'next-intl';
+import { useRouter, usePathname } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+import { LANGUAGES } from '@/config/languages';
+
+export default function LanguageSwitcher() {
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const activeLang = LANGUAGES.find((l) => l.code === locale) || LANGUAGES[0];
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [open]);
+
+  const changeLocale = (newLocale: string) => {
+    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
+    router.push(newPath);
+    setOpen(false);
+  };
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        aria-label="Switch language"
+        aria-expanded={open}
+        className="group flex items-center gap-2 rounded-lg border border-[var(--border)] 
+                   bg-[var(--background)] px-3 py-2 text-sm font-medium 
+                   transition-all duration-200 hover:border-[#FFC100] hover:shadow-lg 
+                   hover:shadow-[#FFC100]/20"
+      >
+        <span className="text-base">{activeLang.flag}</span>
+        <span className="text-foreground group-hover:text-[#FFC100] transition-colors">
+          {activeLang.code.toUpperCase()}
+        </span>
+        <svg
+          className={`h-3.5 w-3.5 text-foreground/60 transition-transform duration-200 
+                     ${open ? 'rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {open && (
+        <div
+          className="absolute left-0 top-full z-50 mt-2 min-w-[160px] overflow-hidden 
+                     rounded-lg border border-[var(--border)] bg-[var(--background)] 
+                     shadow-xl animate-in fade-in slide-in-from-top-2 duration-200"
+        >
+          {LANGUAGES.map((lang) => {
+            const isActive = lang.code === locale;
+            return (
+              <button
+                key={lang.code}
+                onClick={() => changeLocale(lang.code)}
+                className={`flex w-full items-center gap-3 px-4 py-2.5 text-sm 
+                          transition-colors duration-150
+                          ${isActive
+                            ? 'bg-[#FFC100]/10 text-[#FFC100] font-medium'
+                            : 'text-foreground hover:bg-[#FFC100]/5 hover:text-[#FFC100]'
+                          }`}
+              >
+                <span className="text-base">{lang.flag}</span>
+                <span className="flex-1 text-left">{lang.label}</span>
+                {isActive && (
+                  <svg 
+                    className="h-4 w-4" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2.5" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
