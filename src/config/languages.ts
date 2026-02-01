@@ -1,5 +1,7 @@
+export type Locale = 'en' | 'hi';
+
 export type Language = {
-  code: string;
+  code: Locale;
   label: string;
   flag: string;
 };
