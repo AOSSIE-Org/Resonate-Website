@@ -68,7 +68,7 @@ Follow these steps to set up the project locally.
 src/
 ├── app/             # App Router pages and layouts
 │   ├── globals.css  # Global styles & Tailwind Design Tokens
-│   ├── layout.tsx   # Root layout (Fonts & Metadata)
+│   ├── layout.tsx   # Root layout (Fonts & Metadata)r
 │   └── page.tsx     # Landing Page
 ├── assets/          # (Legacy) Raw assets, prefer using public/
 └── public/          # Static assets served at root
