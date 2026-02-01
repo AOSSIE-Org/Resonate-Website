@@ -82,9 +82,7 @@ const StoreButton = ({ store, url }) => {
         </div>
       </a>
 
-      <div className="share-btn" onClick={handleShare}>
-        Share App
-      </div>
+      <button type="button" className="share-btn" onClick={handleShare} aria-label="Share Resonate app link">Share App</button>
 
       {message && <p className="share-message">{message}</p>}
     </div>
