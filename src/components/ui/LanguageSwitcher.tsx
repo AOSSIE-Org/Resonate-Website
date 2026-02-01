@@ -10,9 +10,15 @@ export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const activeLang = LANGUAGES.find((l) => l.code === locale) || LANGUAGES[0];
+
+  // Prevent hydration mismatch by only rendering after mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -33,6 +39,19 @@ export default function LanguageSwitcher() {
     router.push(newPath);
     setOpen(false);
   };
+
+  // Show loading state during hydration to prevent mismatch
+  if (!mounted) {
+    return (
+      <div className="relative">
+        <div className="flex items-center gap-2 rounded-lg border border-[var(--border)] 
+                       bg-[var(--background)] px-3 py-2 text-sm font-medium opacity-50">
+          <span className="text-base">🌐</span>
+          <span className="text-foreground">--</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div ref={ref} className="relative">
