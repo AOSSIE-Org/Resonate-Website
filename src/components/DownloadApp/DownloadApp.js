@@ -1,18 +1,19 @@
-import React from 'react';
-import './DownloadApp.css';
-import StoreButton from './StoreButton';
+import React from "react";
+import "./DownloadApp.css";
+import StoreButton from "./StoreButton"; // ✅ import your StoreButton component
 
 const DownloadApp = () => {
+  const playStoreUrl =
+    "https://play.google.com/store/apps/details?id=com.resonate.resonate";
+
   return (
-    <section className="download-app-section">
-      <div className="download-app-card">
-        <h2>Get the Resonate Mobile app.</h2>
-        <div className="store-buttons">
-          <StoreButton 
-            store="google" 
-            url="https://play.google.com/store/apps/details?id=com.resonate.resonate" 
-          />
-        </div>
+    <section className="download-app">
+      <h2>Download Resonate</h2>
+      <p>Get the Resonate app on your mobile device:</p>
+
+      <div className="store-buttons">
+        {/* Use StoreButton instead of separate <a> */}
+        <StoreButton store="google" url={playStoreUrl} />
       </div>
     </section>
   );

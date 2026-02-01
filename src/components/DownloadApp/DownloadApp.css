@@ -98,3 +98,51 @@
 .share-btn:hover {
   background-color: #1e40af;
 }
+.download-app {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.store-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.store-btn {
+  padding: 10px 20px;
+  background-color: #2563eb;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.store-btn:hover {
+  background-color: #1e40af;
+}
+
+.share-container {
+  margin-top: 20px;
+}
+
+.share-btn {
+  padding: 10px 20px;
+  background-color: #10b981;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background-color: #059669;
+}
+
+.share-message {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #333;
+}
