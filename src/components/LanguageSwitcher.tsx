@@ -40,13 +40,13 @@ export default function LanguageSwitcher() {
         onClick={() => setOpen(!open)}
         aria-label="Switch language"
         aria-expanded={open}
-        className="group flex items-center gap-2 rounded-lg border border-[var(--border)] 
-                   bg-[var(--background)] px-3 py-2 text-sm font-medium 
-                   transition-all duration-200 hover:border-[#FFC100] hover:shadow-lg 
-                   hover:shadow-[#FFC100]/20"
+        className="group flex items-center gap-2 rounded-lg border border-border 
+                   bg-background px-3 py-2 text-sm font-medium 
+                   transition-all duration-200 hover:border-brand-yellow hover:shadow-lg 
+                   hover:shadow-brand-yellow/20"
       >
         <span className="text-base">{activeLang.flag}</span>
-        <span className="text-foreground group-hover:text-[#FFC100] transition-colors">
+        <span className="text-foreground group-hover:text-brand-yellow transition-colors">
           {activeLang.code.toUpperCase()}
         </span>
         <svg
@@ -63,8 +63,8 @@ export default function LanguageSwitcher() {
 
       {open && (
         <div
-          className="absolute left-0 top-full z-50 mt-2 min-w-[160px] overflow-hidden 
-                     rounded-lg border border-[var(--border)] bg-[var(--background)] 
+          className="absolute left-0 top-full z-50 mt-2 min-w-40 overflow-hidden 
+                     rounded-lg border border-border bg-background 
                      shadow-xl animate-in fade-in slide-in-from-top-2 duration-200"
         >
           {LANGUAGES.map((lang) => {
@@ -76,8 +76,8 @@ export default function LanguageSwitcher() {
                 className={`flex w-full items-center gap-3 px-4 py-2.5 text-sm 
                           transition-colors duration-150
                           ${isActive
-                            ? 'bg-[#FFC100]/10 text-[#FFC100] font-medium'
-                            : 'text-foreground hover:bg-[#FFC100]/5 hover:text-[#FFC100]'
+                            ? 'bg-brand-yellow/10 text-brand-yellow font-medium'
+                            : 'text-foreground hover:bg-brand-yellow/5 hover:text-brand-yellow'
                           }`}
               >
                 <span className="text-base">{lang.flag}</span>
