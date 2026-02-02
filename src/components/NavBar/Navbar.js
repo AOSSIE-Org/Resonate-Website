@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './Navbar.css';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import logo from '../../assets/resonate_logo_white.svg';
 
-const Navbar = () => {
+const Navbar = React.memo(() => {
   const [open, setOpen] = useState(false);
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setOpen(false);
-  };
+  }, []);
 
-  const handleLinkClick = () => setOpen(false);
+  const handleLinkClick = useCallback(() => setOpen(false), []);
+  const toggleMenu = useCallback(() => setOpen(prev => !prev), []);
 
   return (
     <nav className="navbar">
@@ -24,7 +25,7 @@ const Navbar = () => {
 
        <button
           className="hamburger"
-          onClick={() => setOpen(!open)}
+          onClick={toggleMenu}
           aria-label="Toggle navigation"
           aria-expanded={open}
         >
@@ -66,6 +67,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
+});
 
 export default Navbar;

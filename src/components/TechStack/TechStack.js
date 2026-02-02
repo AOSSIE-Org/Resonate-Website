@@ -3,7 +3,7 @@ import './TechStack.css';
 import flutterLogo from '../../assets/Flutter svg.png';
 import appwriteLogo from '../../assets/Appwrite svg.png';
 
-const TechStack = () => {
+const TechStack = React.memo(() => {
   return (
     <section className="tech-stack-container">
         <div className="tech-stack">
@@ -19,6 +19,6 @@ const TechStack = () => {
         </div>
     </section>
   );
-};
+});
 
 export default TechStack;

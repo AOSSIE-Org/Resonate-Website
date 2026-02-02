@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './Footer.css';
 import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
 import { BsTwitterX } from 'react-icons/bs';
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
+const Footer = React.memo(() => {
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
   
   return (
     <footer className="footer">
@@ -20,6 +20,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
+});
 
 export default Footer;

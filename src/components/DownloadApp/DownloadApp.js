@@ -2,7 +2,7 @@ import React from 'react';
 import './DownloadApp.css';
 import playStoreBtn from '../../assets/Button-1.png';
 
-const DownloadApp = () => {
+const DownloadApp = React.memo(() => {
   return (
     <section className="download-app-section">
       <div className="download-app-card">
@@ -15,6 +15,6 @@ const DownloadApp = () => {
       </div>
     </section>
   );
-};
+});
 
 export default DownloadApp;

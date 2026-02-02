@@ -6,7 +6,7 @@ import { BsTwitterX } from 'react-icons/bs';
 
 import { SiGitlab } from 'react-icons/si';
 
-const About = () => {
+const About = React.memo(() => {
   return (
     <section className="about">
       <div className="about-container">
@@ -29,6 +29,6 @@ const About = () => {
       </div>
     </section>
   );
-};
+});
 
 export default About;

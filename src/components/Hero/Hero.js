@@ -3,7 +3,7 @@ import './Hero.css';
 import { FaGithub, FaArrowRight } from 'react-icons/fa';
 import phoneImage from '../../assets/resonate_app.png';
 
-const Hero = () => {
+const Hero = React.memo(() => {
   return (
     <section className="hero">
       <div className="hero-container">
@@ -34,6 +34,6 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Hero;
