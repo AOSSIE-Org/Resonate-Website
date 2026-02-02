@@ -1,4 +1,3 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 * {
@@ -7,31 +6,8 @@
   padding: 0;
 }
 
-@theme {
-  /* --- PALETTE (Our Raw Figma Colors) --- */
-  
-  /* Brand Colors */
-  --color-brand-yellow: #FFC100;  /* Resonate's Classic Yellow */
-  --color-brand-dark: #101010;    /* Page Background (Dark) */
-  --color-brand-light: #F5F5F5;   /* Page Background (Light) */
-
-  /* Font Configuration */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-}
-
-/* --- SEMANTIC TOKENS (The Logic) --- */
-
 /* LIGHT MODE */
 :root {
-  --background: var(--color-brand-light);
-  --foreground: #000000;
-  
-  /* 
-     The border color for Light Mode 
-  */
-  --border: #5D5D5D80;
-
-  /* Our custom theme colors */
   --bg-primary: #f8f9fa;
   --bg-secondary: #ffffff;
   --text-primary: #1a1a1a;
@@ -44,16 +20,7 @@
 }
 
 /* DARK MODE */
-.dark, .dark-mode {
-  --background: var(--color-brand-dark);
-  --foreground: #B4B4B4;
-  
-  /* 
-     The border color for Dark Mode 
-  */
-  --border: #5D5D5D80;
-
-  /* Our custom dark mode colors */
+.dark-mode {
   --bg-primary: #0f0f0f;
   --bg-secondary: #1a1a1a;
   --text-primary: #ffffff;
@@ -65,7 +32,6 @@
   --shadow-heavy: rgba(255, 255, 255, 0.15);
 }
 
-/* --- GLOBAL STYLES --- */
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -79,9 +45,4 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-/* Optional: Add a utility class if you want to use it easily in HTML */
-@utility border-border {
-  border-color: var(--border);
 }
