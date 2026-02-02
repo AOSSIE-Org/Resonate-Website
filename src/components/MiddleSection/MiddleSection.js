@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import './MiddleSection.css';
 import { FaApple, FaGooglePlay } from 'react-icons/fa';
 import phoneImage from '../../assets/resonate_app_bottom.png';
@@ -49,7 +50,12 @@ const MiddleSection = () => {
 
         {/* Phone Display - Positioned to overlay the purple section */}
         <div className="phone-display">
-          <img src={phoneImage} alt="Resonate App Interface" />
+          <Image 
+            src={phoneImage} 
+            alt="Resonate App Interface" 
+            width={300}
+            height={500}
+          />
         </div>
       </div>
     </section>

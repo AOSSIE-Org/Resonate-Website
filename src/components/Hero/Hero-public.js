@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import './Hero.css';
-import phoneImage from '../../assets/resonate_app.png.png';
 
 const Hero = () => {
   return (
@@ -13,7 +12,7 @@ const Hero = () => {
         </div>
         <div className="hero-image">
           <Image 
-            src={phoneImage} 
+            src="/images/resonate_app.png.png" 
             alt="Resonate App on Phone" 
             width={400}
             height={600}

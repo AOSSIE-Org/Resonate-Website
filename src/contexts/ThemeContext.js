@@ -17,16 +17,18 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     setIsClient(true);
     // Check localStorage first, then system preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
-    } else {
-      setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        setIsDarkMode(savedTheme === 'dark');
+      } else {
+        setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+      }
     }
   }, []);
 
   useEffect(() => {
-    if (!isClient) return;
+    if (!isClient || typeof window === 'undefined') return;
     
     // Apply theme to document
     if (isDarkMode) {

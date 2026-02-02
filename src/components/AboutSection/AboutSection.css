@@ -9,6 +9,7 @@
   margin: 0 auto;
   padding: 0 20px;
   position: relative;
+  overflow: hidden;
 }
 
 /* Statistics Row */
@@ -90,12 +91,21 @@
   padding: 2rem;
   box-shadow: 0 5px 20px var(--shadow-light);
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   align-items: flex-start;
   width: 100%;
   position: relative;
   z-index: 5;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Left Column - Contains logo and social section */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .dark-mode .content-box {
@@ -106,55 +116,76 @@
 /* Overlay Image */
 .overlay-image {
   position: absolute;
-  top: 50px;
-  right: 100px;
-  z-index: 999;
+  top: 10%;
+  right: 5%;
+  z-index: 10;
   pointer-events: none;
+  width: 350px;
+  height: auto;
 }
 
 .overlay-image img {
-  max-width: 400px;
+  width: 350px;
   height: auto;
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
-  transform: rotate(-10deg);
-  position: relative;
-  z-index: 999;
+  transform: rotate(0deg);
   animation: overlayFloat 4s ease-in-out infinite;
 }
 
 @keyframes overlayFloat {
   0%, 100% {
-    transform: rotate(-10deg) translateY(0px);
+    transform: rotate(0deg) translateY(0px);
   }
   50% {
-    transform: rotate(-8deg) translateY(-12px);
+    transform: rotate(0deg) translateY(-12px);
   }
 }
 
-.aossie-logo img {
-  width: 120px;
-  height: auto;
+.aossie-logo {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  width: fit-content;
+  margin-left: -18rem;
+}
+
+.aossie-logo a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.aossie-logo img,
+.aossie-logo svg {
+  width: 180px;
+  height: auto;
 }
 
 .description {
   flex: 1;
+  margin-left: -18rem;
 }
 
 .description p {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--text-secondary);
-  margin: 0 0 1.5rem 0;
+  margin: 0;
   transition: color 0.3s ease;
 }
 
-/* Social Section inside content box */
+/* Social Section - Now positioned outside content box, horizontal layout */
 .social-section {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  margin-top: 1.5rem;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  margin-left: 5.5rem;
+  width: 100%;
+  flex-shrink: 0;
 }
 
 .social-text {
@@ -162,12 +193,15 @@
   color: var(--text-secondary);
   line-height: 1.4;
   margin: 0;
+  font-weight: 500;
   transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
 .social-icons {
   display: flex;
   gap: 0.8rem;
+  justify-content: flex-start;
 }
 
 .social-icon {
@@ -181,12 +215,14 @@
   justify-content: center;
   font-size: 1.3rem;
   cursor: pointer;
+  text-decoration: none;
   transition: transform 0.2s, box-shadow 0.2s, border-color 0.3s, background-color 0.3s;
 }
 
 .social-icon:hover {
   transform: scale(1.1);
   box-shadow: 0 5px 15px var(--shadow-light);
+  text-decoration: none;
 }
 
 .social-icon.gmail {
@@ -228,24 +264,54 @@
     flex-direction: column;
     text-align: center;
     width: 100%;
+    gap: 1.5rem;
+  }
+
+  .description {
+    margin-left: 0;
+  }
+
+  .left-column {
+    align-items: center;
+    width: 100%;
+  }
+
+  .aossie-logo {
+    align-self: center;
+    margin-left: 0;
+  }
+
+  .aossie-logo img,
+  .aossie-logo svg {
+    width: 150px;
   }
 
   .social-section {
+    margin-left: 0;
+    width: 100%;
+    align-items: flex-start;
     flex-direction: column;
-    align-items: center;
     gap: 1rem;
-    margin-top: 1rem;
+  }
+
+  .social-text {
+    text-align: center;
+    white-space: normal;
+  }
+
+  .social-icons {
+    justify-content: center;
   }
 
   .overlay-image {
-    top: 40px;
-    right: 50px;
+    top: 8%;
+    right: 2%;
+    width: 280px;
   }
 
   .overlay-image img {
-    max-width: 300px;
-    transform: rotate(-8deg);
-    animation: overlayFloat 4s ease-in-out infinite;
+    width: 280px;
+    transform: rotate(0deg);
   }
 }
 
@@ -259,14 +325,27 @@
     font-size: 2rem;
   }
 
+  .aossie-logo img,
+  .aossie-logo svg {
+    width: 120px;
+  }
+
+  .social-section {
+    padding: 0.8rem;
+  }
+
+  .social-icons {
+    gap: 0.5rem;
+  }
+
   .overlay-image {
-    top: 30px;
-    right: 20px;
+    top: 5%;
+    right: 1%;
+    width: 220px;
   }
 
   .overlay-image img {
-    max-width: 250px;
-    transform: rotate(-5deg);
-    animation: overlayFloat 4s ease-in-out infinite;
+    width: 220px;
+    transform: rotate(0deg);
   }
 }

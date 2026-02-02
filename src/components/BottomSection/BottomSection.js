@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import './BottomSection.css';
 import { FaGithub } from 'react-icons/fa';
 import phoneImage from '../../assets/resonate_app_bottom.png';
@@ -23,7 +24,12 @@ const BottomSection = () => {
         </div>
 
         <div className="phone-center">
-          <img src={phoneImage} alt="Resonate App" />
+          <Image 
+            src={phoneImage} 
+            alt="Resonate App" 
+            width={250}
+            height={400}
+          />
           <p className="phone-caption">Real-Time Audio Communication</p>
         </div>
 

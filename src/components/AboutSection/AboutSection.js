@@ -1,8 +1,9 @@
 import React from 'react';
+import Image from 'next/image';
 import './AboutSection.css';
 import { FaEnvelope, FaDiscord, FaGithub, FaGitlab } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-// import aossieLogo from '../../assets/aossie_logo.png';
+import aossieLogo from '../../assets/2b28ae15e922c710639cd9def14b1c4f9b186878.png';
 import overlayImage from '../../assets/Group 35899.png';
 
 const AboutSection = () => {
@@ -34,10 +35,42 @@ const AboutSection = () => {
             </div>
 
             <div className="content-box">
-              <div className="aossie-logo">
-                {/* <img src={aossieLogo} alt="AOSSIE Logo" /> */}
-                <div style={{width: '120px', height: '60px', background: '#f0f0f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#666'}}>AOSSIE Logo</div>
+              <div className="left-column">
+                <div className="aossie-logo">
+                  <a href="https://aossie.org" target="_blank" rel="noopener noreferrer">
+                    <Image 
+                      src={aossieLogo} 
+                      alt="AOSSIE Logo" 
+                      width={180}
+                      height={90}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </a>
+                </div>
+                
+                {/* Social Section - Now under the logo */}
+                <div className="social-section">
+                  <p className="social-text">Find more<br />about AOSSIE here</p>
+                  <div className="social-icons">
+                    <a href="mailto:contact@aossie.org" className="social-icon gmail" target="_blank" rel="noopener noreferrer">
+                      <FaEnvelope />
+                    </a>
+                    <a href="https://discord.gg/aossie" className="social-icon discord" target="_blank" rel="noopener noreferrer">
+                      <FaDiscord />
+                    </a>
+                    <a href="https://github.com/AOSSIE-Org" className="social-icon github" target="_blank" rel="noopener noreferrer">
+                      <FaGithub />
+                    </a>
+                    <a href="https://gitlab.com/aossie" className="social-icon gitlab" target="_blank" rel="noopener noreferrer">
+                      <FaGitlab />
+                    </a>
+                    <a href="https://twitter.com/aossie_org" className="social-icon x" target="_blank" rel="noopener noreferrer">
+                      <FaXTwitter />
+                    </a>
+                  </div>
+                </div>
               </div>
+              
               <div className="description">
                 <p>
                   We are an Australian not-for-profit<br></br>organization that supports and brings<br></br> 
@@ -45,26 +78,6 @@ const AboutSection = () => {
                   collaborative way to share knowledge,<br></br> encourage innovation, and make<br></br> 
                   education more accessible through strong <br></br>community participation.
                 </p>
-                <div className="social-section">
-                  <p className="social-text">Find more<br />about AOSSIE here</p>
-                  <div className="social-icons">
-                    <div className="social-icon gmail">
-                      <FaEnvelope />
-                    </div>
-                    <div className="social-icon discord">
-                      <FaDiscord />
-                    </div>
-                    <div className="social-icon github">
-                      <FaGithub />
-                    </div>
-                    <div className="social-icon gitlab">
-                      <FaGitlab />
-                    </div>
-                    <div className="social-icon x">
-                      <FaXTwitter />
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -72,7 +85,13 @@ const AboutSection = () => {
 
         {/* Overlay Image - Positioned to overlay the content box */}
         <div className="overlay-image">
-          <img src={overlayImage} alt="Overlay Design" />
+          <Image 
+            src={overlayImage} 
+            alt="Overlay Design" 
+            width={350}
+            height={350}
+            style={{ width: '100%', height: 'auto' }}
+          />
         </div>
       </div>
     </section>
