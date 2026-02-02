@@ -1,6 +1,6 @@
 import React from 'react';
 import './NewFooter.css';
-import logo from '../../assets/resonate_logo_white.svg';
+// import logo from '../../assets/resonate_logo_white.svg';
 
 const NewFooter = () => {
   const currentYear = new Date().getFullYear();
@@ -12,7 +12,7 @@ const NewFooter = () => {
           <div className="footer-logo-section">
             <div className="footer-logo-container">
               <div className="footer-logo">
-                <img src={logo} alt="Resonate Logo" />
+                {/* <img src={logo} alt="Resonate Logo" /> */}
                 <span>Resonate</span>
               </div>
             </div>

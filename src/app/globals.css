@@ -1,4 +1,11 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 @theme {
   /* --- PALETTE (Our Raw Figma Colors) --- */
@@ -22,25 +29,56 @@
   /* 
      The border color for Light Mode 
   */
-  --border: #5D5D5D80; 
+  --border: #5D5D5D80;
+
+  /* Our custom theme colors */
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #333333;
+  --text-muted: #666666;
+  --border-color: #e0e0e0;
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --shadow-heavy: rgba(0, 0, 0, 0.25);
 }
 
 /* DARK MODE */
-.dark {
+.dark, .dark-mode {
   --background: var(--color-brand-dark);
   --foreground: #B4B4B4;
   
   /* 
      The border color for Dark Mode 
   */
-  --border: #5D5D5D80; 
+  --border: #5D5D5D80;
+
+  /* Our custom dark mode colors */
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --text-muted: #a0a0a0;
+  --border-color: #333333;
+  --shadow-light: rgba(255, 255, 255, 0.05);
+  --shadow-medium: rgba(255, 255, 255, 0.1);
+  --shadow-heavy: rgba(255, 255, 255, 0.15);
 }
 
 /* --- GLOBAL STYLES --- */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Optional: Add a utility class if you want to use it easily in HTML */

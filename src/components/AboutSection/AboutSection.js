@@ -2,7 +2,7 @@ import React from 'react';
 import './AboutSection.css';
 import { FaEnvelope, FaDiscord, FaGithub, FaGitlab } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import aossieLogo from '../../assets/aossie_logo.png';
+// import aossieLogo from '../../assets/aossie_logo.png';
 import overlayImage from '../../assets/Group 35899.png';
 
 const AboutSection = () => {
@@ -35,7 +35,8 @@ const AboutSection = () => {
 
             <div className="content-box">
               <div className="aossie-logo">
-                <img src={aossieLogo} alt="AOSSIE Logo" />
+                {/* <img src={aossieLogo} alt="AOSSIE Logo" /> */}
+                <div style={{width: '120px', height: '60px', background: '#f0f0f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#666'}}>AOSSIE Logo</div>
               </div>
               <div className="description">
                 <p>

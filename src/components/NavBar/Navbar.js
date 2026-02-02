@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Navbar.css';
 import { FiSearch, FiMoon, FiSun } from 'react-icons/fi';
 import { useTheme } from '../../contexts/ThemeContext';
-import logo from '../../assets/resonate_logo_white.svg';
+// import logo from '../../assets/resonate_logo_white.svg';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-logo" onClick={scrollToTop} style={{ cursor: 'pointer' }}>
-          <img src={logo} alt="Resonate Logo" className="logo-icon" />
+          {/* <img src={logo} alt="Resonate Logo" className="logo-icon" /> */}
           <span className="logo-text">Resonate</span>
         </div>
 

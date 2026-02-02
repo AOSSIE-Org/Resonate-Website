@@ -1,8 +1,24 @@
+'use client';
+
+import { ThemeProvider } from '../contexts/ThemeContext';
+import Navbar from '../components/NavBar/Navbar';
+import Hero from '../components/Hero/Hero';
+import AboutSection from '../components/AboutSection/AboutSection';
+import MiddleSection from '../components/MiddleSection/MiddleSection';
+import BottomSection from '../components/BottomSection/BottomSection';
+import NewFooter from '../components/NewFooter/NewFooter';
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">Resonate Website</h1>
-      <p className="mt-4 text-xl">Visual Overhaul in Progress...</p>
-    </div>
+    <ThemeProvider>
+      <div className="App">
+        <Navbar />
+        <Hero />
+        <AboutSection />
+        <MiddleSection />
+        <BottomSection />
+        <NewFooter />
+      </div>
+    </ThemeProvider>
   );
 }
