@@ -65,16 +65,24 @@ Follow these steps to set up the project locally.
 ## 📂 Project Structure
 
 ```text
-src/
-├── app/             # App Router pages and layouts
-│   ├── globals.css  # Global styles & Tailwind Design Tokens
-│   ├── layout.tsx   # Root layout (Fonts & Metadata)
-│   └── page.tsx     # Landing Page
-├── assets/          # (Legacy) Raw assets, prefer using public/
-└── public/          # Static assets served at root
-    ├── assets/      # Images and icons
-    ├── robots.txt   # SEO Configuration
-    └── llms.txt     # AI Crawler Policy
+├── messages
+│   ├── en.json             
+│   ├── hi.json             
+│   └── ...
+├── next.config.ts
+├── middleware.ts
+└── src
+    ├── components
+    │   └── LanguageSwitcher.tsx
+    ├── i18n
+    │   ├── request.ts        
+    │   ├── navigation.ts     
+    │   └── routing.ts        
+    └── app/             
+         └──[locale]               
+            ├── globals.css   
+            ├── layout.tsx    
+            └── page.tsx      
 ```
 
 ## 🤝 Contributing
