@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="navbar-container">
 
         <div className="navbar-logo" onClick={scrollToTop} style={{ cursor: 'pointer' }}>
-          <img src={logo} alt="Resonate Logo" className="logo-icon" />
+          <img src={logo} alt="Resonate Logo" className="logo-icon" loading="eager" />
           <span className="logo-text">Resonate</span>
         </div>
 

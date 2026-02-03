@@ -2,6 +2,7 @@ import React from 'react';
 import './TechStack.css';
 import flutterLogo from '../../assets/Flutter svg.png';
 import appwriteLogo from '../../assets/Appwrite svg.png';
+import LazyImage from '../Shared/LazyImage';
 
 const TechStack = () => {
   return (
@@ -10,10 +11,10 @@ const TechStack = () => {
         <h2>TECH STACK</h2>
         <div className="tech-logos">
             <div className="tech-logo">
-            <img src={flutterLogo} alt="Flutter" />
+            <LazyImage src={flutterLogo} alt="Flutter" />
             </div>
             <div className="tech-logo">
-            <img src={appwriteLogo} alt="Appwrite" />
+            <LazyImage src={appwriteLogo} alt="Appwrite" />
             </div>
         </div>
         </div>

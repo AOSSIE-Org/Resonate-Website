@@ -1,6 +1,7 @@
 import React from 'react';
 import './About.css';
 import aossieLogo from '../../assets/aossie_logo.png';
+import LazyImage from '../Shared/LazyImage';
 import { FaEnvelope, FaGithub, FaDiscord } from 'react-icons/fa';
 import { BsTwitterX } from 'react-icons/bs';
 
@@ -11,7 +12,7 @@ const About = () => {
     <section className="about">
       <div className="about-container">
         <div className="about-logo">
-          <img src={aossieLogo} alt="AOSSIE Logo" />
+          <LazyImage src={aossieLogo} alt="AOSSIE Logo" />
         </div>
         <div className="about-content">
           <h2>We Innovate<br />We Educate</h2>

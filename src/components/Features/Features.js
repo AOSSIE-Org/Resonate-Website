@@ -1,6 +1,7 @@
 import React from 'react';
 import './Features.css';
 import featureImage1 from '../../assets/roomscreen.png';
+import LazyImage from '../Shared/LazyImage';
 import featureImage2 from '../../assets/createrooms.png';
 import featureImage3 from '../../assets/pairchat.png';
 import featureImage4 from '../../assets/chatscreen.png';
@@ -37,7 +38,7 @@ const Features = () => {
       {featuresData.map((feature) => (
         <div key={feature.id} className={`feature-item ${feature.align === 'right' ? 'reverse' : ''}`}>
           <div className="feature-image">
-            <img src={feature.image} alt={`Feature ${feature.id}`} />
+            <LazyImage src={feature.image} alt={`Feature ${feature.id}`} />
           </div>
           <div className="feature-content">
             <h3><span className="feature-number">{feature.id}.</span> {feature.title}</h3>
