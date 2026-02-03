@@ -18,6 +18,12 @@ const LazyImage = ({ src, alt = '', className = '', loading = 'lazy', ...props }
       return;
     }
 
+    // If IntersectionObserver isn't available (e.g., test environment, older browsers), fall back to immediate load
+    if (typeof IntersectionObserver === 'undefined') {
+      setCurrentSrc(src);
+      return;
+    }
+
     let observer;
     const imgEl = imgRef.current;
     if (imgEl && !currentSrc) {

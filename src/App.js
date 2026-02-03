@@ -8,31 +8,62 @@ import About from './components/About/About';
 import DownloadApp from './components/DownloadApp/DownloadApp';
 import Footer from './components/Footer/Footer';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
-
-gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-    });
+    // Dynamically import and register ScrollTrigger only in browser to avoid test-time parsing problems
+    (async () => {
+      if (typeof window !== 'undefined') {
+        try {
+          const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+          gsap.registerPlugin(ScrollTrigger);
+        } catch (err) {
+          // If import fails (e.g., in some test environments), continue without ScrollTrigger
+          // Tests should still run and animations will be skipped
+          // eslint-disable-next-line no-console
+          console.warn('ScrollTrigger not available:', err && err.message ? err.message : err);
+        }
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+        // Dynamically import Lenis (ES module) only in the browser runtime
+        try {
+          const LenisModule = await import('lenis');
+          const Lenis = LenisModule && LenisModule.default ? LenisModule.default : LenisModule;
 
-    requestAnimationFrame(raf);
+          // Initialize Lenis for smooth scrolling
+          let lenis;
+          let rafId;
+
+          function raf(time) {
+            if (lenis) lenis.raf(time);
+            rafId = requestAnimationFrame(raf);
+          }
+
+          lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+          });
+
+          rafId = requestAnimationFrame(raf);
+
+          // Cleanup helper for lenis and raf
+          // We'll attach it to window so outer cleanup can access it (alternatively keep in closure)
+          window.__resonate_lenis_cleanup = () => {
+            if (lenis && lenis.destroy) lenis.destroy();
+            if (rafId) cancelAnimationFrame(rafId);
+          };
+        } catch (err) {
+          // Lenis import failed (e.g., test environment). Skip smooth scrolling.
+          // eslint-disable-next-line no-console
+          console.warn('Lenis not available:', err && err.message ? err.message : err);
+        }
+      }
+    })();
 
     // GSAP Animations
     
@@ -168,8 +199,25 @@ function App() {
 
     // Cleanup function
     return () => {
-      lenis.destroy();
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      // Cleanup Lenis if it was initialized via the dynamic import
+      if (window && typeof window.__resonate_lenis_cleanup === 'function') {
+        try {
+          window.__resonate_lenis_cleanup();
+          delete window.__resonate_lenis_cleanup;
+        } catch (e) {
+          // ignore
+        }
+      }
+
+      // If ScrollTrigger is available, kill active triggers
+      try {
+        if (gsap && gsap.core && gsap.core.globals && gsap.core.globals.ScrollTrigger) {
+          const ST = gsap.core.globals.ScrollTrigger;
+          ST.getAll().forEach((t) => t.kill());
+        }
+      } catch (e) {
+        // Ignore if ScrollTrigger isn't present (e.g., in test env)
+      }
     };
   }, []);
 
