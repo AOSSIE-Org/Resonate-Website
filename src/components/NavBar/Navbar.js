@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import './Navbar.css';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import logo from '../../assets/resonate_logo_white.svg';
+import './Navbar.css';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -18,7 +18,13 @@ const Navbar = () => {
       <div className="navbar-container">
 
         <div className="navbar-logo" onClick={scrollToTop} style={{ cursor: 'pointer' }}>
-          <img src={logo} alt="Resonate Logo" className="logo-icon" />
+          <img
+            src={logo}
+            alt="Resonate Logo"
+            className="logo-icon"
+            loading="eager"
+            decoding="async"
+          />
           <span className="logo-text">Resonate</span>
         </div>
 

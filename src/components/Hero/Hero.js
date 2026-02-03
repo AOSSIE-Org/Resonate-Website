@@ -1,14 +1,13 @@
-import React from 'react';
-import './Hero.css';
-import { FaGithub, FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaGithub } from 'react-icons/fa';
 import phoneImage from '../../assets/resonate_app.png';
+import './Hero.css';
 
 const Hero = () => {
   return (
     <section className="hero">
       <div className="hero-container">
         <div className="hero-image">
-          <img src={phoneImage} alt="Resonate App on Phone" />
+          <img src={phoneImage} alt="Resonate App on Phone" loading="eager" decoding="async" />
         </div>
         <div className="hero-content">
           <div className="yellow-gradient-bg"></div>

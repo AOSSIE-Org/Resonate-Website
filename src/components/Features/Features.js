@@ -1,9 +1,8 @@
-import React from 'react';
-import './Features.css';
-import featureImage1 from '../../assets/roomscreen.png';
+import featureImage4 from '../../assets/chatscreen.png';
 import featureImage2 from '../../assets/createrooms.png';
 import featureImage3 from '../../assets/pairchat.png';
-import featureImage4 from '../../assets/chatscreen.png';
+import featureImage1 from '../../assets/roomscreen.png';
+import './Features.css';
 const featuresData = [
   {
     id: 1,
@@ -37,7 +36,12 @@ const Features = () => {
       {featuresData.map((feature) => (
         <div key={feature.id} className={`feature-item ${feature.align === 'right' ? 'reverse' : ''}`}>
           <div className="feature-image">
-            <img src={feature.image} alt={`Feature ${feature.id}`} />
+            <img
+              src={feature.image}
+              alt={`Feature ${feature.id}`}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <div className="feature-content">
             <h3><span className="feature-number">{feature.id}.</span> {feature.title}</h3>

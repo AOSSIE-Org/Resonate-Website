@@ -1,7 +1,6 @@
-import React from 'react';
-import './TechStack.css';
-import flutterLogo from '../../assets/Flutter svg.png';
 import appwriteLogo from '../../assets/Appwrite svg.png';
+import flutterLogo from '../../assets/Flutter svg.png';
+import './TechStack.css';
 
 const TechStack = () => {
   return (
@@ -10,10 +9,10 @@ const TechStack = () => {
         <h2>TECH STACK</h2>
         <div className="tech-logos">
             <div className="tech-logo">
-            <img src={flutterLogo} alt="Flutter" />
+            <img src={flutterLogo} alt="Flutter" loading="lazy" decoding="async" />
             </div>
             <div className="tech-logo">
-            <img src={appwriteLogo} alt="Appwrite" />
+            <img src={appwriteLogo} alt="Appwrite" loading="lazy" decoding="async" />
             </div>
         </div>
         </div>
