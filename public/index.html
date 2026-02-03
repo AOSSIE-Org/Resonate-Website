@@ -9,6 +9,30 @@
       name="description"
       content="Resonate is an Open Source social voice platform maintained by AOSSIE. Join rooms, talk to people, and connect with the community."
     />
+
+    <!--  Security Headers -->
+
+    <!-- Content Security Policy -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        img-src 'self' data:;
+        font-src 'self' https://fonts.gstatic.com;
+      "
+    />
+
+    <!-- Cross-Origin-Opener-Policy -->
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
+
+    <!-- HTTP Strict Transport Security -->
+    <meta
+      http-equiv="Strict-Transport-Security"
+      content="max-age=31536000; includeSubDomains; preload"
+    />
+
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!-- Google Fonts - Raleway -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
