@@ -1,0 +1,104 @@
+name: Performance Monitoring
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  lighthouse:
+    name: Lighthouse Performance Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build application
+        run: npm run build
+        env:
+          CI: true
+      
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          urls: |
+            http://localhost:3000
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          runs: 3
+
+  bundle-analysis:
+    name: Bundle Size Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Analyze bundle size
+        run: |
+          npm run build
+          npx source-map-explorer 'build/static/js/*.js' --html build/bundle-analysis.html || true
+        continue-on-error: true
+      
+      - name: Upload bundle analysis
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bundle-analysis
+          path: build/bundle-analysis.html
+          retention-days: 30
+
+  build-performance:
+    name: Build Performance Metrics
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies with timing
+        run: |
+          echo "::group::Install Dependencies"
+          time npm ci
+          echo "::endgroup::"
+      
+      - name: Build with timing
+        run: |
+          echo "::group::Build Application"
+          time npm run build
+          echo "::endgroup::"
+      
+      - name: Report build metrics
+        run: |
+          echo "## Build Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "- Build directory size: $(du -sh build/ | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          echo "- Number of files: $(find build/ -type f | wc -l)" >> $GITHUB_STEP_SUMMARY
+          echo "- JavaScript bundle sizes:" >> $GITHUB_STEP_SUMMARY
+          find build/static/js -name "*.js" -type f -exec du -h {} \; | sort -rh | head -10 >> $GITHUB_STEP_SUMMARY
