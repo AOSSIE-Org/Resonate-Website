@@ -75,11 +75,20 @@ async function optimizeImage(filename) {
             })
             .toFile(tempPath);
 
-        // Atomically replace original with compressed version
-        // rename() overwrites the destination if it exists (atomic on same filesystem)
-        await fs.promises.rename(tempPath, inputPath);
+        const tempSize = await getFileSize(tempPath);
 
-        const compressedSize = await getFileSize(inputPath);
+        // Only replace original if compressed version is smaller
+        let compressedSize;
+        if (tempSize < originalSize) {
+            // Atomically replace original with compressed version
+            await fs.promises.rename(tempPath, inputPath);
+            compressedSize = tempSize;
+        } else {
+            // Keep original, remove temp file
+            await fs.promises.unlink(tempPath);
+            compressedSize = originalSize;
+            console.log(`(already optimized) `);
+        }
 
         // Generate WebP version
         await sharp(inputPath)
