@@ -1,11 +1,11 @@
-"use client";
+use client";
 
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 
-// Components
+// Components"
 import Hero from "./components/Hero/Hero";
 import Features from "./components/Features/Features";
 import TechStack from "./components/TechStack/TechStack";
@@ -17,27 +17,25 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Home() {
   useEffect(() => {
     // Initialize Lenis for smooth scrolling
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: "vertical",
-      gestureDirection: "vertical",
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-    });
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  direction: "vertical",
+  gestureDirection: "vertical",
+  smooth: true,
+  mouseMultiplier: 1,
+  smoothTouch: false,
+  touchMultiplier: 2,
+});
 
-    let rafId;
-    let isActive = true;
+let rafId = null;
 
-    function raf(time) {
-      if (!isActive) return;
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
+const raf = (time) => {
+  lenis.raf(time);
+  rafId = requestAnimationFrame(raf);
+};
 
-    rafId = requestAnimationFrame(raf);
+rafId = requestAnimationFrame(raf);
 
     // GSAP Animations
 
@@ -211,13 +209,17 @@ export default function Home() {
       );
 
     return () => {
-      isActive = false;
-      if (rafId != null) {
-        cancelAnimationFrame(rafId);
-      }
-      lenis.destroy();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
+  // ✅ Cancel the animation frame loop (FIX for memory leak)
+  if (rafId !== null) {
+    cancelAnimationFrame(rafId);
+  }
+
+  // ✅ Destroy Lenis instance
+  lenis.destroy();
+
+  // ✅ Kill all ScrollTriggers
+  ScrollTrigger.getAll().forEach((t) => t.kill());
+};
   }, []);
 
   return (
