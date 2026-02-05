@@ -222,9 +222,9 @@ export function Navbar() {
             {/* UPDATED: Make entire row clickable */}
             <div className="pt-3 sm:pt-4 border-t border-default mt-2 flex flex-col gap-3">
               <ThemeToggle isMobile />
-              <div className="w-full">
+              {/* <div className="w-full">
                 <LanguageSwitcher />
-              </div>
+              </div> */}
             </div>
 
             <Link
