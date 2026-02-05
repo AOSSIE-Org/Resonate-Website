@@ -10,15 +10,9 @@ export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const activeLang = LANGUAGES.find((l) => l.code === locale) || LANGUAGES[0];
-
-  // Prevent hydration mismatch by only rendering after mount
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -40,19 +34,6 @@ export default function LanguageSwitcher() {
     setOpen(false);
   };
 
-  // Show loading state during hydration to prevent mismatch
-  if (!mounted) {
-    return (
-      <div className="relative">
-        <div className="flex items-center gap-2 rounded-lg border border-[var(--border)] 
-                       bg-[var(--background)] px-3 py-2 text-sm font-medium opacity-50">
-          <span className="text-base">🌐</span>
-          <span className="text-foreground">--</span>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div ref={ref} className="relative">
       <button
@@ -64,9 +45,10 @@ export default function LanguageSwitcher() {
                    bg-background px-3 py-2 text-sm font-medium 
                    transition-all duration-200 hover:border-brand-yellow hover:shadow-lg 
                    hover:shadow-brand-yellow/20"
+
       >
         <span className="text-base">{activeLang.flag}</span>
-        <span className="text-foreground group-hover:text-brand-yellow transition-colors">
+        <span className="text-foreground group-hover:text-[#FFC100] transition-colors">
           {activeLang.code.toUpperCase()}
         </span>
         <svg
@@ -83,7 +65,6 @@ export default function LanguageSwitcher() {
 
       {open && (
         <div
-
           className="absolute left-0 top-full z-50 mt-2 min-w-40 overflow-hidden 
                      rounded-lg border border-border bg-background 
                      shadow-xl animate-in fade-in slide-in-from-top-2 duration-200"
@@ -97,10 +78,10 @@ export default function LanguageSwitcher() {
                 className={`flex w-full items-center gap-3 px-4 py-2.5 text-sm 
                           transition-colors duration-150
                           ${isActive
-
                     ? 'bg-brand-yellow/10 text-brand-yellow font-medium'
                     : 'text-foreground hover:bg-brand-yellow/5 hover:text-brand-yellow'
                   }`}
+
               >
                 <span className="text-base">{lang.flag}</span>
                 <span className="flex-1 text-left">{lang.label}</span>
