@@ -1,4 +1,4 @@
-use client";
+"use client";
 
 import { useEffect } from "react";
 import gsap from "gsap";
@@ -209,15 +209,15 @@ rafId = requestAnimationFrame(raf);
       );
 
     return () => {
-  // ✅ Cancel the animation frame loop (FIX for memory leak)
+  // Cancel the animation frame loop (FIX for memory leak)
   if (rafId !== null) {
     cancelAnimationFrame(rafId);
   }
 
-  // ✅ Destroy Lenis instance
+  // Destroy Lenis instance
   lenis.destroy();
 
-  // ✅ Kill all ScrollTriggers
+  // Kill all ScrollTriggers
   ScrollTrigger.getAll().forEach((t) => t.kill());
 };
   }, []);
