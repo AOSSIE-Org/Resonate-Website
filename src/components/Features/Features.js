@@ -37,7 +37,7 @@ const Features = () => {
       {featuresData.map((feature) => (
         <div key={feature.id} className={`feature-item ${feature.align === 'right' ? 'reverse' : ''}`}>
           <div className="feature-image">
-            <img src={feature.image} alt={`Feature ${feature.id}`} />
+            <img src={feature.image} alt={`Feature ${feature.id}`} loading="lazy" />
           </div>
           <div className="feature-content">
             <h3><span className="feature-number">{feature.id}.</span> {feature.title}</h3>
