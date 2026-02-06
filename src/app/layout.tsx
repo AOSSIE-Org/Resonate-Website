@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+// Import your architecture components
+import { ThemeProvider } from "./components/providers/theme-provider";
+import { Navbar } from "./components/layout/Navbar";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -19,11 +23,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    /* 1. APPLY VARIABLE HERE on HTML */
-    <html lang="en" className={inter.variable}>
-      {/* 2. Keep body simple */}
-      <body className="antialiased font-sans">
-        {children}
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <body className="antialiased font-sans bg-background text-foreground">
+        
+        {/* Provider must come before Navbar to inject theme state */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+
+          <main className="pt-20">
+            {children}
+          </main>
+
+        </ThemeProvider>
       </body>
     </html>
   );
