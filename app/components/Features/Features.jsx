@@ -1,3 +1,4 @@
+import React from "react";
 import "./Features.css";
 import featureImage1 from "../../assets/roomscreen.png";
 import featureImage2 from "../../assets/createrooms.png";
@@ -63,4 +64,4 @@ const Features = () => {
   );
 };
 
-export default Features;
+export default React.memo(Features);

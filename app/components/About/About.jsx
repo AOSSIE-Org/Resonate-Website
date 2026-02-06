@@ -1,3 +1,4 @@
+import React from "react";
 import "./About.css";
 import AossieLogo from "../../assets/aossie_logo.png";
 import { SiGitlab } from "react-icons/si";
@@ -46,4 +47,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default React.memo(About);

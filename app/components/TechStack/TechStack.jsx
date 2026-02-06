@@ -1,3 +1,4 @@
+import React from "react";
 import "./TechStack.css";
 import flutterLogo from "../../assets/Flutter.png";
 import appwriteLogo from "../../assets/Appwrite.png";
@@ -20,4 +21,4 @@ const TechStack = () => {
   );
 };
 
-export default TechStack;
+export default React.memo(TechStack);

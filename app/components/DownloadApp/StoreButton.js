@@ -2,7 +2,7 @@ import React from 'react';
 import { FaApple } from 'react-icons/fa';
 import './DownloadApp.css';
 
-const StoreButton = ({ store, url }) => {
+const StoreButton = React.memo(({ store, url }) => {
   const isGoogle = store === 'google';
   const subtitle = isGoogle ? 'GET IT ON' : 'Download on the';
   const title = isGoogle ? 'Google Play' : 'App Store';
@@ -30,6 +30,8 @@ const StoreButton = ({ store, url }) => {
       </div>
     </a>
   );
-};
+});
+
+StoreButton.displayName = 'StoreButton';
 
 export default StoreButton;
