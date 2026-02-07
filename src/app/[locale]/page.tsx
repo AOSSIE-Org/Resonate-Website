@@ -4,9 +4,9 @@ import { useTranslations } from 'next-intl';
 
 import dynamic from 'next/dynamic';
 
-const LanguageSwitcher = dynamic(() => import('@/components/ui/LanguageSwitcher'), {
-  ssr: false,
-});
+// const LanguageSwitcher = dynamic(() => import('@/components/ui/LanguageSwitcher'), {
+//   ssr: false,
+// });
 
 
 export default function Home() {
