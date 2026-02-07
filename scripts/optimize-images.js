@@ -2,6 +2,7 @@
  * Image Optimization Script
  * 
  * Uses Sharp to compress PNG images and generate WebP versions.
+ * Automatically discovers all PNG files in the assets directory.
  * Run with: npm run optimize-images
  */
 
@@ -12,19 +13,35 @@ const path = require('path');
 const ASSETS_DIR = path.join(__dirname, '..', 'app', 'assets');
 const PNG_QUALITY = 80;
 const WEBP_QUALITY = 80;
+// Minimum file size to optimize (skip small icons/logos under 5KB)
+const MIN_FILE_SIZE = 5 * 1024;
 
-// Images to optimize (large PNG files)
-const IMAGES_TO_OPTIMIZE = [
-    'resonate_app.png',
-    'Vector.png',
-    'Group.png',
-    'createrooms.png',
-    'roomscreen.png',
-    'pairchat.png',
-    'chatscreen.png',
-    'aossie_logo.png',
-    'PlayStore.png',
-];
+/**
+ * Dynamically find all PNG files in the assets directory
+ */
+async function findPngImages() {
+    try {
+        const files = await fs.promises.readdir(ASSETS_DIR);
+        const pngFiles = [];
+
+        for (const file of files) {
+            if (file.toLowerCase().endsWith('.png')) {
+                const filePath = path.join(ASSETS_DIR, file);
+                const stats = await fs.promises.stat(filePath);
+
+                // Only include files above minimum size threshold
+                if (stats.size >= MIN_FILE_SIZE) {
+                    pngFiles.push(file);
+                }
+            }
+        }
+
+        return pngFiles;
+    } catch (error) {
+        console.error('Error reading assets directory:', error.message);
+        return [];
+    }
+}
 
 async function getFileSize(filePath) {
     try {
@@ -121,11 +138,21 @@ async function main() {
     console.log('\nImage Optimization Script\n');
     console.log('='.repeat(60));
 
+    // Dynamically find all PNG images in assets directory
+    const imagesToOptimize = await findPngImages();
+
+    if (imagesToOptimize.length === 0) {
+        console.log('No PNG images found to optimize.\n');
+        return;
+    }
+
+    console.log(`Found ${imagesToOptimize.length} PNG images to optimize.\n`);
+
     const results = [];
     let totalOriginal = 0;
     let totalCompressed = 0;
 
-    for (const filename of IMAGES_TO_OPTIMIZE) {
+    for (const filename of imagesToOptimize) {
         process.stdout.write(`Processing ${filename}... `);
         const result = await optimizeImage(filename);
 
