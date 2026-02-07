@@ -23,21 +23,10 @@ export default function LazyImage({
   sizes,
   style,
 }: LazyImageProps) {
-  if (src.startsWith('http://') || src.startsWith('https://')) {
-    return (
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className={className}
-        loading={priority ? 'eager' : 'lazy'}
-        style={style}
-        decoding="async"
-      />
-    );
-  }
-
+  // Use Next.js Image for all images (including external URLs)
+  // Note: External domains must be whitelisted in next.config.ts remotePatterns
+  // This ensures Next.js optimization (AVIF/WEBP conversion, responsive sizing, CDN caching)
+  
   if (fill) {
     return (
       <Image
