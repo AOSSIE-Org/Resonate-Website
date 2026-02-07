@@ -1,16 +1,29 @@
 import Image from 'next/image';
 
-interface LazyImageProps {
-  src: string;
-  alt: string;
-  width?: number;
-  height?: number;
-  className?: string;
-  priority?: boolean;
-  fill?: boolean;
-  sizes?: string;
-  style?: React.CSSProperties;
-}
+// Discriminated union to ensure width/height are required when fill is false
+type LazyImageProps =
+  | {
+      src: string;
+      alt: string;
+      fill: true;
+      width?: never;
+      height?: never;
+      className?: string;
+      priority?: boolean;
+      sizes?: string;
+      style?: React.CSSProperties;
+    }
+  | {
+      src: string;
+      alt: string;
+      fill?: false;
+      width: number;
+      height: number;
+      className?: string;
+      priority?: boolean;
+      sizes?: string;
+      style?: React.CSSProperties;
+    };
 
 export default function LazyImage({
   src,
@@ -45,8 +58,8 @@ export default function LazyImage({
     <Image
       src={src}
       alt={alt}
-      width={width || 800}
-      height={height || 600}
+      width={width}
+      height={height}
       className={className}
       priority={priority}
       sizes={sizes || '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'}
