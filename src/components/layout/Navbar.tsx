@@ -112,7 +112,7 @@ export function Navbar() {
             </NavLink>
             <div className="flex items-center gap-2">
               <ThemeToggle />
-              <LanguageSwitcher />
+              {/* <LanguageSwitcher /> */}
             </div>
           </div>
           <div className="relative h-6 w-6">
