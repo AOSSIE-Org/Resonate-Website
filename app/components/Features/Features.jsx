@@ -1,4 +1,5 @@
 import "./Features.css";
+import Image from "next/image";
 import featureImage1 from "../../assets/roomscreen.png";
 import featureImage2 from "../../assets/createrooms.png";
 import featureImage3 from "../../assets/pairchat.png";
@@ -44,11 +45,12 @@ const Features = () => {
           }`}
         >
           <div className="feature-image">
-            <img
-              src={feature.image.src}
+            <Image
+              src={feature.image}
               alt={`Feature ${feature.id}`}
               width={400}
               height={300}
+              loading="lazy"
             />
           </div>
           <div className="feature-content">

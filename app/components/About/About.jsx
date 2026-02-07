@@ -1,4 +1,5 @@
 import "./About.css";
+import Image from "next/image";
 import AossieLogo from "../../assets/aossie_logo.png";
 import { SiGitlab } from "react-icons/si";
 import { FaEnvelope, FaGithub, FaDiscord } from "react-icons/fa";
@@ -9,7 +10,7 @@ const About = () => {
     <section className="about">
       <div className="about-container">
         <div className="about-logo">
-          <img src={AossieLogo.src} alt="AOSSIE Logo" />
+          <Image src={AossieLogo} alt="AOSSIE Logo" width={200} height={200} loading="lazy" />
         </div>
         <div className="about-content">
           <h2>
