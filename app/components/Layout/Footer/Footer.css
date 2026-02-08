@@ -1,8 +1,13 @@
 .footer {
   background-color: #1a1a1a;
   color: white;
-  padding: 2rem 0;
+  padding: 3rem 0;
+  position: relative;
+  overflow: hidden;
 }
+
+/* Optional: Add a subtle gradient glow behind/around if needed, 
+   but keeping it clean for now as per "minimal" request */
 
 .footer-container {
   display: flex;
@@ -12,21 +17,116 @@
   margin: 0 auto;
   padding: 0 20px;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 2rem;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ... existing code ... */
+
+.copyright {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 4px;
+}
+
+/* ... existing code ... */
+
+.footer-branding {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* Reduced gap for tighter lockup */
+}
+
+.brand-logo {
+  width: 38px;
+  /* Slightly smaller for better balance */
+  height: 40px;
+  object-fit: contain;
+}
+
+.brand-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+  /* Reset line-height to prevent gaps */
+}
+
+.brand-title {
+  font-size: 1.5rem;
+  /* Balanced with logo */
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+.brand-subtitle {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  /* Softer secondary text */
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.footer-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.25rem;
+}
+
+.footer-tagline {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.footer-maintainer {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
 }
 
 @media (max-width: 768px) {
   .footer-container {
-    justify-content: center;
     flex-direction: column;
     text-align: center;
+    gap: 2.5rem;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-socials {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-branding {
+    justify-content: center;
+  }
+   .brand-title {
+    font-size: 1.3rem;
+  }
+
+  .footer-tagline {
+    font-size: 0.95rem;
   }
 }
 
-.copyright {
-  font-size: 0.9rem;
-  color: #ccc;
-}
+/* .copyright moved up to brand-info context */
 
 .footer-socials {
   display: flex;
@@ -34,39 +134,61 @@
 }
 
 .footer-socials a {
-  color: #1a1a1a; 
-  background-color: #FFC107;
-  width: 44px;
-  height: 44px;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-  font-size: 1.1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 1.2rem;
+  position: relative;
+  overflow: hidden;
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
 
+.footer-socials a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
 .footer-socials a:hover {
-  transform: scale(1.15);
-  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+  transform: translateY(-3px);
+  background-color: #FFC107;
+  border-color: #FFC107;
+  color: #1a1a1a;
+  box-shadow: 0 10px 20px -5px rgba(255, 193, 7, 0.4);
+}
+
+.footer-socials a:hover::before {
+  opacity: 1;
 }
 
 .footer-socials a:focus {
   outline: 2px solid #FFC107;
-  outline-offset: 2px;
+  outline-offset: 4px;
 }
 
 .footer-socials a:active {
-  transform: scale(0.95);
+  transform: translateY(0) scale(0.95);
 }
 
 @media (max-width: 768px) {
   .footer-socials a {
-    width: 48px;
-    height: 48px;
-    font-size: 1.2rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
   }
 }
