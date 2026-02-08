@@ -1,19 +1,22 @@
 import "./TechStack.css";
-import flutterLogo from "../../assets/Flutter.png";
-import appwriteLogo from "../../assets/Appwrite.png";
 
 const TechStack = () => {
+  const technologies = [
+    { name: "Flutter", icon: "/flutter.svg" },
+    { name: "Appwrite", icon: "/appwrite.svg" },
+  ];
+
   return (
     <section className="tech-stack-container">
       <div className="tech-stack">
         <h2>TECH STACK</h2>
         <div className="tech-logos">
-          <div className="tech-logo">
-            <img src={flutterLogo.src} alt="Flutter" />
-          </div>
-          <div className="tech-logo">
-            <img src={appwriteLogo.src} alt="Appwrite" />
-          </div>
+          {technologies.map((tech) => (
+            <div key={tech.name} className="tech-logo">
+              <img src={tech.icon} alt={tech.name} className="tech-icon" />
+              <p className="tech-name">{tech.name}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
