@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-import Logo from "@/assets/resonate_logo_white.svg";
+const Logo = { src: "/resonate_logo_white.png" };
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
