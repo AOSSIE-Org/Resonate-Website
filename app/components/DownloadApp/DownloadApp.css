@@ -1,86 +1,87 @@
 .download-app-section {
-  padding: 4rem 20px;
-  display: flex;
-  justify-content: center;
-  background-color: white;
+	padding: 4rem 20px;
+	display: flex;
+	justify-content: center;
+	background-color: white;
 }
 
 .download-app-card {
-  background-color: #1a1a1a;
-  border-radius: 20px;
-  padding: 4rem 2rem;
-  text-align: center;
-  width: 100%;
-  max-width: 1000px;
-  color: white;
+	background-color: #1a1a1a;
+	border-radius: 20px;
+	padding: 4rem 2rem;
+	text-align: center;
+	width: 100%;
+	max-width: 1000px;
+	color: white;
 }
 
 .download-app-card h2 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  font-weight: 400;
+	font-size: 2.5rem;
+	margin-bottom: 2rem;
+	font-weight: 400;
 }
 
 .store-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+	flex-wrap: wrap;
 }
 
 .store-btn img {
-  height: 50px;
-  width: auto;
-  transition: transform 0.2s;
+	height: 50px;
+	width: auto;
+	transition: transform 0.2s;
 }
 
 .store-btn:hover img {
-  transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 .store-badge {
-  display: flex;
-  align-items: center;
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #4a4a4a;
-  border-radius: 8px;
-  padding: 10px 20px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  min-width: 180px;
-  height: 60px;
+	display: flex;
+	align-items: center;
+	background-color: #000;
+	color: #fff;
+	border: 1px solid #4a4a4a;
+	border-radius: 8px;
+	padding: 10px 20px;
+	text-decoration: none;
+	transition: all 0.2s ease;
+	min-width: 180px;
+	height: 60px;
 }
 
 .store-badge:hover {
-  transform: scale(1.05);
-  background-color: #1a1a1a;
-  border-color: #fff;
+	transform: scale(1.05);
+	background-color: #1a1a1a;
+	border-color: #fff;
 }
 
 .store-icon {
-  width: 32px;
-  height: 32px;
-  margin-right: 14px;
-  flex-shrink: 0;
+	width: 32px;
+	height: 32px;
+	margin-right: 14px;
+	flex-shrink: 0;
 }
 
 .store-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  line-height: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	line-height: 1;
 }
 
 .store-subtitle {
-  font-size: 10px;
-  margin-bottom: 2px;
-  text-transform: uppercase;
+	font-size: 10px;
+	margin-bottom: 2px;
+	text-transform: uppercase;
 }
 
 .store-title {
-  font-size: 18px;
-  font-weight: 600;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+	font-family:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+		sans-serif;
 }
-
