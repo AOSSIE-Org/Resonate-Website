@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="copyright">&copy; {currentYear}</div>
+        <div className="copyright">&copy; {currentYear} AOSSIE</div>
         <div className="footer-socials">
           <a
             href="https://github.com/AOSSIE-Org"
