@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.css";
-import { FaLinkedinIn, FaGithub } from "react-icons/fa";
+import { FaLinkedinIn, FaGithub, FaEnvelope } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 
 const Footer = () => {
@@ -11,6 +11,14 @@ const Footer = () => {
       <div className="footer-container">
         <div className="copyright">&copy; {currentYear}</div>
         <div className="footer-socials">
+          <a
+            href="mailto:aossie.oss@gmail.com"
+            rel="noopener noreferrer"
+            target="_blank"
+            aria-label="Email"
+          >
+            <FaEnvelope />
+          </a>
           <a
             href="https://github.com/AOSSIE-Org"
             rel="noopener noreferrer"
