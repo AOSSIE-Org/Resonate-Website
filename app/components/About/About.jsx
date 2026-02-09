@@ -1,9 +1,9 @@
 import "./About.css";
+import Image from "next/image";
 import { BsTwitterX } from "react-icons/bs";
 import { FaDiscord, FaEnvelope, FaGithub } from "react-icons/fa";
 import { SiGitlab } from "react-icons/si";
 import AossieLogo from "../../assets/aossie_logo.png";
-import Image from "next/image";
 
 const About = () => {
 	return (
