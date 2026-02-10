@@ -10,7 +10,7 @@ const About = () => {
 		<section className="about">
 			<div className="about-container">
 				<div className="about-logo">
-					<Image src={AossieLogo.src} alt="AOSSIE Logo" />
+<Image src={AossieLogo} alt="AOSSIE Logo" />
 				</div>
 				<div className="about-content">
 					<h2>
