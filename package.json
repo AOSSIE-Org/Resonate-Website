@@ -15,7 +15,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
+		"lint:next": "next lint",
 		"format": "biome format --write .",
 
 		"format:file": "biome format --write",

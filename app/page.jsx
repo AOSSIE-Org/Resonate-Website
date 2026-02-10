@@ -215,7 +215,7 @@ export default function Home() {
 				cancelAnimationFrame(rafId);
 			}
 			lenis.destroy();
-			ScrollTrigger.getAll().forEach((t) => t.kill());
+			ScrollTrigger.getAll().map((t) => t.kill());
 		};
 	}, []);
 
