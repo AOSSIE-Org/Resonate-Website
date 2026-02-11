@@ -4,14 +4,15 @@ The official landing page for **Resonate** - an Open Source social voice platfor
 
 ## About Resonate
 
-Resonate is a social voice platform, similar to Clubhouse and Twitter Spaces, but completely Open Source. It aims to enhance credibility within the open-source community, attract users, and foster growth through real-time audio communication.
+Resonate is an open-source social voice platform, similar to Clubhouse and Twitter Spaces. It aims to strengthen credibility within the open-source community, attract users, and foster ecosystem growth through real-time audio communication.
 
 **Key Features of the App:**
 
-- Real-time Audio Communication.
-- Create rooms and moderate speakers/events.
-- Pair chatting for random partner matching.
-- Real-time messaging (Coming Soon).
+- Real-time audio communication
+- Room creation and speaker moderation
+- Random pair chatting
+- Real-time messaging (Coming soon)
+
 
 ## 💻 Tech Stack
 
@@ -38,8 +39,10 @@ Follow these steps to set up the project locally.
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- npm or yarn
+Make sure the following tools are installed:
+- Node.js (v18 or above recommended — v20+ preferred)
+- npm (comes with Node.js) or yarn
+- Git
 
 ### Steps
 
@@ -50,25 +53,47 @@ Follow these steps to set up the project locally.
     cd Resonate-Website
     ```
 
-2.  **Install dependencies**
+2.  **Verify Installation**
+
+   Run the following commands to confirm installation:
+
+     ```bash
+      node -v
+      npm -v
+      git --version
+     ```
+
+
+3.  **Install dependencies**
 
     ```bash
     npm install
     ```
 
-3.  **Start the development server**
+4.  **Start the development server**
 
     ```bash
     npm run dev
     ```
 
-    The app will run at `http://localhost:3000`.
+    The application will be available at `http://localhost:3000`.
 
-4.  **Build for production**
+
+5.  **Build for production**
     ```bash
     npm run build
     ```
-    This creates an optimized build in the `build` folder.
+    This creates an optimized production build inside the `.next` folder.
+
+6.  **Start the production server**
+
+    ```bash
+    npm start
+    ```
+
+    This starts the application using the optimized production build.
+
+
 
 ## 📂 Project Structure
 
