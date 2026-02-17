@@ -50,6 +50,17 @@
   text-transform: uppercase;
   font-weight: 500;
   transition: color 0.2s;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.nav-link:focus,
+.nav-link:active {
+  outline: none;
+  background: transparent;
 }
 
 .nav-link:hover {

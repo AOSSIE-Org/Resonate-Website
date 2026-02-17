@@ -13,6 +13,15 @@ const Navbar = () => {
     setOpen(false);
   };
 
+   // Scroll to footer and close mobile menu
+  const scrollToFooter = () => {
+    const footer = document.getElementById("footer");
+    if (footer) {
+      footer.scrollIntoView({ behavior: "smooth" });
+    }
+    setOpen(false);
+  };
+
   // Close menu when a link is clicked
   const handleLinkClick = () => setOpen(false);
 
@@ -41,6 +50,10 @@ const Navbar = () => {
 
         {/* Navigation links */}
         <div className={`navbar-links ${open ? "open" : ""}`}>
+               {/* NEW Contact Button */}
+          <button className="nav-link" onClick={scrollToFooter}>
+            Contact
+          </button>
           <a
             href="https://aossie.org"
             target="_blank"
