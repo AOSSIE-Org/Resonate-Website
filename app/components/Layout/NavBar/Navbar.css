@@ -57,11 +57,7 @@
   font-family: inherit;
 }
 
-.nav-link:focus,
-.nav-link:active {
-  outline: none;
-  background: transparent;
-}
+
 
 .nav-link:hover {
   color: #FFC107;
