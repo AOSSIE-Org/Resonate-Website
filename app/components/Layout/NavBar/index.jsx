@@ -15,12 +15,19 @@ const Navbar = () => {
 
    // Scroll to footer and close mobile menu
   const scrollToFooter = () => {
-    const footer = document.getElementById("footer");
-    if (footer) {
-      footer.scrollIntoView({ behavior: "smooth" });
-    }
-    setOpen(false);
-  };
+  const footer = document.getElementById("footer");
+  if (!footer) return;
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  footer.scrollIntoView({
+    behavior: prefersReducedMotion ? "auto" : "smooth",
+  });
+
+  setOpen(false);
+};
 
   // Close menu when a link is clicked
   const handleLinkClick = () => setOpen(false);
