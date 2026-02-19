@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-
-// Components
 import Hero from "./components/Hero/Hero";
 import Features from "./components/Features/Features";
 import TechStack from "./components/TechStack/TechStack";
 import About from "./components/About/About";
 import DownloadApp from "./components/DownloadApp/DownloadApp";
+import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -210,6 +210,34 @@ export default function Home() {
         "-=0.4",
       );
 
+      const initLoading = async () => {
+      const navbar = document.getElementById("navbar-container");
+      const footer = document.getElementById("footer-container");
+      if (navbar) navbar.classList.add("hidden");
+      if (footer) footer.classList.add("hidden");
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      const images = Array.from(document.images);
+      await Promise.all(
+        images.map(
+          (img) =>
+            new Promise((resolve) => {
+              if (img.complete) resolve();
+              else {
+                img.onload = resolve;
+                img.onerror = resolve;
+              }
+            })
+        )
+      );
+      
+      setIsLoading(false);
+      if (navbar) navbar.classList.remove("hidden");
+      if (footer) footer.classList.remove("hidden");
+    };
+
+    initLoading();
+
     return () => {
       isActive = false;
       if (rafId != null) {
@@ -219,6 +247,10 @@ export default function Home() {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="App">

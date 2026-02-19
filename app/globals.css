@@ -24,3 +24,8 @@ code {
   display: flex;
   flex-direction: column;
 }
+
+#navbar-container.hidden,
+#footer-container.hidden {
+  display: none !important;
+}

@@ -1,0 +1,143 @@
+.loading-container {
+  min-height: 100vh;
+  background: #ffffff;
+  padding: 4rem 20px;
+}
+
+.skeleton-hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+
+.skeleton-image {
+  flex: 1;
+  min-width: 300px;
+  height: 500px;
+  background: linear-gradient(90deg,
+      #f0f0f0 25%,
+      #e0e0e0 50%,
+      #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 20px;
+}
+
+.skeleton-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.skeleton-line {
+  height: 24px;
+  background: linear-gradient(90deg,
+      #f0f0f0 25%,
+      #e0e0e0 50%,
+      #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.skeleton-title {
+  height: 48px;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.skeleton-subtitle {
+  height: 32px;
+  width: 60%;
+  margin-bottom: 20px;
+}
+
+.skeleton-text {
+  height: 20px;
+  width: 90%;
+  margin-bottom: 12px;
+}
+
+.skeleton-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.skeleton-button {
+  height: 48px;
+  width: 180px;
+  background: linear-gradient(90deg,
+      #f0f0f0 25%,
+      #e0e0e0 50%,
+      #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+.skeleton-features {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.skeleton-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.skeleton-feature-image {
+  flex: 1;
+  min-width: 300px;
+  height: 300px;
+  background: linear-gradient(90deg,
+      #f0f0f0 25%,
+      #e0e0e0 50%,
+      #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 16px;
+}
+
+.skeleton-feature-text {
+  flex: 1;
+  min-width: 300px;
+  height: 40px;
+  background: linear-gradient(90deg,
+      #f0f0f0 25%,
+      #e0e0e0 50%,
+      #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .skeleton-hero {
+    flex-direction: column;
+  }
+
+  .skeleton-feature-item {
+    flex-direction: column;
+  }
+}
