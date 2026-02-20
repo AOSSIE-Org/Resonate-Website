@@ -149,3 +149,22 @@
     margin: 0 auto;
   }
 }
+/* moblie spacing improvements for hero section */
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .hero-content h1 {
+    margin-bottom: 1rem;
+  }
+
+  .hero-content p {
+    margin-bottom: 1rem;
+  }
+
+  .hero-buttons {
+    margin-top: 1rem;
+    gap:0.75rem;
+  }
+}
