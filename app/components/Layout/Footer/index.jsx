@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.css";
-import { FaLinkedinIn, FaGithub } from "react-icons/fa";
+import { FaLinkedinIn, FaGithub, FaYoutube } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 
 const Footer = () => {
@@ -34,6 +34,14 @@ const Footer = () => {
             aria-label="LinkedIn"
           >
             <FaLinkedinIn />
+          </a>
+          <a
+            href="https://www.youtube.com/@AOSSIE-Org"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+          >
+            <FaYoutube />
           </a>
         </div>
       </div>
