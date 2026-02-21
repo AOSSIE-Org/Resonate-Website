@@ -216,6 +216,10 @@ export default function Home() {
         cancelAnimationFrame(rafId);
       }
       lenis.destroy();
+      heroTl.kill();
+      techStackTl.kill();
+      aboutTl.kill();
+      downloadTl.kill();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
