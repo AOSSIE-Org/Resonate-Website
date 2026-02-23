@@ -3,8 +3,34 @@ import AossieLogo from "../../assets/aossie_logo.png";
 import { SiGitlab } from "react-icons/si";
 import { FaEnvelope, FaGithub, FaDiscord } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import { useSkeletonLoading } from "../Skeleton/useSkeletonLoading";
+import { SkeletonCircle, SkeletonTitle, SkeletonText, SkeletonIcon } from "../Skeleton";
 
 const About = () => {
+  const isLoading = useSkeletonLoading();
+
+  if (isLoading) {
+    return (
+      <section className="about">
+        <div className="about-container">
+          <div className="about-logo">
+            <SkeletonCircle size={120} />
+          </div>
+          <div className="about-content">
+            <SkeletonTitle style={{ width: "250px" }} />
+            <SkeletonText lines={4} />
+            <div className="social-links">
+              <SkeletonIcon />
+              <SkeletonIcon />
+              <SkeletonIcon />
+              <SkeletonIcon />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="about">
       <div className="about-container">

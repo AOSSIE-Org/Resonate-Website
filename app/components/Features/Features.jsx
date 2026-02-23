@@ -3,6 +3,8 @@ import featureImage1 from "../../assets/roomscreen.png";
 import featureImage2 from "../../assets/createrooms.png";
 import featureImage3 from "../../assets/pairchat.png";
 import featureImage4 from "../../assets/chatscreen.png";
+import { useSkeletonLoading } from "../Skeleton/useSkeletonLoading";
+import { SkeletonImage, SkeletonText } from "../Skeleton";
 
 const featuresData = [
   {
@@ -34,6 +36,26 @@ const featuresData = [
 ];
 
 const Features = () => {
+  const isLoading = useSkeletonLoading();
+
+  const featureSkeletons = [1, 2, 3, 4].map((id) => (
+    <div
+      key={id}
+      className={`feature-item ${id % 2 === 0 ? "reverse" : ""}`}
+    >
+      <div className="feature-image">
+        <SkeletonImage aspectRatio="4/3" />
+      </div>
+      <div className="feature-content">
+        <SkeletonText lines={2} />
+      </div>
+    </div>
+  ));
+
+  if (isLoading) {
+    return <section className="features">{featureSkeletons}</section>;
+  }
+
   return (
     <section className="features">
       {featuresData.map((feature) => (

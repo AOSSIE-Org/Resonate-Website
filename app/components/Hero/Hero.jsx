@@ -2,8 +2,42 @@ import "./Hero.css";
 import { FaGithub, FaArrowRight } from "react-icons/fa";
 import phoneImage from "../../assets/resonate_app.png";
 import Image from "next/image";
+import { useSkeletonLoading } from "../Skeleton/useSkeletonLoading";
+import {
+  SkeletonImage,
+  SkeletonTitle,
+  SkeletonText,
+  SkeletonButton,
+} from "../Skeleton";
 
 const Hero = () => {
+  const isLoading = useSkeletonLoading();
+
+  if (isLoading) {
+    return (
+      <section className="hero">
+        <div className="hero-container">
+          <div className="hero-image">
+            <SkeletonImage aspectRatio="3/4" />
+          </div>
+          <div className="hero-content">
+            <div className="yellow-gradient-bg"></div>
+            <SkeletonTitle />
+            <SkeletonTitle style={{ width: "40%", height: "1.2em" }} />
+            <SkeletonText lines={2} />
+            <div className="hero-buttons">
+              <SkeletonButton />
+              <SkeletonButton />
+            </div>
+          </div>
+        </div>
+        <div className="hero-description-container">
+          <SkeletonText lines={3} />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="hero">
       <div className="hero-container">
