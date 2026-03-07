@@ -36,6 +36,11 @@
   --button-primary-hover-bg: var(--color-neutral-50);
   --button-primary-hover-border: #121212;
   --button-subtle-bg: #9797971e;
+
+  /* Background Tile Colors */
+  --tile-bg: rgba(227, 226, 246);
+  --tile-stroke: rgba(80, 80, 80, 0.1);
+  --line-color: rgba(0, 0, 0, 0.05);
 }
 
 /* DARK MODE */
@@ -64,6 +69,11 @@
   --button-primary-hover-bg: var(--color-neutral-100);
   --button-primary-hover-border: var(--color-neutral-100);
   --button-subtle-bg: #bbbbbb0e;
+
+  /* Background Tile Colors */
+  --tile-bg: rgba(30, 29, 28);
+  --tile-stroke: rgba(80, 80, 80, 0.5);
+  --line-color: rgba(0, 0, 0, 0.2);
 }
 
 /* --- GLOBAL STYLES --- */
@@ -97,4 +107,3 @@ body {
 :is(.dark .theme-icon) {
   filter: invert(1) brightness(100);
 }
-
