@@ -4,6 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "../ui/theme-toggle";
+import dynamic from "next/dynamic";
+
+const LanguageSwitcher = dynamic(() => import("../ui/LanguageSwitcher"), {
+  ssr: false,
+});
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -105,7 +110,10 @@ export function Navbar() {
             <NavLink href="https://aossie.org" external>
               Aossie
             </NavLink>
-            <ThemeToggle />
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              {/* <LanguageSwitcher /> */}
+            </div>
           </div>
           <div className="relative h-6 w-6">
             <svg
@@ -212,8 +220,11 @@ export function Navbar() {
             </MobileNavLink>
 
             {/* UPDATED: Make entire row clickable */}
-            <div className="pt-3 sm:pt-4 border-t border-default mt-2">
+            <div className="pt-3 sm:pt-4 border-t border-default mt-2 flex flex-col gap-3">
               <ThemeToggle isMobile />
+              {/* <div className="w-full">
+                <LanguageSwitcher />
+              </div> */}
             </div>
 
             <Link
