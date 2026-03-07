@@ -2,5 +2,33 @@
   "Home": {
     "title": "रेज़ोनेट वेबसाइट",
     "subtitle": "विज़ुअल बदलाव पर काम चल रहा है..."
+  },
+  "Footer": {
+    "Resources": {
+      "title": "संसाधन",
+      "links": {
+        "website": "रेज़ोनेट वेबसाइट",
+        "app": "रेज़ोनेट ऐप",
+        "backend": "रेज़ोनेट बैकएंड"
+      }
+    },
+    "AboutUs": {
+      "title": "हमारे बारे में",
+      "links": {
+        "aossie": "AOSSIE (ओसी)",
+        "otherProjects": "अन्य प्रोजेक्ट्स"
+      }
+    },
+    "Social": {
+      "title": "सोशल",
+      "links": {
+        "discord": "डिस्कॉर्ड",
+        "youtube": "यूट्यूब",
+        "twitter": "एक्स (ट्विटर)",
+        "linkedin": "लिंक्डइन"
+      }
+    },
+    "copyright": "© 2026 रेज़ोनेट",
+    "madeWith": "AOSSIE समुदाय द्वारा 🤍 से निर्मित"
   }
 }

@@ -40,7 +40,11 @@
   /* Background Tile Colors */
   --tile-bg: rgb(227, 226, 246);
   --tile-stroke: rgb(80, 80, 80, 0.1);
-  --line-color: rgb(0, 0, 0, 0.05);
+  --line-color: rgb(0, 0, 0, 0.03);
+
+  /* Footer Colors */
+  --footer-headings: rgb(0, 0, 0, 0.9);
+  --footer-text: rgb(0, 0, 0, 0.75);
 }
 
 /* DARK MODE */
@@ -73,7 +77,12 @@
   /* Background Tile Colors */
   --tile-bg: rgb(30, 29, 28);
   --tile-stroke: rgb(80, 80, 80, 0.5);
-  --line-color: rgb(0, 0, 0, 0.2);}
+  --line-color: rgb(0, 0, 0, 0.12);
+
+  /* Footer Colors */
+  --footer-headings: rgb(255, 255, 255);
+  --footer-text: rgb(255, 255, 255, 0.5);
+}
 
 /* --- GLOBAL STYLES --- */
 body {
