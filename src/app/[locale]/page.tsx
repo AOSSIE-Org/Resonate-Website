@@ -1,6 +1,5 @@
 'use client';
 
-import BackgroundTile from '@/components/ui/BackgroundTile';
 import { useTranslations } from 'next-intl';
 
 import dynamic from 'next/dynamic';

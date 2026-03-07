@@ -52,9 +52,7 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
       canvas.height = canvas.offsetHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
-    setSize();
-    const ro = new ResizeObserver(setSize);
-    ro.observe(canvas);
+    setSize(); // initial sizing before first render
 
     // ── render one frame ──────────────────────────────────────────────
     const render = () => {
@@ -94,7 +92,13 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
         );
       }
 
-      ctx.strokeStyle = lineColorRef.current;  // ← cached, not computed per-frame
+      const gradient = ctx.createLinearGradient(0, 0, w, 0);
+      gradient.addColorStop(0,    "transparent");
+      gradient.addColorStop(0.12, lineColorRef.current);
+      gradient.addColorStop(0.88, lineColorRef.current);
+      gradient.addColorStop(1,    "transparent");
+
+      ctx.strokeStyle = gradient;
       ctx.lineWidth   = 14;
       ctx.lineJoin    = "round";
       ctx.lineCap     = "round";
@@ -102,6 +106,10 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
     };
 
     render(); // initial flat line
+
+    // ── ResizeObserver — registered after render() is defined ─────────
+    const ro = new ResizeObserver(() => { setSize(); render(); });
+    ro.observe(canvas);
 
     // ── loop — only alive while scrolling ─────────────────────────────
     const tick = () => {
@@ -148,19 +156,26 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
     };
 
     // ── scroll / wheel ─────────────────────────────────────────────────
-    const onWheel = (e: WheelEvent) => {
-      const vel      = Math.min(Math.abs(e.deltaY) / 60, 1);
-      ampRef.current = 0.18 + vel * 0.74;
+    let lastWheelTime = 0;
+
+    const triggerScroll = (amp: number) => {
+      ampRef.current = amp;
       startLoop();
       if (stopTimer.current) clearTimeout(stopTimer.current);
       stopTimer.current = setTimeout(stopLoop, 80);
     };
 
+    const onWheel = (e: WheelEvent) => {
+      lastWheelTime = Date.now();
+      const vel = Math.min(Math.abs(e.deltaY) / 60, 1);
+      triggerScroll(0.18 + vel * 0.74);
+    };
+
     const onScroll = () => {
-      ampRef.current = 0.55;
-      startLoop();
-      if (stopTimer.current) clearTimeout(stopTimer.current);
-      stopTimer.current = setTimeout(stopLoop, 80);
+      // Suppress if a wheel event fired within the last 100 ms — wheel already
+      // set a velocity-based amplitude that's more accurate than the fallback.
+      if (Date.now() - lastWheelTime < 100) return;
+      triggerScroll(0.55);
     };
 
     window.addEventListener("wheel",  onWheel,  { passive: true });
