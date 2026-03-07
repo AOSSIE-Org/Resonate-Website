@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 
 // Stable random values generated once at module level — fixes "impure function in render" warning
@@ -10,13 +12,14 @@ interface BackgroundTileProps {
 }
 
 const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
-  const canvasRef   = useRef<HTMLCanvasElement>(null);
-  const rafRef      = useRef<number | null>(null);
-  const isRunning   = useRef(false);
-  const timeRef     = useRef(0);
-  const ampRef      = useRef(0);      // target amplitude
-  const ampSmoothed = useRef(0);      // smoothed amplitude (what's actually rendered)
-  const stopTimer   = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const canvasRef    = useRef<HTMLCanvasElement>(null);
+  const rafRef       = useRef<number | null>(null);
+  const lineColorRef = useRef<string>("");
+  const isRunning    = useRef(false);
+  const timeRef      = useRef(0);
+  const ampRef       = useRef(0);      // target amplitude
+  const ampSmoothed  = useRef(0);      // smoothed amplitude (what's actually rendered)
+  const stopTimer    = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -24,6 +27,23 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+
+    // ── cache line color, refresh on theme changes ────────────────────
+    const updateLineColor = () => {
+      lineColorRef.current = getComputedStyle(document.documentElement)
+        .getPropertyValue("--line-color")
+        .trim();
+    };
+    updateLineColor();
+
+    const themeObserver = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (m.attributeName === "class" || m.attributeName === "data-theme") {
+          updateLineColor();
+        }
+      }
+    });
+    themeObserver.observe(document.documentElement, { attributes: true });
 
     // ── resize ────────────────────────────────────────────────────────
     const setSize = () => {
@@ -74,7 +94,7 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
         );
       }
 
-      ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue("--line-color").trim();
+      ctx.strokeStyle = lineColorRef.current;  // ← cached, not computed per-frame
       ctx.lineWidth   = 14;
       ctx.lineJoin    = "round";
       ctx.lineCap     = "round";
@@ -145,16 +165,15 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
 
     window.addEventListener("wheel",  onWheel,  { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
-    canvas.addEventListener("wheel",  onWheel,  { passive: true });
 
     return () => {
       stopLoop();
       ro.disconnect();
+      themeObserver.disconnect();
       if (rafRef.current)    cancelAnimationFrame(rafRef.current);
       if (stopTimer.current) clearTimeout(stopTimer.current);
       window.removeEventListener("wheel",  onWheel);
       window.removeEventListener("scroll", onScroll);
-      canvas.removeEventListener("wheel",  onWheel);
     };
   }, []);
 
@@ -165,10 +184,10 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
         border:       "0.8px solid var(--tile-stroke, rgba(255,255,255,0.08))",
         borderRadius: "24px",
         width:        "100%",
-        height:       `${heightVh}vh`,
         overflow:     "hidden",
         position:     "relative",
       }}
+      className="w-full h-full"
     >
       <canvas
         ref={canvasRef}

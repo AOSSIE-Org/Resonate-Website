@@ -2,5 +2,33 @@
   "Home": {
     "title": "Resonate Website",
     "subtitle": "Visual Overhaul in Progress..."
+  },
+  "Footer": {
+    "Resources": {
+      "title": "Resources",
+      "links": {
+        "website": "Resonate Website",
+        "app": "Resonate App",
+        "backend": "Resonate Backend"
+      }
+    },
+    "AboutUs": {
+      "title": "About Us",
+      "links": {
+        "aossie": "AOSSIE",
+        "otherProjects": "Other Projects"
+      }
+    },
+    "Social": {
+      "title": "Social",
+      "links": {
+        "discord": "Discord",
+        "youtube": "YouTube",
+        "twitter": "X (Twitter)",
+        "linkedin": "LinkedIn"
+      }
+    },
+    "copyright": "© 2026 Resonate",
+    "madeWith": "Made with 🤍 by AOSSIE Community"
   }
 }
