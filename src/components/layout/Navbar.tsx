@@ -2,13 +2,180 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ThemeToggle } from "../ui/theme-toggle";
+import { useRouter, usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 
 const LanguageSwitcher = dynamic(() => import("../ui/LanguageSwitcher"), {
   ssr: false,
 });
+
+const LANGUAGES = [
+  { code: "en", label: "English", short: "EN" },
+  { code: "hi", label: "हिन्दी", short: "HI" },
+];
+
+function LanguageDropdown({ isMobile = false }: { isMobile?: boolean }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Derive current locale from pathname; default to "en"
+  const currentLocale =
+    LANGUAGES.find((l) => pathname?.startsWith(`/${l.code}`))?.code ?? "en";
+  const current = LANGUAGES.find((l) => l.code === currentLocale)!;
+
+  // Close on outside click
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  function switchLocale(code: string) {
+    // Replace the locale segment in the pathname
+    const segments = pathname?.split("/") ?? [];
+    if (LANGUAGES.some((l) => l.code === segments[1])) {
+      segments[1] = code;
+    } else {
+      segments.splice(1, 0, code);
+    }
+    router.push(segments.join("/") || `/${code}`);
+    setOpen(false);
+  }
+
+  if (isMobile) {
+    return (
+      <div ref={ref} className="relative w-full">
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="flex items-center justify-between w-full px-4 py-2.5 rounded-full border border-default bg-surface text-sm font-medium text-primary hover:bg-(--hover-background) transition-colors"
+          aria-haspopup="listbox"
+          aria-expanded={open}
+        >
+          <span className="flex items-center gap-2">
+            <GlobeIcon />
+            {current.label}
+          </span>
+          <ChevronIcon open={open} />
+        </button>
+
+        {open && (
+          <div className="absolute left-0 right-0 mt-2 rounded-2xl border border-default bg-surface shadow-lg z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150" style={{ backgroundColor: 'var(--background, white)' }}>
+            {LANGUAGES.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => switchLocale(lang.code)}
+                className={`flex items-center justify-between w-full px-4 py-3 text-sm font-medium transition-colors hover:bg-(--hover-background) ${
+                  lang.code === currentLocale
+                    ? "text-primary"
+                    : "text-muted"
+                }`}
+              >
+                <span>{lang.label}</span>
+                {lang.code === currentLocale && <CheckIcon />}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Desktop
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1.5 h-9 xl:h-10 px-3 xl:px-4 rounded-full border border-default bg-surface text-sm font-medium text-muted hover:text-primary hover:bg-(--hover-background) transition-colors whitespace-nowrap"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        <GlobeIcon />
+        <span>{current.short}</span>
+        <ChevronIcon open={open} />
+      </button>
+
+      {open && (
+        <div className="absolute right-0 mt-2 w-36 rounded-2xl border border-default bg-surface shadow-lg z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150" style={{ backgroundColor: 'var(--background, white)' }}>
+          {LANGUAGES.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => switchLocale(lang.code)}
+              className={`flex items-center justify-between w-full px-4 py-2.5 text-sm font-medium transition-colors hover:bg-(--hover-background) ${
+                lang.code === currentLocale ? "text-primary" : "text-muted"
+              }`}
+            >
+              <span>{lang.label}</span>
+              {lang.code === currentLocale && <CheckIcon />}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Small reusable icons
+function GlobeIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="shrink-0"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    </svg>
+  );
+}
+
+function ChevronIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M20 6L9 17l-5-5" />
+    </svg>
+  );
+}
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,16 +185,13 @@ export function Navbar() {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    // Trigger initial animation
     const timer = setTimeout(() => {
       setHasAnimatedIn(true);
     }, 100);
 
-    // Handle scroll detection and progress
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Calculate scroll progress
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
@@ -37,7 +201,6 @@ export function Navbar() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    // Call once on mount to set initial state
     handleScroll();
 
     return () => {
@@ -49,8 +212,8 @@ export function Navbar() {
   const shouldShowNavContent = !isScrolled || isNavHovered;
 
   return (
-    <header className="fixed top-4 lg:top-0 left-0 right-0 z-50 mx-4 sm:mx-8 lg:mx-16 xl:mx-48 border-[0.6px] border-default rounded-2xl  lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300">
-      <div className="mx-auto flex py-3 sm:py-4 items-center justify-between px-4 sm:px-6 lg:px-9">
+    <header className="fixed top-4 lg:top-0 left-0 right-0 z-50 mx-4 sm:mx-8 lg:mx-16 xl:mx-48 border-[0.6px] border-default rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300">
+      <div className="mx-auto flex lg:grid lg:grid-cols-[1fr_auto_1fr] py-3 sm:py-4 items-center justify-between lg:justify-normal px-4 sm:px-6 lg:px-9">
         {/* LEFT: Logo */}
         <Link
           href="#"
@@ -61,7 +224,6 @@ export function Navbar() {
           className="flex items-center gap-3 transition-opacity hover:opacity-80 cursor-pointer"
         >
           <div className="relative">
-            {/* FIXED: Added 'theme-icon' class */}
             <Image
               src="/assets/icons/resonate_logo.svg"
               alt="Resonate Logo"
@@ -112,7 +274,6 @@ export function Navbar() {
             </NavLink>
             <div className="flex items-center gap-2">
               <ThemeToggle />
-              {/* <LanguageSwitcher /> */}
             </div>
           </div>
           <div className="relative h-6 w-6">
@@ -123,7 +284,6 @@ export function Navbar() {
               fill="none"
               className="h-full w-full icon-secondary transition-all duration-500"
             >
-              {/* Background circle */}
               <circle
                 cx="12"
                 cy="12"
@@ -133,7 +293,6 @@ export function Navbar() {
                 opacity="0.2"
                 fill="none"
               />
-              {/* Progress circle */}
               <circle
                 cx="12"
                 cy="12"
@@ -145,16 +304,17 @@ export function Navbar() {
                 strokeDashoffset={62.83 - (62.83 * scrollProgress) / 100}
                 strokeLinecap="round"
                 transform="rotate(-90 12 12)"
-                style={{
-                  transition: "stroke-dashoffset 0.1s ease-out",
-                }}
+                style={{ transition: "stroke-dashoffset 0.1s ease-out" }}
               />
             </svg>
           </div>
         </nav>
 
         {/* RIGHT: Actions */}
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-3 justify-end">
+          {/* Language Switcher */}
+          <LanguageDropdown />
+
           <Link
             href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
             target="_blank"
@@ -165,14 +325,14 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* MOBILE TOGGLE - Hamburger Menu */}
+        {/* MOBILE TOGGLE */}
+        <div className="lg:hidden flex justify-end">
         <button
-          className="lg:hidden p-1.5 text-primary hover:bg-(--hover-background) rounded-lg transition-colors"
+          className="p-1.5 text-primary hover:bg-(--hover-background) rounded-lg transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
-            // Close Icon with theme-icon
             <Image
               src="/assets/icons/close.svg"
               alt="Close"
@@ -181,7 +341,6 @@ export function Navbar() {
               className="h-5 xl:h-6 w-auto icon-secondary theme-icon"
             />
           ) : (
-            // Menu Icon with theme-icon
             <Image
               src="/assets/icons/menu.svg"
               alt="Menu"
@@ -191,6 +350,7 @@ export function Navbar() {
             />
           )}
         </button>
+        </div>
       </div>
 
       {/* MOBILE MENU DROPDOWN */}
@@ -219,12 +379,10 @@ export function Navbar() {
               AOSSIE
             </MobileNavLink>
 
-            {/* UPDATED: Make entire row clickable */}
             <div className="pt-3 sm:pt-4 border-t border-default mt-2 flex flex-col gap-3">
               <ThemeToggle isMobile />
-              {/* <div className="w-full">
-                <LanguageSwitcher />
-              </div> */}
+              {/* Language Switcher — mobile */}
+              <LanguageDropdown isMobile />
             </div>
 
             <Link
@@ -243,7 +401,6 @@ export function Navbar() {
   );
 }
 
-// Helper Components
 function NavLink({
   href,
   children,
