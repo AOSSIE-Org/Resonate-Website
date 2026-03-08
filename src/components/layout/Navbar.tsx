@@ -4,12 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { ThemeToggle } from "../ui/theme-toggle";
-import { useRouter, usePathname } from "next/navigation";
-import dynamic from "next/dynamic";
-
-const LanguageSwitcher = dynamic(() => import("../ui/LanguageSwitcher"), {
-  ssr: false,
-});
+import { useRouter, usePathname } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 
 const LANGUAGES = [
   { code: "en", label: "English", short: "EN" },
@@ -19,13 +15,10 @@ const LANGUAGES = [
 function LanguageDropdown({ isMobile = false }: { isMobile?: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
+  const currentLocale = useLocale() ?? "en";
+  const current = LANGUAGES.find((l) => l.code === currentLocale) ?? LANGUAGES[0];
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  // Derive current locale from pathname; default to "en"
-  const currentLocale =
-    LANGUAGES.find((l) => pathname?.startsWith(`/${l.code}`))?.code ?? "en";
-  const current = LANGUAGES.find((l) => l.code === currentLocale)!;
+  const ref = useRef<HTMLDivElement>(null);;
 
   // Close on outside click
   useEffect(() => {
@@ -39,14 +32,7 @@ function LanguageDropdown({ isMobile = false }: { isMobile?: boolean }) {
   }, []);
 
   function switchLocale(code: string) {
-    // Replace the locale segment in the pathname
-    const segments = pathname?.split("/") ?? [];
-    if (LANGUAGES.some((l) => l.code === segments[1])) {
-      segments[1] = code;
-    } else {
-      segments.splice(1, 0, code);
-    }
-    router.push(segments.join("/") || `/${code}`);
+    router.replace(pathname, { locale: code });
     setOpen(false);
   }
 
