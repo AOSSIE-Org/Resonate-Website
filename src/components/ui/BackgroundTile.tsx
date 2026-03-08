@@ -199,10 +199,10 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
         border:       "0.8px solid var(--tile-stroke, rgba(255,255,255,0.08))",
         borderRadius: "24px",
         width:        "100%",
-        height:       `${heightVh}vh`,
         overflow:     "hidden",
         position:     "relative",
       }}
+      className="w-full h-full"
     >
       <canvas
         ref={canvasRef}
