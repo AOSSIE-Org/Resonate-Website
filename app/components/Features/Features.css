@@ -13,6 +13,7 @@
   color: #1a1a1a;
 }
 
+
 .feature-item {
   display: flex;
   align-items: center;
@@ -75,5 +76,9 @@
     text-align: center;
     gap: 2rem;
     margin-bottom: 4rem;
+  }
+  .section-title {
+    font-size: 1.8rem; /* Shrinks the font on mobile */
+    margin-bottom: 2rem;
   }
 }

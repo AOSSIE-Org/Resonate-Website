@@ -3,7 +3,7 @@ import StoreButton from './StoreButton';
 
 const DownloadApp = () => {
   const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.resonate.resonate';
-  const appleStoreUrl = 'https://apps.apple.com/us/app/resonate-app/id15889 resonate';
+
 
   return (
     <section className="download-app-section">
@@ -14,7 +14,7 @@ const DownloadApp = () => {
           <div className="download-actions">
             <div className="store-buttons">
               <StoreButton store="google" url={playStoreUrl} />
-              <StoreButton store="apple" url={appleStoreUrl} />
+              
             </div>
 
             <div className="qr-code-wrapper">
