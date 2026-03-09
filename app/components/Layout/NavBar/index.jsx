@@ -31,13 +31,17 @@ const Navbar = () => {
 
         {/* Hamburger button for mobile */}
         <button
-          className="hamburger"
+          className={`hamburger ${open ? "open" : ""}`}
           onClick={() => setOpen(!open)}
-          aria-label="Toggle navigation"
+          aria-label={open ? "Close navigation" : "Open navigation"}
           aria-expanded={open}
         >
-          ☰
+          <span />
+          <span />
+          <span />
+          
         </button>
+        
 
         {/* Navigation links */}
         <div className={`navbar-links ${open ? "open" : ""}`}>
