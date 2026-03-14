@@ -38,7 +38,7 @@ const Hero = () => {
               rel="noopener noreferrer"
               className="btn btn-primary"
             >
-              Create/Join Room <FaArrowRight />
+              Create or Join a Room <FaArrowRight />
             </a>
             <a
               href="https://github.com/AOSSIE-Org/Resonate"
@@ -55,10 +55,12 @@ const Hero = () => {
       <div className="hero-description-container">
         <p>
           With the rising popularity of social voice platforms such as Clubhouse
-          and Twitter Spaces, it is high time for an Open Source alternative. A
+          and Twitter Spaces, it is high time for an open-source alternative. A
           platform like this would not only enhance credibility within the
           open-source community but also attract more users and foster growth.
-          An engagement platform that is Open Source has the potential to drive
+        </p>
+        <p>
+          An engagement platform that is open-source has the potential to drive
           significant traction and help establish a strong presence.
         </p>
       </div>

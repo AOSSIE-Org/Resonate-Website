@@ -12,7 +12,7 @@ const raleway = Raleway({
 export const metadata = {
   title: "Resonate - Social Voice Platform",
   description:
-    "Resonate is an Open Source social voice platform maintained by AOSSIE. Join rooms, talk to people, and connect with the community.",
+    "Resonate is an open-source social voice platform maintained by AOSSIE. Join rooms, talk to people, and connect with the community.",
   icons: {
     icon: "/resonate_logo_white.svg",
     apple: "/logo192.png",

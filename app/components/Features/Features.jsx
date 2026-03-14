@@ -8,27 +8,31 @@ const featuresData = [
   {
     id: 1,
     title:
-      "Real-time Audio Communication by joining rooms and talking to people.",
+      "Join rooms for real-time audio communication and connect with people.",
     image: featureImage1,
+    alt: "Screenshot of room screen for audio communication",
     align: "left",
   },
   {
     id: 2,
-    title: "Ability to create rooms and moderate speakers and events.",
+    title: "Create rooms and moderate speakers and events.",
     image: featureImage2,
+    alt: "Interface for creating rooms",
     align: "right",
   },
   {
     id: 3,
     title:
-      "Pair chatting to enable users to find random partners to talk to in the app.",
+      "Use pair chatting to find random partners for conversations in the app.",
     image: featureImage3,
+    alt: "Pair chatting feature interface",
     align: "left",
   },
   {
     id: 4,
-    title: "Real-time messaging",
+    title: "Send real-time messages within conversations.",
     image: featureImage4,
+    alt: "Chat screen for real-time messaging",
     align: "right",
   },
 ];
@@ -46,7 +50,7 @@ const Features = () => {
           <div className="feature-image">
             <img
               src={feature.image.src}
-              alt={`Feature ${feature.id}`}
+              alt={feature.alt}
               width={400}
               height={300}
             />
