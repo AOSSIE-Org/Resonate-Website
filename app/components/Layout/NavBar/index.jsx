@@ -34,19 +34,20 @@ const Navbar = () => {
 
         {/* Hamburger button for mobile */}
        <button
+          type="button"
           className={`hamburger ${open ? "open" : ""}`}
           onClick={handleToggleMenu}
           aria-label="Toggle navigation"
           aria-expanded={open}
+          aria-controls="navbar-links"
         >
           <span />
           <span />
           <span />
         </button>
-        
 
         {/* Navigation links */}
-        <div className={`navbar-links ${open ? "open" : ""}`}>
+        <div id="navbar-links" className={`navbar-links ${open ? "open" : ""}`}>
           <a
             href="https://aossie.org"
             target="_blank"
