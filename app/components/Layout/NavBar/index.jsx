@@ -33,8 +33,8 @@ const Navbar = () => {
         </div>
 
         {/* Hamburger button for mobile */}
-        <button
-          className="hamburger"
+       <button
+          className={`hamburger ${open ? "open" : ""}`}
           onClick={handleToggleMenu}
           aria-label="Toggle navigation"
           aria-expanded={open}
@@ -42,7 +42,6 @@ const Navbar = () => {
           <span />
           <span />
           <span />
-          
         </button>
         
 
