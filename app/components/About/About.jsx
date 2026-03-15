@@ -1,3 +1,4 @@
+import React from "react";
 import "./About.css";
 import AossieLogo from "../../assets/aossie_logo.png";
 import { SiGitlab } from "react-icons/si";
@@ -9,7 +10,7 @@ const About = () => {
     <section className="about">
       <div className="about-container">
         <div className="about-logo">
-          <img src={AossieLogo.src} alt="AOSSIE Logo" />
+          <img src={AossieLogo.src} alt="AOSSIE Logo" draggable={false} />
         </div>
         <div className="about-content">
           <h2>
@@ -46,4 +47,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default React.memo(About);
