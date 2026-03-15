@@ -15,7 +15,6 @@ const DownloadApp = () => {
           <div className="download-actions">
             <div className="store-buttons">
               <StoreButton store="google" url={playStoreUrl} />
-              
             </div>
 
             <div className="qr-code-wrapper">
