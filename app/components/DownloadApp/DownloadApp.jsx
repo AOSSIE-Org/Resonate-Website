@@ -1,3 +1,4 @@
+import React from 'react';
 import './DownloadApp.css';
 import StoreButton from './StoreButton';
 
@@ -33,4 +34,4 @@ const DownloadApp = () => {
   );
 };
 
-export default DownloadApp;
+export default React.memo(DownloadApp);

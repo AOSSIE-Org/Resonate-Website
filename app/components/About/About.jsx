@@ -1,3 +1,4 @@
+import React from "react";
 import "./About.css";
 import AossieLogo from "../../assets/aossie_logo.png";
 import { SiGitlab } from "react-icons/si";
@@ -9,7 +10,7 @@ const About = () => {
     <section className="about">
       <div className="about-container">
         <div className="about-logo">
-          <img src={AossieLogo.src} alt="AOSSIE Logo" />
+          <img src={AossieLogo.src} alt="AOSSIE Logo" draggable={false} />
         </div>
         <div className="about-content">
           <h2>
@@ -24,19 +25,19 @@ const About = () => {
             innovation and education.
           </p>
           <div className="social-links">
-            <a href="mailto:contact@aossie.org">
+            <a href="mailto:contact@aossie.org" aria-label="Email Us">
               <FaEnvelope />
             </a>
-            <a href="https://gitlab.com/aossie">
+            <a href="https://gitlab.com/aossie" aria-label="GitLab">
               <SiGitlab />
             </a>
-            <a href="https://github.com/AOSSIE-Org">
+            <a href="https://github.com/AOSSIE-Org" aria-label="GitHub">
               <FaGithub />
             </a>
-            <a href="https://discord.com/invite/MMZBadkYFm">
+            <a href="https://discord.com/invite/MMZBadkYFm" aria-label="Discord">
               <FaDiscord />
             </a>
-            <a href="https://x.com/aossie_org">
+            <a href="https://x.com/aossie_org" aria-label="Twitter">
               <BsTwitterX />
             </a>
           </div>
@@ -46,4 +47,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default React.memo(About);

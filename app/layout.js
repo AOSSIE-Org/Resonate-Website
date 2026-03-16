@@ -14,8 +14,8 @@ export const metadata = {
   description:
     "Resonate is an Open Source social voice platform maintained by AOSSIE. Join rooms, talk to people, and connect with the community.",
   icons: {
-    icon: "/resonate_logo_white.svg",
-    apple: "/logo192.png",
+    icon: "/resonate_logo_white.png",
+    apple: "/resonate_logo_white.png",
   },
   manifest: "/manifest.json",
   themeColor: "#000000",

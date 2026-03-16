@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "./Footer.css";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
 
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="copyright">&copy; {currentYear}</div>
+        <div className="copyright">&copy; {currentYear} AOSSIE</div>
         <div className="footer-socials">
           <a
             href="https://github.com/AOSSIE-Org"
@@ -41,4 +41,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);
