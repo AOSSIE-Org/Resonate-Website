@@ -13,13 +13,13 @@ import { useEffect, useRef } from "react";
 const PHASES = Array.from({ length: 6 }, () => Math.random() * Math.PI * 2);
 const FREQS  = Array.from({ length: 6 }, (_, i) => 0.3 + i * 0.13);
 
-// SPEED CONFIGURATION
+// ── SPEED CONFIGURATION ───────────────────────────────────────────
 // Change this! 0.5 is subtle, 5.0 is incredibly fast.
 const TRANSLATION_SPEED = 0.75;
 
 // Vertical squiggling speed
 const UNDULATION_SPEED = 0.055;
-//
+// ──────────────────────────────────────────────────────────────────
 
 const BackgroundTile = () => {
   const canvasRef    = useRef<HTMLCanvasElement>(null);
