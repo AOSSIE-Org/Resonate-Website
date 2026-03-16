@@ -231,6 +231,7 @@ mm.add({
         cancelAnimationFrame(rafId);
       }
       lenis.destroy();
+      mm.revert();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
