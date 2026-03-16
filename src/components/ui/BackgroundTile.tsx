@@ -2,24 +2,40 @@
 
 import { useEffect, useRef } from "react";
 
-// Stable random values generated once at module level — fixes "impure function in render" warning
+// Use this component in below shown way and adjust the height according to your use case.
+/*
+    <div className="w-full h-[50vh]">
+      <BackgroundTile />
+    </div>
+*/
+
+// Stable random values generated once at module level
 const PHASES = Array.from({ length: 6 }, () => Math.random() * Math.PI * 2);
 const FREQS  = Array.from({ length: 6 }, (_, i) => 0.3 + i * 0.13);
 
-interface BackgroundTileProps {
-  /** Height of the tile in viewport height units. Defaults to 50. */
-  heightVh?: number;
-}
+// SPEED CONFIGURATION
+// Change this! 0.5 is subtle, 5.0 is incredibly fast.
+const TRANSLATION_SPEED = 0.75;
 
-const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
+// Vertical squiggling speed
+const UNDULATION_SPEED = 0.055;
+//
+
+const BackgroundTile = () => {
   const canvasRef    = useRef<HTMLCanvasElement>(null);
   const rafRef       = useRef<number | null>(null);
   const lineColorRef = useRef<string>("");
   const isRunning    = useRef(false);
   const timeRef      = useRef(0);
-  const ampRef       = useRef(0);      // target amplitude
-  const ampSmoothed  = useRef(0);      // smoothed amplitude (what's actually rendered)
-  const stopTimer    = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const ampRef       = useRef(0);
+  const ampSmoothed  = useRef(0);
+
+  // Forward translation trackers
+  const xOffsetRef    = useRef(0);
+  const targetXSpeed  = useRef(0);
+  const currentXSpeed = useRef(0);
+
+  const stopTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -28,7 +44,6 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // ── cache line color, refresh on theme changes ────────────────────
     const updateLineColor = () => {
       lineColorRef.current = getComputedStyle(document.documentElement)
         .getPropertyValue("--line-color")
@@ -45,16 +60,14 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
     });
     themeObserver.observe(document.documentElement, { attributes: true });
 
-    // ── resize ────────────────────────────────────────────────────────
     const setSize = () => {
       const dpr     = window.devicePixelRatio || 1;
       canvas.width  = canvas.offsetWidth  * dpr;
       canvas.height = canvas.offsetHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
-    setSize(); // initial sizing before first render
+    setSize();
 
-    // ── render one frame ──────────────────────────────────────────────
     const render = () => {
       const w   = canvas.offsetWidth;
       const h   = canvas.offsetHeight;
@@ -63,25 +76,33 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
 
       ctx.clearRect(0, 0, w, h);
 
-      const N   = 6;
-      const pts = Array.from({ length: N }, (_, i) => {
-        const w1 = Math.sin(t * FREQS[i]        + PHASES[i])        * 0.50;
-        const w2 = Math.sin(t * FREQS[i] * 0.43 + PHASES[i] * 1.77) * 0.30;
-        const w3 = Math.cos(t * FREQS[i] * 0.27 + PHASES[i] * 0.85) * 0.20;
-        return {
-          x: (i / (N - 1)) * w,
+      const N = 6;
+      const spacing = w / (N - 1);
+      const patternWidth = N * spacing;
+
+      const xOffset = ((xOffsetRef.current % patternWidth) + patternWidth) % patternWidth;
+
+      const pts = [];
+      for (let i = -N * 2; i <= N * 2; i++) {
+        const idx = ((i % N) + N) % N;
+        const w1 = Math.sin(t * FREQS[idx]        + PHASES[idx])        * 0.50;
+        const w2 = Math.sin(t * FREQS[idx] * 0.43 + PHASES[idx] * 1.77) * 0.30;
+        const w3 = Math.cos(t * FREQS[idx] * 0.27 + PHASES[idx] * 0.85) * 0.20;
+
+        pts.push({
+          x: i * spacing + xOffset,
           y: h * 0.5 + (w1 + w2 + w3) * h * amp * 0.95,
-        };
-      });
+        });
+      }
 
       ctx.beginPath();
       ctx.moveTo(pts[0].x, pts[0].y);
 
-      for (let i = 0; i < N - 1; i++) {
+      for (let i = 0; i < pts.length - 1; i++) {
         const p0 = pts[Math.max(0, i - 1)];
         const p1 = pts[i];
         const p2 = pts[i + 1];
-        const p3 = pts[Math.min(N - 1, i + 2)];
+        const p3 = pts[Math.min(pts.length - 1, i + 2)];
         const k  = 0.5;
         ctx.bezierCurveTo(
           p1.x + (p2.x - p0.x) * k / 3,
@@ -105,37 +126,35 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
       ctx.stroke();
     };
 
-    render(); // initial flat line
+    render();
 
-    // ── ResizeObserver — registered after render() is defined ─────────
     const ro = new ResizeObserver(() => { setSize(); render(); });
     ro.observe(canvas);
 
-    // ── loop — only alive while scrolling ─────────────────────────────
     const tick = () => {
-      if (!isRunning.current) {
-        // Smoothly finish lerping to the frozen target, then stop
-        const target  = ampRef.current;
-        const current = ampSmoothed.current;
-        ampSmoothed.current += (target - current) * 0.18;
+      // Lerp toward target, then decay target — order matters
+      currentXSpeed.current += (targetXSpeed.current - currentXSpeed.current) * 0.15;
+      targetXSpeed.current  *= 0.85;
+      xOffsetRef.current    += currentXSpeed.current;
 
-        if (Math.abs(ampSmoothed.current - target) > 0.001) {
+      const targetAmp = ampRef.current;
+
+      if (!isRunning.current) {
+        ampSmoothed.current += (targetAmp - ampSmoothed.current) * 0.18;
+
+        if (Math.abs(ampSmoothed.current - targetAmp) > 0.001 || Math.abs(currentXSpeed.current) > 0.01) {
           render();
           rafRef.current = requestAnimationFrame(tick);
         } else {
-          ampSmoothed.current = target; // snap to exact target
+          ampSmoothed.current = targetAmp;
           render();
           rafRef.current = null;
         }
         return;
       }
 
-      timeRef.current += 0.055;
-
-      // Lerp smoothed amp toward target — fast rise
-      const target  = ampRef.current;
-      const current = ampSmoothed.current;
-      ampSmoothed.current += (target - current) * 0.18;
+      timeRef.current     += UNDULATION_SPEED;
+      ampSmoothed.current += (targetAmp - ampSmoothed.current) * 0.18;
 
       render();
       rafRef.current = requestAnimationFrame(tick);
@@ -144,19 +163,16 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
     const startLoop = () => {
       if (!isRunning.current) {
         isRunning.current = true;
-        if (rafRef.current === null) {
-          rafRef.current = requestAnimationFrame(tick);
-        }
+        if (rafRef.current === null) rafRef.current = requestAnimationFrame(tick);
       }
     };
 
     const stopLoop = () => {
-      // Stop animating time — amplitude stays frozen at current ampRef value
       isRunning.current = false;
     };
 
-    // ── scroll / wheel ─────────────────────────────────────────────────
     let lastWheelTime = 0;
+    let lastScrollY   = typeof window !== "undefined" ? window.scrollY : 0;
 
     const triggerScroll = (amp: number) => {
       ampRef.current = amp;
@@ -169,11 +185,23 @@ const BackgroundTile = ({ heightVh = 50 }: BackgroundTileProps) => {
       lastWheelTime = Date.now();
       const vel = Math.min(Math.abs(e.deltaY) / 60, 1);
       triggerScroll(0.18 + vel * 0.74);
+
+      // Direct, readable speed — TRANSLATION_SPEED is 1:1 with px/frame
+      targetXSpeed.current = Math.sign(e.deltaY) * vel * TRANSLATION_SPEED * 8;
+
+      if (rafRef.current === null) rafRef.current = requestAnimationFrame(tick);
     };
 
     const onScroll = () => {
-      // Suppress if a wheel event fired within the last 100 ms — wheel already
-      // set a velocity-based amplitude that's more accurate than the fallback.
+      const currentScrollY = window.scrollY;
+      const deltaY         = currentScrollY - lastScrollY;
+      lastScrollY          = currentScrollY;
+
+      if (Math.abs(deltaY) > 0) {
+        targetXSpeed.current = Math.sign(deltaY) * Math.min(Math.abs(deltaY) / 60, 1) * TRANSLATION_SPEED * 8;
+        if (rafRef.current === null) rafRef.current = requestAnimationFrame(tick);
+      }
+
       if (Date.now() - lastWheelTime < 100) return;
       triggerScroll(0.55);
     };
