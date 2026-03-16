@@ -126,7 +126,7 @@ function LanguageDropdown({ isMobile = false }: { isMobile?: boolean }) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 h-9 xl:h-10 px-3 xl:px-4bg-surface text-sm font-medium text-muted hover:text-primary transition-colors whitespace-nowrap"
+        className="flex items-center gap-1.5 h-9 xl:h-10 px-3 xl:px-4 bg-surface text-sm font-medium text-muted hover:text-primary transition-colors whitespace-nowrap"
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={menuId}
@@ -152,7 +152,7 @@ function LanguageDropdown({ isMobile = false }: { isMobile?: boolean }) {
               role="menuitem"
               onClick={() => switchLocale(lang.code)}
               aria-current={lang.code === currentLocale ? "true" : undefined}
-              className={`flex items-center justify-between w-full px-4 py-2.5 text-sm font-medium transition-colors hover:bg-(--hover-background) focus:outline-none focus:bg-(--hover-background) ${
+              className={`flex items-center justify-between w-full px-4 py-4 text-sm font-medium transition-colors hover:bg-(--hover-background) focus:outline-none ${
                 lang.code === currentLocale ? "text-primary" : "text-muted"
               }`}
             >
@@ -256,7 +256,9 @@ export function Navbar() {
   const shouldShowNavContent = !isScrolled || isNavHovered;
 
   return (
-    <header className="fixed top-4 lg:top-0 left-0 right-0 z-50 mx-4 sm:mx-8 xl:mx-16 2xl:mx-48 border-[0.6px] border-default rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300">
+    <header className="fixed top-4 lg:top-0 left-0 right-0 z-50 mx-4 sm:mx-8 xl:mx-16 2xl:mx-48 border-[0.6px] border-default rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300"
+    onMouseEnter={() => setIsNavHovered(true)}
+    onMouseLeave={() => setIsNavHovered(false)}>
       <div className="mx-auto flex lg:grid lg:grid-cols-[1fr_auto_1fr] py-3 sm:py-4 items-center justify-between lg:justify-normal px-4 sm:px-6 lg:px-9">
         {/* LEFT: Logo */}
         <Link
@@ -290,8 +292,6 @@ export function Navbar() {
           } ${
             shouldShowNavContent ? "gap-4 xl:gap-8 px-3 xl:px-4" : "gap-18 px-3"
           }`}
-          onMouseEnter={() => setIsNavHovered(true)}
-          onMouseLeave={() => setIsNavHovered(false)}
         >
           <Image
             src="/assets/icons/hover_cue.svg"
