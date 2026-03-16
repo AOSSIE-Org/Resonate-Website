@@ -126,7 +126,7 @@ function LanguageDropdown({ isMobile = false }: { isMobile?: boolean }) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 h-9 xl:h-10 px-3 xl:px-4 rounded-full border border-default bg-surface text-sm font-medium text-muted hover:text-primary hover:bg-(--hover-background) transition-colors whitespace-nowrap"
+        className="flex items-center gap-1.5 h-9 xl:h-10 px-3 xl:px-4bg-surface text-sm font-medium text-muted hover:text-primary transition-colors whitespace-nowrap"
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={menuId}
@@ -256,7 +256,7 @@ export function Navbar() {
   const shouldShowNavContent = !isScrolled || isNavHovered;
 
   return (
-    <header className="fixed top-4 lg:top-0 left-0 right-0 z-50 mx-4 sm:mx-8 lg:mx-16 xl:mx-48 border-[0.6px] border-default rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300">
+    <header className="fixed top-4 lg:top-0 left-0 right-0 z-50 mx-4 sm:mx-8 xl:mx-16 2xl:mx-48 border-[0.6px] border-default rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300">
       <div className="mx-auto flex lg:grid lg:grid-cols-[1fr_auto_1fr] py-3 sm:py-4 items-center justify-between lg:justify-normal px-4 sm:px-6 lg:px-9">
         {/* LEFT: Logo */}
         <Link
@@ -307,6 +307,8 @@ export function Navbar() {
                 : "opacity-0 max-w-0 overflow-hidden"
             }`}
           >
+            {/* Language Switcher — now inside the island */}
+            <LanguageDropdown />
             <NavLink href="https://github.com/AOSSIE-Org" external>
               Developers
             </NavLink>
@@ -316,6 +318,7 @@ export function Navbar() {
             <NavLink href="https://aossie.org" external>
               Aossie
             </NavLink>
+            {/* Divider */}
             <div className="flex items-center gap-2">
               <ThemeToggle />
             </div>
@@ -354,11 +357,7 @@ export function Navbar() {
           </div>
         </nav>
 
-        {/* RIGHT: Actions */}
         <div className="hidden lg:flex items-center gap-3 justify-end">
-          {/* Language Switcher */}
-          <LanguageDropdown />
-
           <Link
             href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
             target="_blank"
