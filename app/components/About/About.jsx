@@ -1,3 +1,4 @@
+import React from "react";
 import "./About.css";
 import Image from "next/image";
 import { BsTwitterX } from "react-icons/bs";
@@ -47,4 +48,4 @@ const About = () => {
 	);
 };
 
-export default About;
+export default React.memo(About);

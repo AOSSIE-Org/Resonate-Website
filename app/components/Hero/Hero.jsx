@@ -1,3 +1,4 @@
+import React from "react";
 import "./Hero.css";
 import Image from "next/image";
 import { FaArrowRight, FaGithub } from "react-icons/fa";
@@ -66,4 +67,4 @@ const Hero = () => {
 	);
 };
 
-export default Hero;
+export default React.memo(Hero);

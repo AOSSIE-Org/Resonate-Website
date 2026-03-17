@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./Navbar.css";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import Logo from "@/assets/resonate_logo_white.svg";

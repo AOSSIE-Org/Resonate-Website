@@ -1,3 +1,4 @@
+import React from "react";
 import "./Features.css";
 import Image from "next/image";
 import featureImage4 from "../../assets/chatscreen.png";
@@ -64,4 +65,4 @@ const Features = () => {
 	);
 };
 
-export default Features;
+export default React.memo(Features);
