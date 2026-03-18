@@ -11,10 +11,15 @@
     "react-dom": "^19.2.3",
     "react-icons": "^5.5.0"
   },
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run optimize-images",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "optimize-images": "node scripts/optimize-images.js"
   }
 }
