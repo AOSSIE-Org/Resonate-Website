@@ -1,8 +1,8 @@
 /**
  * Image Optimization Script
  * 
- * Uses Sharp to compress PNG images and generate WebP versions.
- * Automatically discovers all PNG files in the assets directory.
+ * Uses Sharp to compress images (PNG, JPG, JPEG, WebP) and generate WebP versions.
+ * Automatically discovers all supported files in the assets directory.
  * Run with: npm run optimize-images
  */
 
@@ -12,31 +12,35 @@ const path = require('path');
 
 const ASSETS_DIR = path.join(__dirname, '..', 'app', 'assets');
 const PNG_QUALITY = 80;
+const JPG_QUALITY = 80;
 const WEBP_QUALITY = 80;
+const SUPPORTED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.webp'];
+
 // Minimum file size to optimize (skip small icons/logos under 5KB)
 const MIN_FILE_SIZE = 5 * 1024;
 
 /**
- * Dynamically find all PNG files in the assets directory
+ * Dynamically find all supported images in the assets directory
  */
-async function findPngImages() {
+async function findImages() {
     try {
         const files = await fs.promises.readdir(ASSETS_DIR);
-        const pngFiles = [];
+        const images = [];
 
         for (const file of files) {
-            if (file.toLowerCase().endsWith('.png')) {
+            const ext = path.extname(file).toLowerCase();
+            if (SUPPORTED_EXTENSIONS.includes(ext)) {
                 const filePath = path.join(ASSETS_DIR, file);
                 const stats = await fs.promises.stat(filePath);
 
                 // Only include files above minimum size threshold
                 if (stats.size >= MIN_FILE_SIZE) {
-                    pngFiles.push(file);
+                    images.push(file);
                 }
             }
         }
 
-        return pngFiles;
+        return images;
     } catch (error) {
         console.error('Error reading assets directory:', error.message);
         return [];
@@ -72,8 +76,9 @@ function formatBytes(bytes) {
 
 async function optimizeImage(filename) {
     const inputPath = path.join(ASSETS_DIR, filename);
+    const ext = path.extname(filename).toLowerCase();
     const tempPath = path.join(ASSETS_DIR, `temp_${filename}`);
-    const webpPath = path.join(ASSETS_DIR, filename.replace('.png', '.webp'));
+    const webpPath = path.join(ASSETS_DIR, filename.replace(ext, '.webp'));
 
     // Check if file exists
     if (!await fileExists(inputPath)) {
@@ -84,13 +89,26 @@ async function optimizeImage(filename) {
     const originalSize = await getFileSize(inputPath);
 
     try {
-        // Compress PNG
-        await sharp(inputPath)
-            .png({
+        // Prepare optimization pipeline
+        let pipeline = sharp(inputPath);
+        
+        if (ext === '.png') {
+            pipeline = pipeline.png({
                 quality: PNG_QUALITY,
                 compressionLevel: 9
-            })
-            .toFile(tempPath);
+            });
+        } else if (ext === '.jpg' || ext === '.jpeg') {
+            pipeline = pipeline.jpeg({
+                quality: JPG_QUALITY,
+                mozjpeg: true
+            });
+        } else if (ext === '.webp') {
+            pipeline = pipeline.webp({
+                quality: WEBP_QUALITY
+            });
+        }
+
+        await pipeline.toFile(tempPath);
 
         const tempSize = await getFileSize(tempPath);
 
@@ -104,15 +122,19 @@ async function optimizeImage(filename) {
             // Keep original, remove temp file
             await fs.promises.unlink(tempPath);
             compressedSize = originalSize;
-            console.log(`(already optimized) `);
+            process.stdout.write(`(already optimized) `);
         }
 
-        // Generate WebP version
-        await sharp(inputPath)
-            .webp({ quality: WEBP_QUALITY })
-            .toFile(webpPath);
-
-        const webpSize = await getFileSize(webpPath);
+        // Generate WebP version (skip if input is already webp)
+        let webpSize = 0;
+        if (ext !== '.webp') {
+            await sharp(inputPath)
+                .webp({ quality: WEBP_QUALITY })
+                .toFile(webpPath);
+            webpSize = await getFileSize(webpPath);
+        } else {
+            webpSize = compressedSize;
+        }
 
         return {
             filename,
@@ -138,15 +160,15 @@ async function main() {
     console.log('\nImage Optimization Script\n');
     console.log('='.repeat(60));
 
-    // Dynamically find all PNG images in assets directory
-    const imagesToOptimize = await findPngImages();
+    // Dynamically find all supported images in assets directory
+    const imagesToOptimize = await findImages();
 
     if (imagesToOptimize.length === 0) {
-        console.log('No PNG images found to optimize.\n');
+        console.log('No supported images found to optimize.\n');
         return;
     }
 
-    console.log(`Found ${imagesToOptimize.length} PNG images to optimize.\n`);
+    console.log(`Found ${imagesToOptimize.length} images to optimize.\n`);
 
     const results = [];
     let totalOriginal = 0;
