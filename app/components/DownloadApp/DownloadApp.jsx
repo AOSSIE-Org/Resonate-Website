@@ -1,9 +1,10 @@
 import React from 'react';
+import Image from 'next/image';
 import './DownloadApp.css';
 import StoreButton from './StoreButton';
 
 const DownloadApp = () => {
-  const playStoreUrl ='https://play.google.com/store/apps/details?id=com.resonate.resonate';
+  const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.resonate.resonate';
 
   return (
     <section className="download-app-section">
@@ -18,10 +19,12 @@ const DownloadApp = () => {
 
             <div className="qr-code-wrapper">
               <div className="qr-glow-container">
-                <img
+                <Image
                   src="/qr_code.png"
                   alt="Scan to download"
                   className="qr-code-img"
+                  width={200}
+                  height={200}
                 />
               </div>
               <p className="qr-label">Scan to Download</p>

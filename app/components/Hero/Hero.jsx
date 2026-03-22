@@ -1,7 +1,7 @@
 import React from "react";
 import "./Hero.css";
 import { FaGithub, FaArrowRight } from "react-icons/fa";
-import phoneImage from "../../assets/resonate_app.png";
+import phoneImage from "../../assets/resonate_app.webp";
 import Image from "next/image";
 
 const Hero = () => {
