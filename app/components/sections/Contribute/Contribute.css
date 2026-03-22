@@ -1,0 +1,38 @@
+.contribute {
+  padding: 60px 20px;
+  background: #111;
+  color: #fff;
+  text-align: center;
+}
+
+.contribute-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contribute h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.contribute p {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.contribute-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contribute-btn:hover {
+  opacity: 0.85;
+}

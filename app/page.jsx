@@ -11,6 +11,7 @@ import Features from "@/components/sections/Features/Features";
 import TechStack from "@/components/sections/TechStack/TechStack";
 import About from "@/components/sections/About/About";
 import DownloadApp from "@/components/sections/DownloadApp/DownloadApp";
+import Contribute from "@/components/sections/Contribute/Contribute";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -210,6 +211,33 @@ export default function Home() {
         "-=0.4",
       );
 
+    // Contribute Section Animation
+    const contributeTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".contribute",
+        start: "top 80%",
+      },
+    });
+
+    contributeTl
+      .fromTo(
+        ".contribute h2",
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+      )
+      .fromTo(
+        ".contribute p",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+        "-=0.5"
+      )
+      .fromTo(
+        ".contribute-btn",
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.7)" },
+        "-=0.4"
+      );
+
     return () => {
       isActive = false;
       if (rafId != null) {
@@ -227,6 +255,7 @@ export default function Home() {
       <TechStack />
       <About />
       <DownloadApp />
+      <Contribute />
     </div>
   );
 }
