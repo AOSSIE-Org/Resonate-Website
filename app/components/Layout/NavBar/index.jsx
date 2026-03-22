@@ -13,14 +13,22 @@ const Navbar = () => {
     setOpen(false);
   };
 
+  const handleLinkClick = () => {
+    setOpen(false);
+  };
+
   return (
     <nav className="navbar" role="navigation">
       <div className="navbar-container">
         {/* Logo */}
-        <div className="navbar-logo" onClick={scrollToTop}>
+        <button
+          className="navbar-logo"
+          onClick={scrollToTop}
+          aria-label="Go to homepage"
+        >
           <img src={Logo.src} alt="Resonate Logo" className="logo-icon" />
           <span className="logo-text">Resonate</span>
-        </div>
+        </button>
 
         {/* Hamburger */}
         <button
@@ -43,6 +51,7 @@ const Navbar = () => {
                   className="download-btn"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={handleLinkClick}  
                 >
                   {link.name}
                 </a>
@@ -56,6 +65,7 @@ const Navbar = () => {
                 className="nav-link"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={handleLinkClick}  
               >
                 {link.name}
                 {link.external && <FaExternalLinkAlt size={12} />}

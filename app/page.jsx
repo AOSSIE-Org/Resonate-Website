@@ -7,7 +7,7 @@ import Lenis from "lenis";
 
 // Components
 import Hero from "@/components/sections/Hero/Hero";
-import Features from "@/components//sections/Features/Features";
+import Features from "@/components/sections/Features/Features";
 import TechStack from "@/components/sections/TechStack/TechStack";
 import About from "@/components/sections/About/About";
 import DownloadApp from "@/components/sections/DownloadApp/DownloadApp";
