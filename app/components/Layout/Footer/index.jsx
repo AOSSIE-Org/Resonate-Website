@@ -2,39 +2,35 @@ import React from "react";
 import "./Footer.css";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import { SOCIAL_LINKS } from "@/constants/links";
+
+const iconMap = {
+  "GitHub": <FaGithub />,
+  "Twitter/X": <BsTwitterX />,
+  "LinkedIn": <FaLinkedinIn />,
+};
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer">
+    <footer className="footer" role="contentinfo">
       <div className="footer-container">
-        <div className="copyright">&copy; {currentYear}</div>
+        <p className="copyright">&copy; {currentYear}</p>
+
         <div className="footer-socials">
-          <a
-            href="https://github.com/AOSSIE-Org"
-            rel="noopener noreferrer"
-            target="_blank"
-            aria-label="GitHub"
-          >
-            <FaGithub />
-          </a>
-          <a
-            href="https://x.com/aossie_org"
-            rel="noopener noreferrer"
-            target="_blank"
-            aria-label="Twitter/X"
-          >
-            <BsTwitterX />
-          </a>
-          <a
-            href="https://www.linkedin.com/company/aossie"
-            rel="noopener noreferrer"
-            target="_blank"
-            aria-label="LinkedIn"
-          >
-            <FaLinkedinIn />
-          </a>
+          {SOCIAL_LINKS.map((link, index) => (
+            <a
+              key={index}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.name}
+              title={`Visit ${link.name}`}
+            >
+              {iconMap[link.name]}
+            </a>
+          ))}
         </div>
       </div>
     </footer>

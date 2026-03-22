@@ -1,5 +1,5 @@
 import "./About.css";
-import AossieLogo from "../../assets/aossie_logo.png";
+import AossieLogo from "@/assets/aossie_logo.png";
 import { SiGitlab } from "react-icons/si";
 import { FaEnvelope, FaGithub, FaDiscord } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";

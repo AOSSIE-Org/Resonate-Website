@@ -1,8 +1,8 @@
 import "./Features.css";
-import featureImage1 from "../../assets/roomscreen.png";
-import featureImage2 from "../../assets/createrooms.png";
-import featureImage3 from "../../assets/pairchat.png";
-import featureImage4 from "../../assets/chatscreen.png";
+import featureImage1 from "@/assets/roomscreen.png";
+import featureImage2 from "@/assets/createrooms.png";
+import featureImage3 from "@/assets/pairchat.png";
+import featureImage4 from "@/assets/chatscreen.png";
 
 const featuresData = [
   {

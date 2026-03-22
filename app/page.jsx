@@ -6,11 +6,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 
 // Components
-import Hero from "./components/Hero/Hero";
-import Features from "./components/Features/Features";
-import TechStack from "./components/TechStack/TechStack";
-import About from "./components/About/About";
-import DownloadApp from "./components/DownloadApp/DownloadApp";
+import Hero from "@/components/sections/Hero/Hero";
+import Features from "@/components//sections/Features/Features";
+import TechStack from "@/components/sections/TechStack/TechStack";
+import About from "@/components/sections/About/About";
+import DownloadApp from "@/components/sections/DownloadApp/DownloadApp";
 
 gsap.registerPlugin(ScrollTrigger);
 
