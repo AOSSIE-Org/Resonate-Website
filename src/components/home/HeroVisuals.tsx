@@ -3,6 +3,9 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+// Align with Tailwind's md breakpoint (768px)
+const MOBILE_BREAKPOINT = "(max-width: 767px)";
+
 const getMarginX = (viewportWidth: number): number => {
   if (viewportWidth >= 1280) return 192;
   if (viewportWidth >= 1024) return 64;
@@ -14,18 +17,30 @@ export function HeroVisuals() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
   const handRef = useRef<HTMLDivElement>(null);
+
+  // Lazy initializer avoids sync setState inside effect
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
-  // Detect mobile — null until client-side measurement runs
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const mq = window.matchMedia(MOBILE_BREAKPOINT);
+
+    // Set initial value inside effect but via the handler, not synchronously
+    const handler = (e: MediaQueryListEvent | MediaQueryList) =>
+      setIsMobile(e.matches);
+
+    // Pass mq directly to reuse the same handler for initial + change events
+    handler(mq);
+    mq.addEventListener("change", handler as (e: MediaQueryListEvent) => void);
+
+    return () =>
+      mq.removeEventListener(
+        "change",
+        handler as (e: MediaQueryListEvent) => void
+      );
   }, []);
 
   // Smooth animation loop (Lenis-friendly), with RAF cleanup
-  useEffect(() => {
+useEffect(() => {
     if (isMobile !== false) return;
 
     let rafId: number;
@@ -37,10 +52,7 @@ export function HeroVisuals() {
       const rect = sectionRef.current.getBoundingClientRect();
       const vh = window.innerHeight;
 
-      // progress based on viewport
       const target = Math.min(Math.max(1 - rect.bottom / vh, 0), 1);
-
-      // smooth interpolation
       current += (target - current) * 0.1;
 
       const vw = window.innerWidth;
@@ -72,7 +84,7 @@ export function HeroVisuals() {
   // Neutral skeleton — avoids hydration mismatch on first render
   if (isMobile === null) {
     return (
-      <div className="relative w-full max-w-[300px] min-[400px]:max-w-[360px] sm:max-w-[480px] mx-auto min-h-[400px]" />
+      <div className="relative w-full max-w-[300px] min-[400px]:max-w-[360px] md:max-w-[480px] mx-auto min-h-[400px]" />
     );
   }
 
@@ -110,7 +122,7 @@ export function HeroVisuals() {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full max-w-[300px] min-[400px]:max-w-[360px] sm:max-w-[480px] mx-auto"
+      className="relative w-full max-w-[300px] min-[400px]:max-w-[360px] md:max-w-[480px] mx-auto"
     >
       <div
         ref={handRef}
@@ -134,7 +146,7 @@ export function HeroVisuals() {
           transformOrigin: "center bottom",
           willChange: "transform",
           backfaceVisibility: "hidden",
-          transform: "translate3d(0,0,0)",
+          transform: "translate3d(0, 0, 0) rotate(0deg) scale(1)",
           contain: "paint",
         }}
       >
