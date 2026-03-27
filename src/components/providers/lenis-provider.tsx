@@ -9,15 +9,18 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
       lerp: 0.08,
     });
 
+    let rafId: number;
+
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
-      lenis.destroy();
+        cancelAnimationFrame(rafId);
+        lenis.destroy();
     };
   }, []);
 

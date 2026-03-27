@@ -92,9 +92,8 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <LenisProvider>
             <Navbar />
-
+            <LenisProvider>
             <main className="pt-20">
               {children}
             </main>

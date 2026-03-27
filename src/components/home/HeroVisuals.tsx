@@ -14,9 +14,9 @@ export function HeroVisuals() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
   const handRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
-  // Detect mobile
+  // Detect mobile — null until client-side measurement runs
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -24,10 +24,11 @@ export function HeroVisuals() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Smooth animation loop (Lenis-friendly)
+  // Smooth animation loop (Lenis-friendly), with RAF cleanup
   useEffect(() => {
-    if (isMobile) return;
+    if (isMobile !== false) return;
 
+    let rafId: number;
     let current = 0;
 
     const animate = () => {
@@ -55,15 +56,25 @@ export function HeroVisuals() {
       }
 
       if (phoneRef.current) {
-        phoneRef.current.style.transform =
-          `translate3d(${phoneTranslateX}px, ${phoneTranslateY}px, 0) rotate(${phoneRotate}deg)`;
+        phoneRef.current.style.transform = `translate3d(${phoneTranslateX}px, ${phoneTranslateY}px, 0) rotate(${phoneRotate}deg)`;
       }
 
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     };
 
-    animate();
+    rafId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+    };
   }, [isMobile]);
+
+  // Neutral skeleton — avoids hydration mismatch on first render
+  if (isMobile === null) {
+    return (
+      <div className="relative w-full max-w-[300px] min-[400px]:max-w-[360px] sm:max-w-[480px] mx-auto min-h-[400px]" />
+    );
+  }
 
   // Mobile layout (no animation)
   if (isMobile) {
@@ -95,6 +106,7 @@ export function HeroVisuals() {
     );
   }
 
+  // Desktop layout (with scroll animation)
   return (
     <div
       ref={sectionRef}
@@ -116,27 +128,27 @@ export function HeroVisuals() {
       </div>
 
       <div
-  ref={phoneRef}
-  className="absolute top-[0.4%] left-[20%] w-[88%]"
-  style={{
-    transformOrigin: "center bottom",
-    willChange: "transform",
-    backfaceVisibility: "hidden",
-    transform: "translate3d(0,0,0)",
-    contain: "paint"
-  }}
->
-  <div className="w-2/3 overflow-hidden">
-    <Image
-      src="/assets/mockups/phone.webp"
-      alt="Resonate app interface"
-      width={400}
-      height={800}
-      className="w-full h-auto"
-      priority
-    />
-  </div>
-</div>
+        ref={phoneRef}
+        className="absolute top-[0.4%] left-[20%] w-[88%]"
+        style={{
+          transformOrigin: "center bottom",
+          willChange: "transform",
+          backfaceVisibility: "hidden",
+          transform: "translate3d(0,0,0)",
+          contain: "paint",
+        }}
+      >
+        <div className="w-2/3 overflow-hidden">
+          <Image
+            src="/assets/mockups/phone.webp"
+            alt="Resonate app interface"
+            width={400}
+            height={800}
+            className="w-full h-auto"
+            priority
+          />
+        </div>
+      </div>
     </div>
   );
 }
