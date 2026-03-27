@@ -98,3 +98,16 @@ body {
   filter: invert(1) brightness(100);
 }
 
+/* LENIS */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
