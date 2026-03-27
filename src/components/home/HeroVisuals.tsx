@@ -41,45 +41,93 @@ export function HeroVisuals() {
 
   // Smooth animation loop (Lenis-friendly), with RAF cleanup
 useEffect(() => {
-    if (isMobile !== false) return;
+  if (isMobile !== false) return;
 
-    let rafId: number;
-    let current = 0;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
 
-    const animate = () => {
-      if (!sectionRef.current) return;
+  let rafId: number | null = null;
+  let current = 0;
+  let isIntersecting = true;
 
-      const rect = sectionRef.current.getBoundingClientRect();
-      const vh = window.innerHeight;
+  const EPSILON = 0.001;
 
-      const target = Math.min(Math.max(1 - rect.bottom / vh, 0), 1);
-      current += (target - current) * 0.1;
+  // 👉 If reduced motion → set static end state and exit
+  if (prefersReducedMotion) {
+    if (handRef.current) {
+      handRef.current.style.opacity = "0";
+    }
 
+    if (phoneRef.current) {
       const vw = window.innerWidth;
       const maxTranslateX = vw / 2 - getMarginX(vw);
 
-      const handOpacity = Math.max(0, 1 - current * 4);
-      const phoneRotate = current * -10;
-      const phoneTranslateX = Math.min(current * (vw * 0.28), maxTranslateX);
-      const phoneTranslateY = current * 1000;
+      phoneRef.current.style.transform = `translate3d(${maxTranslateX}px, 1000px, 0) rotate(-10deg)`;
+    }
 
-      if (handRef.current) {
-        handRef.current.style.opacity = `${handOpacity}`;
+    return;
+  }
+
+  // 👉 Intersection Observer (pause when off-screen)
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      isIntersecting = entry.isIntersecting;
+
+      // restart loop if comes back into view
+      if (isIntersecting && rafId === null) {
+        rafId = requestAnimationFrame(animate);
       }
+    },
+    { threshold: 0.1 }
+  );
 
-      if (phoneRef.current) {
-        phoneRef.current.style.transform = `translate3d(${phoneTranslateX}px, ${phoneTranslateY}px, 0) rotate(${phoneRotate}deg)`;
-      }
+  if (sectionRef.current) {
+    observer.observe(sectionRef.current);
+  }
 
+  const animate = () => {
+    if (!sectionRef.current) return;
+
+    const rect = sectionRef.current.getBoundingClientRect();
+    const vh = window.innerHeight;
+
+    const target = Math.min(Math.max(1 - rect.bottom / vh, 0), 1);
+    current += (target - current) * 0.1;
+
+    const vw = window.innerWidth;
+    const maxTranslateX = vw / 2 - getMarginX(vw);
+
+    const handOpacity = Math.max(0, 1 - current * 4);
+    const phoneRotate = current * -10;
+    const phoneTranslateX = Math.min(current * (vw * 0.28), maxTranslateX);
+    const phoneTranslateY = current * 1000;
+
+    if (handRef.current) {
+      handRef.current.style.opacity = `${handOpacity}`;
+    }
+
+    if (phoneRef.current) {
+      phoneRef.current.style.transform = `translate3d(${phoneTranslateX}px, ${phoneTranslateY}px, 0) rotate(${phoneRotate}deg)`;
+    }
+
+    const isSettled = Math.abs(target - current) < EPSILON;
+
+    // 👉 Only continue RAF if needed
+    if (isIntersecting || !isSettled) {
       rafId = requestAnimationFrame(animate);
-    };
+    } else {
+      rafId = null;
+    }
+  };
 
-    rafId = requestAnimationFrame(animate);
+  rafId = requestAnimationFrame(animate);
 
-    return () => {
-      cancelAnimationFrame(rafId);
-    };
-  }, [isMobile]);
+  return () => {
+    if (rafId !== null) cancelAnimationFrame(rafId);
+    observer.disconnect();
+  };
+}, [isMobile]);
 
   // Neutral skeleton — avoids hydration mismatch on first render
   if (isMobile === null) {
