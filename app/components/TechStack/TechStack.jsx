@@ -1,3 +1,4 @@
+import React from "react";
 import "./TechStack.css";
 
 const TechStack = () => {
@@ -23,4 +24,4 @@ const TechStack = () => {
   );
 };
 
-export default TechStack;
+export default React.memo(TechStack);

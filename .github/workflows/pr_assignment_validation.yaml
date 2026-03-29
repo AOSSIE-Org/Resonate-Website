@@ -1,0 +1,83 @@
+name: PR Assignment Validation
+
+on:
+  pull_request:
+    types: [opened, reopened, edited]
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  validate-assignment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate PR issue assignment (non-blocking)
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const author = pr.user.login;
+            const body = pr.body || "";
+
+            const safeComment = async (message) => {
+              try {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  body: message
+                });
+              } catch (e) {
+                core.notice('Skipping comment: insufficient permissions');
+              }
+            };
+
+            const safeLabel = async (labels) => {
+              try {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  labels
+                });
+              } catch (e) {
+                core.notice('Skipping labels: insufficient permissions');
+              }
+            };
+
+            const issueRegex = /(fixes|closes|resolves)\s+#(\d+)/gi;
+            const matches = [...body.matchAll(issueRegex)];
+
+            if (matches.length === 0) {
+              await safeComment(
+                `Hey @${author} 👋\n\nPlease link the issue you are working on (e.g. **Fixes #123**).`
+              );
+              await safeLabel(['not-assigned']);
+              return;
+            }
+
+            for (const match of matches) {
+              const issueNumber = match[2];
+              try {
+                const issue = await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber
+                });
+
+                const assignees = issue.data.assignees.map(a => a.login);
+                if (assignees.includes(author)) {
+                  core.notice('PR author is correctly assigned.');
+                  return;
+                }
+              } catch {
+                core.notice(`Could not fetch issue #${issueNumber}`);
+              }
+            }
+
+            await safeComment(
+              `🚫 **PR Validation Notice**\n\nHey @${author}, you are not assigned to the linked issue.\n\nPlease ask a maintainer to assign the issue to you.`
+            );
+            await safeLabel(['not-assigned']);

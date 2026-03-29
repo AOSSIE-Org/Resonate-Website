@@ -1,3 +1,4 @@
+import React from "react";
 import "./Features.css";
 import featureImage1 from "../../assets/roomscreen.png";
 import featureImage2 from "../../assets/createrooms.png";
@@ -49,6 +50,7 @@ const Features = () => {
               alt={`Feature ${feature.id}`}
               width={400}
               height={300}
+              draggable={false}
             />
           </div>
           <div className="feature-content">
@@ -63,4 +65,4 @@ const Features = () => {
   );
 };
 
-export default Features;
+export default React.memo(Features);

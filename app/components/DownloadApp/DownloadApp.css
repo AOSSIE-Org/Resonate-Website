@@ -84,3 +84,75 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+.download-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem;
+  margin-top: 2.5rem;
+}
+
+.download-actions .store-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+/* QR wrapper */
+.qr-code-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Glow container */
+.qr-glow-container {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  box-shadow:
+    0 0 25px rgba(255, 255, 255, 0.18),
+    inset 0 0 12px rgba(255, 255, 255, 0.06);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qr-glow-container:hover {
+  transform: scale(1.03);
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.3),
+    inset 0 0 18px rgba(255, 255, 255, 0.12);
+}
+
+.qr-code-img {
+  width: 170px;
+  height: 170px;
+  border-radius: 12px;
+  display: block;
+  border: 3px solid #ffffff;
+}
+
+.qr-label {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #bdbdbd;
+  font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .download-actions {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .qr-code-img {
+    width: 150px;
+    height: 150px;
+  }
+}

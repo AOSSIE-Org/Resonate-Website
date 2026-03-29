@@ -1,3 +1,4 @@
+import React from "react";
 import "./Hero.css";
 import { FaGithub, FaArrowRight } from "react-icons/fa";
 import phoneImage from "../../assets/resonate_app.png";
@@ -66,4 +67,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default React.memo(Hero);

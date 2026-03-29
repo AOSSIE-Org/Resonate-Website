@@ -1,20 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./Navbar.css";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-import Logo from "@/assets/resonate_logo_white.svg";
+const Logo = { src: "/resonate_logo_white.png" };
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   // Scroll to top and close mobile menu
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setOpen(false);
-  };
+  }, []);
 
   // Close menu when a link is clicked
-  const handleLinkClick = () => setOpen(false);
+  const handleLinkClick = useCallback(() => setOpen(false), []);
+
+  // Toggle mobile menu
+  const handleToggleMenu = useCallback(() => setOpen((prev) => !prev), []);
 
   return (
     <nav className="navbar">
@@ -32,7 +35,7 @@ const Navbar = () => {
         {/* Hamburger button for mobile */}
         <button
           className="hamburger"
-          onClick={() => setOpen(!open)}
+          onClick={handleToggleMenu}
           aria-label="Toggle navigation"
           aria-expanded={open}
         >
