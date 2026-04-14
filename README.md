@@ -15,6 +15,11 @@ Resonate is a social voice platform, similar to Clubhouse and Twitter Spaces, bu
 5. Pair chatting to enable users to find random partners to talk to in the app.
 6. Friend People/Profiles enabling your self to talk on voice calls/realtime messaging with them
 
+## 📺 Project Demo
+
+Watch the Resonate Website in action with SocialShareButton:
+[**Project Demo Video**](https://drive.google.com/file/d/12gu3D8wuIiDhwZvS12MaiEfg6CFZGTMv/view?usp=sharing)
+
 ## :link: Repository Links
 
 1. [Resonate Flutter App](https://github.com/AOSSIE-Org/Resonate)
