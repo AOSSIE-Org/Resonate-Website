@@ -13,7 +13,8 @@
   z-index: 1000;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease,
+              box-shadow 0.3s ease;
 }
 
 .navbar:hover {
@@ -22,7 +23,7 @@
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 255, 255, 0.05);
-  transform: translateY(-1px);
+  /* transform: translateY(-1px); */
 }
 
 .navbar-container {
@@ -61,7 +62,7 @@
   text-transform: uppercase;
   font-weight: 500;
   position: relative;
-  transition: all 0.25s ease;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .nav-link:hover {
@@ -93,7 +94,8 @@
   cursor: pointer;
   color: black;
   font-size: 0.9rem;
-  transition: all 0.25s ease;
+  transition: background-color 0.25s ease, transform 0.25s ease,
+              box-shadow 0.25s ease;
 }
 
 .download-btn:hover {
@@ -169,11 +171,16 @@
     animation: slideDown 0.25s ease;
   }
 
-  .navbar-links a:hover {
-    background: rgba(255, 255, 255, 0.05);
-    padding-left: 6px;
-    border-radius: 6px;
-  }
+  .navbar-links a {
+  transition: transform 0.15s ease;
+  will-change: transform;
+}
+
+.navbar-links a:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(6px);
+  border-radius: 6px;
+}
 }
 
 @keyframes slideDown {
@@ -197,6 +204,7 @@
 @media (prefers-reduced-motion: reduce) {
   .navbar,
   .nav-link,
+  .nav-link::after,
   .download-btn {
     transition: none;
   }
