@@ -1,17 +1,28 @@
 .navbar {
-  background-color: #030303dc;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(3, 3, 3, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: white;
   padding: 15px 30px;
   margin: 20px auto;
   border-radius: 50px;
   max-width: 1200px;
   width: 90%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 20px;
   z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.navbar:hover {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
 }
 
 .navbar-container {
@@ -49,11 +60,28 @@
   font-size: 0.9rem;
   text-transform: uppercase;
   font-weight: 500;
-  transition: color 0.2s;
+  position: relative;
+  transition: all 0.25s ease;
 }
 
 .nav-link:hover {
   color: #FFC107;
+  transform: translateY(-1px);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #FFC107;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 .download-btn {
@@ -65,12 +93,13 @@
   cursor: pointer;
   color: black;
   font-size: 0.9rem;
-  transition: transform 0.2s, background-color 0.2s;
+  transition: all 0.25s ease;
 }
 
 .download-btn:hover {
   background-color: #ffca2c;
   transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
 }
 
 @media (max-width: 768px) {
@@ -104,7 +133,6 @@
   }
 }
 
-
 .hamburger {
   display: none;
   font-size: 24px;
@@ -123,9 +151,10 @@
     position: absolute;
     top: 80px;
     right: 20px;
-    background-color: #1a1a1adc;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(20, 20, 20, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     flex-direction: column;
     gap: 16px;
     padding: 20px;
@@ -139,6 +168,12 @@
     display: flex;
     animation: slideDown 0.25s ease;
   }
+
+  .navbar-links a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    padding-left: 6px;
+    border-radius: 6px;
+  }
 }
 
 @keyframes slideDown {
@@ -151,9 +186,18 @@
     transform: translateY(0);
   }
 }
+
 .hamburger:focus,
 .nav-link:focus,
 .download-btn:focus {
   outline: 2px solid #FFC107;
   outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar,
+  .nav-link,
+  .download-btn {
+    transition: none;
+  }
 }
