@@ -48,9 +48,8 @@ const Features = () => {
           <div className="feature-image">
             <Image
               src={feature.image}
-              alt={`Feature ${feature.id}`}
-              width={400}
-              height={300}
+              width={544}
+              height={526}
               draggable={false}
               quality={80}
               loading="lazy"
