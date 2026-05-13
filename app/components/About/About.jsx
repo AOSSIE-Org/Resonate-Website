@@ -4,13 +4,21 @@ import AossieLogo from "../../assets/aossie_logo.png";
 import { SiGitlab } from "react-icons/si";
 import { FaEnvelope, FaGithub, FaDiscord } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import Image from "next/image";
 
 const About = () => {
   return (
     <section className="about">
       <div className="about-container">
         <div className="about-logo">
-          <img src={AossieLogo.src} alt="AOSSIE Logo" draggable={false} />
+          <Image
+            src={AossieLogo}
+            alt="AOSSIE Logo"
+            draggable={false}
+            width={180}
+            height={180}
+            quality={80}
+          />
         </div>
         <div className="about-content">
           <h2>

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useCallback } from "react";
 import "./Navbar.css";
+import Image from "next/image";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 const Logo = { src: "/resonate_logo_white.png" };
 
@@ -28,7 +29,15 @@ const Navbar = () => {
           onClick={scrollToTop}
           style={{ cursor: "pointer" }}
         >
-          <img src={Logo.src} alt="Resonate Logo" className="logo-icon" />
+          <Image
+            src={Logo.src}
+            alt="Resonate Logo"
+            className="logo-icon"
+            width={50}
+            height={50}
+            quality={80}
+            style={{ height: "auto" }}
+          />
           <span className="logo-text">Resonate</span>
         </div>
 

@@ -4,6 +4,7 @@ import featureImage1 from "../../assets/roomscreen.png";
 import featureImage2 from "../../assets/createrooms.png";
 import featureImage3 from "../../assets/pairchat.png";
 import featureImage4 from "../../assets/chatscreen.png";
+import Image from "next/image";
 
 const featuresData = [
   {
@@ -45,12 +46,14 @@ const Features = () => {
           }`}
         >
           <div className="feature-image">
-            <img
-              src={feature.image.src}
+            <Image
+              src={feature.image}
               alt={`Feature ${feature.id}`}
               width={400}
               height={300}
               draggable={false}
+              quality={80}
+              loading="lazy"
             />
           </div>
           <div className="feature-content">
