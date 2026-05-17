@@ -34,7 +34,6 @@ const Navbar = () => {
             alt="Resonate Logo"
             className="logo-icon"
             width={50}
-            height={50}
             quality={80}
             height={50}
           />
