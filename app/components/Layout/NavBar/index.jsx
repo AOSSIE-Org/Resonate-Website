@@ -36,7 +36,7 @@ const Navbar = () => {
             width={50}
             height={50}
             quality={80}
-            style={{ height: "auto" }}
+            height={50}
           />
           <span className="logo-text">Resonate</span>
         </div>
