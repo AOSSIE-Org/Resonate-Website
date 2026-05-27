@@ -4,11 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "../ui/theme-toggle";
-import dynamic from "next/dynamic";
-
-const LanguageSwitcher = dynamic(() => import("../ui/LanguageSwitcher"), {
-  ssr: false,
-});
+import { LanguageDropdown } from "../ui/LanguageDropdown";
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,16 +14,13 @@ export function Navbar() {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    // Trigger initial animation
     const timer = setTimeout(() => {
       setHasAnimatedIn(true);
     }, 100);
 
-    // Handle scroll detection and progress
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Calculate scroll progress
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
@@ -37,7 +30,6 @@ export function Navbar() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    // Call once on mount to set initial state
     handleScroll();
 
     return () => {
@@ -49,8 +41,10 @@ export function Navbar() {
   const shouldShowNavContent = !isScrolled || isNavHovered;
 
   return (
-    <header className="fixed top-4 lg:top-0 left-0 right-0 z-50 mx-4 sm:mx-8 lg:mx-16 xl:mx-48 border-[0.6px] border-default rounded-2xl  lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300">
-      <div className="mx-auto flex py-3 sm:py-4 items-center justify-between px-4 sm:px-6 lg:px-9">
+    <header className="fixed top-4 lg:top-0 left-0 right-0 z-50 mx-4 sm:mx-8 xl:mx-16 2xl:mx-48 border-[0.6px] border-default rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300"
+    onMouseEnter={() => setIsNavHovered(true)}
+    onMouseLeave={() => setIsNavHovered(false)}>
+      <div className="mx-auto flex lg:grid lg:grid-cols-[1fr_auto_1fr] py-3 sm:py-4 items-center justify-between lg:justify-normal px-4 sm:px-6 lg:px-9">
         {/* LEFT: Logo */}
         <Link
           href="#"
@@ -61,7 +55,6 @@ export function Navbar() {
           className="flex items-center gap-3 transition-opacity hover:opacity-80 cursor-pointer"
         >
           <div className="relative">
-            {/* FIXED: Added 'theme-icon' class */}
             <Image
               src="/assets/icons/resonate_logo.svg"
               alt="Resonate Logo"
@@ -84,8 +77,6 @@ export function Navbar() {
           } ${
             shouldShowNavContent ? "gap-4 xl:gap-8 px-3 xl:px-4" : "gap-18 px-3"
           }`}
-          onMouseEnter={() => setIsNavHovered(true)}
-          onMouseLeave={() => setIsNavHovered(false)}
         >
           <Image
             src="/assets/icons/hover_cue.svg"
@@ -101,6 +92,8 @@ export function Navbar() {
                 : "opacity-0 max-w-0 overflow-hidden"
             }`}
           >
+            {/* Language Switcher — now inside the island */}
+            <LanguageDropdown />
             <NavLink href="https://github.com/AOSSIE-Org" external>
               Developers
             </NavLink>
@@ -110,9 +103,9 @@ export function Navbar() {
             <NavLink href="https://aossie.org" external>
               Aossie
             </NavLink>
+            {/* Divider */}
             <div className="flex items-center gap-2">
               <ThemeToggle />
-              {/* <LanguageSwitcher /> */}
             </div>
           </div>
           <div className="relative h-6 w-6">
@@ -123,7 +116,6 @@ export function Navbar() {
               fill="none"
               className="h-full w-full icon-secondary transition-all duration-500"
             >
-              {/* Background circle */}
               <circle
                 cx="12"
                 cy="12"
@@ -133,7 +125,6 @@ export function Navbar() {
                 opacity="0.2"
                 fill="none"
               />
-              {/* Progress circle */}
               <circle
                 cx="12"
                 cy="12"
@@ -145,16 +136,13 @@ export function Navbar() {
                 strokeDashoffset={62.83 - (62.83 * scrollProgress) / 100}
                 strokeLinecap="round"
                 transform="rotate(-90 12 12)"
-                style={{
-                  transition: "stroke-dashoffset 0.1s ease-out",
-                }}
+                style={{ transition: "stroke-dashoffset 0.1s ease-out" }}
               />
             </svg>
           </div>
         </nav>
 
-        {/* RIGHT: Actions */}
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-3 justify-end">
           <Link
             href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
             target="_blank"
@@ -165,14 +153,14 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* MOBILE TOGGLE - Hamburger Menu */}
+        {/* MOBILE TOGGLE */}
+        <div className="lg:hidden flex justify-end">
         <button
-          className="lg:hidden p-1.5 text-primary hover:bg-(--hover-background) rounded-lg transition-colors"
+          className="p-1.5 text-primary hover:bg-(--hover-background) rounded-lg transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
-            // Close Icon with theme-icon
             <Image
               src="/assets/icons/close.svg"
               alt="Close"
@@ -181,7 +169,6 @@ export function Navbar() {
               className="h-5 xl:h-6 w-auto icon-secondary theme-icon"
             />
           ) : (
-            // Menu Icon with theme-icon
             <Image
               src="/assets/icons/menu.svg"
               alt="Menu"
@@ -191,6 +178,7 @@ export function Navbar() {
             />
           )}
         </button>
+        </div>
       </div>
 
       {/* MOBILE MENU DROPDOWN */}
@@ -219,12 +207,10 @@ export function Navbar() {
               AOSSIE
             </MobileNavLink>
 
-            {/* UPDATED: Make entire row clickable */}
             <div className="pt-3 sm:pt-4 border-t border-default mt-2 flex flex-col gap-3">
               <ThemeToggle isMobile />
-              {/* <div className="w-full">
-                <LanguageSwitcher />
-              </div> */}
+              {/* Language Switcher — mobile */}
+              <LanguageDropdown isMobile />
             </div>
 
             <Link
@@ -243,7 +229,6 @@ export function Navbar() {
   );
 }
 
-// Helper Components
 function NavLink({
   href,
   children,
