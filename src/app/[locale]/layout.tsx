@@ -7,6 +7,7 @@ import "./globals.css";
 
 // Import your architecture components
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { LenisProvider } from "@/components/providers/lenis-provider";
 import { Navbar } from "@/components/layout/Navbar";
 
 const inter = Inter({
@@ -92,10 +93,11 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
-
+            <LenisProvider>
             <main className="pt-20">
               {children}
             </main>
+            </LenisProvider>
 
           </ThemeProvider>
         </NextIntlClientProvider>
