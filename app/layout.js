@@ -2,6 +2,7 @@ import { Raleway } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/Layout/NavBar";
 import Footer from "./components/Layout/Footer";
+import Script from "next/script";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -25,10 +26,25 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* ✅ SocialShareButton CSS */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/AOSSIE-Org/SocialShareButton@v1.0.3/src/social-share-button.css"
+        />
+      </head>
+
       <body className={raleway.className}>
         <NavBar />
         {children}
         <Footer />
+
+        {/* ✅ Load JS */}
+        <Script
+          src="https://cdn.jsdelivr.net/gh/AOSSIE-Org/SocialShareButton@v1.0.3/src/social-share-button.js"
+          strategy="afterInteractive"
+        />
+
       </body>
     </html>
   );

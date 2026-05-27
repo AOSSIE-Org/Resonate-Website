@@ -70,3 +70,17 @@
     font-size: 1.2rem;
   }
 }
+/* 🔥 FIX: Make button visible */
+.social-share-btn {
+  background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+  border: none !important;
+  color: #fff !important;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.social-share-btn:hover {
+  background: linear-gradient(135deg, #1d4ed8, #6d28d9) !important;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+}
