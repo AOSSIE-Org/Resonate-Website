@@ -30,7 +30,6 @@
 }
 
 .logo-icon {
-  height: 24px;
   margin-right: 10px;
 }
 
@@ -146,11 +145,13 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 .hamburger:focus,
 .nav-link:focus,
 .download-btn:focus {

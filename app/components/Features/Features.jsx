@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import "./Features.css";
 import featureImage1 from "../../assets/roomscreen.png";
 import featureImage2 from "../../assets/createrooms.png";
@@ -40,17 +41,16 @@ const Features = () => {
       {featuresData.map((feature) => (
         <div
           key={feature.id}
-          className={`feature-item ${
-            feature.align === "right" ? "reverse" : ""
-          }`}
+          className={`feature-item ${feature.align === "right" ? "reverse" : ""
+            }`}
         >
           <div className="feature-image">
-            <img
-              src={feature.image.src}
+            <Image
+              src={feature.image}
               alt={`Feature ${feature.id}`}
-              width={400}
-              height={300}
+              sizes="(max-width: 768px) 80vw, 40vw"
               draggable={false}
+              style={{ width: "100%", height: "auto" }}
             />
           </div>
           <div className="feature-content">
