@@ -14,7 +14,7 @@
 :root {
   /* Surface Colors */
   --background: #F5F5F5;
-  --nav-background: rgba(245, 245, 245, 0.8); /* Added for glassmorphism */
+  --nav-background: rgb(245, 245, 245, 0.8); /* Added for glassmorphism */
   
   /* Text Colors */
   --foreground: #1C1C1C;
@@ -36,13 +36,22 @@
   --button-primary-hover-bg: var(--color-neutral-50);
   --button-primary-hover-border: #121212;
   --button-subtle-bg: #9797971e;
+
+  /* Background Tile Colors */
+  --tile-bg: rgb(227, 226, 246);
+  --tile-stroke: rgb(80, 80, 80, 0.1);
+  --line-color: rgb(0, 0, 0, 0.03);
+
+  /* Footer Colors */
+  --footer-headings: rgb(0, 0, 0, 0.9);
+  --footer-text: rgb(0, 0, 0, 0.75);
 }
 
 /* DARK MODE */
 .dark {
    /* Surface Colors */
   --background: #101010;
-  --nav-background: rgba(16, 16, 16, 0.8); /* Added for glassmorphism */
+  --nav-background: rgb(16, 16, 16, 0.8); /* Added for glassmorphism */
   
   /* Text Colors */
   --foreground: #D3D3D3;
@@ -64,6 +73,15 @@
   --button-primary-hover-bg: var(--color-neutral-100);
   --button-primary-hover-border: var(--color-neutral-100);
   --button-subtle-bg: #bbbbbb0e;
+
+  /* Background Tile Colors */
+  --tile-bg: rgb(30, 29, 28);
+  --tile-stroke: rgb(80, 80, 80, 0.5);
+  --line-color: rgb(0, 0, 0, 0.12);
+
+  /* Footer Colors */
+  --footer-headings: rgb(255, 255, 255);
+  --footer-text: rgb(255, 255, 255, 0.5);
 }
 
 /* --- GLOBAL STYLES --- */
@@ -97,17 +115,3 @@ body {
 :is(.dark .theme-icon) {
   filter: invert(1) brightness(100);
 }
-
-/* LENIS */
-html.lenis {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
