@@ -1,7 +1,26 @@
 {
-  "Home": {
-    "title": "रेज़ोनेट वेबसाइट",
-    "subtitle": "विज़ुअल बदलाव पर काम चल रहा है..."
+  "metadata": {
+    "title": "रेज़ोनेट",
+    "description": "इंटरनेट की ओपन-सोर्स आवाज़"
+  },
+  "Navbar": {
+    "developers": "डेवलपर्स",
+    "community": "समुदाय",
+    "aossie": "ओसी (AOSSIE)",
+    "download": "अभी डाउनलोड करें",
+    "toggleMenu": "मेन्यू बदलें",
+    "close": "बंद करें",
+    "menu": "मेन्यू",
+    "selectLanguage": "भाषा चुनें"
+  },
+  "Hero": {
+    "headline": "इंटरनेट की ओपन-सोर्स आवाज़",
+    "subHeadline": "सभी के लिए सोशल ऑडियो",
+    "maintainedBy": "द्वारा अनुरक्षित एक प्रोजेक्ट",
+    "orgName": "ओसी (AOSSIE)",
+    "download": "अभी डाउनलोड करें",
+    "visitAossie": "ओसी (AOSSIE) वेबसाइट पर जाएं (नया टैब)",
+    "downloadAria": "गूगल प्ले से रेज़ोनेट डाउनलोड करें (नया टैब)"
   },
   "Footer": {
     "Resources": {

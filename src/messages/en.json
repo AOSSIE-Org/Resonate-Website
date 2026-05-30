@@ -1,7 +1,26 @@
 {
-  "Home": {
-    "title": "Resonate Website",
-    "subtitle": "Visual Overhaul in Progress..."
+  "metadata": {
+    "title": "Resonate",
+    "description": "The Open-Source Voice of the Internet"
+  },
+  "Navbar": {
+    "developers": "Developers",
+    "community": "Community",
+    "aossie": "AOSSIE",
+    "download": "Download Now",
+    "toggleMenu": "Toggle menu",
+    "close": "Close",
+    "menu": "Menu",
+    "selectLanguage": "Select language"
+  },
+  "Hero": {
+    "headline": "The Open-Source Voice of the Internet",
+    "subHeadline": "Social Audio for everyone",
+    "maintainedBy": "A Project Maintained by",
+    "orgName": "AOSSIE",
+    "download": "Download Now",
+    "visitAossie": "Visit AOSSIE website (opens in new tab)",
+    "downloadAria": "Download Resonate on Google Play (opens in new tab)"
   },
   "Footer": {
     "Resources": {
