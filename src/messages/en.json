@@ -3,6 +3,14 @@
     "title": "Resonate Website",
     "subtitle": "Visual Overhaul in Progress..."
   },
+  "DownloadModal": {
+    "title": "Download Resonate App",
+    "scanInstruction": "Scan with your mobile device",
+    "or": "OR",
+    "redirectToPlayStore": "Redirect to Play Store Web",
+    "redirectToAppStore": "Redirect to App Store Web",
+    "switchBetweenDevices": "SWITCH BETWEEN DEVICES"
+  },
   "Footer": {
     "Resources": {
       "title": "Resources",

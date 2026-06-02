@@ -3,6 +3,14 @@
     "title": "रेज़ोनेट वेबसाइट",
     "subtitle": "विज़ुअल बदलाव पर काम चल रहा है..."
   },
+  "DownloadModal": {
+    "title": "रेज़ोनेट ऐप डाउनलोड करें",
+    "scanInstruction": "अपने मोबाइल डिवाइस से स्कैन करें",
+    "or": "या",
+    "redirectToPlayStore": "प्लेस्टोर वेब पर जाएं",
+    "redirectToAppStore": "ऐप स्टोर वेब पर जाएं",
+    "switchBetweenDevices": "डिवाइस बदलें"
+  },
   "Footer": {
     "Resources": {
       "title": "संसाधन",
