@@ -9,7 +9,13 @@
     "or": "या",
     "redirectToPlayStore": "प्लेस्टोर वेब पर जाएं",
     "redirectToAppStore": "ऐप स्टोर वेब पर जाएं",
-    "switchBetweenDevices": "डिवाइस बदलें"
+    "switchBetweenDevices": "डिवाइस बदलें",
+    "closeLabel": "मोडल बंद करें",
+    "closeAlt": "बंद करें",
+    "qrAlt": "{device} QR कोड",
+    "scanAlt": "स्कैन",
+    "playStoreAlt": "प्ले स्टोर",
+    "appStoreAlt": "ऐप स्टोर"
   },
   "Footer": {
     "Resources": {

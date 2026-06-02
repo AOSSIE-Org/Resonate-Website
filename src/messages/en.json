@@ -9,7 +9,13 @@
     "or": "OR",
     "redirectToPlayStore": "Redirect to Play Store Web",
     "redirectToAppStore": "Redirect to App Store Web",
-    "switchBetweenDevices": "SWITCH BETWEEN DEVICES"
+    "switchBetweenDevices": "SWITCH BETWEEN DEVICES",
+    "closeLabel": "Close modal",
+    "closeAlt": "Close",
+    "qrAlt": "{device} QR Code",
+    "scanAlt": "Scan",
+    "playStoreAlt": "Play Store",
+    "appStoreAlt": "App Store"
   },
   "Footer": {
     "Resources": {

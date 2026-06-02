@@ -67,16 +67,21 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
       />
       
       {/* Card */}
-      <div className="relative w-full max-w-sm sm:max-w-md max-h-[95vh] overflow-y-auto transform rounded-3xl bg-(--download-modal-bg) p-6 sm:p-10 shadow-2xl transition-all animate-in zoom-in-95 duration-300 flex flex-col items-center">
+      <div        
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="download-modal-title"
+        className="relative w-full max-w-sm sm:max-w-md max-h-[95vh] overflow-y-auto transform rounded-3xl bg-(--download-modal-bg) p-6 sm:p-10 shadow-2xl transition-all animate-in zoom-in-95 duration-300 flex flex-col items-center"
+     >
         {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute right-4 top-4 sm:right-6 sm:top-6 p-2 text-muted hover:text-primary transition-colors hover:scale-110 z-10"
-          aria-label="Close modal"
+          aria-label={t("closeLabel")}
         >
           <Image
             src="/assets/icons/close.svg"
-            alt="Close"
+            alt= {t("closeAlt")}
             width={20}
             height={20}
             className="h-4 w-4 theme-icon"
@@ -84,13 +89,15 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
         </button>
         
         <div className="w-full">
-          <h2 className="mb-6 text-xl sm:text-2xl font-bold text-center">{t("title")}</h2>
+          <h2 id="download-modal-title" className="mb-6 text-xl sm:text-2xl font-bold text-center">
+            {t("title")}
+          </h2>
         </div>
 
         <div className="flex items-center justify-center border p-6 sm:p-8 border-(--border) rounded-3xl bg-white/5">
           <Image
             src={current.qr}
-            alt={`${activeDevice} QR Code`}
+            alt={t("qrAlt", { device: activeDevice })}
             width={200}
             height={200}
             className="h-48 w-48 sm:h-64 sm:w-64"
@@ -100,7 +107,7 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
         <div className="mt-6 text-center flex items-center justify-center gap-2 text-sm sm:text-base">
           <Image
             src="/assets/icons/expand.svg"
-            alt="Scan"
+            alt= {t("scanAlt")}
             width={24}
             height={24}
             className="h-5 w-5 sm:h-6 sm:w-6 theme-icon"
@@ -168,7 +175,7 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
           >
             <Image
               src="/assets/icons/playstore.svg"
-              alt="Play Store"
+              alt={t("playStoreAlt")}
               width={24}
               height={24}
               className={`h-6 w-6 `}
@@ -184,7 +191,7 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
           >
             <Image
               src="/assets/icons/apple.svg"
-              alt="App Store"
+              alt= {t("appStoreAlt")}
               width={24}
               height={24}
               className={`h-6 w-6 theme-icon`}

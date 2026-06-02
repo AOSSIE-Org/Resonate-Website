@@ -44,11 +44,19 @@ export function Navbar() {
   const handleDownloadClick = useCallback(() => {
     const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
 
-    if (/android/i.test(userAgent)) {
+    // Detect Android (excluding smart displays like Nest Hub/Chromecast)
+    const isAndroid = /android/i.test(userAgent) && !/CrKey/i.test(userAgent);
+    
+    // Detect iOS and iPadOS (including modern iPads that report as Macintosh)
+    const isIOS = /iPad|iPhone|iPod/.test(userAgent) || 
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    if (isAndroid) {
       window.open("https://play.google.com/store/apps/details?id=com.resonate.resonate", "_blank", "noopener,noreferrer");
-    } else if (/iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream) {
+    } else if (isIOS) {
       window.open("https://apps.apple.com/app/resonate", "_blank", "noopener,noreferrer");
     } else {
+      // For Desktop, Nest Hub, Fuchsia, or other non-mobile OS, show the QR code modal
       setIsDownloadModalOpen(true);
     }
   }, []);
@@ -203,7 +211,7 @@ export function Navbar() {
 
         {/* MOBILE MENU DROPDOWN */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-default bg-(--background-secondary) px-4 sm:px-6 py-4 shadow-xl animate-in slide-in-from-top-5 rounded-b-3xl">
+          <div className="lg:hidden border-t border-default px-4 sm:px-6 py-4 shadow-xl animate-in slide-in-from-top-5 rounded-b-3xl">
             <nav className="flex flex-col gap-3 sm:gap-4">
               <MobileNavLink
                 href="https://github.com/AOSSIE-Org"
