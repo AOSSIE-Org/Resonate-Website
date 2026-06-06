@@ -2,16 +2,11 @@
 
 import Link from "next/link";
 import { HeroVisuals } from "./HeroVisuals";
-
-// TEXT CONSTANTS (Preparation for i18n)
-const TEXT = {
-  headline: "The Open-Source Voice of the Internet",
-  subHeadline: "Social Audio for everyone",
-  maintainedBy: "A Project Maintained by",
-  orgName: "AOSSIE",
-} as const;
+import { useTranslations } from "next-intl";
 
 export function Hero() {
+  const t = useTranslations("Hero");
+
   return (
     // FIX 1: Replaced `min-h-screen` with `min-h-[100svh]` to prevent address bar resizing jumps
     <section className="relative flex flex-col items-center justify-center sm:justify-around min-h-[100svh] pt-8 sm:pt-14 pb-[100vw] sm:pb-0">
@@ -20,24 +15,24 @@ export function Hero() {
       <div className="flex flex-col items-center gap-4 text-center px-2 sm:px-8">
         <div className="flex flex-col items-center gap-4">
           <h1 className="text-4xl lg:text-5xl xl:text-6xl font-medium text-(--foreground) tracking-tighter">
-            {TEXT.headline}
+            {t("headline")}
           </h1>
           {/* Hidden on mobile — subheadline only shown on sm+ */}
           <p className="hidden sm:block text-4xl lg:text-5xl xl:text-6xl font-medium text-(--foreground) tracking-tighter">
-            {TEXT.subHeadline}
+            {t("subHeadline")}
           </p>
         </div>
 
         <div className="inline-flex flex-wrap justify-center items-center gap-2 text-lg sm:text-2xl text-muted">
-          <span>{TEXT.maintainedBy}</span>
+          <span>{t("maintainedBy")}</span>
           <Link
             href="https://aossie.org"
             target="_blank"
             rel="noopener noreferrer"
             className="underline inline-flex items-center gap-1"
-            aria-label="Visit AOSSIE website (opens in new tab)"
+            aria-label={t("visitAossie")}
           >
-            {TEXT.orgName}
+            {t("orgName")}
             {/* North-east arrow icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -62,10 +57,10 @@ export function Hero() {
           href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Download Resonate on Google Play (opens in new tab)"
+          aria-label={t("downloadAria")}
           className="inline-flex sm:hidden h-9 items-center justify-center rounded-full px-4 text-sm font-semibold transition-all hover:scale-105 active:scale-95 bg-(--button-primary-bg) text-(--button-primary-text) border-(--button-primary-border) border-[1.5px] hover:bg-(--button-primary-hover-bg) hover:border-(--button-primary-hover-border)"
         >
-          Download Now
+          {t("download")}
         </Link>
       </div>
 

@@ -6,8 +6,10 @@ import { useState, useEffect, useCallback } from "react";
 import { ThemeToggle } from "../ui/theme-toggle";
 import { LanguageDropdown } from "../ui/LanguageDropdown";
 import { DownloadModal } from "../ui/DownloadModal";
+import { useTranslations } from "next-intl";
 
 export function Navbar() {
+  const t = useTranslations("Navbar");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -125,13 +127,13 @@ export function Navbar() {
               {/* Language Switcher — now inside the island */}
               <LanguageDropdown />
               <NavLink href="https://github.com/AOSSIE-Org" external>
-                Developers
+                {t("developers")}
               </NavLink>
               <NavLink href="https://discord.gg/hjUhu33uAn" external>
-                Community
+                {t("community")}
               </NavLink>
               <NavLink href="https://aossie.org" external>
-                Aossie
+                {t("aossie")}
               </NavLink>
               {/* Divider */}
               <div className="flex items-center gap-2">
@@ -177,7 +179,7 @@ export function Navbar() {
               onClick={handleDownloadClick}
               className="inline-flex h-9 xl:h-10 items-center justify-center rounded-full px-4 xl:px-6 text-sm xl:text-md font-semibold transition-all hover:scale-105 active:scale-95 bg-(--button-primary-bg) text-(--button-primary-text) border-(--button-primary-border) border-[1.5px] hover:bg-(--button-primary-hover-bg) hover:border-(--button-primary-hover-border) cursor-pointer"
             >
-              Download Now
+              {t("download")}
             </button>
           </div>
 
@@ -186,12 +188,12 @@ export function Navbar() {
           <button
             className="p-1.5 text-primary hover:bg-(--hover-background) rounded-lg transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label={t("toggleMenu")}
           >
             {isMobileMenuOpen ? (
               <Image
                 src="/assets/icons/close.svg"
-                alt="Close"
+                alt={t("close")}
                 width={32}
                 height={32}
                 className="h-5 xl:h-6 w-auto icon-secondary theme-icon"
@@ -199,7 +201,7 @@ export function Navbar() {
             ) : (
               <Image
                 src="/assets/icons/menu.svg"
-                alt="Menu"
+                alt={t("menu")}
                 width={32}
                 height={32}
                 className="h-5 xl:h-6 w-auto icon-secondary theme-icon"
@@ -218,21 +220,21 @@ export function Navbar() {
                 external
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Developers
+                {t("developers")}
               </MobileNavLink>
               <MobileNavLink
                 href="https://discord.gg/hjUhu33uAn"
                 external
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Community
+                {t("community")}
               </MobileNavLink>
               <MobileNavLink
                 href="https://aossie.org"
                 external
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                AOSSIE
+                {t("aossie")}
               </MobileNavLink>
 
               <div className="pt-3 sm:pt-4 border-t border-default mt-2 flex flex-col gap-3">
@@ -248,7 +250,7 @@ export function Navbar() {
                 }}
                 className="mt-2 flex h-10 sm:h-11 w-full items-center justify-center rounded-full text-sm font-bold transition-all bg-(--button-primary-bg) text-(--button-primary-text) border-(--button-primary-border) border-[1.5px] hover:bg-(--button-primary-hover-bg) active:scale-95 cursor-pointer"
               >
-                Download Now
+                {t("download")}
               </button>
             </nav>
           </div>

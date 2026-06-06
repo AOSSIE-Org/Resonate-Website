@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const LANGUAGES = [
   { code: "en", label: "English", short: "EN" },
@@ -15,6 +15,7 @@ interface LanguageDropdownProps {
 }
 
 export function LanguageDropdown({ isMobile = false }: LanguageDropdownProps) {
+  const t = useTranslations("Navbar");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -97,7 +98,7 @@ export function LanguageDropdown({ isMobile = false }: LanguageDropdownProps) {
             ref={menuRef}
             id={menuId}
             role="menu"
-            aria-label="Select language"
+            aria-label={t("selectLanguage")}
             onKeyDown={handleMenuKeyDown}
             className="absolute left-0 right-0 mt-2 rounded-2xl border border-default bg-surface shadow-lg z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150"
             style={{ backgroundColor: "var(--background, white)" }}
@@ -142,7 +143,7 @@ export function LanguageDropdown({ isMobile = false }: LanguageDropdownProps) {
           ref={menuRef}
           id={menuId}
           role="menu"
-          aria-label="Select language"
+          aria-label={t("selectLanguage")}
           onKeyDown={handleMenuKeyDown}
           className="absolute right-0 mt-2 w-36 rounded-2xl border border-default bg-surface shadow-lg z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150"
           style={{ backgroundColor: "var(--background, white)" }}
