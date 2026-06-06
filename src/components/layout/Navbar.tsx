@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback } from "react";
 import { ThemeToggle } from "../ui/theme-toggle";
 import { LanguageDropdown } from "../ui/LanguageDropdown";
 import { DownloadModal } from "../ui/DownloadModal";
+import { Button } from "../ui/Button";
 import { useTranslations } from "next-intl";
 
 export function Navbar() {
@@ -175,12 +176,9 @@ export function Navbar() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-3 justify-end">
-            <button
-              onClick={handleDownloadClick}
-              className="inline-flex h-9 xl:h-10 items-center justify-center rounded-full px-4 xl:px-6 text-sm xl:text-md font-semibold transition-all hover:scale-105 active:scale-95 bg-(--button-primary-bg) text-(--button-primary-text) border-(--button-primary-border) border-[1.5px] hover:bg-(--button-primary-hover-bg) hover:border-(--button-primary-hover-border) cursor-pointer"
-            >
+            <Button onClick={handleDownloadClick}>
               {t("download")}
-            </button>
+            </Button>
           </div>
 
           {/* MOBILE TOGGLE */}
@@ -243,15 +241,15 @@ export function Navbar() {
                 <LanguageDropdown isMobile />
               </div>
 
-              <button
+              <Button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   handleDownloadClick();
                 }}
-                className="mt-2 flex h-10 sm:h-11 w-full items-center justify-center rounded-full text-sm font-bold transition-all bg-(--button-primary-bg) text-(--button-primary-text) border-(--button-primary-border) border-[1.5px] hover:bg-(--button-primary-hover-bg) active:scale-95 cursor-pointer"
+                className="mt-2 h-10 sm:h-11 w-full text-sm font-bold"
               >
                 {t("download")}
-              </button>
+              </Button>
             </nav>
           </div>
         )}

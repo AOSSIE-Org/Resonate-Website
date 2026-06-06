@@ -32,7 +32,9 @@
   /* Button Styles */
   --button-primary-bg: transparent;
   --button-secondary-bg: #ffffff;
+  --button-tertiary-bg: #121212;
   --button-primary-text: #121212;
+  --button-secondary-text: #000000;
   --button-primary-border: #121212;
   --button-primary-hover-bg: var(--color-neutral-50);
   --button-primary-hover-border: #121212;
@@ -73,7 +75,9 @@
   /* Button Styles */
   --button-primary-bg: #FFFFFF;
   --button-secondary-bg: #32363A;
+  --button-tertiary-bg: transparent;
   --button-primary-text: #101010;
+  --button-secondary-text: #FFFFFF;
   --button-primary-border: transparent;
   --button-primary-hover-bg: var(--color-neutral-100);
   --button-primary-hover-border: var(--color-neutral-100);
