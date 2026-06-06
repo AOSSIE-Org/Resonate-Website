@@ -1,38 +1,287 @@
+// // // "use client";
+// // // import React, { useState, useCallback } from "react";
+// // // import "./Navbar.css";
+// // // import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+// // // const Logo = { src: "/resonate_logo_white.png" };
+
+// // // const Navbar = () => {
+// // //   const [open, setOpen] = useState(false);
+
+// // //   // Scroll to top and close mobile menu
+// // //   const scrollToTop = useCallback(() => {
+// // //     window.scrollTo({ top: 0, behavior: "smooth" });
+// // //     setOpen(false);
+// // //   }, []);
+
+// // //   // Close menu when a link is clicked
+// // //   const handleLinkClick = useCallback(() => setOpen(false), []);
+
+// // //   // Toggle mobile menu
+// // //   const handleToggleMenu = useCallback(() => setOpen((prev) => !prev), []);
+
+// // //   return (
+// // //     <nav className="navbar">
+// // //       <div className="navbar-container">
+// // //         {/* Logo */}
+// // //         <div
+// // //           className="navbar-logo"
+// // //           onClick={scrollToTop}
+// // //           style={{ cursor: "pointer" }}
+// // //         >
+// // //           <img src={Logo.src} alt="Resonate Logo" className="logo-icon" />
+// // //           <span className="logo-text">Resonate</span>
+// // //         </div>
+
+// // //         {/* Hamburger button for mobile */}
+// // //         <button
+// // //           className="hamburger"
+// // //           onClick={handleToggleMenu}
+// // //           aria-label="Toggle navigation"
+// // //           aria-expanded={open}
+// // //         >
+// // //           ☰
+// // //         </button>
+
+// // //         {/* Navigation links */}
+// // //         <div className={`navbar-links ${open ? "open" : ""}`}>
+// // //           <a
+// // //             href="https://aossie.org"
+// // //             target="_blank"
+// // //             rel="noopener noreferrer"
+// // //             className="nav-link"
+// // //             onClick={handleLinkClick}
+// // //           >
+// // //             AOSSIE <FaExternalLinkAlt size={12} />
+// // //           </a>
+
+// // //           <a
+// // //             href="https://github.com/AOSSIE-Org/Resonate"
+// // //             target="_blank"
+// // //             rel="noopener noreferrer"
+// // //             className="nav-link"
+// // //             onClick={handleLinkClick}
+// // //           >
+// // //             <FaGithub size={20} />
+// // //           </a>
+
+// // //           <a
+// // //             href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
+// // //             target="_blank"
+// // //             rel="noopener noreferrer"
+// // //             className="download-btn"
+// // //             onClick={handleLinkClick}
+// // //           >
+// // //             Download Now
+// // //           </a>
+// // //         </div>
+// // //       </div>
+// // //     </nav>
+// // //   );
+// // // };
+
+// // // export default Navbar;
+// // "use client";
+// // import React, { useState, useCallback } from "react";
+// // import "./Navbar.css";
+// // import Image from "next/image";
+// // import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+
+// // const Navbar = () => {
+// //   const [open, setOpen] = useState(false);
+
+// //   const scrollToTop = useCallback(() => {
+// //     window.scrollTo({ top: 0, behavior: "smooth" });
+// //     setOpen(false);
+// //   }, []);
+
+// //   const handleLinkClick = useCallback(() => setOpen(false), []);
+// //   const handleToggleMenu = useCallback(() => setOpen((prev) => !prev), []);
+
+// //   return (
+// //     <nav className="navbar">
+// //       <div className="navbar-container">
+// //         {/* Logo */}
+// //         <div
+// //           className="navbar-logo"
+// //           onClick={scrollToTop}
+// //           style={{ cursor: "pointer" }}
+// //         >
+// //           <Image
+// //             src="/resonate_logo_white.png"
+// //             alt="Resonate App Logo"
+// //             width={36}
+// //             height={36}
+// //             className="logo-icon"
+// //           />
+// //           <span className="logo-text">Resonate</span>
+// //         </div>
+
+// //         {/* Hamburger button for mobile */}
+// //         <button
+// //           className="hamburger"
+// //           onClick={handleToggleMenu}
+// //           aria-label="Toggle navigation"
+// //           aria-expanded={open}
+// //         >
+// //           ☰
+// //         </button>
+
+// //         {/* Navigation links */}
+// //         <div className={`navbar-links ${open ? "open" : ""}`}>
+          
+// //             href="https://aossie.org"
+// //             target="_blank"
+// //             rel="noopener noreferrer"
+// //             className="nav-link"
+// //             onClick={handleLinkClick}
+// //          < a>
+// //             AOSSIE <FaExternalLinkAlt size={12} />
+// //           </a>
+
+          
+// //             href="https://github.com/AOSSIE-Org/Resonate"
+// //             target="_blank"
+// //             rel="noopener noreferrer"
+// //             className="nav-link"
+// //             onClick={handleLinkClick}
+// //           <a>
+// //             <FaGithub size={20} />
+// //           </a>
+
+          
+// //             href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
+// //             target="_blank"
+// //             rel="noopener noreferrer"
+// //             className="download-btn"
+// //             onClick={handleLinkClick}
+// //           <a>
+// //             Download Now
+// //           </a>
+// //         </div>
+// //       </div>
+// //     </nav>
+// //   );
+// // };
+
+// // export default Navbar;
+// "use client";
+// import React, { useState, useCallback } from "react";
+// import "./Navbar.css";
+// import Image from "next/image";
+// import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+
+// const Navbar = () => {
+//   const [open, setOpen] = useState(false);
+
+//   const scrollToTop = useCallback(() => {
+//     window.scrollTo({ top: 0, behavior: "smooth" });
+//     setOpen(false);
+//   }, []);
+
+//   const handleLinkClick = useCallback(() => setOpen(false), []);
+
+//   const handleToggleMenu = useCallback(() => setOpen((prev) => !prev), []);
+
+//   return (
+//     <nav className="navbar">
+//       <div
+//         className="navbar-logo"
+//         onClick={scrollToTop}
+//         style={{ cursor: "pointer" }}
+//       >
+//         <Image
+//           src="/resonate_logo_white.png"
+//           alt="Resonate App Logo"
+//           width={36}
+//           height={36}
+//           style={{ width: "36px", height: "auto" }}
+//           className="logo-icon"
+//         />
+//         <span className="logo-text">Resonate</span>
+//       </div>
+
+//       <button
+//         className="hamburger"
+//         onClick={handleToggleMenu}
+//         aria-label="Toggle navigation"
+//         aria-expanded={open}
+//       >
+//         ☰
+//       </button>
+
+//       <div className={`navbar-links ${open ? "open" : ""}`}>
+//         <a
+//           href="https://aossie.org"
+//           target="_blank"
+//           rel="noopener noreferrer"
+//           className="nav-link"
+//           onClick={handleLinkClick}
+//         >
+//           AOSSIE <FaExternalLinkAlt size={12} />
+//         </a>
+
+//         <a
+//           href="https://github.com/AOSSIE-Org/Resonate"
+//           target="_blank"
+//           rel="noopener noreferrer"
+//           className="nav-link"
+//           onClick={handleLinkClick}
+//         >
+//           <FaGithub size={20} />
+//         </a>
+
+//         <a
+//           href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
+//           target="_blank"
+//           rel="noopener noreferrer"
+//           className="download-btn"
+//           onClick={handleLinkClick}
+//         >
+//           Download Now
+//         </a>
+//       </div>
+//     </nav>
+//   );
+// };
+
+// export default Navbar;
+
 "use client";
 import React, { useState, useCallback } from "react";
 import "./Navbar.css";
+import Image from "next/image";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-const Logo = { src: "/resonate_logo_white.png" };
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
-  // Scroll to top and close mobile menu
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setOpen(false);
   }, []);
 
-  // Close menu when a link is clicked
   const handleLinkClick = useCallback(() => setOpen(false), []);
-
-  // Toggle mobile menu
   const handleToggleMenu = useCallback(() => setOpen((prev) => !prev), []);
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        {/* Logo */}
         <div
           className="navbar-logo"
           onClick={scrollToTop}
           style={{ cursor: "pointer" }}
         >
-          <img src={Logo.src} alt="Resonate Logo" className="logo-icon" />
+          <Image
+            src="/resonate_logo_white.png"
+            alt="Resonate App Logo"
+            width={36}
+            height={36}
+            style={{ width: "36px", height: "auto" }}
+            className="logo-icon"
+          />
           <span className="logo-text">Resonate</span>
         </div>
 
-        {/* Hamburger button for mobile */}
         <button
           className="hamburger"
           onClick={handleToggleMenu}
@@ -42,7 +291,6 @@ const Navbar = () => {
           ☰
         </button>
 
-        {/* Navigation links */}
         <div className={`navbar-links ${open ? "open" : ""}`}>
           <a
             href="https://aossie.org"
