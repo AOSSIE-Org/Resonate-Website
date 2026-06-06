@@ -26,7 +26,7 @@ export function Button({
 }: ButtonProps) {
   
   // Base classes (including ingrained sizing and spacing)
-  const baseClasses = "inline-flex items-center justify-center rounded-full font-semibold transition-all hover:scale-105 active:scale-95 cursor-pointer border-[1.5px] h-9 xl:h-10 px-4 xl:px-6 text-sm xl:text-md gap-2 group";
+  const baseClasses = "inline-flex items-center justify-center rounded-full font-semibold transition-all hover:scale-105 active:scale-95 cursor-pointer border-[1.5px] h-9 xl:h-10 px-4 xl:px-6 text-sm gap-2 group";
   
   // Variant 1: Exact same as Navbar (Transparent/Filled based on theme variables)
   const variant1Classes = "bg-(--button-primary-bg) text-(--button-primary-text) border-(--button-primary-border) hover:bg-(--button-primary-hover-bg) hover:border-(--button-primary-hover-border)";
@@ -70,7 +70,7 @@ export function Button({
   }
 
   return (
-    <button onClick={onClick} className={combinedClasses}>
+    <button type="button" onClick={onClick} className={combinedClasses}>
       {content}
     </button>
   );

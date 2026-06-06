@@ -26,7 +26,7 @@ export function About() {
             </p>
       <Image
         src="/assets/mockups/phone.webp"
-        alt="Resonate app interface"
+        alt={t("mockupAlt")}
         width={400}
         height={800}
         className="md:hidden flex w-2/3 lg:w-2/3 h-auto pt-8"
