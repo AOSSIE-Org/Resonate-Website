@@ -151,7 +151,7 @@ useEffect(() => {
           />
         </div>
         <div className="absolute top-[0.4%] left-[20%] w-[88%]">
-          <div className="w-2/3 rounded-[2.5rem] overflow-hidden shadow-2xl">
+          <div className="w-2/3 overflow-hidden shadow-2xl">
             <Image
               src="/assets/mockups/phone.webp"
               alt="Resonate app interface"

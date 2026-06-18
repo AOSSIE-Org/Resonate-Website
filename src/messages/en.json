@@ -63,5 +63,19 @@
     },
     "copyright": "© 2026 Resonate",
     "madeWith": "Made with 🤍 by AOSSIE Community"
+  },
+  "About": {
+    "title1": "Conversations,",
+    "title2": "Go Open-Source",
+    "description": "With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is the right time for an open-source alternative to emerge. Such a platform would strengthen trust and credibility within the open-source community while offering transparency, flexibility, and community-driven innovation.",
+    "tagline1": "Voices Without",
+    "tagline2": "Limits",
+    "videoButton": "Watch Video",
+    "playStoreAlt": "Play Store",
+    "appStoreAlt": "App Store",
+    "availability1": "The Mobile app",
+    "availability2": "is available now",
+    "learnMore": "Learn More",
+    "mockupAlt": "App Mockup"
   }
 }
