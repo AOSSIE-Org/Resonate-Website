@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import BackgroundTile from "../ui/BackgroundTile";
@@ -13,25 +13,54 @@ export function Metric() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const bgPhoneRef = useRef<HTMLDivElement>(null);
 
+  const [isDesktop, setIsDesktop] = useState(false);
+
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 768px)");
-    let isDesktop = mediaQuery.matches;
+    setIsDesktop(mediaQuery.matches);
 
     const handleMediaChange = (e: MediaQueryListEvent) => {
-      isDesktop = e.matches;
-      if (!isDesktop && bgPhoneRef.current) {
-        bgPhoneRef.current.style.opacity = "0";
-      }
+      setIsDesktop(e.matches);
     };
     mediaQuery.addEventListener("change", handleMediaChange);
 
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaChange);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!isDesktop) {
-      return () => {
-        mediaQuery.removeEventListener("change", handleMediaChange);
-      };
+      if (bgPhoneRef.current) {
+        bgPhoneRef.current.style.opacity = "0";
+      }
+      return;
     }
 
     let rafId: number | null = null;
+
+    // Cached layout measurements to prevent layout thrashing
+    let sectionOffsetTop = 0;
+    let sectionHeight = 0;
+    let cachedVh = window.innerHeight;
+    let cachedVw = window.innerWidth;
+
+    const updateMeasurements = () => {
+      if (!sectionRef.current) return;
+      
+      let top = 0;
+      let curr: HTMLElement | null = sectionRef.current;
+      while (curr) {
+        top += curr.offsetTop;
+        curr = curr.offsetParent as HTMLElement | null;
+      }
+      sectionOffsetTop = top;
+      sectionHeight = sectionRef.current.offsetHeight;
+      cachedVh = window.innerHeight;
+      cachedVw = window.innerWidth;
+    };
+
+    updateMeasurements();
 
     const getMarginX = (viewportWidth: number): number => {
       if (viewportWidth >= 1280) return 192;
@@ -40,23 +69,24 @@ export function Metric() {
       return 16;
     };
 
-    const animate = () => {
-      if (!sectionRef.current || !bgPhoneRef.current) return;
+    let isIntersecting = true;
 
-      const rect = sectionRef.current.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const vw = window.innerWidth;
+    const animate = () => {
+      if (!isIntersecting || !sectionRef.current || !bgPhoneRef.current) {
+        rafId = null;
+        return;
+      }
 
       // 1. Calculate opacity based on proximity of the section center to viewport center
-      const sectionHeight = rect.height || vh;
-      const sectionCenter = rect.top + sectionHeight / 2;
-      const viewportCenter = vh / 2;
+      const sHeight = sectionHeight || cachedVh;
+      const sectionCenter = (sectionOffsetTop - window.scrollY) + sHeight / 2;
+      const viewportCenter = cachedVh / 2;
       const distanceFromCenter = Math.abs(sectionCenter - viewportCenter);
 
-      // Fade range: start fading out when distanceFromCenter is > vh * 0.4,
-      // and be fully transparent when distanceFromCenter is >= vh * 0.9.
-      const fadeStart = vh * 0.4;
-      const fadeEnd = vh * 0.9;
+      // Fade range: start fading out when distanceFromCenter is > cachedVh * 0.4,
+      // and be fully transparent when distanceFromCenter is >= cachedVh * 0.9.
+      const fadeStart = cachedVh * 0.4;
+      const fadeEnd = cachedVh * 0.9;
       let opacity = 0;
 
       if (distanceFromCenter <= fadeStart) {
@@ -70,8 +100,8 @@ export function Metric() {
       bgPhoneRef.current.style.opacity = `${opacity}`;
 
       // 2. Horizontal translation (matching HeroVisuals logic)
-      const maxTranslateX = vw / 2 - getMarginX(vw);
-      const finalTranslateX = Math.min(vw * 0.28, maxTranslateX);
+      const maxTranslateX = cachedVw / 2 - getMarginX(cachedVw);
+      const finalTranslateX = Math.min(cachedVw * 0.28, maxTranslateX);
 
       // Offset the background phone to the left of the foreground/moving phone
       // The foreground phone translates by finalTranslateX.
@@ -87,24 +117,62 @@ export function Metric() {
     };
 
     const handleScroll = () => {
+      if (!isIntersecting) return;
       if (rafId === null) {
         rafId = requestAnimationFrame(animate);
       }
     };
 
+    const handleResize = () => {
+      updateMeasurements();
+      if (rafId === null) {
+        rafId = requestAnimationFrame(animate);
+      }
+    };
+
+    // Use ResizeObserver to update measurements when page layout shifts
+    const resizeObserver = new ResizeObserver(() => {
+      updateMeasurements();
+      if (rafId === null) {
+        rafId = requestAnimationFrame(animate);
+      }
+    });
+
+    if (document.body) {
+      resizeObserver.observe(document.body);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting && rafId === null) {
+          rafId = requestAnimationFrame(animate);
+        }
+      },
+      {
+        rootMargin: "100px 0px 100px 0px",
+        threshold: 0,
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
 
     // Initial calculation
     animate();
 
     return () => {
-      mediaQuery.removeEventListener("change", handleMediaChange);
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      resizeObserver.disconnect();
+      observer.disconnect();
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [isDesktop]);
 
   return (
     <section ref={sectionRef} className="relative flex flex-col md:pt-56 overflow-hidden md:min-h-screen">
@@ -206,7 +274,7 @@ export function Metric() {
                 >
                   <Image
                     src="/assets/icons/gmail.svg"
-                    alt="Gmail"
+                    alt={t("gmailAlt")}
                     width={24}
                     height={24}
                     className="h-4 w-4 md:h-6 md:w-6 icon-secondary"
@@ -220,7 +288,7 @@ export function Metric() {
                 >
                   <Image
                     src="/assets/icons/discord.svg"
-                    alt="Discord"
+                    alt={t("discordAlt")}
                     width={24}
                     height={24}
                     className="h-4 w-4 md:h-6 md:w-6 icon-secondary "
@@ -234,7 +302,7 @@ export function Metric() {
                 >
                   <Image
                     src="/assets/icons/twitter.svg"
-                    alt="Twitter"
+                    alt={t("twitterAlt")}
                     width={24}
                     height={24}
                     className="h-4 w-4 md:h-6 md:w-6 icon-secondary theme-icon"
@@ -248,7 +316,7 @@ export function Metric() {
                 >
                   <Image
                     src="/assets/icons/github.svg"
-                    alt="GitHub"
+                    alt={t("githubAlt")}
                     width={24}
                     height={24}
                     className="h-4 w-4 md:h-6 md:w-6 icon-secondary theme-icon"
@@ -262,7 +330,7 @@ export function Metric() {
                 >
                   <Image
                     src="/assets/icons/gitlab.svg"
-                    alt="GitLab"
+                    alt={t("gitlabAlt")}
                     width={24}
                     height={24}
                     className="h-4 w-4 md:h-6 md:w-6 icon-secondary "
@@ -291,7 +359,7 @@ export function Metric() {
             <div className="w-[80%] hidden xl:block overflow-hidden">
               <Image
                 src="/assets/mockups/phone.webp"
-                alt="Background phone mockup"
+                alt={t("backgroundPhoneAlt")}
                 width={400}
                 height={800}
                 className="w-full h-auto"

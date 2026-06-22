@@ -145,7 +145,7 @@ body {
 }
 
 /* --- HERO TEXT ANIMATIONS --- */
-@keyframes luxuryReveal {
+@keyframes luxury-reveal {
   0% {
     opacity: 0;
     transform: translateY(35px) scale(0.96);
@@ -159,27 +159,27 @@ body {
 }
 
 .animate-luxury-reveal-1 {
-  animation: luxuryReveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: luxury-reveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   will-change: transform, opacity, filter;
 }
 
 .animate-luxury-reveal-2 {
-  animation: luxuryReveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: luxury-reveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 350ms;
   opacity: 0;
   will-change: transform, opacity, filter;
 }
 
 .animate-luxury-reveal-3 {
-  animation: luxuryReveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: luxury-reveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 700ms;
   opacity: 0;
   will-change: transform, opacity, filter;
 }
 
 .animate-luxury-reveal-4 {
-  animation: luxuryReveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: luxury-reveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 1050ms;
   opacity: 0;
   will-change: transform, opacity, filter;

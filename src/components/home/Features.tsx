@@ -47,7 +47,7 @@ export function Features() {
   };
 
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (touchStart === null || touchEnd === null) return;
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
@@ -283,7 +283,7 @@ export function Features() {
               <button 
                 onClick={handlePrev}
                 className="p-3 border border-(--border) rounded-full active:scale-90 hover:bg-(--hover-background) transition-all text-(--foreground) shrink-0"
-                aria-label="Previous Feature"
+                aria-label={t("prevFeature")}
               >
                 <svg className="w-5 h-5 stroke-current" fill="none" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -299,7 +299,7 @@ export function Features() {
               >
                 <Image
                   src="/assets/mockups/phone_features.webp"
-                  alt="Resonate app interface"
+                  alt={t("resonateAppInterface")}
                   fill
                   className="object-contain"
                   priority
@@ -317,7 +317,7 @@ export function Features() {
               <button 
                 onClick={handleNext}
                 className="p-3 border border-(--border) rounded-full active:scale-90 hover:bg-(--hover-background) transition-all text-(--foreground) shrink-0"
-                aria-label="Next Feature"
+                aria-label={t("nextFeature")}
               >
                 <svg className="w-5 h-5 stroke-current" fill="none" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -336,7 +336,7 @@ export function Features() {
                 <div className="flex items-center justify-center gap-2 text-base sm:text-lg font-semibold text-(--foreground-muted) animate-in fade-in duration-200">
                   <Image
                     src="/assets/icons/swipe_cue.svg"
-                    alt="Swipe Cue"
+                    alt={t("swipeCue")}
                     width={28}
                     height={28}
                     className="h-7 w-auto icon-secondary theme-icon opacity-50"

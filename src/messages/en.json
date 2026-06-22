@@ -85,7 +85,13 @@
     "aboutAossieHere": "about AOSSIE here",
     "playStoreAlt": "Play Store",
     "appStoreAlt": "App Store",
-    "mockupAlt": "App Mockup"
+    "mockupAlt": "App Mockup",
+    "gmailAlt": "Gmail",
+    "discordAlt": "Discord",
+    "twitterAlt": "Twitter",
+    "githubAlt": "GitHub",
+    "gitlabAlt": "GitLab",
+    "backgroundPhoneAlt": "Background phone mockup"
   },
   "About": {
     "title1": "Conversations,",
@@ -124,6 +130,10 @@
     "feature5Title": "Seamless Platform Integration",
     "feature6Title": "Customizable Audio Spaces",
     "hoverCueText": "Hover over the feature cards",
-    "swipeCueText": "Swipe to See More Features"
+    "swipeCueText": "Swipe to See More Features",
+    "prevFeature": "Previous Feature",
+    "nextFeature": "Next Feature",
+    "resonateAppInterface": "Resonate app interface",
+    "swipeCue": "Swipe Cue"
   }
 }

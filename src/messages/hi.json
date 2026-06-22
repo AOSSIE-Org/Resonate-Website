@@ -85,7 +85,13 @@
     "aboutAossieHere": "यहाँ AOSSIE के बारे में",
     "playStoreAlt": "प्ले स्टोर",
     "appStoreAlt": "ऐप स्टोर",
-    "mockupAlt": "ऐप का मॉकअप"
+    "mockupAlt": "ऐप का मॉकअप",
+    "gmailAlt": "जीमेल",
+    "discordAlt": "डिस्कॉर्ड",
+    "twitterAlt": "ट्विटर",
+    "githubAlt": "गिटहब",
+    "gitlabAlt": "गिटलैब",
+    "backgroundPhoneAlt": "पृष्ठभूमि फोन मॉकअप"
   },
   "About": {
     "title1": "बातचीत,",
@@ -124,6 +130,10 @@
     "feature5Title": "निर्बाध प्लेटफॉर्म एकीकरण",
     "feature6Title": "अनुकूलन योग्य ऑडियो रूम",
     "hoverCueText": "फीचर कार्ड पर माउस ले जाएं",
-    "swipeCueText": "अधिक सुविधाएँ देखने के लिए स्वाइप करें"
+    "swipeCueText": "अधिक सुविधाएँ देखने के लिए स्वाइप करें",
+    "prevFeature": "पिछली विशेषता",
+    "nextFeature": "अगली विशेषता",
+    "resonateAppInterface": "रेसोनेट ऐप इंटरफ़ेस",
+    "swipeCue": "स्वाइप संकेत"
   }
 }

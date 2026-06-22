@@ -44,48 +44,55 @@ export function HeroVisuals() {
   }, []);
 
   // Smooth animation loop (Lenis-friendly), with RAF cleanup
-useEffect(() => {
-  if (isMobile !== false) return;
+  useEffect(() => {
+    if (isMobile !== false) return;
 
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-  let rafId: number | null = null;
-  let current = 0;
-  let isIntersecting = true;
+    let rafId: number | null = null;
+    let current = 0;
 
-  const EPSILON = 0.001;
+    const EPSILON = 0.001;
 
-  // 👉 If reduced motion → set static end state and exit
-  if (prefersReducedMotion) {
-    if (handRef.current) {
-      handRef.current.style.opacity = "0";
+    // 👉 If reduced motion → set static end state and exit
+    if (prefersReducedMotion) {
+      if (handRef.current) {
+        handRef.current.style.opacity = "0";
+      }
+
+      if (phoneRef.current) {
+        const vw = window.innerWidth;
+        const maxTranslateX = vw / 2 - getMarginX(vw);
+
+        phoneRef.current.style.transform = `translate3d(${maxTranslateX}px, 1000px, 0) rotate(-10deg)`;
+      }
+
+      return;
     }
 
-    if (phoneRef.current) {
-      const vw = window.innerWidth;
-      const maxTranslateX = vw / 2 - getMarginX(vw);
+    // Cached layout measurements to prevent layout thrashing
+    let cachedVh = window.innerHeight;
+    let cachedVw = window.innerWidth;
 
-      phoneRef.current.style.transform = `translate3d(${maxTranslateX}px, 1000px, 0) rotate(-10deg)`;
-    }
+    const updateMeasurements = () => {
+      cachedVh = window.innerHeight;
+      cachedVw = window.innerWidth;
+    };
 
-    return;
-  }
-
-
+    let isIntersecting = true;
 
     const animate = () => {
-      if (!sectionRef.current) return;
+      if (!isIntersecting) {
+        rafId = null;
+        return;
+      }
 
-      const rect = sectionRef.current.getBoundingClientRect();
-      const vh = window.innerHeight;
-
-      const target = Math.min(Math.max(1 - rect.bottom / vh, 0), 3.0);
+      const target = Math.min(Math.max(window.scrollY / (cachedVh || 1), 0), 3.0);
       current += (target - current) * 0.1;
 
-      const vw = window.innerWidth;
-      const maxTranslateX = vw / 2 - getMarginX(vw);
+      const maxTranslateX = cachedVw / 2 - getMarginX(cachedVw);
 
       const handOpacity = Math.max(0, 1 - current * 4);
       
@@ -101,7 +108,7 @@ useEffect(() => {
 
       // Horizontal Translation: moves from center (0) to right (finalTranslateX) for current <= 1,
       // stays right for 1 < current <= 2, and returns to center (0) for 2 < current <= 3.
-      const finalTranslateX = Math.min(vw * 0.28, maxTranslateX);
+      const finalTranslateX = Math.min(cachedVw * 0.28, maxTranslateX);
       let phoneTranslateX = 0;
       if (current <= 1) {
         phoneTranslateX = current * finalTranslateX;
@@ -192,41 +199,49 @@ useEffect(() => {
       }
     };
 
-    // 👉 Intersection Observer (pause when off-screen)
+    const handleScroll = () => {
+      if (!isIntersecting) return;
+      if (rafId === null) {
+        rafId = requestAnimationFrame(animate);
+      }
+    };
+
+    const handleResize = () => {
+      updateMeasurements();
+      if (rafId === null) {
+        rafId = requestAnimationFrame(animate);
+      }
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         isIntersecting = entry.isIntersecting;
-
-        // restart loop if comes back into view
         if (isIntersecting && rafId === null) {
           rafId = requestAnimationFrame(animate);
         }
       },
-      { threshold: 0.1 }
+      {
+        rootMargin: "500% 0px 500% 0px",
+        threshold: 0,
+      }
     );
 
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
 
-    const handleScroll = () => {
-      if (rafId === null) {
-        rafId = requestAnimationFrame(animate);
-      }
-    };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
 
     rafId = requestAnimationFrame(animate);
 
     return () => {
       if (rafId !== null) cancelAnimationFrame(rafId);
-      observer.disconnect();
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      observer.disconnect();
     };
-}, [isMobile]);
+  }, [isMobile]);
 
   // Neutral skeleton — avoids hydration mismatch on first render
   if (isMobile === null) {
