@@ -44,6 +44,8 @@ const BackgroundTile = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    let isIntersecting = false;
+
     const updateLineColor = () => {
       lineColorRef.current = getComputedStyle(document.documentElement)
         .getPropertyValue("--line-color")
@@ -132,6 +134,11 @@ const BackgroundTile = () => {
     ro.observe(canvas);
 
     const tick = () => {
+      if (!isIntersecting) {
+        rafRef.current = null;
+        return;
+      }
+
       // Lerp toward target, then decay target — order matters
       currentXSpeed.current += (targetXSpeed.current - currentXSpeed.current) * 0.15;
       targetXSpeed.current  *= 0.85;
@@ -182,6 +189,7 @@ const BackgroundTile = () => {
     };
 
     const onWheel = (e: WheelEvent) => {
+      if (!isIntersecting) return;
       lastWheelTime = Date.now();
       const vel = Math.min(Math.abs(e.deltaY) / 60, 1);
       triggerScroll(0.18 + vel * 0.74);
@@ -193,6 +201,7 @@ const BackgroundTile = () => {
     };
 
     const onScroll = () => {
+      if (!isIntersecting) return;
       const currentScrollY = window.scrollY;
       const deltaY         = currentScrollY - lastScrollY;
       lastScrollY          = currentScrollY;
@@ -206,6 +215,23 @@ const BackgroundTile = () => {
       triggerScroll(0.55);
     };
 
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting) {
+          render();
+        } else {
+          stopLoop();
+          if (rafRef.current !== null) {
+            cancelAnimationFrame(rafRef.current);
+            rafRef.current = null;
+          }
+        }
+      },
+      { threshold: 0.01 }
+    );
+    observer.observe(canvas);
+
     window.addEventListener("wheel",  onWheel,  { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -213,6 +239,7 @@ const BackgroundTile = () => {
       stopLoop();
       ro.disconnect();
       themeObserver.disconnect();
+      observer.disconnect();
       if (rafRef.current)    cancelAnimationFrame(rafRef.current);
       if (stopTimer.current) clearTimeout(stopTimer.current);
       window.removeEventListener("wheel",  onWheel);

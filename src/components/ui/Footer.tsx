@@ -53,53 +53,54 @@ const Footer = () => {
   return (
     <div className="w-full">
       {/* Background wrapper */}
-      <div className="relative">
-        <div className="absolute inset-0">
-          <BackgroundTile />
-        </div>
 
-        {/* Footer content */}
-        <div className="relative z-10 flex flex-col md:flex-row items-center sm:justify-between px-6 md:px-16 py-10 gap-10 md:gap-0">
+        <div className="relative">
+          <div className="absolute inset-0">
+            <BackgroundTile />
+          </div>
 
-          {/* Brand */}
-          <Image
-            src={brandingSrc}
-            alt="Resonate Branding"
-            width={524}
-            height={73}
-            className="hover:scale-105 transition-transform select-none w-90 md:w-70 lg:w-auto"
-          />
+          {/* Footer content */}
+          <div className="relative z-10 flex flex-col md:flex-row items-center sm:justify-between px-6 md:px-16 py-10 gap-10 md:gap-0">
 
-          {/* Nav columns */}
-          <nav className="flex justify-center md:justify-end gap-6 sm:gap-10 md:gap-14">
-            {NAV_CONFIG.map((col) => (
-              <div key={col.titleKey}>
-                <p className="text-(--footer-headings) text-sm sm:text-lg font-bold mb-3">
-                  {t(col.titleKey)}
-                </p>
+            {/* Brand */}
+            <Image
+              src={brandingSrc}
+              alt="Resonate Branding"
+              width={524}
+              height={73}
+              className="hover:scale-105 transition-transform select-none w-90 md:w-70 lg:w-auto"
+            />
 
-                <ul className="flex flex-col gap-2">
-                  {col.links.map((link) => (
-                    <li key={link.labelKey}>
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-(--footer-text) text-sm font-light hover:text-yellow-600 transition-colors"
-                      >
-                        {t(link.labelKey)}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
+            {/* Nav columns */}
+            <nav className="flex justify-center md:justify-end gap-6 sm:gap-10 md:gap-14">
+              {NAV_CONFIG.map((col) => (
+                <div key={col.titleKey}>
+                  <p className="text-(--footer-headings) text-sm sm:text-lg font-bold mb-3">
+                    {t(col.titleKey)}
+                  </p>
+
+                  <ul className="flex flex-col gap-2">
+                    {col.links.map((link) => (
+                      <li key={link.labelKey}>
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-(--footer-text) text-sm font-light hover:text-yellow-600 transition-colors"
+                        >
+                          {t(link.labelKey)}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </nav>
         </div>
       </div>
 
       {/* Bottom bar */}
-      <div className="flex flex-col text-sm sm:text-base md:flex-row justify-between p-4 font-medium gap-2">
+      <div className="flex flex-col text-sm sm:text-base md:flex-row justify-between py-4 px-4 md:px-8 xl:px-16 font-medium gap-2">
         <div>{t("copyright")}</div>
         <div>{t("madeWith")}</div>
       </div>

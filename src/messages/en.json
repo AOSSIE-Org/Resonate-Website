@@ -64,6 +64,29 @@
     "copyright": "© 2026 Resonate",
     "madeWith": "Made with 🤍 by AOSSIE Community"
   },
+  "ThemeToggle": {
+    "toggleTheme": "Toggle theme",
+    "switchTheme": "Switch Theme",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "loading": "Loading theme toggle"
+  },
+  "Metric": {
+    "storeRatingPart1": "STORE",
+    "storeRatingPart2": "RATING",
+    "happyContributorsPart1": "HAPPY",
+    "happyContributorsPart2": "CONTRIBUTORS",
+    "uniqueDownloadsPart1": "UNIQUE",
+    "uniqueDownloadsPart2": "DOWNLOADS",
+    "weEducate": "WE EDUCATE",
+    "weInnovate": "WE INNOVATE",
+    "aossieDescription": "We are an Australian not-for-profit organization that supports and brings together open-source projects. We believe open source is a resource-efficient and collaborative way to share knowledge, encourage innovation, and make education more accessible through strong community participation.",
+    "findMore": "Find More",
+    "aboutAossieHere": "about AOSSIE here",
+    "playStoreAlt": "Play Store",
+    "appStoreAlt": "App Store",
+    "mockupAlt": "App Mockup"
+  },
   "About": {
     "title1": "Conversations,",
     "title2": "Go Open-Source",
@@ -77,5 +100,30 @@
     "availability2": "is available now",
     "learnMore": "Learn More",
     "mockupAlt": "App Mockup"
+  },
+  "Features": {
+    "joinCommunity": "JOIN OUR COMMUNITY",
+    "communityDescription": "Become a member of our INCREDIBLE open source community by clicking on the button below, our amazing members and maintainers will guide you thoroughly to get your journey started.",
+    "contributeButton": "Contribute to the Project",
+    "techStack": "GET FAMILIAR WITH OUR TECH STACK",
+    "mobileDev": "MOBILE DEVELOPMENT",
+    "flutter": "Flutter",
+    "dart": "Dart",
+    "appwrite": "Appwrite",
+    "livekit": "LiveKit",
+    "card1": "FEATURE #1",
+    "card2": "FEATURE #2",
+    "card3": "FEATURE #3",
+    "card4": "FEATURE #4",
+    "card5": "FEATURE #5",
+    "card6": "FEATURE #6",
+    "feature1Title": "Real-Time Audio Communication",
+    "feature2Title": "Open Source Collaboration",
+    "feature3Title": "High-Quality Spatial Audio",
+    "feature4Title": "Decentralized & Secure",
+    "feature5Title": "Seamless Platform Integration",
+    "feature6Title": "Customizable Audio Spaces",
+    "hoverCueText": "Hover over the feature cards",
+    "swipeCueText": "Swipe to See More Features"
   }
 }

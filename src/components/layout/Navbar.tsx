@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ThemeToggle } from "../ui/theme-toggle";
 import { LanguageDropdown } from "../ui/LanguageDropdown";
 import { DownloadModal } from "../ui/DownloadModal";
@@ -17,7 +17,7 @@ export function Navbar() {
   const [isNavHovered, setIsNavHovered] = useState(false);
   const [isIslandFocused, setIsIslandFocused] = useState(false);
   const [hasAnimatedIn, setHasAnimatedIn] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const progressCircleRef = useRef<SVGCircleElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -25,17 +25,23 @@ export function Navbar() {
     }, 100);
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const scrolled = window.scrollY > 50;
+      setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
 
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
       const maxScroll = documentHeight - windowHeight;
       const progress = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
-      setScrollProgress(progress);
+
+      if (progressCircleRef.current) {
+        progressCircleRef.current.style.strokeDashoffset = `${
+          62.83 - (62.83 * progress) / 100
+        }`;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     return () => {
@@ -159,6 +165,7 @@ export function Navbar() {
                   fill="none"
                 />
                 <circle
+                  ref={progressCircleRef}
                   cx="12"
                   cy="12"
                   r="10"
@@ -166,10 +173,10 @@ export function Navbar() {
                   strokeWidth="4"
                   fill="none"
                   strokeDasharray="62.83"
-                  strokeDashoffset={62.83 - (62.83 * scrollProgress) / 100}
+                  strokeDashoffset="62.83"
                   strokeLinecap="round"
                   transform="rotate(-90 12 12)"
-                  style={{ transition: "stroke-dashoffset 0.1s ease-out" }}
+                  style={{ willChange: "stroke-dashoffset" }}
                 />
               </svg>
             </div>

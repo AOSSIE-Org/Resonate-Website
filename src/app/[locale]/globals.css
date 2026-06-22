@@ -20,6 +20,7 @@
   --foreground: #1C1C1C;
   --foreground-secondary: #121212;
   --foreground-muted: #4D4D4D;
+  --heading-highlight: #121212;
 
   /* Interactive States */
   --hover-background: var(--color-neutral-200);
@@ -43,7 +44,7 @@
   /* Background Tile Colors */
   --tile-bg: rgb(227, 226, 246);
   --tile-stroke: rgb(80, 80, 80, 0.1);
-  --line-color: rgb(0, 0, 0, 0.03);
+  --line-color: rgb(0, 0, 0, 0.05);
 
   /* Footer Colors */
   --footer-headings: rgb(0, 0, 0, 0.9);
@@ -51,6 +52,11 @@
 
   /* Download Modal Colors */
   --download-modal-bg: #FFFFFF;
+
+  /* Card Design Tokens */
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: var(--color-neutral-200);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 /* DARK MODE */
@@ -63,6 +69,7 @@
   --foreground: #D3D3D3;
   --foreground-secondary: #B4B4B4;
   --foreground-muted: #7F8188;
+  --heading-highlight: var(--color-brand-yellow);
 
   /* Interactive States */
   --hover-background: var(--color-neutral-800);
@@ -94,6 +101,11 @@
 
   /* Download Modal Colors */
   --download-modal-bg: rgb(26, 26, 26, 0.92);
+
+  /* Card Design Tokens */
+  --card-bg: rgba(22, 22, 22, 0.85);
+  --card-border: var(--color-neutral-800);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 /* --- GLOBAL STYLES --- */
@@ -108,8 +120,12 @@ body {
 @utility text-primary { color: var(--foreground); }
 @utility text-secondary { color: var(--foreground-secondary); }
 @utility text-muted { color: var(--foreground-muted); }
+@utility text-highlight { color: var(--heading-highlight); }
 @utility border-default { border-color: var(--border); }
 @utility border-subtle { border-color: var(--border-subtle); }
+@utility bg-card { background-color: var(--card-bg); }
+@utility border-card { border-color: var(--card-border); }
+@utility shadow-card { box-shadow: var(--card-shadow); }
 
 /* --- THEME ICON --- */
 /* 
@@ -127,3 +143,45 @@ body {
 :is(.dark .theme-icon) {
   filter: invert(1) brightness(100);
 }
+
+/* --- HERO TEXT ANIMATIONS --- */
+@keyframes luxuryReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(35px) scale(0.96);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.animate-luxury-reveal-1 {
+  animation: luxuryReveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+.animate-luxury-reveal-2 {
+  animation: luxuryReveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 350ms;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+.animate-luxury-reveal-3 {
+  animation: luxuryReveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 700ms;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+.animate-luxury-reveal-4 {
+  animation: luxuryReveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 1050ms;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
