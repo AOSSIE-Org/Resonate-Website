@@ -12,7 +12,7 @@ export function Hero() {
     <section className="relative flex flex-col items-center justify-center sm:justify-around min-h-[100svh] pt-8 sm:pt-14 pb-[100vw] sm:pb-0">
 
       {/* Text Block */}
-      <div className="flex flex-col items-center gap-4 text-center px-4 md:px-8 xl:px-16">
+      <div className="flex flex-col items-center gap-4 text-center px-4 md:px-8 xl:px-0 2xl:px-16">
         <div className="flex flex-col items-center gap-4">
           <h1 className="text-4xl lg:text-5xl xl:text-6xl font-medium text-(--foreground) tracking-tighter animate-luxury-reveal-1">
             {t("headline")}

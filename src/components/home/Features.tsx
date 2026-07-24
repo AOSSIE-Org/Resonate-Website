@@ -60,14 +60,14 @@ export function Features() {
   };
 
   return (
-    <section className="relative flex flex-col justify-between pt-16 sm:pt-24 md:pt-56 overflow-hidden min-h-screen" ref={revealRef}>
+    <section className="relative flex flex-col pt-16 sm:pt-24 xl:pt-24 overflow-hidden min-h-screen" ref={revealRef}>
 
-      <div className="w-full px-4 md:px-8 xl:px-16 flex-1 flex flex-col justify-between gap-12 relative z-10">
+      <div className="w-full px-4 md:px-8 xl:px-0 2xl:px-16 flex-1 flex flex-col gap-12 relative z-10">
         
         {/* ========================================================================= */}
-        {/* DESKTOP LAYOUT (md+) */}
+        {/* DESKTOP LAYOUT (xl+) */}
         {/* ========================================================================= */}
-        <div className="hidden md:flex flex-col justify-between gap-16 xl:gap-24 flex-1">
+        <div className="hidden xl:flex flex-col gap-16 xl:gap-24 flex-1">
           
           {/* Top Row: Community Info (Left) and Tech Stack (Right) */}
           <div className="grid grid-cols-[1.2fr_0.8fr_1fr] gap-x-8 items-start">
@@ -146,7 +146,7 @@ export function Features() {
           </div>
 
           {/* Bottom Row: Scrolling Feature Cards Marquee */}
-          <div className="flex flex-col gap-8 relative z-20 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden -mt-10 md:-mt-36">
+          <div className="flex flex-col gap-8 relative z-20 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden -mt-10 xl:-mt-20">
             {/* Embedded styles for marquee animation */}
             <style dangerouslySetInnerHTML={{ __html: `
               @keyframes marquee {
@@ -180,34 +180,34 @@ export function Features() {
                 );
               })}
             </div>
+          </div>
 
-            {/* Centered Active Feature Text below Phone mockup */}
-            <div className="text-center py-12 relative z-30 flex items-center justify-center gap-3 min-h-[120px]">
-              {hoveredFeature !== null ? (
-                <p className="text-xl lg:text-2xl xl:text-3xl font-medium text-(--foreground) transition-opacity duration-300">
-                  {t(features[hoveredFeature].titleKey)}
-                </p>
-              ) : (
-                <div className="flex items-center justify-center gap-3 text-xl lg:text-2xl xl:text-3xl font-medium text-(--foreground-muted) transition-opacity duration-300">
-                  <Image
-                    src="/assets/icons/hover_cue.svg"
-                    alt="Hover Cue"
-                    width={32}
-                    height={32}
-                    className="h-8 w-auto icon-secondary opacity-50 theme-icon"
-                  />
-                  <span>{t("hoverCueText")}</span>
-                </div>
-              )}
-            </div>
+          {/* Centered Active Feature Text below Phone mockup */}
+          <div className="text-center pt-12 pb-12 relative z-30 flex items-center justify-center gap-3 min-h-[120px]">
+            {hoveredFeature !== null ? (
+              <p className="text-xl lg:text-2xl xl:text-3xl font-medium text-(--foreground) transition-opacity duration-300">
+                {t(features[hoveredFeature].titleKey)}
+              </p>
+            ) : (
+              <div className="flex items-center justify-center gap-3 text-xl lg:text-2xl xl:text-3xl font-medium text-(--foreground-muted) transition-opacity duration-300">
+                <Image
+                  src="/assets/icons/hover_cue.svg"
+                  alt="Hover Cue"
+                  width={32}
+                  height={32}
+                  className="h-8 w-auto icon-secondary opacity-50 theme-icon"
+                />
+                <span>{t("hoverCueText")}</span>
+              </div>
+            )}
           </div>
 
         </div>
 
         {/* ========================================================================= */}
-        {/* MOBILE LAYOUT (<md) */}
+        {/* MOBILE LAYOUT (<xl) */}
         {/* ========================================================================= */}
-        <div className="flex md:hidden flex-col gap-10">
+        <div className="flex xl:hidden flex-col gap-10">
           
           {/* Top Block: Community */}
           <div className="flex flex-col gap-5 text-center items-center">

@@ -8,7 +8,7 @@ import { Features } from '@/components/home/Features';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col mx-4 sm:mx-8 lg:mx-16 xl:mx-48">
+    <div className="flex min-h-screen flex-col mx-4 sm:mx-8 lg:mx-16 2xl:mx-48">
       <div className="min-h-screen md:min-h-[400vh] h-auto">
       <Hero />
       <About />

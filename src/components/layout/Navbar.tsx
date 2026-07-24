@@ -74,7 +74,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed top-4 lg:top-0 left-0 right-0 z-50 mx-4 sm:mx-8 xl:mx-16 2xl:mx-48 border-[0.6px] border-default rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300"
+      <header className="fixed top-4 lg:top-0 left-4 right-4 sm:left-8 sm:right-8 lg:left-16 lg:right-16 2xl:left-48 2xl:right-48 z-50 border-[0.6px] border-default rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300"
       onMouseEnter={() => setIsNavHovered(true)}
       onMouseLeave={() => setIsNavHovered(false)}>
         <div className="mx-auto flex lg:grid lg:grid-cols-[1fr_auto_1fr] py-3 sm:py-4 items-center justify-between lg:justify-normal px-4 sm:px-6 lg:px-9">

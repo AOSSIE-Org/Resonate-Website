@@ -16,7 +16,7 @@ export function Metric() {
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const mediaQuery = window.matchMedia("(min-width: 1280px)");
     setIsDesktop(mediaQuery.matches);
 
     const handleMediaChange = (e: MediaQueryListEvent) => {
@@ -63,7 +63,7 @@ export function Metric() {
     updateMeasurements();
 
     const getMarginX = (viewportWidth: number): number => {
-      if (viewportWidth >= 1280) return 192;
+      if (viewportWidth >= 1536) return 192;
       if (viewportWidth >= 1024) return 64;
       if (viewportWidth >= 640) return 32;
       return 16;
@@ -175,11 +175,11 @@ export function Metric() {
   }, [isDesktop]);
 
   return (
-    <section ref={sectionRef} className="relative flex flex-col md:pt-56 overflow-hidden md:min-h-screen">
+    <section ref={sectionRef} className="relative flex flex-col xl:pt-56 overflow-hidden xl:min-h-screen">
       {/* Top Section: Titles and Description */}
-      <div className="px-4 md:px-8 xl:px-16 relative z-10 w-full">
+      <div className="px-4 md:px-8 xl:px-0 2xl:px-16 relative z-10 w-full">
         <div className="flex flex-col py-8">
-          <div className="flex flex-col gap-16 sm:flex-row md:flex-row justify-center items-center sm:justify-start">
+          <div className="flex flex-col md:flex-row gap-16 justify-center items-center xl:justify-start">
             <div className="flex flex-col gap-6">
               <h1 className="text-6xl font-bold text-center text-highlight">
                 4.6+
@@ -211,23 +211,24 @@ export function Metric() {
               </h1>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center md:items-start md:justify-start">
-            <div className="flex w-full items-center justify-center">
-            <Image
-              src="/assets/mockups/phone_metric.webp"
-              alt={t("mockupAlt")}
-              width={400}
-              height={800}
-              className="md:hidden flex w-2/3 lg:w-2/3 h-auto my-12"
-              priority
-            />
+          <div className="flex flex-col items-center justify-center xl:items-start xl:justify-start">
+            <div className="flex w-full items-center justify-center xl:justify-start">
+              <div className="xl:hidden w-[226px] sm:w-[266px] aspect-[9/18] relative my-12">
+                <Image
+                  src="/assets/mockups/phone_metric.webp"
+                  alt={t("mockupAlt")}
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </div>
-            <div className="flex flex-col items-center justify-center md:items-start md:justify-start sm:mt-12" ref={revealRef}>
-              <h3 className={`text-4xl md:text-6xl font-bold tracking-tighter leading-tight uppercase text-highlight text-center sm:text-left ${isVisible ? 'animate-luxury-reveal-1' : 'opacity-0'}`}>
-                {t("weEducate")}
-              </h3>
-              <h3 className={`text-4xl md:text-6xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center sm:text-left ${isVisible ? 'animate-luxury-reveal-2' : 'opacity-0'}`}>
+            <div className="flex flex-col items-center justify-center xl:items-start xl:justify-start sm:mt-12" ref={revealRef}>
+              <h3 className={`text-4xl md:text-6xl font-bold tracking-tighter leading-tight uppercase text-highlight text-center xl:text-left ${isVisible ? 'animate-luxury-reveal-1' : 'opacity-0'}`}>
                 {t("weInnovate")}
+              </h3>
+              <h3 className={`text-4xl md:text-6xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center xl:text-left ${isVisible ? 'animate-luxury-reveal-2' : 'opacity-0'}`}>
+                {t("weEducate")}
               </h3>
             </div>
           </div>
@@ -235,37 +236,37 @@ export function Metric() {
       </div>
 
       {/* Bottom Section: BackgroundTile with Headings on top */}
-      <div className="w-full px-4 md:px-8 xl:px-16">
-        <div className="relative flex w-full justify-center sm:justify-start">
+      <div className="w-full px-4 md:px-8 xl:px-0 2xl:px-16">
+        <div className="relative flex w-full justify-center xl:justify-start">
           {/* Background Tile - Centered in this container, sent to back */}
           <div className="absolute inset-0 -z-10 pointer-events-none opacity-40">
             <BackgroundTile />
           </div>
 
           {/* Heading on top of the tile */}
-          <div className="relative z-10 p-6 w-full">
-            <div className="flex flex-col sm:flex-row md:flex-row items-center md:justify-start md:items-start gap-2 sm:gap-10">
+          <div className="relative z-10 p-6 w-full flex flex-col items-center xl:items-start">
+            <div className="flex flex-col xl:flex-row items-center xl:justify-start xl:items-start gap-6 xl:gap-10">
               <Image
                 src="/assets/icons/aossie_logo.svg"
                 alt={t("playStoreAlt")}
                 width={24}
                 height={24}
-                className="h-44 w-44 md:h-64 md:w-64 icon-secondary mt-4 sm:mt-0"
+                className="h-44 w-44 xl:h-64 xl:w-64 icon-secondary mt-4 xl:mt-0"
               />
-              <p className="w-full md:max-w-1/3 text-(--foreground-muted) md:text-lg/relaxed pt-8 text-center md:text-left">
+              <p className="w-full max-w-xl xl:max-w-[550px] text-(--foreground-muted) xl:text-lg/relaxed pt-8 text-center xl:text-left">
                 {t("aossieDescription")}
               </p>
             </div>
-            <div className="flex flex-col md:flex-row items-center gap-6 pt-8 md:pt-16">
+            <div className="flex flex-col xl:flex-row items-center gap-6 pt-8 xl:pt-16">
               <div>
-                <p className="text-(--foreground-secondary) text-center md:text-left text-sm w-full">
+                <p className="text-(--foreground-secondary) text-center xl:text-left text-sm w-full">
                   {t("findMore")}
                 </p>
-                <p className="text-(--foreground-secondary) text-sm w-full">
+                <p className="text-(--foreground-secondary) text-center xl:text-left text-sm w-full">
                   {t("aboutAossieHere")}
                 </p>
               </div>
-              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+              <div className="flex flex-wrap items-center justify-center xl:justify-start gap-3">
                 <Link
                   href="mailto:aossie.oss@gmail.com"
                   target="_blank"
@@ -356,7 +357,7 @@ export function Metric() {
               opacity: 0,
             }}
           >
-            <div className="w-[80%] hidden xl:block overflow-hidden">
+            {/* <div className="w-[80%] hidden xl:block overflow-hidden">
               <Image
                 src="/assets/mockups/phone.webp"
                 alt={t("backgroundPhoneAlt")}
@@ -365,7 +366,7 @@ export function Metric() {
                 className="w-full h-auto"
                 priority
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

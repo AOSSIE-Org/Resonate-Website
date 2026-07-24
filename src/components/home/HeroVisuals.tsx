@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-// Align with Tailwind's md breakpoint (768px)
-const MOBILE_BREAKPOINT = "(max-width: 767px)";
+// Align with Tailwind's xl breakpoint (1280px)
+const MOBILE_BREAKPOINT = "(max-width: 1279px)";
 
 const getMarginX = (viewportWidth: number): number => {
-  if (viewportWidth >= 1280) return 192;
+  if (viewportWidth >= 1536) return 192;
   if (viewportWidth >= 1024) return 64;
   if (viewportWidth >= 640) return 32;
   return 16;
@@ -115,19 +115,27 @@ export function HeroVisuals() {
       } else if (current <= 2) {
         phoneTranslateX = finalTranslateX;
       } else if (current <= 3) {
-        phoneTranslateX = finalTranslateX * (3 - current);
+        // Move diagonally later: stay at finalTranslateX until current = 2.4, then translate to 0
+        if (current <= 2.4) {
+          phoneTranslateX = finalTranslateX;
+        } else {
+          const progress = (current - 2.4) / (3.0 - 2.4);
+          phoneTranslateX = finalTranslateX * (1 - progress);
+        }
       } else {
         phoneTranslateX = 0;
       }
 
-      // Vertical Translation: goes from 0 to 1920px (current: 0 -> 2) at 960px/section,
-      // and goes from 1920px to 3080px (current: 2 -> 3) to push the phone mockup lower 
-      // in Features section so that it aligns perfectly beside the feature cards.
+      // Vertical Translation: dynamically scales with viewport height (cachedVh) so that it remains
+      // perfectly aligned across different zoom levels and browser window heights.
       let phoneTranslateY = 0;
+      const baseSectionStep = cachedVh * 0.88;
+      const finalDestY = cachedVh * 3.12;
       if (current <= 2) {
-        phoneTranslateY = current * 960;
+        phoneTranslateY = current * baseSectionStep;
       } else {
-        phoneTranslateY = 1920 + (current - 2) * (3080 - 1920);
+        const startY = 2 * baseSectionStep;
+        phoneTranslateY = startY + (current - 2) * (finalDestY - startY);
       }
 
       if (handRef.current) {
