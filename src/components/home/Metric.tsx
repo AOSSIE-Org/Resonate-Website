@@ -13,11 +13,15 @@ export function Metric() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const bgPhoneRef = useRef<HTMLDivElement>(null);
 
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(min-width: 1280px)").matches;
+    }
+    return false;
+  });
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1280px)");
-    setIsDesktop(mediaQuery.matches);
 
     const handleMediaChange = (e: MediaQueryListEvent) => {
       setIsDesktop(e.matches);
