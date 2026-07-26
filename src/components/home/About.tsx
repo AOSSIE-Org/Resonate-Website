@@ -12,7 +12,7 @@ export function About() {
   const { ref: revealRef, isVisible } = useIntersectionObserver();
 
   return (
-    <section className="relative flex flex-col items-center xl:pt-56 overflow-hidden min-h-screen">
+    <section id="section-about" className="relative flex flex-col items-center xl:pt-56 overflow-hidden min-h-screen">
       {/* Top Section: Titles and Description */}
       <div className="px-4 md:px-8 xl:px-0 2xl:px-16 relative z-10 pb-16 w-full">
         <div className="flex flex-col space-y-4">

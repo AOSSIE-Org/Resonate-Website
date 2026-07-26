@@ -60,14 +60,14 @@ export function Features() {
   };
 
   return (
-    <section className="relative flex flex-col pt-16 sm:pt-24 xl:pt-24 overflow-hidden min-h-screen" ref={revealRef}>
+    <section id="section-features" className="relative flex flex-col pt-16 sm:pt-24 xl:pt-24 overflow-hidden min-h-screen" ref={revealRef}>
 
       <div className="w-full px-4 md:px-8 xl:px-0 2xl:px-16 flex-1 flex flex-col gap-12 relative z-10">
         
         {/* ========================================================================= */}
         {/* DESKTOP LAYOUT (xl+) */}
         {/* ========================================================================= */}
-        <div className="hidden xl:flex flex-col gap-16 xl:gap-24 flex-1">
+        <div className="hidden xl:flex flex-col gap-16 xl:gap-2 flex-1">
           
           {/* Top Row: Community Info (Left) and Tech Stack (Right) */}
           <div className="grid grid-cols-[1.2fr_0.8fr_1fr] gap-x-8 items-start">
@@ -103,7 +103,7 @@ export function Features() {
             </div>
 
             {/* Middle Column Spacer: Top part of the moving phone mockup */}
-            <div className="w-full max-w-[280px] lg:max-w-[340px] xl:max-w-[400px] mx-auto aspect-[9/12] pointer-events-none" />
+            <div id="features-phone-slot" className="w-full max-w-[280px] lg:max-w-[340px] xl:max-w-[400px] mx-auto aspect-[9/12] pointer-events-none" />
 
             {/* Right: Tech Stack Block */}
             <div className="flex flex-col gap-6 text-left justify-self-end w-full max-w-sm xl:max-w-md">
@@ -112,7 +112,7 @@ export function Features() {
               </h3>
               
               {/* Tech Stack Card */}
-              <div className="rounded-2xl border border-card p-6 xl:p-8 bg-card shadow-card backdrop-blur-md">
+              <div id="features-tech-card" className="rounded-2xl border border-card p-6 xl:p-8 bg-card shadow-card backdrop-blur-md">
                 <p className="text-xs font-semibold tracking-wider text-(--foreground-muted) uppercase mb-6">
                   {t("mobileDev")}
                 </p>
@@ -146,7 +146,7 @@ export function Features() {
           </div>
 
           {/* Bottom Row: Scrolling Feature Cards Marquee */}
-          <div className="flex flex-col gap-8 relative z-20 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden -mt-10 xl:-mt-20">
+          <div id="features-marquee-row" className="flex flex-col gap-8 relative z-20 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden -mt-10 xl:-mt-20">
             {/* Embedded styles for marquee animation */}
             <style dangerouslySetInnerHTML={{ __html: `
               @keyframes marquee {

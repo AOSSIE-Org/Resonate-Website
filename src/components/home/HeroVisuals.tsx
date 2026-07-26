@@ -75,11 +75,74 @@ export function HeroVisuals() {
     // Cached layout measurements to prevent layout thrashing
     let cachedVh = window.innerHeight;
     let cachedVw = window.innerWidth;
+    let top0 = 0;
+    let top1 = cachedVh * 1;
+    let top2 = cachedVh * 2;
+    let top3 = cachedVh * 3;
+    let targetY_about = cachedVh * 0.88;
+    let targetY_metric = cachedVh * 1.76;
+    let targetY_features = cachedVh * 3.12;
+    let lastPhoneTranslateY = 0;
 
     const updateMeasurements = () => {
       cachedVh = window.innerHeight;
       cachedVw = window.innerWidth;
+
+      const sy = window.scrollY;
+      const heroEl = document.getElementById("section-hero");
+      const aboutEl = document.getElementById("section-about");
+      const metricEl = document.getElementById("section-metric");
+      const featuresEl = document.getElementById("section-features");
+      const marqueeEl = document.getElementById("features-marquee-row");
+      const cardEl = document.getElementById("features-tech-card") || document.getElementById("features-phone-slot");
+      const phoneEl = phoneRef.current;
+
+      if (heroEl && aboutEl && metricEl && featuresEl && phoneEl) {
+        const heroRect = heroEl.getBoundingClientRect();
+        const aboutRect = aboutEl.getBoundingClientRect();
+        const metricRect = metricEl.getBoundingClientRect();
+        const featuresRect = featuresEl.getBoundingClientRect();
+        const phoneRect = phoneEl.getBoundingClientRect();
+
+        top0 = heroRect.top + sy;
+        // Milestone scroll trigger points:
+        // top1: About section active
+        // top2: Metric section active
+        // top3: Features section active
+        top1 = aboutRect.top + sy - cachedVh * 0.25;
+        top2 = metricRect.top + sy - cachedVh * 0.25;
+        top3 = featuresRect.top + sy - cachedVh * 0.35;
+
+        // Un-translated initial top and bottom of phoneEl relative to document:
+        const phoneInitialTopDoc = (phoneRect.top + sy) - lastPhoneTranslateY;
+        const phoneInitialBottomDoc = (phoneRect.bottom + sy) - lastPhoneTranslateY;
+        const phoneHeight = phoneRect.height;
+
+        // Center phone within About section content area
+        const aboutCenterDoc = (aboutRect.top + sy) + aboutRect.height * 0.45;
+        targetY_about = (aboutCenterDoc - phoneHeight / 2) - phoneInitialTopDoc;
+
+        // Center phone within Metric section content area
+        const metricCenterDoc = (metricRect.top + sy) + metricRect.height * 0.4;
+        targetY_metric = (metricCenterDoc - phoneHeight / 2) - phoneInitialTopDoc;
+
+        const targetEl = marqueeEl || cardEl;
+        if (targetEl) {
+          const targetRect = targetEl.getBoundingClientRect();
+
+          // Place bottom tip of phone so feature cards overlap it
+          const targetBottomDoc = marqueeEl
+            ? (targetRect.bottom + sy) - 24
+            : (targetRect.bottom + sy);
+
+          targetY_features = targetBottomDoc - phoneInitialBottomDoc;
+        } else {
+          targetY_features = (featuresRect.top + sy) - top0;
+        }
+      }
     };
+
+    updateMeasurements();
 
     let isIntersecting = true;
 
@@ -89,8 +152,27 @@ export function HeroVisuals() {
         return;
       }
 
-      const target = Math.min(Math.max(window.scrollY / (cachedVh || 1), 0), 3.0);
-      current += (target - current) * 0.1;
+      // Ensure measurements are fresh
+      updateMeasurements();
+
+      const sy = window.scrollY;
+
+      // Compute scroll progress dynamically based on exact DOM section tops
+      let target = 0;
+      if (sy <= top0) {
+        target = 0;
+      } else if (sy <= top1) {
+        target = (sy - top0) / (top1 - top0 || 1);
+      } else if (sy <= top2) {
+        target = 1 + (sy - top1) / (top2 - top1 || 1);
+      } else if (sy <= top3) {
+        target = 2 + (sy - top2) / (top3 - top2 || 1);
+      } else {
+        target = 3.0;
+      }
+
+      target = Math.min(Math.max(target, 0), 3.0);
+      current += (target - current) * 0.15;
 
       const maxTranslateX = cachedVw / 2 - getMarginX(cachedVw);
 
@@ -107,7 +189,7 @@ export function HeroVisuals() {
       }
 
       // Horizontal Translation: moves from center (0) to right (finalTranslateX) for current <= 1,
-      // stays right for 1 < current <= 2, and returns to center (0) for 2 < current <= 3.
+      // stays right for 1 < current <= 2, and smoothly transitions diagonally to 0 for 2 < current <= 3.
       const finalTranslateX = Math.min(cachedVw * 0.28, maxTranslateX);
       let phoneTranslateX = 0;
       if (current <= 1) {
@@ -115,28 +197,23 @@ export function HeroVisuals() {
       } else if (current <= 2) {
         phoneTranslateX = finalTranslateX;
       } else if (current <= 3) {
-        // Move diagonally later: stay at finalTranslateX until current = 2.4, then translate to 0
-        if (current <= 2.4) {
-          phoneTranslateX = finalTranslateX;
-        } else {
-          const progress = (current - 2.4) / (3.0 - 2.4);
-          phoneTranslateX = finalTranslateX * (1 - progress);
-        }
+        const progress = Math.min(Math.max((current - 2.0) / 0.85, 0), 1);
+        phoneTranslateX = finalTranslateX * (1 - progress);
       } else {
         phoneTranslateX = 0;
       }
 
-      // Vertical Translation: dynamically scales with viewport height (cachedVh) so that it remains
-      // perfectly aligned across different zoom levels and browser window heights.
+      // Vertical Translation: dynamically interpolated across real DOM target Y coordinates
       let phoneTranslateY = 0;
-      const baseSectionStep = cachedVh * 0.88;
-      const finalDestY = cachedVh * 3.12;
-      if (current <= 2) {
-        phoneTranslateY = current * baseSectionStep;
+      if (current <= 1) {
+        phoneTranslateY = current * targetY_about;
+      } else if (current <= 2) {
+        phoneTranslateY = targetY_about + (current - 1) * (targetY_metric - targetY_about);
       } else {
-        const startY = 2 * baseSectionStep;
-        phoneTranslateY = startY + (current - 2) * (finalDestY - startY);
+        phoneTranslateY = targetY_metric + (current - 2) * (targetY_features - targetY_metric);
       }
+
+      lastPhoneTranslateY = phoneTranslateY;
 
       if (handRef.current) {
         handRef.current.style.opacity = `${handOpacity}`;
@@ -221,6 +298,17 @@ export function HeroVisuals() {
       }
     };
 
+    const resizeObserver = new ResizeObserver(() => {
+      updateMeasurements();
+      if (rafId === null) {
+        rafId = requestAnimationFrame(animate);
+      }
+    });
+
+    if (document.body) {
+      resizeObserver.observe(document.body);
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         isIntersecting = entry.isIntersecting;
@@ -247,6 +335,7 @@ export function HeroVisuals() {
       if (rafId !== null) cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
+      resizeObserver.disconnect();
       observer.disconnect();
     };
   }, [isMobile]);
