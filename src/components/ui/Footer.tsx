@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useSyncExternalStore } from "react";
 import BackgroundTile from "./BackgroundTile";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
+
+const emptySubscribe = () => () => {};
 
 // Defined structure with translation keys and actual URLs
 const NAV_CONFIG = [
@@ -36,12 +38,12 @@ const NAV_CONFIG = [
 
 const Footer = () => {
   const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
   const t = useTranslations("Footer");
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const brandingSrc =
     !mounted

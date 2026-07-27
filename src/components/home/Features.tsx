@@ -67,7 +67,7 @@ export function Features() {
         {/* ========================================================================= */}
         {/* DESKTOP LAYOUT (xl+) */}
         {/* ========================================================================= */}
-        <div className="hidden xl:flex flex-col gap-16 xl:gap-2 flex-1">
+        <div className="hidden xl:flex flex-col gap-6 xl:gap-6 flex-1">
           
           {/* Top Row: Community Info (Left) and Tech Stack (Right) */}
           <div className="grid grid-cols-[1.2fr_0.8fr_1fr] gap-x-8 items-start">
@@ -146,7 +146,7 @@ export function Features() {
           </div>
 
           {/* Bottom Row: Scrolling Feature Cards Marquee */}
-          <div id="features-marquee-row" className="flex flex-col gap-8 relative z-20 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden -mt-10 xl:-mt-20">
+          <div id="features-marquee-row" className="flex flex-col gap-8 relative z-20 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden mt-6 xl:mt-8">
             {/* Embedded styles for marquee animation */}
             <style dangerouslySetInnerHTML={{ __html: `
               @keyframes marquee {

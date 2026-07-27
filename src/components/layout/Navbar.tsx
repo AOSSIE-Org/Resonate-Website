@@ -51,7 +51,11 @@ export function Navbar() {
   }, []);
 
   const handleDownloadClick = useCallback(() => {
-    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+    const userAgent =
+      navigator.userAgent ||
+      navigator.vendor ||
+      ("opera" in window ? (window as unknown as { opera?: string }).opera : undefined) ||
+      "";
 
     // Detect Android (excluding smart displays like Nest Hub/Chromecast)
     const isAndroid = /android/i.test(userAgent) && !/CrKey/i.test(userAgent);
