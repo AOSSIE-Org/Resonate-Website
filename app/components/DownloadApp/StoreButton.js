@@ -13,6 +13,7 @@ const StoreButton = React.memo(({ store, url }) => {
       target="_blank" 
       rel="noopener noreferrer" 
       className="store-badge"
+      aria-label={isGoogle ? "Get it on Google Play" : "Download on the App Store"}
     >
       {isGoogle ? (
         <svg className="store-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import "./Footer.css";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import { FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
   const currentYear = useMemo(() => new Date().getFullYear(), []);
@@ -9,8 +10,16 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="copyright">&copy; {currentYear}</div>
+        <div className="copyright">&copy; {currentYear} AOSSIE</div>
         <div className="footer-socials">
+          <a
+            href="mailto:aossie.oss@gmail.com"
+            rel="noopener noreferrer"
+            target="_blank"
+            aria-label="Email"
+          >
+            <FaEnvelope />
+          </a>
           <a
             href="https://github.com/AOSSIE-Org"
             rel="noopener noreferrer"

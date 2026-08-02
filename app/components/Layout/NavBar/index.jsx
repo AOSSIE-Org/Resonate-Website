@@ -60,6 +60,7 @@ const Navbar = () => {
             rel="noopener noreferrer"
             className="nav-link"
             onClick={handleLinkClick}
+            aria-label="GitHub"
           >
             <FaGithub size={20} />
           </a>
