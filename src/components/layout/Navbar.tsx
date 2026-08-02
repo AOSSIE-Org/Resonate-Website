@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ThemeToggle } from "../ui/theme-toggle";
 import { LanguageDropdown } from "../ui/LanguageDropdown";
 import { DownloadModal } from "../ui/DownloadModal";
@@ -17,7 +17,7 @@ export function Navbar() {
   const [isNavHovered, setIsNavHovered] = useState(false);
   const [isIslandFocused, setIsIslandFocused] = useState(false);
   const [hasAnimatedIn, setHasAnimatedIn] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const progressCircleRef = useRef<SVGCircleElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -25,17 +25,23 @@ export function Navbar() {
     }, 100);
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const scrolled = window.scrollY > 50;
+      setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
 
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
       const maxScroll = documentHeight - windowHeight;
       const progress = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
-      setScrollProgress(progress);
+
+      if (progressCircleRef.current) {
+        progressCircleRef.current.style.strokeDashoffset = `${
+          62.83 - (62.83 * progress) / 100
+        }`;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     return () => {
@@ -45,7 +51,11 @@ export function Navbar() {
   }, []);
 
   const handleDownloadClick = useCallback(() => {
-    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+    const userAgent =
+      navigator.userAgent ||
+      navigator.vendor ||
+      ("opera" in window ? (window as unknown as { opera?: string }).opera : undefined) ||
+      "";
 
     // Detect Android (excluding smart displays like Nest Hub/Chromecast)
     const isAndroid = /android/i.test(userAgent) && !/CrKey/i.test(userAgent);
@@ -68,7 +78,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed top-4 lg:top-0 left-0 right-0 z-50 mx-4 sm:mx-8 xl:mx-16 2xl:mx-48 border-[0.6px] border-default rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300"
+      <header className="fixed top-4 lg:top-0 left-4 right-4 sm:left-8 sm:right-8 lg:left-16 lg:right-16 2xl:left-48 2xl:right-48 z-50 border-[0.6px] border-default rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300"
       onMouseEnter={() => setIsNavHovered(true)}
       onMouseLeave={() => setIsNavHovered(false)}>
         <div className="mx-auto flex lg:grid lg:grid-cols-[1fr_auto_1fr] py-3 sm:py-4 items-center justify-between lg:justify-normal px-4 sm:px-6 lg:px-9">
@@ -159,6 +169,7 @@ export function Navbar() {
                   fill="none"
                 />
                 <circle
+                  ref={progressCircleRef}
                   cx="12"
                   cy="12"
                   r="10"
@@ -166,10 +177,10 @@ export function Navbar() {
                   strokeWidth="4"
                   fill="none"
                   strokeDasharray="62.83"
-                  strokeDashoffset={62.83 - (62.83 * scrollProgress) / 100}
+                  strokeDashoffset="62.83"
                   strokeLinecap="round"
                   transform="rotate(-90 12 12)"
-                  style={{ transition: "stroke-dashoffset 0.1s ease-out" }}
+                  style={{ willChange: "stroke-dashoffset" }}
                 />
               </svg>
             </div>

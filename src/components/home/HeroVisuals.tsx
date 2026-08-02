@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-// Align with Tailwind's md breakpoint (768px)
-const MOBILE_BREAKPOINT = "(max-width: 767px)";
+// Align with Tailwind's xl breakpoint (1280px)
+const MOBILE_BREAKPOINT = "(max-width: 1279px)";
 
 const getMarginX = (viewportWidth: number): number => {
-  if (viewportWidth >= 1280) return 192;
+  if (viewportWidth >= 1536) return 192;
   if (viewportWidth >= 1024) return 64;
   if (viewportWidth >= 640) return 32;
   return 16;
@@ -17,6 +17,10 @@ export function HeroVisuals() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
   const handRef = useRef<HTMLDivElement>(null);
+  const heroImgRef = useRef<HTMLDivElement>(null);
+  const aboutImgRef = useRef<HTMLDivElement>(null);
+  const metricImgRef = useRef<HTMLDivElement>(null);
+  const featuresImgRef = useRef<HTMLDivElement>(null);
 
   // Lazy initializer avoids sync setState inside effect
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
@@ -40,94 +44,301 @@ export function HeroVisuals() {
   }, []);
 
   // Smooth animation loop (Lenis-friendly), with RAF cleanup
-useEffect(() => {
-  if (isMobile !== false) return;
+  useEffect(() => {
+    if (isMobile !== false) return;
 
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-  let rafId: number | null = null;
-  let current = 0;
-  let isIntersecting = true;
+    let rafId: number | null = null;
+    let current = 0;
 
-  const EPSILON = 0.001;
+    const EPSILON = 0.001;
 
-  // 👉 If reduced motion → set static end state and exit
-  if (prefersReducedMotion) {
-    if (handRef.current) {
-      handRef.current.style.opacity = "0";
+    // 👉 If reduced motion → set static end state and exit
+    if (prefersReducedMotion) {
+      if (handRef.current) {
+        handRef.current.style.opacity = "0";
+      }
+
+      if (phoneRef.current) {
+        const vw = window.innerWidth;
+        const maxTranslateX = vw / 2 - getMarginX(vw);
+
+        phoneRef.current.style.transform = `translate3d(${maxTranslateX}px, 1000px, 0) rotate(-10deg)`;
+      }
+
+      return;
     }
 
-    if (phoneRef.current) {
-      const vw = window.innerWidth;
-      const maxTranslateX = vw / 2 - getMarginX(vw);
+    // Cached layout measurements to prevent layout thrashing
+    let cachedVh = window.innerHeight;
+    let cachedVw = window.innerWidth;
+    let top0 = 0;
+    let top1 = cachedVh * 1;
+    let top2 = cachedVh * 2;
+    let top3 = cachedVh * 3;
+    let targetY_about = cachedVh * 0.88;
+    let targetY_metric = cachedVh * 1.76;
+    let targetY_features = cachedVh * 3.12;
+    let lastPhoneTranslateY = 0;
 
-      phoneRef.current.style.transform = `translate3d(${maxTranslateX}px, 1000px, 0) rotate(-10deg)`;
-    }
+    const updateMeasurements = () => {
+      cachedVh = window.innerHeight;
+      cachedVw = window.innerWidth;
 
-    return;
-  }
+      const sy = window.scrollY;
+      const heroEl = document.getElementById("section-hero");
+      const aboutEl = document.getElementById("section-about");
+      const metricEl = document.getElementById("section-metric");
+      const featuresEl = document.getElementById("section-features");
+      const marqueeEl = document.getElementById("features-marquee-row");
+      const cardEl = document.getElementById("features-tech-card") || document.getElementById("features-phone-slot");
+      const phoneEl = phoneRef.current;
 
-  // 👉 Intersection Observer (pause when off-screen)
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      isIntersecting = entry.isIntersecting;
+      if (heroEl && aboutEl && metricEl && featuresEl && phoneEl) {
+        const heroRect = heroEl.getBoundingClientRect();
+        const aboutRect = aboutEl.getBoundingClientRect();
+        const metricRect = metricEl.getBoundingClientRect();
+        const featuresRect = featuresEl.getBoundingClientRect();
+        const phoneRect = phoneEl.getBoundingClientRect();
 
-      // restart loop if comes back into view
-      if (isIntersecting && rafId === null) {
+        top0 = heroRect.top + sy;
+        // Milestone scroll trigger points:
+        // top1: About section active
+        // top2: Metric section active
+        // top3: Features section active
+        top1 = aboutRect.top + sy - cachedVh * 0.25;
+        top2 = metricRect.top + sy - cachedVh * 0.25;
+        top3 = featuresRect.top + sy - cachedVh * 0.35;
+
+        // Un-translated initial top and bottom of phoneEl relative to document:
+        const phoneInitialTopDoc = (phoneRect.top + sy) - lastPhoneTranslateY;
+        const phoneInitialBottomDoc = (phoneRect.bottom + sy) - lastPhoneTranslateY;
+        const phoneHeight = phoneRect.height;
+
+        // Center phone within About section content area
+        const aboutCenterDoc = (aboutRect.top + sy) + aboutRect.height * 0.45;
+        targetY_about = (aboutCenterDoc - phoneHeight / 2) - phoneInitialTopDoc;
+
+        // Center phone within Metric section content area
+        const metricCenterDoc = (metricRect.top + sy) + metricRect.height * 0.4;
+        targetY_metric = (metricCenterDoc - phoneHeight / 2) - phoneInitialTopDoc;
+
+        const targetEl = marqueeEl || cardEl;
+        if (targetEl) {
+          const targetRect = targetEl.getBoundingClientRect();
+
+          // Place bottom tip of phone so feature cards overlap it
+          const targetBottomDoc = marqueeEl
+            ? (targetRect.bottom + sy) - 24
+            : (targetRect.bottom + sy);
+
+          targetY_features = targetBottomDoc - phoneInitialBottomDoc;
+        } else {
+          targetY_features = (featuresRect.top + sy) - top0;
+        }
+      }
+    };
+
+    updateMeasurements();
+
+    let isIntersecting = true;
+
+    const animate = () => {
+      if (!isIntersecting) {
+        rafId = null;
+        return;
+      }
+
+      // Ensure measurements are fresh
+      updateMeasurements();
+
+      const sy = window.scrollY;
+
+      // Compute scroll progress dynamically based on exact DOM section tops
+      let target = 0;
+      if (sy <= top0) {
+        target = 0;
+      } else if (sy <= top1) {
+        target = (sy - top0) / (top1 - top0 || 1);
+      } else if (sy <= top2) {
+        target = 1 + (sy - top1) / (top2 - top1 || 1);
+      } else if (sy <= top3) {
+        target = 2 + (sy - top2) / (top3 - top2 || 1);
+      } else {
+        target = 3.0;
+      }
+
+      target = Math.min(Math.max(target, 0), 3.0);
+      current += (target - current) * 0.15;
+
+      const maxTranslateX = cachedVw / 2 - getMarginX(cachedVw);
+
+      const handOpacity = Math.max(0, 1 - current * 4);
+      
+      // Rotation: goes from 0 to -10deg (current: 0 -> 1), then back to 0deg (current: 1 -> 2)
+      let phoneRotate = 0;
+      if (current <= 1) {
+        phoneRotate = current * -10;
+      } else if (current <= 2) {
+        phoneRotate = -10 * (2 - current);
+      } else {
+        phoneRotate = 0;
+      }
+
+      // Horizontal Translation: moves from center (0) to right (finalTranslateX) for current <= 1,
+      // stays right for 1 < current <= 2, and smoothly transitions diagonally to 0 for 2 < current <= 3.
+      const finalTranslateX = Math.min(cachedVw * 0.28, maxTranslateX);
+      let phoneTranslateX = 0;
+      if (current <= 1) {
+        phoneTranslateX = current * finalTranslateX;
+      } else if (current <= 2) {
+        phoneTranslateX = finalTranslateX;
+      } else if (current <= 3) {
+        const progress = Math.min(Math.max((current - 2.0) / 0.85, 0), 1);
+        phoneTranslateX = finalTranslateX * (1 - progress);
+      } else {
+        phoneTranslateX = 0;
+      }
+
+      // Vertical Translation: dynamically interpolated across real DOM target Y coordinates
+      let phoneTranslateY = 0;
+      if (current <= 1) {
+        phoneTranslateY = current * targetY_about;
+      } else if (current <= 2) {
+        phoneTranslateY = targetY_about + (current - 1) * (targetY_metric - targetY_about);
+      } else {
+        phoneTranslateY = targetY_metric + (current - 2) * (targetY_features - targetY_metric);
+      }
+
+      lastPhoneTranslateY = phoneTranslateY;
+
+      if (handRef.current) {
+        handRef.current.style.opacity = `${handOpacity}`;
+      }
+
+      if (phoneRef.current) {
+        phoneRef.current.style.transform = `translate3d(${phoneTranslateX}px, ${phoneTranslateY}px, 0) rotate(${phoneRotate}deg)`;
+      }
+
+      // Calculate piecewise opacities for the mockups
+      let heroOpacity = 0;
+      let aboutOpacity = 0;
+      let metricOpacity = 0;
+      let featuresOpacity = 0;
+
+      if (current <= 0.3) {
+        heroOpacity = 1;
+      } else if (current < 0.7) {
+        heroOpacity = (0.7 - current) / 0.4;
+      } else {
+        heroOpacity = 0;
+      }
+
+      if (current <= 0.3) {
+        aboutOpacity = 0;
+      } else if (current < 0.7) {
+        aboutOpacity = (current - 0.3) / 0.4;
+      } else if (current <= 1.3) {
+        aboutOpacity = 1;
+      } else if (current < 1.7) {
+        aboutOpacity = (1.7 - current) / 0.4;
+      } else {
+        aboutOpacity = 0;
+      }
+
+      if (current <= 1.3) {
+        metricOpacity = 0;
+      } else if (current < 1.7) {
+        metricOpacity = (current - 1.3) / 0.4;
+      } else if (current <= 2.3) {
+        metricOpacity = 1;
+      } else if (current < 2.7) {
+        metricOpacity = (2.7 - current) / 0.4;
+      } else {
+        metricOpacity = 0;
+      }
+
+      if (current <= 2.3) {
+        featuresOpacity = 0;
+      } else if (current < 2.7) {
+        featuresOpacity = (current - 2.3) / 0.4;
+      } else {
+        featuresOpacity = 1;
+      }
+
+      if (heroImgRef.current) heroImgRef.current.style.opacity = `${heroOpacity}`;
+      if (aboutImgRef.current) aboutImgRef.current.style.opacity = `${aboutOpacity}`;
+      if (metricImgRef.current) metricImgRef.current.style.opacity = `${metricOpacity}`;
+      if (featuresImgRef.current) featuresImgRef.current.style.opacity = `${featuresOpacity}`;
+
+      const isSettled = Math.abs(target - current) < EPSILON;
+
+      // 👉 Only continue RAF if needed
+      if (!isSettled) {
+        rafId = requestAnimationFrame(animate);
+      } else {
+        rafId = null;
+      }
+    };
+
+    const handleScroll = () => {
+      if (!isIntersecting) return;
+      if (rafId === null) {
         rafId = requestAnimationFrame(animate);
       }
-    },
-    { threshold: 0.1 }
-  );
+    };
 
-  if (sectionRef.current) {
-    observer.observe(sectionRef.current);
-  }
+    const handleResize = () => {
+      updateMeasurements();
+      if (rafId === null) {
+        rafId = requestAnimationFrame(animate);
+      }
+    };
 
-  const animate = () => {
-    if (!sectionRef.current) return;
+    const resizeObserver = new ResizeObserver(() => {
+      updateMeasurements();
+      if (rafId === null) {
+        rafId = requestAnimationFrame(animate);
+      }
+    });
 
-    const rect = sectionRef.current.getBoundingClientRect();
-    const vh = window.innerHeight;
-
-    const target = Math.min(Math.max(1 - rect.bottom / vh, 0), 1);
-    current += (target - current) * 0.1;
-
-    const vw = window.innerWidth;
-    const maxTranslateX = vw / 2 - getMarginX(vw);
-
-    const handOpacity = Math.max(0, 1 - current * 4);
-    const phoneRotate = current * -10;
-    const phoneTranslateX = Math.min(current * (vw * 0.28), maxTranslateX);
-    const phoneTranslateY = current * 1000;
-
-    if (handRef.current) {
-      handRef.current.style.opacity = `${handOpacity}`;
+    if (document.body) {
+      resizeObserver.observe(document.body);
     }
 
-    if (phoneRef.current) {
-      phoneRef.current.style.transform = `translate3d(${phoneTranslateX}px, ${phoneTranslateY}px, 0) rotate(${phoneRotate}deg)`;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting && rafId === null) {
+          rafId = requestAnimationFrame(animate);
+        }
+      },
+      {
+        rootMargin: "500% 0px 500% 0px",
+        threshold: 0,
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
 
-    const isSettled = Math.abs(target - current) < EPSILON;
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
 
-    // 👉 Only continue RAF if needed
-    if (isIntersecting || !isSettled) {
-      rafId = requestAnimationFrame(animate);
-    } else {
-      rafId = null;
-    }
-  };
+    rafId = requestAnimationFrame(animate);
 
-  rafId = requestAnimationFrame(animate);
-
-  return () => {
-    if (rafId !== null) cancelAnimationFrame(rafId);
-    observer.disconnect();
-  };
-}, [isMobile]);
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      resizeObserver.disconnect();
+      observer.disconnect();
+    };
+  }, [isMobile]);
 
   // Neutral skeleton — avoids hydration mismatch on first render
   if (isMobile === null) {
@@ -189,7 +400,7 @@ useEffect(() => {
 
       <div
         ref={phoneRef}
-        className="absolute top-[0.4%] left-[20%] w-[88%]"
+        className="absolute top-[0.4%] left-[20%] w-[88%] z-10"
         style={{
           transformOrigin: "center bottom",
           willChange: "transform",
@@ -198,15 +409,70 @@ useEffect(() => {
           contain: "paint",
         }}
       >
-        <div className="w-2/3 overflow-hidden">
-          <Image
-            src="/assets/mockups/phone.webp"
-            alt="Resonate app interface"
-            width={400}
-            height={800}
-            className="w-full h-auto"
-            priority
-          />
+        <div className="w-2/3 overflow-hidden relative">
+          {/* Hero Screen */}
+          <div
+            ref={heroImgRef}
+            className="w-full h-auto transition-opacity duration-100 ease-in-out"
+            style={{ opacity: 1, willChange: "opacity" }}
+          >
+            <Image
+              src="/assets/mockups/phone.webp"
+              alt="Resonate app interface"
+              width={400}
+              height={800}
+              className="w-full h-auto"
+              priority
+            />
+          </div>
+
+          {/* About Screen */}
+          <div
+            ref={aboutImgRef}
+            className="absolute inset-0 w-full h-full transition-opacity duration-100 ease-in-out"
+            style={{ opacity: 0, willChange: "opacity" }}
+          >
+            <Image
+              src="/assets/mockups/phone_about.webp"
+              alt="About Resonate app interface"
+              width={400}
+              height={800}
+              className="w-full h-full object-fill"
+              priority
+            />
+          </div>
+
+          {/* Metric Screen */}
+          <div
+            ref={metricImgRef}
+            className="absolute inset-0 w-full h-full transition-opacity duration-100 ease-in-out"
+            style={{ opacity: 0, willChange: "opacity" }}
+          >
+            <Image
+              src="/assets/mockups/phone_metric.webp"
+              alt="Metric Resonate app interface"
+              width={400}
+              height={800}
+              className="w-full h-full object-fill"
+              priority
+            />
+          </div>
+
+          {/* Features Screen */}
+          <div
+            ref={featuresImgRef}
+            className="absolute inset-0 w-full h-full transition-opacity duration-100 ease-in-out"
+            style={{ opacity: 0, willChange: "opacity" }}
+          >
+            <Image
+              src="/assets/mockups/phone_features.webp"
+              alt="Features Resonate app interface"
+              width={400}
+              height={800}
+              className="w-full h-full object-fill"
+              priority
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
@@ -12,16 +12,17 @@ interface DownloadModalProps {
 
 type DeviceType = "android" | "ios";
 
+const emptySubscribe = () => () => {};
+
 export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
   const t = useTranslations("DownloadModal");
   const [activeDevice, setActiveDevice] = useState<DeviceType>("android");
   const { theme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  // Avoid hydration mismatch
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
 
   // Close on Escape key

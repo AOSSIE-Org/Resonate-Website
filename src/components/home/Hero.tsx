@@ -9,21 +9,21 @@ export function Hero() {
 
   return (
     // FIX 1: Replaced `min-h-screen` with `min-h-[100svh]` to prevent address bar resizing jumps
-    <section className="relative flex flex-col items-center justify-center sm:justify-around min-h-[100svh] pt-8 sm:pt-14 pb-[100vw] sm:pb-0">
+    <section id="section-hero" className="relative flex flex-col items-center justify-center sm:justify-around min-h-[100svh] pt-8 sm:pt-14 pb-[100vw] sm:pb-0">
 
       {/* Text Block */}
-      <div className="flex flex-col items-center gap-4 text-center px-2 sm:px-8">
+      <div className="flex flex-col items-center gap-4 text-center px-4 md:px-8 xl:px-0 2xl:px-16">
         <div className="flex flex-col items-center gap-4">
-          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-medium text-(--foreground) tracking-tighter">
+          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-medium text-(--foreground) tracking-tighter animate-luxury-reveal-1">
             {t("headline")}
           </h1>
           {/* Hidden on mobile — subheadline only shown on sm+ */}
-          <p className="hidden sm:block text-4xl lg:text-5xl xl:text-6xl font-medium text-(--foreground) tracking-tighter">
+          <p className="hidden sm:block text-4xl lg:text-5xl xl:text-6xl font-medium text-(--foreground) tracking-tighter animate-luxury-reveal-2">
             {t("subHeadline")}
           </p>
         </div>
 
-        <div className="inline-flex flex-wrap justify-center items-center gap-2 text-lg sm:text-2xl text-muted">
+        <div className="inline-flex flex-wrap justify-center items-center gap-2 text-lg sm:text-2xl text-muted animate-luxury-reveal-3">
           <span>{t("maintainedBy")}</span>
           <Link
             href="https://aossie.org"
@@ -58,7 +58,7 @@ export function Hero() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t("downloadAria")}
-          className="inline-flex sm:hidden h-9 items-center justify-center rounded-full px-4 text-sm font-semibold transition-all hover:scale-105 active:scale-95 bg-(--button-primary-bg) text-(--button-primary-text) border-(--button-primary-border) border-[1.5px] hover:bg-(--button-primary-hover-bg) hover:border-(--button-primary-hover-border)"
+          className="inline-flex sm:hidden h-9 items-center justify-center rounded-full px-4 text-sm font-semibold transition-all hover:scale-105 active:scale-95 bg-(--button-primary-bg) text-(--button-primary-text) border-(--button-primary-border) border-[1.5px] hover:bg-(--button-primary-hover-bg) hover:border-(--button-primary-hover-border) animate-luxury-reveal-4"
         >
           {t("download")}
         </Link>
