@@ -15,7 +15,7 @@ export default function Home() {
     "publisher": {
       "@type": "Organization",
       "name": "AOSSIE",
-      "url": "https://resonate.aossie.org",
+      "url": "https://aossie.org",
       "logo": "https://resonate.aossie.org/brand/icons/aossie_logo.svg",
     },
   };

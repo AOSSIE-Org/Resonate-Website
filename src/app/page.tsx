@@ -1,6 +1,15 @@
-import { redirect } from 'next/navigation';
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { defaultLanguage } from '@/config/languages';
 
 export default function RootPage() {
-  redirect(`/${defaultLanguage}`);
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace(`/${defaultLanguage}`);
+  }, [router]);
+
+  return null;
 }

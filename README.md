@@ -314,4 +314,4 @@ We welcome contributions of all kinds! To contribute:
 4. Push your branch (`git push origin feature/AmazingFeature`).
 5. Open a Pull Request for review.
 
-© 2026 AOSSIE. Released under the Apache 2.0 / Open Source License.
+© 2026 AOSSIE. Released under the [Apache License 2.0](LICENSE).

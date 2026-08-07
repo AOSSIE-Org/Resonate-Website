@@ -32,13 +32,13 @@ This audit report documents the comprehensive end-to-end evaluation, testing, pe
 - **Navigation Safety:** All internal hyperlinks route via `src/i18n/navigation.ts` ensuring active locale persistence across page transitions.
 
 ### 2.4 Performance & Accessibility (a11y)
-- **Lighthouse Performance Score:** 98/100 (Fast first contentful paint, zero layout shift).
-- **Lighthouse Accessibility Score:** 100/100 (All interactive elements have descriptive ARIA roles, labels, and high contrast ratios).
+- **Lighthouse Performance Score:** Target 95+ (Fast first contentful paint, zero layout shift).
+- **Lighthouse Accessibility Score:** Target 100/100 (All interactive elements have descriptive ARIA roles, labels, and high contrast ratios).
 - **Smooth Inertial Scroll:** Powered by `lenis-provider.tsx` with hardware acceleration.
 
 ### 2.5 Security & Dependency Audit
 - **Exposed Secrets:** Verified 0 hardcoded credentials or API tokens in source code or git history using Gitleaks and CodeRabbit rules.
-- **npm Audit:** Verified 0 high/critical vulnerability advisories in dependency tree (`npm audit`).
+- **npm Audit:** Verified dependency tree via `npm audit`.
 
 ---
 
@@ -50,6 +50,9 @@ This audit report documents the comprehensive end-to-end evaluation, testing, pe
 | **Unit Tests** | `npm run test` | PASS | All component test suites passing |
 | **Static Build** | `npm run build` | PASS | `./out` folder generated successfully |
 | **Zero TODO Audit** | `grep -ri "TODO"` | PASS | 0 TODO matches in repository |
+| **Dependency Audit** | `npm audit` | AUDITED | 12 advisories (2 low, 2 moderate, 8 high) audited; fixes mapped for production dependencies |
+| **Secret Scan** | `gitleaks detect` | PASS | 0 exposed secrets detected |
+| **Lighthouse Audit** | `npx lighthouse` | AUDITED | Manual browser audit recorded |
 
 ---
 

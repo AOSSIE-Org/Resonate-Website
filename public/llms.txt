@@ -1,6 +1,6 @@
 # Resonate Website LLM Policy & Architecture
 
-Resonate is an open-source social voice platform, and this is it's landing page built on Next.js 16 (App Router), React 19, and Tailwind CSS v4 under the AOSSIE organization. It features multi-language support (`next-intl`), smooth scrolling (`lenis`), dynamic theme management (`next-themes`), and static export capabilities (`output: 'export'`).
+Resonate is an open-source social voice platform, and this is its landing page built on Next.js 16 (App Router), React 19, and Tailwind CSS v4 under the AOSSIE organization. It features multi-language support (`next-intl`), smooth scrolling (`lenis`), dynamic theme management (`next-themes`), and static export capabilities (`output: 'export'`).
 
 ---
 

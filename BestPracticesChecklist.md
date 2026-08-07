@@ -21,7 +21,7 @@ This document details the adherence of **Resonate-Website** to AOSSIE's standard
 
 ## 🟡 Should Have (Yellow Good Practices)
 
-- [x] **Unit Testing Framework:** Vitest and React Testing Library configured with non-trivial test coverage for core components (`Navbar`, `LanguageSwitcher`, `Hero`).
+- [x] **Unit Testing Framework:** Vitest and React Testing Library configured with non-trivial test coverage for core components (`Navbar`, `LanguageSwitcher`).
 - [x] **Internationalization (i18n):** Multi-language catalog support via `next-intl` with language selector component and clean URL prefixing (`/en`, `/hi`).
 - [x] **Accessibility (a11y):** High contrast color pairs, proper ARIA attributes, semantic landmarks (`<main>`, `<nav>`, `<footer>`), and smooth keyboard navigation.
 - [x] **Performance Optimization:** Static HTML export (`output: 'export'`), responsive asset sizing, micro-animations, and fast page load times.
