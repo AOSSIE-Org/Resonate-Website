@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
@@ -14,7 +14,7 @@ interface LanguageDropdownProps {
   isMobile?: boolean;
 }
 
-export function LanguageDropdown({ isMobile = false }: LanguageDropdownProps) {
+function LanguageDropdownInner({ isMobile = false }: LanguageDropdownProps) {
   const t = useTranslations("Navbar");
   const router = useRouter();
   const pathname = usePathname();
@@ -26,7 +26,6 @@ export function LanguageDropdown({ isMobile = false }: LanguageDropdownProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const menuId = `lang-menu-${isMobile ? "mobile" : "desktop"}`;
 
-  // Close on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -37,7 +36,6 @@ export function LanguageDropdown({ isMobile = false }: LanguageDropdownProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Focus first menu item when menu opens
   useEffect(() => {
     if (open && menuRef.current) {
       const first = menuRef.current.querySelector<HTMLButtonElement>('[role="menuitem"]');
@@ -46,11 +44,10 @@ export function LanguageDropdown({ isMobile = false }: LanguageDropdownProps) {
   }, [open]);
 
   function switchLocale(code: string) {
-    const query = Object.fromEntries(searchParams.entries());
+    const query = searchParams ? Object.fromEntries(searchParams.entries()) : {};
     const hash = typeof window !== "undefined" ? window.location.hash : "";
     router.replace({ pathname, query }, { locale: code });
     if (hash) {
-      // Re-append hash after navigation settles
       requestAnimationFrame(() => {
         window.location.hash = hash;
       });
@@ -58,7 +55,6 @@ export function LanguageDropdown({ isMobile = false }: LanguageDropdownProps) {
     setOpen(false);
   }
 
-  // Keyboard nav: Escape closes; Arrow keys move focus within menu
   function handleMenuKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     const items = menuRef.current?.querySelectorAll<HTMLButtonElement>('[role="menuitem"]');
     if (!items) return;
@@ -123,7 +119,6 @@ export function LanguageDropdown({ isMobile = false }: LanguageDropdownProps) {
     );
   }
 
-  // Desktop
   return (
     <div ref={ref} className="relative">
       <button
@@ -168,7 +163,18 @@ export function LanguageDropdown({ isMobile = false }: LanguageDropdownProps) {
   );
 }
 
-// Small reusable icons
+export function LanguageDropdown(props: LanguageDropdownProps) {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center gap-1.5 h-9 xl:h-10 px-3 xl:px-4 text-sm font-medium text-muted">
+        <GlobeIcon />
+      </div>
+    }>
+      <LanguageDropdownInner {...props} />
+    </Suspense>
+  );
+}
+
 function GlobeIcon() {
   return (
     <svg

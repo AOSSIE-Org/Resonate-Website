@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Resonate Website (AOSSIE)",
+  "name_for_model": "resonate_website",
+  "description_for_human": "The official landing page for Resonate - Open Source Social Voice Platform by AOSSIE.",
+  "description_for_model": "Retrieve settings, theme configuration, and supported locales from the Resonate Website.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://resonate.aossie.org/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://resonate.aossie.org/brand/icons/resonate_logo.svg",
+  "contact_email": "admin@aossie.org",
+  "legal_info_url": "https://resonate.aossie.org/legal"
+}

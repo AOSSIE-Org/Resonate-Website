@@ -26,7 +26,7 @@ export function About() {
             <p className="w-full xl:max-w-3/5 text-(--foreground-muted) md:text-lg/relaxed pt-8 px-4 xl:px-0 text-center xl:text-left">
               {t("description")}
             </p>
-            <div className="xl:hidden w-[226px] sm:w-[266px] aspect-[9/18] relative mt-8">
+            <div className="xl:hidden w-[226px] sm:w-[266px] aspect-[9/18] relative mt-10 sm:mt-14">
               <Image
                 src="/assets/mockups/phone_about.webp"
                 alt={t("mockupAlt")}

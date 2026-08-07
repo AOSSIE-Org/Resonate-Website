@@ -60,7 +60,7 @@ export function Features() {
   };
 
   return (
-    <section id="section-features" className="relative flex flex-col pt-16 sm:pt-24 xl:pt-24 overflow-hidden min-h-screen" ref={revealRef}>
+    <section id="section-features" className="relative flex flex-col pt-16 sm:pt-24 xl:pt-56 overflow-hidden min-h-screen" ref={revealRef}>
 
       <div className="w-full px-4 md:px-8 xl:px-0 2xl:px-16 flex-1 flex flex-col gap-12 relative z-10">
         
@@ -103,7 +103,7 @@ export function Features() {
             </div>
 
             {/* Middle Column Spacer: Top part of the moving phone mockup */}
-            <div id="features-phone-slot" className="w-full max-w-[280px] lg:max-w-[340px] xl:max-w-[400px] mx-auto aspect-[9/12] pointer-events-none" />
+            <div id="features-phone-slot" className="w-full max-w-[280px] lg:max-w-[340px] xl:max-w-[400px] mx-auto pointer-events-none self-stretch" />
 
             {/* Right: Tech Stack Block */}
             <div className="flex flex-col gap-6 text-left justify-self-end w-full max-w-sm xl:max-w-md">
@@ -112,7 +112,7 @@ export function Features() {
               </h3>
               
               {/* Tech Stack Card */}
-              <div id="features-tech-card" className="rounded-2xl border border-card p-6 xl:p-8 bg-card shadow-card backdrop-blur-md">
+              <div id="features-tech-card" className="rounded-2xl border border-card p-6 xl:p-8 bg-tech-stack-card shadow-card backdrop-blur-md transition-all duration-300">
                 <p className="text-xs font-semibold tracking-wider text-(--foreground-muted) uppercase mb-6">
                   {t("mobileDev")}
                 </p>
@@ -146,7 +146,7 @@ export function Features() {
           </div>
 
           {/* Bottom Row: Scrolling Feature Cards Marquee */}
-          <div id="features-marquee-row" className="flex flex-col gap-8 relative z-20 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden mt-6 xl:mt-8">
+          <div id="features-marquee-row" className="flex flex-col gap-8 relative z-10 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden mt-2 xl:mt-3">
             {/* Embedded styles for marquee animation */}
             <style dangerouslySetInnerHTML={{ __html: `
               @keyframes marquee {
@@ -171,7 +171,7 @@ export function Features() {
                     onClick={() => setActiveFeature(feat.id)}
                     onMouseEnter={() => setHoveredFeature(feat.id)}
                     onMouseLeave={() => setHoveredFeature(null)}
-                    className="flex items-center justify-center p-6 rounded-2xl border border-card text-center transition-all duration-300 cursor-pointer select-none w-64 md:w-80 h-28 md:h-40 shrink-0 bg-card shadow-card text-(--foreground) backdrop-blur-md hover:bg-(--color-brand-yellow) hover:text-black hover:border-(--color-brand-yellow) hover:scale-[1.03] hover:shadow-lg hover:shadow-(--color-brand-yellow)/15"
+                    className="flex items-center justify-center p-6 rounded-2xl border border-card text-center transition-all duration-300 cursor-pointer select-none w-64 md:w-80 h-28 md:h-36 shrink-0 bg-feature-card shadow-card text-foreground backdrop-blur-md hover:bg-brand-yellow hover:text-black hover:border-brand-yellow dark:hover:bg-brand-yellow/10 dark:hover:text-brand-yellow dark:hover:border-brand-yellow hover:scale-[1.04] hover:shadow-xl hover:shadow-brand-yellow/20"
                   >
                     <span className="text-lg xl:text-xl font-bold tracking-wider uppercase">
                       {t(feat.cardKey)}
@@ -183,7 +183,7 @@ export function Features() {
           </div>
 
           {/* Centered Active Feature Text below Phone mockup */}
-          <div className="text-center pt-12 pb-12 relative z-30 flex items-center justify-center gap-3 min-h-[120px]">
+          <div id="features-hover-cue-row" className="text-center pt-5 pb-5 relative z-30 flex items-center justify-center gap-3 min-h-[80px]">
             {hoveredFeature !== null ? (
               <p className="text-xl lg:text-2xl xl:text-3xl font-medium text-(--foreground) transition-opacity duration-300">
                 {t(features[hoveredFeature].titleKey)}
@@ -245,7 +245,7 @@ export function Features() {
               {t("techStack")}
             </h3>
             
-            <div className="rounded-xl border border-card p-5 w-full max-w-sm bg-card shadow-card backdrop-blur-md text-left">
+            <div className="rounded-xl border border-card p-5 w-full max-w-sm bg-tech-stack-card shadow-card backdrop-blur-md text-left">
               <p className="text-[10px] font-semibold tracking-wider text-(--foreground-muted) uppercase mb-4">
                 {t("mobileDev")}
               </p>
@@ -257,7 +257,7 @@ export function Features() {
                   { name: t("livekit"), icon: "/assets/icons/livekit.svg" }
                 ].map((tech) => (
                   <div key={tech.name} className="flex items-center gap-3">
-                    <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white border border-neutral-200/50 dark:border-neutral-800 shadow-sm">
+                    <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/10 dark:bg-neutral-800 shadow-sm">
                       <Image
                         src={tech.icon}
                         alt={`${tech.name} logo`}
@@ -276,7 +276,7 @@ export function Features() {
           </div>
 
           {/* Carousel Layout: Chevrons + Center Phone */}
-          <div className="flex flex-col gap-4 items-center">
+          <div className="flex flex-col gap-4 items-center mt-6 sm:mt-10">
             <div className="flex items-center justify-between w-full max-w-[340px] sm:max-w-[400px] mx-auto gap-2">
               
               {/* Left Chevron Button */}
@@ -295,7 +295,7 @@ export function Features() {
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
-                className="w-2/3 max-w-[280px] sm:max-w-[320px] aspect-[9/18] relative select-none flex items-center justify-center cursor-grab active:cursor-grabbing"
+                className="w-[226px] sm:w-[266px] aspect-[9/18] relative select-none flex items-center justify-center cursor-grab active:cursor-grabbing"
               >
                 <Image
                   src="/assets/mockups/phone_features.webp"
@@ -306,7 +306,7 @@ export function Features() {
                 />
 
                 {/* Overlaid Card */}
-                <div className="absolute bottom-[12%] left-1/2 -translate-x-1/2 z-10 w-[85%] aspect-[16/9] flex items-center justify-center p-4 rounded-2xl border border-card bg-card shadow-card backdrop-blur-md text-center transition-all duration-300">
+                <div className="absolute bottom-[12%] left-1/2 -translate-x-1/2 z-10 w-[85%] aspect-[16/9] flex items-center justify-center p-4 rounded-2xl border border-card bg-feature-card shadow-card backdrop-blur-md text-center transition-all duration-300">
                   <span className="text-sm sm:text-base font-bold tracking-wider uppercase text-highlight">
                     {t(features[activeFeature].cardKey)}
                   </span>

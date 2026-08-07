@@ -1,3 +1,32 @@
-# Resonate Website LLM Policy
-User-agent: *
-Allow: /
+# Resonate Website LLM Policy & Architecture
+
+Resonate is an open-source social voice platform, and this is it's landing page built on Next.js 16 (App Router), React 19, and Tailwind CSS v4 under the AOSSIE organization. It features multi-language support (`next-intl`), smooth scrolling (`lenis`), dynamic theme management (`next-themes`), and static export capabilities (`output: 'export'`).
+
+---
+
+## 📂 Project Architecture
+
+- **`src/app/[locale]/`**: Localized dynamic route group containing pages, layouts, and global styles.
+- **`src/app/sitemap.ts`**: Dynamically generates localized sitemap entries.
+- **`public/brand/`**: Contains official Resonate & AOSSIE vector logos, favicons, and brand guidelines (`Brand.md`).
+- **`src/config/languages.ts`**: Central registry of supported languages and default locale (`en`).
+- **`src/i18n/`**: Localization routing setups, request handlers, and navigation helpers (`navigation.ts`).
+- **`src/messages/`**: Translation catalogs (`en.json`, `hi.json`).
+- **`src/components/`**: Modular UI components (Navbar, Footer, Hero, About, Metric, Features, LanguageSwitcher, ThemeToggle).
+
+---
+
+## 🎨 Theme & Styling Guidelines
+
+- Class-based dark mode configured via Tailwind CSS v4 `@custom-variant dark`.
+- Semantic CSS variables (`bg-background`, `text-foreground`) are bound in `globals.css`.
+- Avoid inline dark utilities; use semantic token classes.
+
+---
+
+## 📦 Build & Runtime Commands
+
+- **Build:** `npm run build` (Static export into `./out`)
+- **Develop:** `npm run dev`
+- **Lint:** `npm run lint`
+- **Test:** `npm run test`
