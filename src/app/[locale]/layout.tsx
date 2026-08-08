@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Noto_Sans_Devanagari } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -14,6 +14,12 @@ import { Navbar } from "@/components/layout/Navbar";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const devanagari = Noto_Sans_Devanagari({
+  subsets: ["devanagari"],
+  variable: "--font-devanagari",
   display: "swap",
 });
 
@@ -56,7 +62,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale} className={inter.variable} suppressHydrationWarning>
+    <html lang={locale} className={`${inter.variable} ${devanagari.variable}`} suppressHydrationWarning>
       <body className="antialiased font-sans bg-background text-foreground">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider
