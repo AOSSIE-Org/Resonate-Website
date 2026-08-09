@@ -3,7 +3,8 @@ import './DownloadApp.css';
 import StoreButton from './StoreButton';
 
 const DownloadApp = () => {
-  const playStoreUrl ='https://play.google.com/store/apps/details?id=com.resonate.resonate';
+  const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.resonate.resonate';
+
 
   return (
     <section className="download-app-section">

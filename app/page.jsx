@@ -139,43 +139,58 @@ export default function Home() {
       );
 
     // About Animation
-    const aboutTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".about",
-        start: "top 70%",
-      },
-    });
+    // Add this at the start of your animations section
+let mm = gsap.matchMedia();
 
-    aboutTl
-      .fromTo(
-        ".about-logo",
-        { x: -50, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1, ease: "power3.out" },
-      )
-      .fromTo(
-        ".about-content h2",
-        { x: 50, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1, ease: "power3.out" },
-        "-=0.8",
-      )
-      .fromTo(
-        ".about-content p",
-        { x: 50, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1, ease: "power3.out" },
-        "-=0.8",
-      )
-      .fromTo(
-        ".social-links a",
-        { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: "back.out(1.7)",
-        },
-        "-=0.6",
-      );
+// About Animation with Responsive Handling
+mm.add({
+  // Desktop
+  isDesktop: "(min-width: 769px)",
+  // Mobile
+  isMobile: "(max-width: 768px)"
+}, (context) => {
+  let { isDesktop } = context.conditions;
+
+  const aboutTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".about",
+      start: isDesktop ? "top 70%" : "top 85%", // Start slightly later on mobile
+    },
+  });
+
+  aboutTl
+    .fromTo(
+      ".about-logo",
+      // Use x for desktop, y for mobile
+      { x: isDesktop ? -50 : 0, y: isDesktop ? 0 : 30, opacity: 0 },
+      { x: 0, y: 0, opacity: 1, duration: 1, ease: "power3.out" },
+    )
+    .fromTo(
+      ".about-content h2",
+      // Switch horizontal 'x' to vertical 'y' for mobile
+      { x: isDesktop ? 50 : 0, y: isDesktop ? 0 : 20, opacity: 0 },
+      { x: 0, y: 0, opacity: 1, duration: 1, ease: "power3.out" },
+      "-=0.8",
+    )
+    .fromTo(
+      ".about-content p",
+      { x: isDesktop ? 50 : 0, y: isDesktop ? 0 : 20, opacity: 0 },
+      { x: 0, y: 0, opacity: 1, duration: 1, ease: "power3.out" },
+      "-=0.8",
+    )
+    .fromTo(
+      ".social-links a",
+      { y: 20, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: "back.out(1.7)",
+      },
+      "-=0.6",
+    );
+});
 
     // Download App Animation
     const downloadTl = gsap.timeline({
@@ -216,6 +231,7 @@ export default function Home() {
         cancelAnimationFrame(rafId);
       }
       lenis.destroy();
+      mm.revert();
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);

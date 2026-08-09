@@ -37,6 +37,7 @@ const featuresData = [
 const Features = () => {
   return (
     <section className="features">
+      <h2 className="section-title">Features</h2>
       {featuresData.map((feature) => (
         <div
           key={feature.id}
