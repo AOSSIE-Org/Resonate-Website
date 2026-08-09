@@ -2,7 +2,7 @@ import React from "react";
 import "./About.css";
 import AossieLogo from "../../assets/aossie_logo.png";
 import { SiGitlab } from "react-icons/si";
-import { FaEnvelope, FaGithub, FaDiscord } from "react-icons/fa";
+import { FaEnvelope, FaGithub, FaDiscord, FaYoutube } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 
 const About = () => {
@@ -40,10 +40,19 @@ const About = () => {
             <a href="https://x.com/aossie_org" aria-label="Twitter">
               <BsTwitterX />
             </a>
+            <a
+              href="https://www.youtube.com/@AOSSIE-Org"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+            >
+              <FaYoutube />
+            </a>
           </div>
         </div>
       </div>
     </section>
+
   );
 };
 

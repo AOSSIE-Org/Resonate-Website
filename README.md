@@ -1,5 +1,7 @@
 # Resonate Website
 
+[![YouTube](https://img.shields.io/badge/YouTube-Subscribe-red?logo=youtube)](https://www.youtube.com/@AOSSIE-Org)
+
 The official landing page for **Resonate** - an Open Source social voice platform maintained by [AOSSIE](https://aossie.org).
 
 ## About Resonate
@@ -94,6 +96,11 @@ app/
 ├── layout.js          # Root layout
 └── globals.css        # Global styles
 ```
+
+## 🌐 Connect With Us
+
+Stay updated with our latest news and videos:
+- ▶️ **YouTube**: [Subscribe to AOSSIE](https://www.youtube.com/@AOSSIE-Org)
 
 ## 🤝 Contributing
 
