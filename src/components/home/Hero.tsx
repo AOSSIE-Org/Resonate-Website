@@ -9,7 +9,7 @@ export function Hero() {
 
   return (
     // FIX 1: Replaced `min-h-screen` with `min-h-[100svh]` to prevent address bar resizing jumps
-    <section id="section-hero" className="relative flex flex-col items-center justify-center sm:justify-around min-h-[100svh] pt-8 sm:pt-14 pb-[100vw] sm:pb-0">
+    <section id="section-hero" className="relative flex flex-col items-center justify-center xl:justify-around min-h-[100svh] pt-8 sm:pt-14 pb-12 xl:pb-0">
 
       {/* Text Block */}
       <div className="flex flex-col items-center gap-4 text-center px-4 md:px-8 xl:px-0 2xl:px-16">
@@ -65,8 +65,7 @@ export function Hero() {
       </div>
 
       {/* Visuals */}
-      {/* FIX 2: Added `transform-gpu` and `will-change-transform` for hardware acceleration */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-center sm:relative sm:flex-1 sm:flex sm:items-end sm:w-full sm:mt-8 transform-gpu will-change-transform">
+      <div className="flex justify-center w-full mt-10 sm:mt-14 xl:relative xl:flex-1 xl:flex xl:items-end transform-gpu will-change-transform">
         <HeroVisuals />
       </div>
 

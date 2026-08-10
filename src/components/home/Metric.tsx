@@ -217,7 +217,7 @@ export function Metric() {
           </div>
           <div className="flex flex-col items-center justify-center xl:items-start xl:justify-start">
             <div className="flex w-full items-center justify-center xl:justify-start">
-              <div className="xl:hidden w-[226px] sm:w-[266px] aspect-[9/18] relative my-12">
+              <div className="xl:hidden w-[226px] sm:w-[266px] aspect-[9/18] relative mt-10 sm:mt-14 mb-8 sm:mb-12">
                 <Image
                   src="/assets/mockups/phone_metric.webp"
                   alt={t("mockupAlt")}

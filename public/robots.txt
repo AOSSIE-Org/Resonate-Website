@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /private/
+Disallow: /api/
+Disallow: /_vercel/
 
 Sitemap: https://resonate.aossie.org/sitemap.xml

@@ -1,28 +1,24 @@
 import type { NextConfig } from "next";
-import createNextIntlPlugin from 'next-intl/plugin';
-
-const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+import path from "path";
 
 const nextConfig: NextConfig = {
-  reactCompiler: true,
+  output: "export",
   images: {
-    formats: ['image/avif', 'image/webp'],
-    remotePatterns: [
-      // Add specific domains here as needed
-      // Example:
-      // {
-      //   protocol: 'https',
-      //   hostname: 'example.com',
-      // },
-      // {
-      //   protocol: 'https',
-      //   hostname: 'cdn.example.com',
-      // },
-    ],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
+    unoptimized: true,
+  },
+  turbopack: {
+    root: path.resolve(process.cwd()),
+    resolveAlias: {
+      "next-intl/config": "./src/i18n/request.ts",
+    },
+  },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "next-intl/config": path.resolve(process.cwd(), "./src/i18n/request.ts"),
+    };
+    return config;
   },
 };
- 
-export default withNextIntl(nextConfig);
+
+export default nextConfig;

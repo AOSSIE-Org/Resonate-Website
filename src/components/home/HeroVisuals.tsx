@@ -72,7 +72,6 @@ export function HeroVisuals() {
       return;
     }
 
-    // Cached layout measurements to prevent layout thrashing
     let cachedVh = window.innerHeight;
     let cachedVw = window.innerWidth;
     let top0 = 0;
@@ -83,6 +82,7 @@ export function HeroVisuals() {
     let targetY_metric = cachedVh * 1.76;
     let targetY_features = cachedVh * 3.12;
     let lastPhoneTranslateY = 0;
+    let lastPhoneScale = 1.0;
 
     const updateMeasurements = () => {
       cachedVh = window.innerHeight;
@@ -94,7 +94,8 @@ export function HeroVisuals() {
       const metricEl = document.getElementById("section-metric");
       const featuresEl = document.getElementById("section-features");
       const marqueeEl = document.getElementById("features-marquee-row");
-      const cardEl = document.getElementById("features-tech-card") || document.getElementById("features-phone-slot");
+      const hoverCueEl = document.getElementById("features-hover-cue-row");
+      const phoneSlotEl = document.getElementById("features-phone-slot");
       const phoneEl = phoneRef.current;
 
       if (heroEl && aboutEl && metricEl && featuresEl && phoneEl) {
@@ -105,37 +106,36 @@ export function HeroVisuals() {
         const phoneRect = phoneEl.getBoundingClientRect();
 
         top0 = heroRect.top + sy;
-        // Milestone scroll trigger points:
-        // top1: About section active
-        // top2: Metric section active
-        // top3: Features section active
-        top1 = aboutRect.top + sy - cachedVh * 0.25;
-        top2 = metricRect.top + sy - cachedVh * 0.25;
-        top3 = featuresRect.top + sy - cachedVh * 0.35;
+        top1 = aboutRect.top + sy - cachedVh * 0.2;
+        // top2: End of Metric section (phone completes straight downward translation to targetY_metric on right side)
+        top2 = featuresRect.top + sy - cachedVh * 0.85;
+        // top3: Features section active (phone moves diagonally to center at targetY_features)
+        top3 = featuresRect.top + sy - cachedVh * 0.15;
 
-        // Un-translated initial top and bottom of phoneEl relative to document:
         const phoneInitialTopDoc = (phoneRect.top + sy) - lastPhoneTranslateY;
         const phoneInitialBottomDoc = (phoneRect.bottom + sy) - lastPhoneTranslateY;
-        const phoneHeight = phoneRect.height;
+        const unscaledPhoneHeight = phoneRect.height / lastPhoneScale;
 
         // Center phone within About section content area
         const aboutCenterDoc = (aboutRect.top + sy) + aboutRect.height * 0.45;
-        targetY_about = (aboutCenterDoc - phoneHeight / 2) - phoneInitialTopDoc;
+        targetY_about = (aboutCenterDoc - unscaledPhoneHeight / 2) - phoneInitialTopDoc;
 
         // Center phone within Metric section content area
-        const metricCenterDoc = (metricRect.top + sy) + metricRect.height * 0.4;
-        targetY_metric = (metricCenterDoc - phoneHeight / 2) - phoneInitialTopDoc;
+        const metricCenterDoc = (metricRect.top + sy) + metricRect.height * 1.5;
+        targetY_metric = (metricCenterDoc - unscaledPhoneHeight / 2) - phoneInitialTopDoc;
 
-        const targetEl = marqueeEl || cardEl;
-        if (targetEl) {
-          const targetRect = targetEl.getBoundingClientRect();
-
-          // Place bottom tip of phone so feature cards overlap it
-          const targetBottomDoc = marqueeEl
-            ? (targetRect.bottom + sy) - 24
-            : (targetRect.bottom + sy);
-
-          targetY_features = targetBottomDoc - phoneInitialBottomDoc;
+        if (hoverCueEl) {
+          const hoverCueRect = hoverCueEl.getBoundingClientRect();
+          // Position phone bottom safely 16px above the "Hover over the feature cards" title
+          const hoverCueTopDoc = hoverCueRect.top + sy - 16;
+          targetY_features = hoverCueTopDoc - phoneInitialBottomDoc;
+        } else if (marqueeEl) {
+          const marqueeRect = marqueeEl.getBoundingClientRect();
+          const marqueeBottomDoc = marqueeRect.bottom + sy + 20;
+          targetY_features = marqueeBottomDoc - phoneInitialBottomDoc;
+        } else if (phoneSlotEl) {
+          const slotRect = phoneSlotEl.getBoundingClientRect();
+          targetY_features = (slotRect.top + sy) - phoneInitialTopDoc;
         } else {
           targetY_features = (featuresRect.top + sy) - top0;
         }
@@ -157,39 +157,47 @@ export function HeroVisuals() {
 
       const sy = window.scrollY;
 
-      // Compute scroll progress dynamically based on exact DOM section tops
+      // Compute scroll progress dynamically:
+      // 0 -> 1: Hero to About (moves to right side, targetY_about, tilts -10deg)
+      // 1 -> 2: About through Metric (straightens to 0deg, translates straight DOWNWARD on right side to targetY_metric)
+      // 2 -> 3: Metric to Features (translates DIAGONALLY to center, targetY_features)
       let target = 0;
       if (sy <= top0) {
         target = 0;
       } else if (sy <= top1) {
         target = (sy - top0) / (top1 - top0 || 1);
       } else if (sy <= top2) {
-        target = 1 + (sy - top1) / (top2 - top1 || 1);
+        target = 1.0 + (sy - top1) / (top2 - top1 || 1);
       } else if (sy <= top3) {
-        target = 2 + (sy - top2) / (top3 - top2 || 1);
+        target = 2.0 + (sy - top2) / (top3 - top2 || 1);
       } else {
         target = 3.0;
       }
 
       target = Math.min(Math.max(target, 0), 3.0);
-      current += (target - current) * 0.15;
+      current += (target - current) * 0.12;
 
       const maxTranslateX = cachedVw / 2 - getMarginX(cachedVw);
 
       const handOpacity = Math.max(0, 1 - current * 4);
       
-      // Rotation: goes from 0 to -10deg (current: 0 -> 1), then back to 0deg (current: 1 -> 2)
+      // Rotation:
+      // current <= 1: rotates from 0 to -10deg (in About section)
+      // 1 < current <= 1.3: straightens up from -10deg back to 0deg right after About section
+      // 1.3 < current: stays straight at 0deg
       let phoneRotate = 0;
       if (current <= 1) {
         phoneRotate = current * -10;
-      } else if (current <= 2) {
-        phoneRotate = -10 * (2 - current);
+      } else if (current <= 1.3) {
+        phoneRotate = -10 * ((1.3 - current) / 0.3);
       } else {
         phoneRotate = 0;
       }
 
-      // Horizontal Translation: moves from center (0) to right (finalTranslateX) for current <= 1,
-      // stays right for 1 < current <= 2, and smoothly transitions diagonally to 0 for 2 < current <= 3.
+      // Horizontal Translation:
+      // current <= 1: moves from center (0) to right side (finalTranslateX)
+      // 1 < current <= 2: STAYS FIXED ON RIGHT SIDE (translates straight downward through Metric section)
+      // 2 < current <= 3: ONLY AFTER Metric section ends, translates diagonally to center (0)
       const finalTranslateX = Math.min(cachedVw * 0.28, maxTranslateX);
       let phoneTranslateX = 0;
       if (current <= 1) {
@@ -197,11 +205,26 @@ export function HeroVisuals() {
       } else if (current <= 2) {
         phoneTranslateX = finalTranslateX;
       } else if (current <= 3) {
-        const progress = Math.min(Math.max((current - 2.0) / 0.85, 0), 1);
+        const progress = Math.min(Math.max(current - 2.0, 0), 1);
         phoneTranslateX = finalTranslateX * (1 - progress);
       } else {
         phoneTranslateX = 0;
       }
+
+      // Compute dynamic responsive scale for mobile asset (10% smaller scaling as requested)
+      const phoneEl = phoneRef.current;
+      const basePhoneHeight = phoneEl ? phoneEl.getBoundingClientRect().height / lastPhoneScale : 540;
+      const maxAvailableHeight = cachedVh - 130; // 75px navbar padding + 55px bottom margin
+      const maxScaleByVh = Math.max(0.70, (maxAvailableHeight / (basePhoneHeight || 540)) * 0.90);
+      const targetPhoneScale = Math.min(1.17, maxScaleByVh);
+
+      let phoneScale = 1.0;
+      if (current <= 1) {
+        phoneScale = 1.0 + current * (targetPhoneScale - 1.0);
+      } else {
+        phoneScale = targetPhoneScale;
+      }
+      lastPhoneScale = phoneScale;
 
       // Vertical Translation: dynamically interpolated across real DOM target Y coordinates
       let phoneTranslateY = 0;
@@ -213,6 +236,36 @@ export function HeroVisuals() {
         phoneTranslateY = targetY_metric + (current - 2) * (targetY_features - targetY_metric);
       }
 
+      // Bounds Clamping (keeps entire phone 100% visible, above hover title & footer at all times)
+      if (current > 0.1 && phoneEl) {
+        const phoneInitialTopDoc = (phoneEl.getBoundingClientRect().top + sy) - lastPhoneTranslateY;
+        const currentScaledHeight = basePhoneHeight * phoneScale;
+        
+        const minAllowedViewportTop = 75; // Below top navbar
+        const maxAllowedViewportBottom = cachedVh - 28; // Above bottom taskbar / screen edge
+
+        // 1. Viewport bottom clamping
+        const currentViewportBottom = (phoneInitialTopDoc + phoneTranslateY) + currentScaledHeight - sy;
+        if (currentViewportBottom > maxAllowedViewportBottom) {
+          phoneTranslateY -= (currentViewportBottom - maxAllowedViewportBottom);
+        }
+
+        // 2. Viewport top clamping
+        const currentViewportTop = (phoneInitialTopDoc + phoneTranslateY) - sy;
+        if (currentViewportTop < minAllowedViewportTop) {
+          phoneTranslateY += (minAllowedViewportTop - currentViewportTop);
+        }
+
+        // 3. Document bottom clamping relative to hover cue title (never below hover title / footer)
+        const hoverCueEl = document.getElementById("features-hover-cue-row");
+        if (hoverCueEl) {
+          const hoverCueTopDoc = hoverCueEl.getBoundingClientRect().top + sy;
+          const maxAllowedDocBottomY =
+            hoverCueTopDoc - 16 - phoneInitialTopDoc - currentScaledHeight;
+          phoneTranslateY = Math.min(phoneTranslateY, maxAllowedDocBottomY);
+        }
+      }
+
       lastPhoneTranslateY = phoneTranslateY;
 
       if (handRef.current) {
@@ -220,7 +273,7 @@ export function HeroVisuals() {
       }
 
       if (phoneRef.current) {
-        phoneRef.current.style.transform = `translate3d(${phoneTranslateX}px, ${phoneTranslateY}px, 0) rotate(${phoneRotate}deg)`;
+        phoneRef.current.style.transform = `translate3d(${phoneTranslateX}px, ${phoneTranslateY}px, 0) rotate(${phoneRotate}deg) scale(${phoneScale})`;
       }
 
       // Calculate piecewise opacities for the mockups
@@ -350,29 +403,14 @@ export function HeroVisuals() {
   // Mobile layout (no animation)
   if (isMobile) {
     return (
-      <div className="relative w-full max-w-[300px] min-[400px]:max-w-[360px] mx-auto">
-        <div className="relative w-full left-[7.4%]">
-          <Image
-            src="/assets/mockups/hand.webp"
-            alt="Hand holding phone"
-            width={500}
-            height={900}
-            className="w-full h-auto object-contain"
-            priority
-          />
-        </div>
-        <div className="absolute top-[0.4%] left-[20%] w-[88%]">
-          <div className="w-2/3 overflow-hidden shadow-2xl">
-            <Image
-              src="/assets/mockups/phone.webp"
-              alt="Resonate app interface"
-              width={400}
-              height={800}
-              className="w-full h-auto"
-              priority
-            />
-          </div>
-        </div>
+      <div className="w-[226px] sm:w-[266px] aspect-[9/18] relative mx-auto">
+        <Image
+          src="/assets/mockups/phone.webp"
+          alt="Resonate app interface"
+          fill
+          className="object-contain"
+          priority
+        />
       </div>
     );
   }
@@ -400,13 +438,12 @@ export function HeroVisuals() {
 
       <div
         ref={phoneRef}
-        className="absolute top-[0.4%] left-[20%] w-[88%] z-10"
+        className="absolute top-[0.4%] left-[20%] w-[88%] z-30"
         style={{
-          transformOrigin: "center bottom",
+          transformOrigin: "center top",
           willChange: "transform",
           backfaceVisibility: "hidden",
           transform: "translate3d(0, 0, 0) rotate(0deg) scale(1)",
-          contain: "paint",
         }}
       >
         <div className="w-2/3 overflow-hidden relative">

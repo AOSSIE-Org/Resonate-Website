@@ -1,0 +1,29 @@
+name: Label Merge Conflicts
+
+on:
+  push:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  label-conflicts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label PRs with merge conflicts
+        uses: eps1lon/actions-label-merge-conflict@0273be72a0bbd58fcd71d0d6c02c209b50d1e5e1 # v3.1.0
+        with:
+          dirtyLabel: "PR has merge conflicts"
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          commentOnDirty: |
+            ⚠️ **This PR has merge conflicts.**
+
+            Please resolve the merge conflicts before review.
+
+            Your PR will only be reviewed by a maintainer after all conflicts have been resolved.
+
+            📺 Watch this video to understand why conflicts occur and how to resolve them:
+            https://www.youtube.com/watch?v=Sqsz1-o7nXk
