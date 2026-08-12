@@ -113,7 +113,7 @@
   - *Evidence URL:* Pending security disclosure channel setup.
 
 - [ ] 🔴 **vulnerability_report_response** — Initial response to any vulnerability report received in the last 6 months was within 14 days.
-  - *Note:* N/A until formal policy published.
+  - *Note:* No vulnerability reports received in the last 6 months.
 
 ---
 

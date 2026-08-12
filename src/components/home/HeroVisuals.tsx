@@ -239,7 +239,6 @@ export function HeroVisuals() {
       // Bounds Clamping (keeps entire phone 100% visible, above hover title & footer at all times)
       if (current > 0.1 && phoneEl) {
         const phoneInitialTopDoc = (phoneEl.getBoundingClientRect().top + sy) - lastPhoneTranslateY;
-        const phoneInitialBottomDoc = (phoneEl.getBoundingClientRect().bottom + sy) - lastPhoneTranslateY;
         const currentScaledHeight = basePhoneHeight * phoneScale;
         
         const minAllowedViewportTop = 75; // Below top navbar
@@ -261,7 +260,8 @@ export function HeroVisuals() {
         const hoverCueEl = document.getElementById("features-hover-cue-row");
         if (hoverCueEl) {
           const hoverCueTopDoc = hoverCueEl.getBoundingClientRect().top + sy;
-          const maxAllowedDocBottomY = (hoverCueTopDoc - 16) - phoneInitialBottomDoc;
+          const currentPhoneBottomDoc = phoneInitialTopDoc + currentScaledHeight;
+          const maxAllowedDocBottomY = (hoverCueTopDoc - 16) - currentPhoneBottomDoc;
           phoneTranslateY = Math.min(phoneTranslateY, maxAllowedDocBottomY);
         }
       }
