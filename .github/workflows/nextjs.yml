@@ -2,9 +2,9 @@ name: Deploy Next.js site to Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "dev", "new-design"]
   pull_request:
-    branches: ["main"]
+    branches: ["main", "dev", "new-design"]
   workflow_dispatch:
 
 permissions:
@@ -82,7 +82,7 @@ jobs:
           path: ./out
 
   deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/new-design')
     permissions:
       pages: write
       id-token: write

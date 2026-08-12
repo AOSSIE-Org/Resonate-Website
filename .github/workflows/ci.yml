@@ -2,9 +2,9 @@ name: Next.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev", "new-design" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev", "new-design" ]
 
 permissions:
   contents: read
