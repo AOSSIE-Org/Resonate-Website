@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* --- BRAND PALETTE --- */
+  --color-brand-yellow: #FFC100;
+
+  /* Font Configuration */
+  --font-sans: var(--font-inter), var(--font-devanagari), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* --- SEMANTIC COLOR TOKENS --- */
+
+/* LIGHT MODE (Default) */
+:root {
+  /* Surface Colors */
+  --background: #F5F5F5;
+  --nav-background: rgb(245, 245, 245, 0.8); /* Added for glassmorphism */
+  
+  /* Text Colors */
+  --foreground: #1C1C1C;
+  --foreground-secondary: #121212;
+  --foreground-muted: #4D4D4D;
+  --heading-highlight: #121212;
+
+  /* Interactive States */
+  --hover-background: var(--color-neutral-200);
+  --active-background: var(--color-neutral-200);
+  
+  /* Border Colors */
+  --border: var(--color-neutral-200);
+  --border-subtle: var(--color-neutral-500);
+  
+  /* Button Styles */
+  --button-primary-bg: transparent;
+  --button-secondary-bg: #ffffff;
+  --button-tertiary-bg: #121212;
+  --button-primary-text: #121212;
+  --button-secondary-text: #000000;
+  --button-primary-border: #121212;
+  --button-primary-hover-bg: var(--color-neutral-50);
+  --button-primary-hover-border: #121212;
+  --button-subtle-bg: #9797971e;
+
+  /* Background Tile Colors */
+  --tile-bg: rgb(227, 226, 246);
+  --tile-stroke: rgb(80, 80, 80, 0.1);
+  --line-color: rgb(0, 0, 0, 0.05);
+
+  /* Footer Colors */
+  --footer-headings: rgb(0, 0, 0, 0.9);
+  --footer-text: rgb(0, 0, 0, 0.75);
+
+  /* Download Modal Colors */
+  --download-modal-bg: #FFFFFF;
+
+  /* Card Design Tokens */
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: var(--color-neutral-200);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  --tech-stack-card-bg: linear-gradient(125deg, #FFFFFF 2.17%, #E3E2F6 254.04%);
+  --feature-card-bg: #ffffff;
+}
+
+/* DARK MODE */
+.dark {
+   /* Surface Colors */
+  --background: #101010;
+  --nav-background: rgb(16, 16, 16, 0.8); /* Added for glassmorphism */
+  
+  /* Text Colors */
+  --foreground: #D3D3D3;
+  --foreground-secondary: #B4B4B4;
+  --foreground-muted: #7F8188;
+  --heading-highlight: var(--color-brand-yellow);
+
+  /* Interactive States */
+  --hover-background: var(--color-neutral-800);
+  --active-background: var(--color-neutral-700);
+  
+  /* Border Colors */
+  --border: var(--color-neutral-800);
+  --border-subtle: var(--color-neutral-800);
+  
+  /* Button Styles */
+  --button-primary-bg: #FFFFFF;
+  --button-secondary-bg: #32363A;
+  --button-tertiary-bg: transparent;
+  --button-primary-text: #101010;
+  --button-secondary-text: #FFFFFF;
+  --button-primary-border: transparent;
+  --button-primary-hover-bg: var(--color-neutral-100);
+  --button-primary-hover-border: var(--color-neutral-100);
+  --button-subtle-bg: #bbbbbb0e;
+
+  /* Background Tile Colors */
+  --tile-bg: rgb(30, 29, 28);
+  --tile-stroke: rgb(80, 80, 80, 0.5);
+  --line-color: rgb(0, 0, 0, 0.12);
+
+  /* Footer Colors */
+  --footer-headings: rgb(255, 255, 255);
+  --footer-text: rgb(255, 255, 255, 0.5);
+
+  /* Download Modal Colors */
+  --download-modal-bg: rgb(26, 26, 26, 0.92);
+
+  /* Card Design Tokens */
+  --card-bg: rgba(22, 22, 22, 0.85);
+  --card-border: var(--color-neutral-800);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --tech-stack-card-bg: linear-gradient(117deg, #131313 0%, #202020 100%);
+  --feature-card-bg: linear-gradient(117deg, #131313 0%, #202020 100%);
+}
+
+/* --- GLOBAL STYLES --- */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+/* Utility Classes */
+@utility text-primary { color: var(--foreground); }
+@utility text-secondary { color: var(--foreground-secondary); }
+@utility text-muted { color: var(--foreground-muted); }
+@utility text-highlight { color: var(--heading-highlight); }
+@utility border-default { border-color: var(--border); }
+@utility border-subtle { border-color: var(--border-subtle); }
+@utility bg-card { background: var(--card-bg); }
+@utility bg-tech-stack-card { background: var(--tech-stack-card-bg); }
+@utility bg-feature-card { background: var(--feature-card-bg); }
+@utility border-card { border-color: var(--card-border); }
+@utility shadow-card { box-shadow: var(--card-shadow); }
+
+/* --- THEME ICON --- */
+/* 
+   This forces the browser to listen to the .dark class on the HTML tag
+   instead of the Operating System preference.
+*/
+
+/* Default (Light Mode): Icon stays Black */
+.theme-icon {
+  filter: invert(0);
+  transition: filter 0.2s ease-in-out;
+}
+
+/* Dark Mode: Icon flips to White */
+:is(.dark .theme-icon) {
+  filter: invert(1) brightness(100);
+}
+
+/* --- HERO TEXT ANIMATIONS --- */
+@keyframes luxury-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(35px) scale(0.96);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.animate-luxury-reveal-1 {
+  animation: luxury-reveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+.animate-luxury-reveal-2 {
+  animation: luxury-reveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 350ms;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+.animate-luxury-reveal-3 {
+  animation: luxury-reveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 700ms;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+.animate-luxury-reveal-4 {
+  animation: luxury-reveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 1050ms;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+

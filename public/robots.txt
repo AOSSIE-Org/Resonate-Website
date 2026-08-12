@@ -1,3 +1,6 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /api/
+Disallow: /_vercel/
+
+Sitemap: https://resonate.aossie.org/sitemap.xml

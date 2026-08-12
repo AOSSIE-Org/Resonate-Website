@@ -1,0 +1,14 @@
+openapi: 3.0.3
+info:
+  title: Resonate Website API
+  description: OpenAPI specification for Resonate Website landing page and public assets.
+  version: 1.0.0
+servers:
+  - url: https://resonate.aossie.org
+paths:
+  /.well-known/ai-plugin.json:
+    get:
+      summary: Retrieve AI plugin manifest
+      responses:
+        '200':
+          description: Plugin manifest document

@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "title": "Resonate",
+    "description": "The Open-Source Voice of the Internet"
+  },
+  "Navbar": {
+    "developers": "Developers",
+    "community": "Community",
+    "aossie": "AOSSIE",
+    "download": "Download Now",
+    "toggleMenu": "Toggle menu",
+    "close": "Close",
+    "menu": "Menu",
+    "selectLanguage": "Select language"
+  },
+  "Hero": {
+    "headline": "The Open-Source Voice of the Internet",
+    "subHeadline": "Social Audio for everyone",
+    "maintainedBy": "A Project Maintained by",
+    "orgName": "AOSSIE",
+    "download": "Download Now",
+    "visitAossie": "Visit AOSSIE website (opens in new tab)",
+    "downloadAria": "Download Resonate on Google Play (opens in new tab)"
+  },
+  "DownloadModal": {
+    "title": "Download Resonate App",
+    "scanInstruction": "Scan with your mobile device",
+    "or": "OR",
+    "redirectToPlayStore": "Redirect to Play Store Web",
+    "redirectToAppStore": "Redirect to App Store Web",
+    "switchBetweenDevices": "SWITCH BETWEEN DEVICES",
+    "closeLabel": "Close modal",
+    "closeAlt": "Close",
+    "qrAlt": "{device} QR Code",
+    "scanAlt": "Scan",
+    "playStoreAlt": "Play Store",
+    "appStoreAlt": "App Store"
+  },
+  "Footer": {
+    "Resources": {
+      "title": "Resources",
+      "links": {
+        "website": "Resonate Website",
+        "app": "Resonate App",
+        "backend": "Resonate Backend"
+      }
+    },
+    "AboutUs": {
+      "title": "About Us",
+      "links": {
+        "aossie": "AOSSIE",
+        "otherProjects": "Other Projects"
+      }
+    },
+    "Social": {
+      "title": "Social",
+      "links": {
+        "discord": "Discord",
+        "youtube": "YouTube",
+        "twitter": "X (Twitter)",
+        "linkedin": "LinkedIn"
+      }
+    },
+    "copyright": "© 2026 Resonate",
+    "madeWith": "Made with 🤍 by AOSSIE Community"
+  },
+  "ThemeToggle": {
+    "toggleTheme": "Toggle theme",
+    "switchTheme": "Switch Theme",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "loading": "Loading theme toggle"
+  },
+  "Metric": {
+    "storeRatingPart1": "STORE",
+    "storeRatingPart2": "RATING",
+    "happyContributorsPart1": "HAPPY",
+    "happyContributorsPart2": "CONTRIBUTORS",
+    "uniqueDownloadsPart1": "UNIQUE",
+    "uniqueDownloadsPart2": "DOWNLOADS",
+    "weEducate": "WE EDUCATE",
+    "weInnovate": "WE INNOVATE",
+    "aossieDescription": "We are an Australian not-for-profit organization that supports and brings together open-source projects. We believe open source is a resource-efficient and collaborative way to share knowledge, encourage innovation, and make education more accessible through strong community participation.",
+    "findMore": "Find More",
+    "aboutAossieHere": "about AOSSIE here",
+    "playStoreAlt": "Play Store",
+    "appStoreAlt": "App Store",
+    "mockupAlt": "App Mockup",
+    "gmailAlt": "Gmail",
+    "discordAlt": "Discord",
+    "twitterAlt": "Twitter",
+    "githubAlt": "GitHub",
+    "gitlabAlt": "GitLab",
+    "backgroundPhoneAlt": "Background phone mockup"
+  },
+  "About": {
+    "title1": "Conversations,",
+    "title2": "Go Open-Source",
+    "description": "With the rising popularity of social voice platforms such as Clubhouse and Twitter Spaces, it is the right time for an open-source alternative to emerge. Such a platform would strengthen trust and credibility within the open-source community while offering transparency, flexibility, and community-driven innovation.",
+    "tagline1": "Voices Without",
+    "tagline2": "Limits",
+    "videoButton": "Watch Video",
+    "playStoreAlt": "Play Store",
+    "appStoreAlt": "App Store",
+    "availability1": "The Mobile app",
+    "availability2": "is available now",
+    "learnMore": "Learn More",
+    "mockupAlt": "App Mockup"
+  },
+  "Features": {
+    "joinCommunity": "JOIN OUR COMMUNITY",
+    "communityDescription": "Become a member of our INCREDIBLE open source community by clicking on the button below, our amazing members and maintainers will guide you thoroughly to get your journey started.",
+    "contributeButton": "Contribute to the Project",
+    "techStack": "GET FAMILIAR WITH OUR TECH STACK",
+    "mobileDev": "MOBILE DEVELOPMENT",
+    "flutter": "Flutter",
+    "dart": "Dart",
+    "appwrite": "Appwrite",
+    "livekit": "LiveKit",
+    "card1": "LIVE ROOMS",
+    "card2": "SCHEDULED ROOMS",
+    "card3": "STORIES & CHAPTERS",
+    "card4": "FRIENDS & CALLS",
+    "card5": "AUDIO SPACES",
+    "card6": "ROOM MODERATION",
+    "feature1Title": "Ability to create live rooms instantly",
+    "feature2Title": "Create scheduled rooms with the ability to subscribe and unsubscribe",
+    "feature3Title": "Add stories and live chapters to share your daily updates",
+    "feature4Title": "Add friends to chat with and enjoy seamless calling functionality",
+    "feature5Title": "Real-time audio communication by joining rooms and talking to people",
+    "feature6Title": "Ability to create rooms and moderate speakers, listeners, and events",
+    "hoverCueText": "Hover over the feature cards",
+    "swipeCueText": "Swipe to See More Features",
+    "prevFeature": "Previous Feature",
+    "nextFeature": "Next Feature",
+    "resonateAppInterface": "Resonate app interface",
+    "swipeCue": "Swipe Cue"
+  }
+}
