@@ -17,7 +17,6 @@
 </div>
 
 <!-- Organization/Project Social Handles -->
-<!-- Organization/Project Social Handles -->
 <p align="center">
   <a href="https://t.me/+bMWGzaMTMa8xN2Ex">
     <img src="https://img.shields.io/badge/Telegram_AOSSIE-black?style=flat&logo=telegram&logoColor=white&color=24A1DE" alt="Telegram Badge"/>
