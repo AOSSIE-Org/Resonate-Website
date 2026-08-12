@@ -2,9 +2,9 @@
 
 > Criteria adapted from the [OpenSSF Best Practices Badge](https://github.com/coreinfrastructure/best-practices-badge)
 > (MIT / CC BY 3.0) by OpenSSF contributors. Modified for AOSSIE multi-repo template use.
-
-> **[Discord Channel Link](https://discord.com/channels/1022871757289422898/1458840574076387448)** 
-
+>
+> **[Discord Channel Link](https://discord.com/channels/1022871757289422898/1458840574076387448)**
+>
 > **Purpose:** Covers OpenSSF Best Practices criteria that are NOT auto-detected by OpenSSF Scorecard.
 > Scorecard already handles: License, SAST tools, CI tests, Security Policy file, Branch Protection,
 > Pinned Dependencies, Signed Releases, Maintained status, and Known Vulnerabilities.
@@ -17,11 +17,11 @@
 |--------------------|-----|-------|--------|
 | Basics             | 8   | 8     | 🟢     |
 | Change Control     | 6   | 6     | 🟢     |
-| Reporting          | 8   | 8     | 🟢     |
-| Quality            | 11  | 11    | 🟢     |
+| Reporting          | 5   | 8     | 🟡     |
+| Quality            | 8   | 11    | 🟡     |
 | Security           | 9   | 9     | 🟢     |
-| Analysis           | 7   | 7     | 🟢     |
-| **Total**          | **49** | **49** | **100%** |
+| Analysis           | 4   | 7     | 🟡     |
+| **Total**          | **40** | **49** | **81%** |
 
 ---
 
@@ -42,7 +42,7 @@
   - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/blob/main/AGENTS.md
 
 - [x] 🔴 **documentation_basics** — Basic documentation exists for the software (README, Wiki, or docs folder).
-  - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/tree/main/public/brand
+  - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/blob/main/README.md
 
 - [x] 🔴 **documentation_interface** — Reference documentation describes the external interface (API inputs/outputs, CLI flags, config schema, etc.).
   - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/blob/main/README.md
@@ -106,14 +106,14 @@
 
 ### Vulnerability Reporting
 
-- [x] 🔴 **vulnerability_report_process** — A vulnerability reporting process is documented.
-  - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/blob/main/DCO.md
+- [ ] 🔴 **vulnerability_report_process** — A vulnerability reporting process is documented.
+  - *Evidence URL:* Pending published security policy document.
 
-- [x] 🟡 **vulnerability_report_private** — If private vulnerability reporting is supported, the method for private submission is documented.
-  - *Evidence URL:* https://discord.com/channels/1022871757289422898/1458840574076387448
+- [ ] 🟡 **vulnerability_report_private** — If private vulnerability reporting is supported, the method for private submission is documented.
+  - *Evidence URL:* Pending security disclosure channel setup.
 
-- [x] 🔴 **vulnerability_report_response** — Initial response to any vulnerability report received in the last 6 months was within 14 days.
-  - *Self-certification note:* Initial response SLA met.
+- [ ] 🔴 **vulnerability_report_response** — Initial response to any vulnerability report received in the last 6 months was within 14 days.
+  - *Note:* N/A until formal policy published.
 
 ---
 
@@ -135,19 +135,19 @@
 - [x] 🔵 **test_invocation** — The test suite can be invoked in a standard way (`npm run test`). *(SUGGESTED)*
   - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/blob/main/package.json
 
-- [x] 🔵 **test_most** — The test suite covers primary UI components and functionality. *(SUGGESTED)*
-  - *Estimated coverage %:* >90%
+- [ ] 🔵 **test_most** — The test suite covers most code branches and functionality. *(SUGGESTED)*
+  - *Note:* Basic unit test suite implemented (`src/__tests__`).
 
 ### New Functionality Testing Policy
 
-- [x] 🔴 **test_policy** — The project has a general policy that new functionality must include tests in the automated test suite.
-  - *Evidence:* Documented in BestPracticesChecklist.md and AGENTS.md.
+- [ ] 🔴 **test_policy** — The project has a general policy that new functionality must include tests in the automated test suite.
+  - *Evidence:* Pending formal policy document.
 
-- [x] 🔴 **tests_are_added** — Evidence exists that the test policy has been followed in recent major changes.
-  - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/blob/main/.github/workflows/ci.yml
+- [ ] 🔴 **tests_are_added** — Evidence exists that the test policy has been followed in recent major changes.
+  - *Note:* Unit tests added for key components.
 
-- [x] 🔵 **tests_documented_added** — The test policy is documented in contribution instructions. *(SUGGESTED)*
-  - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/blob/main/BestPracticesChecklist.md
+- [ ] 🔵 **tests_documented_added** — The test policy is documented in contribution instructions. *(SUGGESTED)*
+  - *Evidence URL:* Pending contribution guide update.
 
 ### Linting / Warning Flags
 
@@ -155,7 +155,7 @@
   - *Tool used:* ESLint v9 + TypeScript strict mode.
 
 - [x] 🔴 **warnings_fixed** — Warnings from the linter are addressed.
-  - *Note:* Clean build and zero warnings (`npm run lint` and `npm run build`).
+  - *Note:* Clean build with zero warnings (`npm run lint` and `npm run build`).
 
 - [x] 🔵 **warnings_strict** — Project uses maximum strictness in linter config where practical. *(SUGGESTED)*
   - *Note:* ESLint v9 strict rules enabled.
@@ -170,7 +170,7 @@
   - *Self-certification note:* OWASP and Next.js Security Best Practices followed.
 
 - [x] 🔴 **know_common_errors** — Primary developer knows common vulnerability types (XSS, CSRF, SSRF) and mitigations.
-  - *Self-certification note:* React 19 automatic XSS escaping & Content Security Policies.
+  - *Self-certification note:* React 19 automatic XSS escaping.
 
 ### Cryptography
 
@@ -202,24 +202,24 @@
 ### Static Code Analysis
 
 - [x] 🔴 **static_analysis_fixed** — All medium+ severity vulnerabilities found by static analysis are fixed in a timely manner.
-  - *Note:* CodeRabbit AI & GitHub CodeQL static analysis active.
+  - *Note:* CodeRabbit AI static analysis active.
 
 - [x] 🔵 **static_analysis_common_vulnerabilities** — The static analysis tool includes checks for common vulnerabilities. *(SUGGESTED)*
-  - *Tool + ruleset:* ESLint Security + CodeRabbit AI.
+  - *Tool + ruleset:* ESLint + CodeRabbit AI.
 
-- [x] 🔵 **static_analysis_often** — Static analysis runs on every commit or at least daily. *(SUGGESTED)*
+- [x] 🔵 **static_analysis_often** — Static analysis runs on every commit or PR. *(SUGGESTED)*
   - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/blob/main/.github/workflows/ci.yml
 
 ### Dynamic Code Analysis
 
-- [x] 0️⃣ **dynamic_analysis** — Dynamic analysis applied before major releases. *(SUGGESTED)*
-  - *Tool used:* Lighthouse & Chrome DevTools performance & accessibility scanner.
+- [ ] 🔵 **dynamic_analysis** — Dynamic analysis applied before major releases. *(SUGGESTED)*
+  - *Note:* Unchecked pending automated lighthouse workflow.
 
 - [x] 🔵 **dynamic_analysis_enable_assertions** — Dynamic analysis runs with assertions enabled. *(SUGGESTED)*
   - *Note:* React StrictMode enabled.
 
-- [x] 🔴 **dynamic_analysis_fixed** — Medium+ severity vulnerabilities fixed in a timely manner.
-  - *Note:* Verified clean.
+- [ ] 🔴 **dynamic_analysis_fixed** — Medium+ severity vulnerabilities fixed in a timely manner.
+  - *Note:* Pending vulnerability scanner integration.
 
 - [x] 🔵 **dynamic_analysis_unsafe** — Memory safety tools used. *(SUGGESTED)*
   - *Note:* `[~]` N/A — Memory-safe TypeScript/JavaScript environment.
