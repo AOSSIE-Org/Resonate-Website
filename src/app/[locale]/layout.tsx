@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_Devanagari } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from "@/i18n/routing";
 import { generateLocaleMetadata } from "@/i18n/metadata";
 import "./globals.css";
 
+import enMessages from "@/messages/en.json";
+import hiMessages from "@/messages/hi.json";
+
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { Navbar } from "@/components/layout/Navbar";
+
+const messagesMap: Record<string, Record<string, unknown>> = {
+  en: enMessages as Record<string, unknown>,
+  hi: hiMessages as Record<string, unknown>,
+};
 
 const inter = Inter({
   subsets: ["latin"],
@@ -51,20 +58,12 @@ export default async function RootLayout({
     notFound();
   }
 
-  setRequestLocale(locale);
-
-  let messages;
-  try {
-    messages = (await import(`@/messages/${locale}.json`)).default;
-  } catch (error) {
-    console.error("Invalid locale:", error);
-    notFound();
-  }
+  const messages = messagesMap[locale] || enMessages;
 
   return (
     <html lang={locale} className={`${inter.variable} ${devanagari.variable}`} suppressHydrationWarning>
       <body className="antialiased font-sans bg-background text-foreground">
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages} formats={{}} timeZone="UTC" now={new Date(0)}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

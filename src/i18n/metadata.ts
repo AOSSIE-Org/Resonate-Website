@@ -1,19 +1,26 @@
-import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
+import enMessages from '@/messages/en.json';
+import hiMessages from '@/messages/hi.json';
+
+const messagesMap: Record<string, typeof enMessages> = {
+  en: enMessages,
+  hi: hiMessages,
+};
 
 export async function generateLocaleMetadata(
   locale: string,
-  namespace: string = 'metadata'
+  namespace: 'metadata' = 'metadata'
 ): Promise<Metadata> {
-  const t = await getTranslations({ locale, namespace });
+  const messages = messagesMap[locale] || enMessages;
+  const meta = messages[namespace] || enMessages.metadata;
 
   const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://resonate.aossie.org';
   const siteUrl = rawSiteUrl.replace(/\/$/, '');
   const localeUrl = `${siteUrl}/${locale}`;
 
   return {
-    title: t('title'),
-    description: t('description'),
+    title: meta.title,
+    description: meta.description,
     icons: {
       icon: '/brand/icons/favicon.ico',
     },
@@ -25,8 +32,8 @@ export async function generateLocaleMetadata(
       },
     },
     openGraph: {
-      title: t('title'),
-      description: t('description'),
+      title: meta.title,
+      description: meta.description,
       url: localeUrl,
       siteName: 'Resonate - AOSSIE',
       images: [
@@ -42,8 +49,8 @@ export async function generateLocaleMetadata(
     },
     twitter: {
       card: 'summary_large_image',
-      title: t('title'),
-      description: t('description'),
+      title: meta.title,
+      description: meta.description,
       images: [`${siteUrl}/brand/icons/resonate_logo.svg`],
     },
   };
