@@ -12,6 +12,7 @@ export function ThemeToggle({ isMobile = false }: { isMobile?: boolean }) {
 
   // Avoid hydration mismatch
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
