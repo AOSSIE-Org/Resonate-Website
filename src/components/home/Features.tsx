@@ -156,7 +156,8 @@ export function Features() {
               .animate-marquee {
                 animation: marquee 25s linear infinite;
               }
-              .animate-marquee:hover {
+              .animate-marquee:hover,
+              .animate-marquee:focus-within {
                 animation-play-state: paused;
               }
             `}} />

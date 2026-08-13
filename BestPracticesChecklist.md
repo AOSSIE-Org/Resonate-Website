@@ -170,7 +170,7 @@
   - *Self-certification note:* OWASP and Next.js Security Best Practices followed.
 
 - [x] 🔴 **know_common_errors** — Primary developer knows common vulnerability types (XSS, CSRF, SSRF) and mitigations.
-  - *Self-certification note:* React 19 automatic XSS escaping.
+  - *Self-certification note:* React 19 automatic XSS escaping; static site deployment with no session cookies (CSRF mitigation) and no server-side fetching of user-supplied URLs (SSRF mitigation).
 
 ### Cryptography
 
