@@ -260,8 +260,8 @@ export function HeroVisuals() {
         const hoverCueEl = document.getElementById("features-hover-cue-row");
         if (hoverCueEl) {
           const hoverCueTopDoc = hoverCueEl.getBoundingClientRect().top + sy;
-          const maxAllowedDocBottomY =
-            hoverCueTopDoc - 16 - phoneInitialTopDoc - currentScaledHeight;
+          const currentPhoneBottomDoc = phoneInitialTopDoc + currentScaledHeight;
+          const maxAllowedDocBottomY = (hoverCueTopDoc - 16) - currentPhoneBottomDoc;
           phoneTranslateY = Math.min(phoneTranslateY, maxAllowedDocBottomY);
         }
       }

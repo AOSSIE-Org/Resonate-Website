@@ -37,7 +37,7 @@ const NAV_CONFIG = [
 ];
 
 const Footer = () => {
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
   const mounted = useSyncExternalStore(
     emptySubscribe,
     () => true,
@@ -48,7 +48,7 @@ const Footer = () => {
   const brandingSrc =
     !mounted
       ? "/assets/icons/resonate_branding_light.svg"
-      : theme === "dark"
+      : (resolvedTheme === "dark" || theme === "dark")
       ? "/assets/icons/resonate_branding_dark.svg"
       : "/assets/icons/resonate_branding_light.svg";
 
