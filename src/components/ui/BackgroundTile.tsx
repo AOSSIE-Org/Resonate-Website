@@ -57,6 +57,7 @@ const BackgroundTile = () => {
       for (const m of mutations) {
         if (m.attributeName === "class" || m.attributeName === "data-theme") {
           updateLineColor();
+          render();
         }
       }
     });

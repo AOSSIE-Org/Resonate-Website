@@ -156,7 +156,8 @@ export function Features() {
               .animate-marquee {
                 animation: marquee 25s linear infinite;
               }
-              .animate-marquee:hover {
+              .animate-marquee:hover,
+              .animate-marquee:focus-within {
                 animation-play-state: paused;
               }
             `}} />
@@ -166,17 +167,20 @@ export function Features() {
               {/* We repeat the 6 features 3 times to ensure a seamless scroll loop */}
               {[...features, ...features, ...features].map((feat, index) => {
                 return (
-                  <div
+                  <button
+                    type="button"
                     key={`${feat.id}-${index}`}
                     onClick={() => setActiveFeature(feat.id)}
                     onMouseEnter={() => setHoveredFeature(feat.id)}
                     onMouseLeave={() => setHoveredFeature(null)}
-                    className="flex items-center justify-center p-6 rounded-2xl border border-card text-center transition-all duration-300 cursor-pointer select-none w-64 md:w-80 h-28 md:h-36 shrink-0 bg-feature-card shadow-card text-foreground backdrop-blur-md hover:bg-brand-yellow hover:text-black hover:border-brand-yellow dark:hover:bg-brand-yellow/10 dark:hover:text-brand-yellow dark:hover:border-brand-yellow hover:scale-[1.04] hover:shadow-xl hover:shadow-brand-yellow/20"
+                    onFocus={() => setHoveredFeature(feat.id)}
+                    onBlur={() => setHoveredFeature(null)}
+                    className="flex items-center justify-center p-6 rounded-2xl border border-card text-center transition-all duration-300 cursor-pointer select-none w-64 md:w-80 h-28 md:h-36 shrink-0 bg-feature-card shadow-card text-foreground backdrop-blur-md hover:bg-brand-yellow hover:text-black hover:border-brand-yellow dark:hover:bg-brand-yellow/10 dark:hover:text-brand-yellow dark:hover:border-brand-yellow hover:scale-[1.04] hover:shadow-xl hover:shadow-brand-yellow/20 font-sans text-left"
                   >
                     <span className="text-lg xl:text-xl font-bold tracking-wider uppercase">
                       {t(feat.cardKey)}
                     </span>
-                  </div>
+                  </button>
                 );
               })}
             </div>

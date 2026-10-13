@@ -25,18 +25,60 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
   );
 
 
-  // Close on Escape key
+  const modalRef = React.useRef<HTMLDivElement>(null);
+  const previousFocusRef = React.useRef<HTMLElement | null>(null);
+
+  // Focus trap, Escape key handling, and Focus restoration
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+    if (!isOpen) return;
+
+    previousFocusRef.current = document.activeElement as HTMLElement;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+
+      if (e.key === "Tab" && modalRef.current) {
+        const focusables = modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length === 0) return;
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     };
-    if (isOpen) {
-      window.addEventListener("keydown", handleEscape);
-      document.body.style.overflow = "hidden"; // Prevent scrolling
-    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    // Set initial focus
+    const timer = setTimeout(() => {
+      const closeBtn = modalRef.current?.querySelector<HTMLElement>("button");
+      closeBtn?.focus();
+    }, 50);
+
     return () => {
-      window.removeEventListener("keydown", handleEscape);
+      clearTimeout(timer);
+      window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";
+      if (previousFocusRef.current) {
+        previousFocusRef.current.focus();
+      }
     };
   }, [isOpen, onClose]);
 
@@ -68,7 +110,8 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
       />
       
       {/* Card */}
-      <div        
+      <div
+        ref={modalRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="download-modal-title"

@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 import path from "path";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   output: "export",
@@ -7,18 +10,8 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   turbopack: {
-    root: path.resolve(process.cwd()),
-    resolveAlias: {
-      "next-intl/config": "./src/i18n/request.ts",
-    },
-  },
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "next-intl/config": path.resolve(process.cwd(), "./src/i18n/request.ts"),
-    };
-    return config;
+    root: path.resolve(__dirname),
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

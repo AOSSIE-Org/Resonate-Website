@@ -1,16 +1,22 @@
-import {getRequestConfig} from 'next-intl/server';
-import {hasLocale} from 'next-intl';
-import {routing} from './routing';
- 
-export default getRequestConfig(async ({requestLocale}) => {
- 
-  const requested = await requestLocale;
-  const locale = hasLocale(routing.locales, requested)
-    ? requested
-    : routing.defaultLocale;
- 
+import { getRequestConfig } from 'next-intl/server';
+import enMessages from '../messages/en.json';
+import hiMessages from '../messages/hi.json';
+import { routing } from './routing';
+
+const messagesMap: Record<string, Record<string, unknown>> = {
+  en: enMessages as Record<string, unknown>,
+  hi: hiMessages as Record<string, unknown>,
+};
+
+export default getRequestConfig(async ({ requestLocale }) => {
+  let locale = await requestLocale;
+
+  if (!locale || !routing.locales.includes(locale as (typeof routing.locales)[number])) {
+    locale = routing.defaultLocale;
+  }
+
   return {
     locale,
-    messages: (await import(`@/messages/${locale}.json`)).default
+    messages: messagesMap[locale] || enMessages,
   };
 });
