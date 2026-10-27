@@ -1,32 +1,43 @@
-# Resonate Website LLM Policy & Architecture
+# Resonate
 
-Resonate is an open-source social voice platform, and this is its landing page built on Next.js 16 (App Router), React 19, and Tailwind CSS v4 under the AOSSIE organization. It features multi-language support (`next-intl`), smooth scrolling (`lenis`), dynamic theme management (`next-themes`), and static export capabilities (`output: 'export'`).
+> Resonate is a free, open-source social voice platform: live audio rooms, scheduled rooms, stories and chapters, friends and calls, audio spaces and room moderation. It is built and maintained by AOSSIE (Australian Open Source Software Innovation and Education), a not-for-profit that brings open-source projects together. This site is the project's landing page.
 
----
+The mobile app is available for Android on Google Play. Everything, including the app, its backend and this website, is open source on GitHub.
 
-## 📂 Project Architecture
+## Pages on this site
 
-- **`src/app/[locale]/`**: Localized dynamic route group containing pages, layouts, and global styles.
-- **`src/app/sitemap.ts`**: Dynamically generates localized sitemap entries.
-- **`public/brand/`**: Contains official Resonate & AOSSIE vector logos, favicons, and brand guidelines (`Brand.md`).
-- **`src/config/languages.ts`**: Central registry of supported languages and default locale (`en`).
-- **`src/i18n/`**: Localization routing setups, request handlers, and navigation helpers (`navigation.ts`).
-- **`src/messages/`**: Translation catalogs (`en.json`, `hi.json`).
-- **`src/components/`**: Modular UI components (Navbar, Footer, Hero, About, Metric, Features, LanguageSwitcher, ThemeToggle).
+- [Home (English)](https://resonate.aossie.org/en): what Resonate is, store rating and community numbers, the AOSSIE organisation, the feature set and the tech stack.
+- [Home (Hindi)](https://resonate.aossie.org/hi): the same page in Hindi.
+- [Sitemap](https://resonate.aossie.org/sitemap.xml): machine-readable list of localized pages.
 
----
+## Get the app
 
-## 🎨 Theme & Styling Guidelines
+- [Resonate on Google Play](https://play.google.com/store/apps/details?id=com.resonate.resonate): Android download.
 
-- Class-based dark mode configured via Tailwind CSS v4 `@custom-variant dark`.
-- Semantic CSS variables (`bg-background`, `text-foreground`) are bound in `globals.css`.
-- Avoid inline dark utilities; use semantic token classes.
+## Source code
 
----
+- [Resonate app (Flutter)](https://github.com/AOSSIE-Org/Resonate): the mobile application.
+- [Resonate backend](https://github.com/AOSSIE-Org/Resonate-Backend): server-side code and infrastructure.
+- [Resonate website](https://github.com/AOSSIE-Org/Resonate-Website): this landing page, a Next.js static export.
+- [AOSSIE on GitHub](https://github.com/AOSSIE-Org): all organisation repositories.
 
-## 📦 Build & Runtime Commands
+## Community and organisation
 
-- **Build:** `npm run build` (Static export into `./out`)
-- **Develop:** `npm run dev`
-- **Lint:** `npm run lint`
-- **Test:** `npm run test`
+- [AOSSIE website](https://aossie.org): about the organisation behind Resonate.
+- [AOSSIE Discord](https://discord.gg/hjUhu33uAn): community chat, the recommended place to ask questions or get started contributing.
+- [AOSSIE on YouTube](https://www.youtube.com/@AOSSIE-Org): talks and project videos.
+- [AOSSIE on X (Twitter)](https://twitter.com/aossie_org): announcements.
+- [AOSSIE on GitLab](https://gitlab.com/aossie): mirrored repositories.
+- Contact: aossie.oss@gmail.com
+
+## Tech stack
+
+- App: Flutter and Dart.
+- Backend: Appwrite.
+- Real-time audio: LiveKit.
+- Website: Next.js 16 (App Router, static export), React 19, Tailwind CSS v4, next-intl for English and Hindi, next-themes for light and dark mode, Lenis for smooth scrolling.
+
+## Optional
+
+- [Brand guidelines](https://github.com/AOSSIE-Org/Resonate-Website/blob/main/public/brand/Brand.md): colours, logos and typography for Resonate and AOSSIE.
+- [Robots policy](https://resonate.aossie.org/robots.txt): crawl rules for this site.

@@ -8,6 +8,37 @@
 
   /* Font Configuration */
   --font-sans: var(--font-inter), var(--font-devanagari), ui-sans-serif, system-ui, sans-serif;
+
+  /* Feature card illustration animations (run on card hover) */
+  --animate-illo-pulse: illo-pulse 1.8s ease-in-out infinite;
+  --animate-illo-bars: illo-bars 1.1s ease-in-out infinite;
+  --animate-illo-spin: illo-spin 10s linear infinite;
+  --animate-illo-spin-reverse: illo-spin 14s linear infinite reverse;
+  --animate-illo-tick: illo-tick 1.6s ease-in-out infinite;
+  --animate-illo-ring: illo-ring 1.2s ease-in-out infinite;
+
+  @keyframes illo-pulse {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+  @keyframes illo-bars {
+    0%, 100% { transform: scaleY(0.55); }
+    50% { transform: scaleY(1); }
+  }
+  @keyframes illo-spin {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes illo-tick {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+  @keyframes illo-ring {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(-12deg); }
+    40% { transform: rotate(10deg); }
+    60% { transform: rotate(-6deg); }
+    80% { transform: rotate(4deg); }
+  }
 }
 
 /* --- SEMANTIC COLOR TOKENS --- */
@@ -17,6 +48,14 @@
   /* Surface Colors */
   --background: #F5F5F5;
   --nav-background: rgb(245, 245, 245, 0.8); /* Added for glassmorphism */
+
+  /* Navbar cursor glass (see .nav-glass below) */
+  --nav-glass-ring: rgba(0, 0, 0, 0.08);              /* resting reflective border */
+  --nav-glass-rim: rgba(40, 46, 60, 0.26);            /* border highlight near the cursor (a soft shade: white can't read on the near-white bar) */
+  --nav-glass-glow: rgba(120, 132, 156, 0.11);        /* surface glow near the cursor (faint cool tint) */
+  --nav-glass-shadow:
+    0 14px 32px -16px rgba(0, 0, 0, 0.1),
+    0 2px 8px -4px rgba(0, 0, 0, 0.04);
   
   /* Text Colors */
   --foreground: #1C1C1C;
@@ -68,11 +107,19 @@
    /* Surface Colors */
   --background: #101010;
   --nav-background: rgb(16, 16, 16, 0.8); /* Added for glassmorphism */
+
+  /* Navbar cursor glass (see .nav-glass below) */
+  --nav-glass-ring: rgba(255, 255, 255, 0.08);        /* resting reflective border */
+  --nav-glass-rim: rgba(210, 220, 240, 0.55);         /* border highlight near the cursor */
+  --nav-glass-glow: rgba(255, 255, 255, 0.06);        /* surface glow near the cursor */
+  --nav-glass-shadow:
+    0 16px 36px -18px rgba(0, 0, 0, 0.5),
+    0 2px 8px -4px rgba(0, 0, 0, 0.3);
   
   /* Text Colors */
   --foreground: #D3D3D3;
   --foreground-secondary: #B4B4B4;
-  --foreground-muted: #7F8188;
+  --foreground-muted: #85878E; /* was #7F8188; +2 L* so 11px labels reach 4.5:1 on the card gradient's #202020 end */
   --heading-highlight: var(--color-brand-yellow);
 
   /* Interactive States */
@@ -141,6 +188,106 @@ body {
 @utility border-card { border-color: var(--card-border); }
 @utility shadow-card { box-shadow: var(--card-shadow); }
 
+/* --- NAVBAR CURSOR GLASS --- */
+/*
+   The navbar keeps its flat resting surface. While the pointer is over it, a
+   localised "liquid glass" highlight follows the cursor:
+   - ::before → reflective 1px ring: a faint resting ring plus a bright
+                arc that lights up where the cursor is closest to the edge
+   - ::after  → soft radial glow on the surface under the cursor
+   - a layered drop shadow lifts the panel while hovered
+   The cursor position is written by Navbar.tsx into --nav-mx / --nav-my.
+   The registered properties below let the glow glide between positions and
+   fade in/out smoothly instead of snapping. Colours come from --nav-glass-*.
+*/
+@property --nav-mx {
+  syntax: "<length-percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+@property --nav-my {
+  syntax: "<length-percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+@property --nav-glow {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.nav-glass {
+  isolation: isolate;
+  border-color: transparent; /* the ring below replaces the static border */
+  box-shadow:
+    0 0 0 0 rgba(0, 0, 0, 0),
+    0 0 0 0 rgba(0, 0, 0, 0);
+  transition:
+    --nav-mx 160ms cubic-bezier(0.22, 1, 0.36, 1),
+    --nav-my 160ms cubic-bezier(0.22, 1, 0.36, 1),
+    --nav-glow 450ms ease,
+    box-shadow 450ms ease;
+}
+
+.nav-glass::before,
+.nav-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Reflective ring: 1px masked padding box, lit where the cursor is near */
+.nav-glass::before {
+  padding: 1px;
+  background:
+    radial-gradient(
+      260px circle at var(--nav-mx) var(--nav-my),
+      color-mix(in srgb, var(--nav-glass-rim) calc(var(--nav-glow) * 100%), transparent) 0%,
+      transparent 70%
+    ),
+    var(--nav-glass-ring);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+/* Surface glow under the cursor */
+.nav-glass::after {
+  background: radial-gradient(
+    200px circle at var(--nav-mx) var(--nav-my),
+    var(--nav-glass-glow) 0%,
+    transparent 70%
+  );
+  opacity: var(--nav-glow);
+}
+
+@media (hover: hover) {
+  .nav-glass:hover {
+    --nav-glow: 1;
+    box-shadow: var(--nav-glass-shadow);
+  }
+}
+
+/* Keyboard users get the glow centred on the bar */
+.nav-glass:focus-within {
+  --nav-glow: 1;
+  box-shadow: var(--nav-glass-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-glass {
+    transition: --nav-glow 450ms ease, box-shadow 450ms ease;
+  }
+}
+
 /* --- THEME ICON --- */
 /* 
    This forces the browser to listen to the .dark class on the HTML tag
@@ -197,5 +344,19 @@ body {
   animation-delay: 1050ms;
   opacity: 0;
   will-change: transform, opacity, filter;
+}
+
+/* WCAG 2.3.3: with reduced motion, the hero text is shown immediately instead of sliding and un-blurring */
+@media (prefers-reduced-motion: reduce) {
+  .animate-luxury-reveal-1,
+  .animate-luxury-reveal-2,
+  .animate-luxury-reveal-3,
+  .animate-luxury-reveal-4 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+    will-change: auto;
+  }
 }
 

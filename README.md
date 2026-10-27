@@ -47,6 +47,12 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/AOSSIE-Org/Resonate-Website/actions/workflows/ci.yml"><img src="https://github.com/AOSSIE-Org/Resonate-Website/actions/workflows/ci.yml/badge.svg" alt="CI"/></a>
+  <a href="https://github.com/AOSSIE-Org/Resonate-Website/actions/workflows/nextjs.yml"><img src="https://github.com/AOSSIE-Org/Resonate-Website/actions/workflows/nextjs.yml/badge.svg" alt="Deploy"/></a>
+  <a href="https://scorecard.dev/viewer/?uri=github.com/AOSSIE-Org/Resonate-Website"><img src="https://api.scorecard.dev/projects/github.com/AOSSIE-Org/Resonate-Website/badge" alt="OpenSSF Scorecard"/></a>
+</p>
+
 ---
 
 <div align="center">
@@ -83,18 +89,20 @@ A high-performance, developer-friendly webpage built on **Next.js 16 (App Router
 
 ## 📋 Project Maturity & Quality Checklist
 
-In the checklist below, mark the items that have been completed for your project:
+Status of the GSoC / AOSSIE project checklist for this website:
 
 * [x] The project has a logo (`public/brand/icons/resonate_logo.svg`).
 * [x] The project has a favicon (`public/brand/icons/favicon.ico`).
 * [x] The web frontend:
    - [x] Has proper title and metadata.
-   - [x] Has proper open graph metadata, to ensure that it is shown well when shared in social media.
+   - [x] Has proper open graph metadata (1200x630 `public/og-image.png`), so it is shown well when shared in social media.
    - [x] Has a footer and header with AOSSIE logos and social handles.
    - [x] Uses React Server Components by default, introducing Client Components (`"use client"`) only when interactivity or client hooks are required.
    - [x] Is deployed to GitHub Pages via a GitHub Workflow (`.github/workflows/nextjs.yml`).
-   - [x] Has automated CI build and lint validation (`.github/workflows/ci.yml`).
-   - [x] Has CodeRabbit automated AI code review (`.coderabbit.yml`).
+   - [x] Has automated CI lint, test (90% coverage gate) and build validation (`.github/workflows/ci.yml`).
+   - [x] Has a `sitemap.xml` and a `robots.txt` that blocks `/pr-preview/`.
+   - [x] Has OpenSSF Scorecard analysis (`.github/workflows/scorecard.yml`) and a security policy (`SECURITY.md`).
+   - [x] Has CodeRabbit automated AI code review tailored to this project (`.coderabbit.yml`).
    - [x] Has open-source legal compliance (`DCO.md`, `COPYRIGHT.md`, `Contributors.md`, `MAINTAINERS.md`, `BestPracticesChecklist.md`).
 
 ---
@@ -148,7 +156,7 @@ Here is a breakdown of the key i18n directories and files:
 │   │   ├── en.json             # English translation dictionary
 │   │   └── hi.json             # Hindi translation dictionary
 │   ├── app/
-│   │   ├── page.tsx            # Root page redirecting to default locale (/en) for static export
+│   │   ├── (root)/             # Bare `/`: full metadata + meta-refresh to /en (static export)
 │   │   ├── sitemap.ts          # Statically generated localized sitemaps
 │   │   └── [locale]/           # Localized route group
 │   │       ├── layout.tsx      # Multi-lingual layout injecting client context & translations
@@ -295,10 +303,12 @@ This generates an optimized static export in the `./out` directory, fully config
 
 ### Running Tests
 
-Execute the unit test suite:
 ```bash
-npm run test
+npm run test            # run the Vitest suite once
+npm run test:coverage   # with coverage; fails below 90% (same as CI)
 ```
+
+Tests in [`src/__tests__/`](src/__tests__/) cover SEO metadata, the sitemap, translation-catalog parity, responsive `MockupImage` variants (every referenced file must exist), the intersection-observer hook, the navbar and the language switcher, including [fast-check](https://fast-check.dev) property tests.
 
 ---
 
@@ -308,11 +318,12 @@ We welcome contributions of all kinds! To contribute:
 
 1. Fork the repository and create your feature branch (`git checkout -b feature/AmazingFeature`).
 2. Commit your changes (`git commit -m 'feat: Add some AmazingFeature'`).
-3. Ensure code quality:
+3. Ensure code quality (CI runs the same checks):
    - `npm run lint`
-   - `npm run test`
+   - `npm run test:coverage`
    - `npm run build`
-4. Push your branch (`git push origin feature/AmazingFeature`).
-5. Open a Pull Request for review.
+4. Sign off your commits (`git commit -s`), see [CONTRIBUTING.md](CONTRIBUTING.md).
+5. Push your branch (`git push origin feature/AmazingFeature`).
+6. Open a Pull Request and share it in the project's Discord channel.
 
-© 2026 AOSSIE. Released under the [Apache License 2.0](LICENSE).
+© 2026 AOSSIE. Released under the [GNU GPL v3.0](LICENSE).

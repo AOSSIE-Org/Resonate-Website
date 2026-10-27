@@ -65,7 +65,7 @@ export function Hero() {
       </div>
 
       {/* Visuals */}
-      <div className="flex justify-center w-full mt-10 sm:mt-14 xl:relative xl:flex-1 xl:flex xl:items-end transform-gpu will-change-transform">
+      <div className="flex justify-center w-full mt-10 sm:mt-14 xl:relative xl:z-20 xl:flex-1 xl:flex xl:items-end transform-gpu will-change-transform">
         <HeroVisuals />
       </div>
 

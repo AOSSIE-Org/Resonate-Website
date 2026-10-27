@@ -7,6 +7,7 @@ import { ThemeToggle } from "../ui/theme-toggle";
 import { LanguageDropdown } from "../ui/LanguageDropdown";
 import { DownloadModal } from "../ui/DownloadModal";
 import { Button } from "../ui/Button";
+import { CONTACT_SECTION_ID } from "../ui/Footer";
 import { useTranslations } from "next-intl";
 
 export function Navbar() {
@@ -18,6 +19,8 @@ export function Navbar() {
   const [isIslandFocused, setIsIslandFocused] = useState(false);
   const [hasAnimatedIn, setHasAnimatedIn] = useState(false);
   const progressCircleRef = useRef<SVGCircleElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const pointerFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -50,6 +53,30 @@ export function Navbar() {
     };
   }, []);
 
+  // Feed the pointer position (relative to the header) into CSS variables so
+  // the glass glow and reflective ring in globals.css can follow the cursor.
+  // Writes go straight to the DOM (no state) and are coalesced per frame.
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLElement>) => {
+    const header = headerRef.current;
+    if (!header) return;
+    const { clientX, clientY } = e;
+    if (pointerFrameRef.current !== null) return;
+    pointerFrameRef.current = requestAnimationFrame(() => {
+      pointerFrameRef.current = null;
+      const rect = header.getBoundingClientRect();
+      header.style.setProperty("--nav-mx", `${clientX - rect.left}px`);
+      header.style.setProperty("--nav-my", `${clientY - rect.top}px`);
+    });
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (pointerFrameRef.current !== null) {
+        cancelAnimationFrame(pointerFrameRef.current);
+      }
+    };
+  }, []);
+
   const handleDownloadClick = useCallback(() => {
     const userAgent =
       navigator.userAgent ||
@@ -74,13 +101,27 @@ export function Navbar() {
     }
   }, []);
 
+  // Smooth-scroll to the footer (instant with reduced motion) and hand keyboard focus to it
+  const scrollToContact = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const target = document.getElementById(CONTACT_SECTION_ID);
+    if (!target) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    target.focus({ preventScroll: true });
+  }, []);
+
   const shouldShowNavContent = !isScrolled || isNavHovered || isIslandFocused;
 
   return (
     <>
-      <header className="fixed top-4 lg:top-0 left-4 right-4 sm:left-8 sm:right-8 lg:left-16 lg:right-16 2xl:left-48 2xl:right-48 z-50 border-[0.6px] border-default rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) transition-colors duration-300"
-      onMouseEnter={() => setIsNavHovered(true)}
-      onMouseLeave={() => setIsNavHovered(false)}>
+      <header
+        ref={headerRef}
+        className="fixed top-4 lg:top-0 left-4 right-4 sm:left-8 sm:right-8 lg:left-16 lg:right-16 2xl:left-48 2xl:right-48 z-50 border-[0.6px] rounded-2xl lg:rounded-b-3xl lg:rounded-t-none backdrop-blur-md bg-(--nav-background) nav-glass"
+        onMouseEnter={() => setIsNavHovered(true)}
+        onMouseLeave={() => setIsNavHovered(false)}
+        onPointerMove={handlePointerMove}
+      >
         <div className="mx-auto flex lg:grid lg:grid-cols-[1fr_auto_1fr] py-3 sm:py-4 items-center justify-between lg:justify-normal px-4 sm:px-6 lg:px-9">
           {/* LEFT: Logo */}
           <Link
@@ -107,6 +148,7 @@ export function Navbar() {
 
           {/* CENTER: Desktop Navigation */}
           <nav
+            aria-label={t("primaryNav")}
             onFocus={() => setIsIslandFocused(true)}
             onBlur={(e) => {
               if (!e.currentTarget.contains(e.relatedTarget as Node)) {
@@ -131,7 +173,7 @@ export function Navbar() {
             <div
               className={`flex items-center gap-4 xl:gap-8 transition-all duration-500 ${
                 shouldShowNavContent
-                  ? "opacity-100 max-w-[500px]"
+                  ? "opacity-100 max-w-[600px]"
                   : "opacity-0 max-w-0 overflow-hidden"
               }`}
             >
@@ -145,6 +187,9 @@ export function Navbar() {
               </NavLink>
               <NavLink href="https://aossie.org" external>
                 {t("aossie")}
+              </NavLink>
+              <NavLink href={`#${CONTACT_SECTION_ID}`} onClick={scrollToContact}>
+                {t("contact")}
               </NavLink>
               {/* Divider */}
               <div className="flex items-center gap-2">
@@ -223,7 +268,7 @@ export function Navbar() {
         {/* MOBILE MENU DROPDOWN */}
         {isMobileMenuOpen && (
           <div className="lg:hidden border-t border-default px-4 sm:px-6 py-4 shadow-xl animate-in slide-in-from-top-5 rounded-b-3xl">
-            <nav className="flex flex-col gap-3 sm:gap-4">
+            <nav aria-label={t("mobileNav")} className="flex flex-col gap-3 sm:gap-4">
               <MobileNavLink
                 href="https://github.com/AOSSIE-Org"
                 external
@@ -244,6 +289,15 @@ export function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t("aossie")}
+              </MobileNavLink>
+              <MobileNavLink
+                href={`#${CONTACT_SECTION_ID}`}
+                onClick={(e) => {
+                  setIsMobileMenuOpen(false);
+                  scrollToContact(e);
+                }}
+              >
+                {t("contact")}
               </MobileNavLink>
 
               <div className="pt-3 sm:pt-4 border-t border-default mt-2 flex flex-col gap-3">
@@ -278,14 +332,17 @@ function NavLink({
   href,
   children,
   external,
+  onClick,
 }: {
   href: string;
   children: React.ReactNode;
   external?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
   return (
     <Link
       href={href}
+      onClick={onClick}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
       className="text-sm font-medium text-muted hover:text-primary transition-colors whitespace-nowrap"
@@ -303,7 +360,7 @@ function MobileNavLink({
 }: {
   href: string;
   children: React.ReactNode;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
   external?: boolean;
 }) {
   return (

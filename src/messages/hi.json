@@ -7,11 +7,15 @@
     "developers": "डेवलपर्स",
     "community": "समुदाय",
     "aossie": "ओसी (AOSSIE)",
+    "contact": "संपर्क",
     "download": "अभी डाउनलोड करें",
     "toggleMenu": "मेन्यू बदलें",
     "close": "बंद करें",
     "menu": "मेन्यू",
-    "selectLanguage": "भाषा चुनें"
+    "selectLanguage": "भाषा चुनें",
+    "skipToContent": "मुख्य सामग्री पर जाएँ",
+    "primaryNav": "मुख्य नेविगेशन",
+    "mobileNav": "मोबाइल मेनू"
   },
   "Hero": {
     "headline": "इंटरनेट की ओपन-सोर्स आवाज़",
@@ -62,7 +66,8 @@
       }
     },
     "copyright": "© 2026 रेज़ोनेट",
-    "madeWith": "AOSSIE समुदाय द्वारा 🤍 से निर्मित"
+    "madeWith": "AOSSIE समुदाय द्वारा 🤍 से निर्मित",
+    "navLabel": "फ़ुटर लिंक"
   },
   "ThemeToggle": {
     "toggleTheme": "थीम बदलें",

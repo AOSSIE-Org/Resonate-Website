@@ -14,7 +14,8 @@ The official landing page for **Resonate** - an open-source social voice platfor
 - **Build:** `npm run build` (Static export into `./out`)
 - **Develop:** `npm run dev`
 - **Lint:** `npm run lint`
-- **Test:** `npm run test`
+- **Test:** `npm run test` · `npm run test:coverage` (90% threshold on config, SEO and shared UI helpers; enforced in CI)
+- **Mockup variants:** `npm run mockups` regenerates the responsive `-320`/`-480` phone mockup files in [`public/assets/mockups/`](public/assets/mockups/) after replacing an original (keep the width table in [`MockupImage.tsx`](src/components/ui/MockupImage.tsx) in sync).
 
 ---
 
@@ -38,4 +39,6 @@ The official landing page for **Resonate** - an open-source social voice platfor
 ## 📦 Project Boundaries
 
 - **Config Alias Map:** Turbopack and Webpack alias resolvers map `"next-intl/config"` to our local request setup inside [`next.config.ts`](next.config.ts).
-- **Branding Assets:** Official branding logos, favicon, and style specifications reside inside [`public/brand/`](public/brand/).
+- **Branding Assets:** Official branding logos, favicon, and style specifications reside inside [`public/brand/`](public/brand/). The social share image is [`public/og-image.png`](public/og-image.png) (1200x630 PNG; never point Open Graph at an SVG).
+- **Single config file:** only [`next.config.ts`](next.config.ts) exists. Do not add a `next.config.js`; Next.js would load it instead and silently drop the next-intl plugin and `turbopack.root`.
+- **Root route:** [`src/app/(root)/`](src/app/(root)/) serves the bare `/` with the default locale's metadata and a `<meta http-equiv="refresh">` to `/en`. Do not replace it with `redirect()`, which exports an empty error page.
