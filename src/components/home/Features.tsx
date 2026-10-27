@@ -114,7 +114,7 @@ export function Features() {
               </h3>
               
               {/* Tech Stack Card */}
-              <div id="features-tech-card" className="rounded-2xl border border-card p-6 xl:p-8 bg-tech-stack-card shadow-card backdrop-blur-md transition-all duration-300">
+              <div id="features-tech-card" className="rounded-2xl border border-card p-6 xl:p-8 bg-tech-stack-card shadow-card backdrop-blur-md">
                 <p className="text-xs font-semibold tracking-wider text-(--foreground-muted) uppercase mb-6">
                   {t("mobileDev")}
                 </p>
@@ -177,7 +177,7 @@ export function Features() {
                     onMouseLeave={() => setHoveredFeature(null)}
                     onFocus={() => setHoveredFeature(feat.id)}
                     onBlur={() => setHoveredFeature(null)}
-                    className="group relative flex h-36 w-80 shrink-0 flex-col justify-end overflow-hidden rounded-2xl border border-card bg-feature-card p-5 text-left font-sans shadow-card transition-all duration-500 ease-out cursor-pointer select-none hover:-translate-y-1 hover:border-brand-yellow/60 hover:shadow-xl hover:shadow-brand-yellow/10 focus-visible:outline-none focus-visible:border-brand-yellow motion-reduce:hover:translate-y-0"
+                    className="group relative flex h-36 w-80 shrink-0 flex-col justify-end overflow-hidden rounded-2xl border border-card bg-feature-card p-5 text-left font-sans shadow-card transition-[translate,border-color,box-shadow] duration-500 ease-out cursor-pointer select-none hover:-translate-y-1 hover:border-brand-yellow/60 hover:shadow-xl hover:shadow-brand-yellow/10 focus-visible:outline-none focus-visible:border-brand-yellow motion-reduce:hover:translate-y-0"
                   >
                     {/* Corner glow (cheap: gradient + opacity, no blur filter) */}
                     <span
@@ -191,7 +191,7 @@ export function Features() {
                     />
                     <FeatureIllustration
                       kind={feat.kind}
-                      className="absolute right-4 top-4 h-16 w-16 text-(--foreground-muted) transition-all duration-500 ease-out group-hover:scale-105 group-hover:text-(--foreground)"
+                      className="absolute right-4 top-4 h-16 w-16 text-(--foreground-muted) transition-[scale,color] duration-500 ease-out group-hover:scale-105 group-hover:text-(--foreground)"
                     />
                     <span className="text-[11px] font-semibold tracking-[0.22em] text-(--foreground-muted) uppercase">
                       {String(feat.id + 1).padStart(2, "0")}

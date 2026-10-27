@@ -40,6 +40,20 @@ type Props = {
 const PLACEHOLDER_GIF =
   "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
+/**
+ * The `srcSet` a mockup is rendered with, or undefined when it has no width
+ * variants. Exported so `preload()` hints can request exactly the same
+ * candidates as the rendered <img> and the browser never fetches two sizes.
+ */
+export function getMockupSrcSet(src: string): string | undefined {
+  const meta = MOCKUPS[src];
+  if (!meta || !meta.variants.length) return undefined;
+  return [
+    ...meta.variants.map((w) => `${src.replace(/\.webp$/, `-${w}.webp`)} ${w}w`),
+    `${src} ${meta.width}w`,
+  ].join(", ");
+}
+
 export function MockupImage({
   src,
   alt,
@@ -51,13 +65,7 @@ export function MockupImage({
   priority = false,
   placeholderMedia,
 }: Props) {
-  const meta = MOCKUPS[src];
-  const srcSet = meta && meta.variants.length
-    ? [
-        ...meta.variants.map((w) => `${src.replace(/\.webp$/, `-${w}.webp`)} ${w}w`),
-        `${src} ${meta.width}w`,
-      ].join(", ")
-    : undefined;
+  const srcSet = getMockupSrcSet(src);
 
   const loading = priority ? "eager" : "lazy";
   const fetchPriority = priority ? "high" : undefined;

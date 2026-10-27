@@ -8,7 +8,7 @@ We welcome contributions of all kinds! Whether you are fixing a bug, adding a fe
 
 If you have questions, feedback, or want to discuss ideas before building:
 - **AOSSIE Discord Server:** [https://discord.gg/hjUhu33uAn](https://discord.gg/hjUhu33uAn)
-- **Resonate Channel:** [#resonate](https://discord.com/channels/1022871757289422898/<RESONATE_CHANNEL_ID>) in the AOSSIE Discord server (join the server first; the channel link only opens for members)
+- **Resonate Channel:** [#resonate](https://discord.com/channels/1022871757289422898/1317913663360864346) in the AOSSIE Discord server (join the server first; the channel link only opens for members)
 
 ---
 

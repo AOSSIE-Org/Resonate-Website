@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: "monthly"
     open-pull-requests-limit: 5
-    target-branch: "dev"
+    target-branch: "main"
     labels:
       - "dependencies"
       - "security"

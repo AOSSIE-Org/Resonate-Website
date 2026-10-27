@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import fc from 'fast-check';
 import sitemap from '@/app/sitemap';
 import { generateLocaleMetadata } from '@/i18n/metadata';
@@ -9,6 +9,9 @@ import hi from '@/messages/hi.json';
 
 const SITE = 'https://resonate.aossie.org';
 
+// Pin the production URL so a NEXT_PUBLIC_SITE_URL set in the shell or CI can't change
+// the expectations; individual tests may still stub their own value on top.
+beforeEach(() => vi.stubEnv('NEXT_PUBLIC_SITE_URL', SITE));
 afterEach(() => vi.unstubAllEnvs());
 
 describe('locale configuration', () => {

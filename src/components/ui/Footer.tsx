@@ -8,6 +8,9 @@ import { useTranslations } from "next-intl";
 
 const emptySubscribe = () => () => {};
 
+/** Anchor id of the footer, used by the navbar's Contact link. */
+export const CONTACT_SECTION_ID = "contact";
+
 // Defined structure with translation keys and actual URLs
 const NAV_CONFIG = [
   {
@@ -53,7 +56,8 @@ const Footer = () => {
       : "/assets/icons/resonate_branding_light.svg";
 
   return (
-    <div className="w-full">
+    // tabIndex -1 lets the navbar's Contact link move keyboard focus here after scrolling
+    <footer id={CONTACT_SECTION_ID} tabIndex={-1} className="w-full scroll-mt-24 outline-none">
       {/* Background wrapper */}
 
         <div className="relative">
@@ -106,7 +110,7 @@ const Footer = () => {
         <div>{t("copyright")}</div>
         <div>{t("madeWith")}</div>
       </div>
-    </div>
+    </footer>
   );
 };
 

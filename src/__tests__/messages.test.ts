@@ -1,4 +1,15 @@
 import { describe, it, expect } from "vitest";
+import {
+  parse,
+  isArgumentElement,
+  isNumberElement,
+  isDateElement,
+  isTimeElement,
+  isSelectElement,
+  isPluralElement,
+  isTagElement,
+  type MessageFormatElement,
+} from "@formatjs/icu-messageformat-parser";
 import en from "@/messages/en.json";
 import hi from "@/messages/hi.json";
 import { languages } from "@/config/languages";
@@ -12,7 +23,20 @@ function flatten(catalog: Catalog, prefix = ""): Record<string, string> {
   }, {});
 }
 
-const placeholders = (text: string) => (text.match(/\{(\w+)/g) ?? []).sort();
+// Argument names from a real ICU parse: whitespace like `{ name }` is normalised and
+// malformed messages (e.g. an unclosed `{name`) throw instead of passing silently.
+function argumentNames(elements: MessageFormatElement[]): string[] {
+  return elements.flatMap((el) => {
+    if (isArgumentElement(el) || isNumberElement(el) || isDateElement(el) || isTimeElement(el)) return [el.value];
+    if (isSelectElement(el) || isPluralElement(el)) {
+      return [el.value, ...Object.values(el.options).flatMap((option) => argumentNames(option.value))];
+    }
+    if (isTagElement(el)) return argumentNames(el.children);
+    return [];
+  });
+}
+
+const placeholders = (text: string) => argumentNames(parse(text)).sort();
 
 const catalogs: Record<string, Catalog> = { en, hi };
 const english = flatten(en);

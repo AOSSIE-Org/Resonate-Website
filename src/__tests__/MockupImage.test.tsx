@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { act, render, renderHook } from '@testing-library/react';
 import React from 'react';
-import { MockupImage } from '@/components/ui/MockupImage';
+import { MockupImage, getMockupSrcSet } from '@/components/ui/MockupImage';
 import { useIntersectionObserver } from '@/components/ui/useIntersectionObserver';
 
 const KNOWN = [
@@ -41,6 +41,17 @@ describe('MockupImage', () => {
         expect(existsSync(publicFile(url)), url).toBe(true);
       }
     }
+  });
+
+  it('exposes the same srcSet for preload hints as the rendered img uses', () => {
+    for (const src of KNOWN) {
+      const img = renderImg({ src }).querySelector('img')!;
+      expect(getMockupSrcSet(src)).toBe(img.getAttribute('srcset') ?? undefined);
+    }
+    expect(getMockupSrcSet('/assets/mockups/hand.webp')).toBe(
+      '/assets/mockups/hand-480.webp 480w, /assets/mockups/hand.webp 607w',
+    );
+    expect(getMockupSrcSet('/unknown.webp')).toBeUndefined();
   });
 
   it('omits srcSet and sizes for images without variants', () => {

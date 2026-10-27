@@ -2,7 +2,7 @@
 
 > Resonate is a free, open-source social voice platform: live audio rooms, scheduled rooms, stories and chapters, friends and calls, audio spaces and room moderation. It is built and maintained by AOSSIE (Australian Open Source Software Innovation and Education), a not-for-profit that brings open-source projects together. This site is the project's landing page.
 
-The mobile app is available for Android and iOS. Everything, including the app, its backend and this website, is open source on GitHub.
+The mobile app is available for Android on Google Play. Everything, including the app, its backend and this website, is open source on GitHub.
 
 ## Pages on this site
 
@@ -13,7 +13,6 @@ The mobile app is available for Android and iOS. Everything, including the app, 
 ## Get the app
 
 - [Resonate on Google Play](https://play.google.com/store/apps/details?id=com.resonate.resonate): Android download.
-- [Resonate on the App Store](https://apps.apple.com/app/resonate): iOS download.
 
 ## Source code
 

@@ -3,7 +3,7 @@
 > Criteria adapted from the [OpenSSF Best Practices Badge](https://github.com/coreinfrastructure/best-practices-badge)
 > (MIT / CC BY 3.0) by OpenSSF contributors. Modified for AOSSIE multi-repo template use.
 >
-> **Project:** Resonate Website · **[Discord Channel](https://discord.com/channels/1022871757289422898/<RESONATE_CHANNEL_ID>)**
+> **Project:** Resonate Website · **[Discord Channel](https://discord.com/channels/1022871757289422898/1317913663360864346)**
 >
 > **Purpose:** Covers OpenSSF Best Practices criteria that are NOT auto-detected by OpenSSF Scorecard.
 > Scorecard already handles: License, SAST tools, CI tests, Security Policy file, Branch Protection,
@@ -54,7 +54,7 @@
 ### Other Basics
 
 - [x] 🔴 **discussion** — Project has a searchable, URL-addressable discussion mechanism (GitHub Issues, Discord with archive, mailing list, etc.) that doesn't require proprietary client software.
-  - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/issues and https://discord.com/channels/1022871757289422898/<RESONATE_CHANNEL_ID>
+  - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/issues and https://discord.com/channels/1022871757289422898/1317913663360864346
 
 - [x] 🟡 **english** — Documentation is provided in English and English bug reports/comments are accepted.
   - *Note:* All documentation is in English; the site itself is localized with next-intl.

@@ -2,7 +2,11 @@
 
 import { preload } from "react-dom";
 import { useEffect, useRef, useState } from "react";
-import { MockupImage } from "../ui/MockupImage";
+import { MockupImage, getMockupSrcSet } from "../ui/MockupImage";
+
+const HAND_SRC = "/assets/mockups/hand.webp";
+const HAND_SIZES = "480px";
+const DESKTOP_ONLY = "(min-width: 1280px)";
 
 // Align with Tailwind's xl breakpoint (1280px)
 const MOBILE_BREAKPOINT = "(max-width: 1279px)";
@@ -40,14 +44,14 @@ export function HeroVisuals() {
   // avoid a hydration mismatch on the mobile/desktop switch), so without
   // these hints the LCP image would only be requested after hydration.
   preload("/assets/mockups/phone.webp", { as: "image", fetchPriority: "high" });
-  // Same candidates as the <img> below, so the browser preloads exactly the
-  // file it will later pick and never downloads two sizes.
-  preload("/assets/mockups/hand.webp", {
+  // Same candidates as the hand <MockupImage> below, so the browser preloads
+  // exactly the file it will later pick and never downloads two sizes.
+  preload(HAND_SRC, {
     as: "image",
     fetchPriority: "high",
-    media: "(min-width: 1280px)",
-    imageSrcSet: "/assets/mockups/hand-480.webp 480w, /assets/mockups/hand.webp 607w",
-    imageSizes: "480px",
+    media: DESKTOP_ONLY,
+    imageSrcSet: getMockupSrcSet(HAND_SRC),
+    imageSizes: HAND_SIZES,
   });
 
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -532,25 +536,18 @@ export function HeroVisuals() {
           className="relative w-full left-[7.4%]"
           style={{ willChange: "opacity" }}
         >
-          <picture>
-            {/* Below xl this block is display:none; the 1px source keeps
-                browsers from downloading the real image there. */}
-            <source
-              media="(max-width: 1279px)"
-              srcSet="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-            />
-            <img
-              src="/assets/mockups/hand.webp"
-              srcSet="/assets/mockups/hand-480.webp 480w, /assets/mockups/hand.webp 607w"
-              sizes="480px"
-              alt="Hand holding phone"
-              width={500}
-              height={900}
-              className="w-full h-auto object-contain"
-              decoding="async"
-              fetchPriority="high"
-            />
-          </picture>
+          {/* Below xl this block is display:none; placeholderMedia serves a 1px
+              source there so browsers never download the real image. */}
+          <MockupImage
+            src={HAND_SRC}
+            alt="Hand holding phone"
+            width={500}
+            height={900}
+            className="w-full h-auto object-contain"
+            sizes={HAND_SIZES}
+            priority
+            placeholderMedia={MOBILE_BREAKPOINT}
+          />
         </div>
 
       <div
