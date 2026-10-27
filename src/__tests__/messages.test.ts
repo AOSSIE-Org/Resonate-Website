@@ -36,7 +36,8 @@ function argumentNames(elements: MessageFormatElement[]): string[] {
   });
 }
 
-const placeholders = (text: string) => argumentNames(parse(text)).sort();
+// Deduplicated: a translation may repeat a placeholder fewer or more times than English
+const placeholders = (text: string) => [...new Set(argumentNames(parse(text)))].sort();
 
 const catalogs: Record<string, Catalog> = { en, hi };
 const english = flatten(en);
