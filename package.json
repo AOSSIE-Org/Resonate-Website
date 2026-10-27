@@ -23,7 +23,7 @@
   "devDependencies": {
     "@formatjs/icu-messageformat-parser": "^3.5.16",
     "@tailwindcss/postcss": "^4",
-    "@testing-library/dom": "^10.4.0",
+    "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@types/node": "^20",
