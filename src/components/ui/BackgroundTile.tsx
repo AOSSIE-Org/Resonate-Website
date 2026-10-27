@@ -63,17 +63,26 @@ const BackgroundTile = () => {
     });
     themeObserver.observe(document.documentElement, { attributes: true });
 
-    const setSize = () => {
+    // CSS size of the canvas, read from the DOM once on mount and then kept
+    // in sync from ResizeObserver entries. Reading offsetWidth/offsetHeight
+    // right after writing canvas.width/height forced a layout on every
+    // frame, which showed up as a forced-reflow in profiles.
+    let cssW = canvas.offsetWidth;
+    let cssH = canvas.offsetHeight;
+
+    const setSize = (w: number, h: number) => {
+      cssW = w;
+      cssH = h;
       const dpr     = window.devicePixelRatio || 1;
-      canvas.width  = canvas.offsetWidth  * dpr;
-      canvas.height = canvas.offsetHeight * dpr;
+      canvas.width  = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
-    setSize();
+    setSize(cssW, cssH);
 
     const render = () => {
-      const w   = canvas.offsetWidth;
-      const h   = canvas.offsetHeight;
+      const w   = cssW;
+      const h   = cssH;
       const amp = ampSmoothed.current;
       const t   = timeRef.current;
 
@@ -131,7 +140,11 @@ const BackgroundTile = () => {
 
     render();
 
-    const ro = new ResizeObserver(() => { setSize(); render(); });
+    const ro = new ResizeObserver((entries) => {
+      const rect = entries[0]?.contentRect;
+      if (rect) setSize(rect.width, rect.height);
+      render();
+    });
     ro.observe(canvas);
 
     const tick = () => {

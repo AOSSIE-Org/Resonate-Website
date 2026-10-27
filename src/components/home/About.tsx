@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import BackgroundTile from "../ui/BackgroundTile";
+import { MockupImage } from "../ui/MockupImage";
 import { Button } from "../ui/Button";
 import { Link } from "@/i18n/navigation";
 import { useIntersectionObserver } from "../ui/useIntersectionObserver";
@@ -18,21 +19,20 @@ export function About() {
         <div className="flex flex-col space-y-4">
           <div className="flex flex-col items-center xl:items-start">
             <h2 className="text-4xl font-medium tracking-tighter sm:text-5xl leading-tight text-(--foreground) text-center xl:text-left">
-              {t("title1")}
+              <span className="block">{t("title1")}</span>
+              <span className="block">{t("title2")}</span>
             </h2>
-            <h2 className="text-4xl font-medium tracking-tighter sm:text-5xl leading-tight text-(--foreground) text-center xl:text-left">
-              {t("title2")}
-            </h2>
-            <p className="w-full xl:max-w-3/5 text-(--foreground-muted) md:text-lg/relaxed pt-8 px-4 xl:px-0 text-center xl:text-left">
+            <p className="w-full xl:max-w-[calc((50%+28vw-220px)*0.85)] text-(--foreground-muted) md:text-lg/relaxed pt-8 px-4 xl:px-0 text-center xl:text-left text-pretty">
               {t("description")}
             </p>
             <div className="xl:hidden w-[226px] sm:w-[266px] aspect-[9/18] relative mt-10 sm:mt-14">
-              <Image
+              <MockupImage
                 src="/assets/mockups/phone_about.webp"
                 alt={t("mockupAlt")}
                 fill
                 className="object-contain"
-                priority
+                sizes="(min-width: 640px) 266px, 226px"
+              placeholderMedia="(min-width: 1280px)"
               />
             </div>
           </div>
@@ -50,11 +50,13 @@ export function About() {
           
           {/* Heading on top of the tile */}
           <div className="relative z-10 p-8 w-full flex flex-col items-center xl:items-start" ref={revealRef}>
-            <h3 className={`text-3xl md:text-6xl font-bold tracking-tighter leading-tight uppercase text-highlight text-center xl:text-left ${isVisible ? 'animate-luxury-reveal-1' : 'opacity-0'}`}>
-              {t("tagline1")}
-            </h3>
-            <h3 className={`text-3xl md:text-6xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center xl:text-left ${isVisible ? 'animate-luxury-reveal-2' : 'opacity-0'}`}>
-              {t("tagline2")}
+            <h3>
+              <span className={`block text-3xl md:text-6xl font-bold tracking-tighter leading-tight uppercase text-highlight text-center xl:text-left ${isVisible ? 'animate-luxury-reveal-1' : 'opacity-0'}`}>
+                {t("tagline1")}
+              </span>
+              <span className={`block text-3xl md:text-6xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center xl:text-left ${isVisible ? 'animate-luxury-reveal-2' : 'opacity-0'}`}>
+                {t("tagline2")}
+              </span>
             </h3>
             <div className="flex items-center justify-center xl:justify-start mt-10 xl:pt-16">
               <Button 

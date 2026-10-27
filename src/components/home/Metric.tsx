@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import BackgroundTile from "../ui/BackgroundTile";
+import { MockupImage } from "../ui/MockupImage";
 import { Link } from "@/i18n/navigation";
 import { useIntersectionObserver } from "../ui/useIntersectionObserver";
 
@@ -183,57 +184,62 @@ export function Metric() {
       {/* Top Section: Titles and Description */}
       <div className="px-4 md:px-8 xl:px-0 2xl:px-16 relative z-10 w-full">
         <div className="flex flex-col py-8">
-          <div className="flex flex-col md:flex-row gap-16 justify-center items-center xl:justify-start">
+          {/* At xl+ the animated phone rests on the right; keep content left of it */}
+          <div className="flex flex-col md:flex-row gap-16 justify-center items-center xl:justify-start xl:max-w-[calc(50%+28vw-168px)]">
             <div className="flex flex-col gap-6">
-              <h1 className="text-6xl font-bold text-center text-highlight">
+              <p className="text-6xl font-bold text-center text-highlight">
                 4.6+
-              </h1>
-              <h1 className="text-3xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center">
+              </p>
+              <p className="text-3xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center">
                 {t("storeRatingPart1")}
                 <br />
                 {t("storeRatingPart2")}
-              </h1>
+              </p>
             </div>
             <div className="flex flex-col gap-6">
-              <h1 className="text-6xl font-bold text-center text-highlight">
+              <p className="text-6xl font-bold text-center text-highlight">
                 6K+
-              </h1>
-              <h1 className="text-3xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center">
+              </p>
+              <p className="text-3xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center">
                 {t("happyContributorsPart1")}
                 <br />
                 {t("happyContributorsPart2")}
-              </h1>
+              </p>
             </div>
             <div className="flex flex-col justify-center items-center gap-6">
-              <h1 className="text-6xl font-bold text-center text-highlight">
+              <p className="text-6xl font-bold text-center text-highlight">
                 1K+
-              </h1>
-              <h1 className="text-3xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center">
+              </p>
+              <p className="text-3xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center">
                 {t("uniqueDownloadsPart1")}
                 <br />
                 {t("uniqueDownloadsPart2")}
-              </h1>
+              </p>
             </div>
           </div>
           <div className="flex flex-col items-center justify-center xl:items-start xl:justify-start">
             <div className="flex w-full items-center justify-center xl:justify-start">
               <div className="xl:hidden w-[226px] sm:w-[266px] aspect-[9/18] relative mt-10 sm:mt-14 mb-8 sm:mb-12">
-                <Image
+                <MockupImage
                   src="/assets/mockups/phone_metric.webp"
                   alt={t("mockupAlt")}
                   fill
                   className="object-contain"
-                  priority
+                  sizes="(min-width: 640px) 266px, 226px"
+                placeholderMedia="(min-width: 1280px)"
                 />
               </div>
             </div>
             <div className="flex flex-col items-center justify-center xl:items-start xl:justify-start sm:mt-12" ref={revealRef}>
-              <h3 className={`text-4xl md:text-6xl font-bold tracking-tighter leading-tight uppercase text-highlight text-center xl:text-left ${isVisible ? 'animate-luxury-reveal-1' : 'opacity-0'}`}>
-                {t("weInnovate")}
-              </h3>
-              <h3 className={`text-4xl md:text-6xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center xl:text-left ${isVisible ? 'animate-luxury-reveal-2' : 'opacity-0'}`}>
-                {t("weEducate")}
-              </h3>
+              {/* One heading, two visual lines: keeps the document outline h1 → h2 */}
+              <h2>
+                <span className={`block text-4xl md:text-6xl font-bold tracking-tighter leading-tight uppercase text-highlight text-center xl:text-left ${isVisible ? 'animate-luxury-reveal-1' : 'opacity-0'}`}>
+                  {t("weInnovate")}
+                </span>
+                <span className={`block text-4xl md:text-6xl font-light italic tracking-tighter text-(--foreground) leading-tight uppercase text-center xl:text-left ${isVisible ? 'animate-luxury-reveal-2' : 'opacity-0'}`}>
+                  {t("weEducate")}
+                </span>
+              </h2>
             </div>
           </div>
         </div>
@@ -248,8 +254,8 @@ export function Metric() {
           </div>
 
           {/* Heading on top of the tile */}
-          <div className="relative z-10 p-6 w-full flex flex-col items-center xl:items-start">
-            <div className="flex flex-col xl:flex-row items-center xl:justify-start xl:items-start gap-6 xl:gap-10">
+          <div className="relative z-10 p-6 w-full flex flex-col items-center xl:items-start xl:max-w-[calc(50%+28vw-168px)]">
+            <div className="flex flex-col xl:flex-row items-center xl:justify-start xl:items-start gap-6 xl:gap-10 w-full">
               <Image
                 src="/assets/icons/aossie_logo.svg"
                 alt={t("playStoreAlt")}
@@ -257,7 +263,7 @@ export function Metric() {
                 height={24}
                 className="h-44 w-44 xl:h-64 xl:w-64 icon-secondary mt-4 xl:mt-0"
               />
-              <p className="w-full max-w-xl xl:max-w-[550px] text-(--foreground-muted) xl:text-lg/relaxed pt-8 text-center xl:text-left">
+              <p className="w-full max-w-xl xl:max-w-[550px] min-w-0 text-(--foreground-muted) xl:text-lg/relaxed pt-8 text-center xl:text-left text-pretty">
                 {t("aossieDescription")}
               </p>
             </div>

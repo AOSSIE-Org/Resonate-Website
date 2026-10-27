@@ -1,10 +1,31 @@
 "use client";
 
-import Image from "next/image";
+import { preload } from "react-dom";
 import { useEffect, useRef, useState } from "react";
+import { MockupImage } from "../ui/MockupImage";
 
 // Align with Tailwind's xl breakpoint (1280px)
 const MOBILE_BREAKPOINT = "(max-width: 1279px)";
+
+// How far (px) the docked phone's bottom edge extends below the bottom of the
+// feature cards, so the cards always sit fully within the phone's height.
+const DOCK_OVERHANG = 14;
+
+// Right-to-centre sweep before the Features section. Clearance kept from
+// content (px). The sweep is spread over SWEEP_SPEED_RATIO px of vertical
+// travel per px of sideways travel, so the slide moves at the same pace as
+// the rest of the phone's scroll-driven motion instead of snapping across.
+const SWEEP_CLEARANCE = 16;
+const SWEEP_SPEED_RATIO = 1.5;
+
+// The phone never grows past its hero size; it only shrinks on short viewports.
+const MAX_PHONE_SCALE = 1.0;
+
+// Clamp margins keeping the phone fully inside the viewport (px).
+const VIEWPORT_TOP_MARGIN = 75;    // below the fixed navbar
+const VIEWPORT_BOTTOM_MARGIN = 28; // above the bottom screen edge
+// Portion of the hero -> About phase over which those clamps fade in.
+const CLAMP_FADE_IN = 0.35;
 
 const getMarginX = (viewportWidth: number): number => {
   if (viewportWidth >= 1536) return 192;
@@ -14,6 +35,21 @@ const getMarginX = (viewportWidth: number): number => {
 };
 
 export function HeroVisuals() {
+  // Make the hero imagery discoverable from the server-rendered HTML. This
+  // component deliberately renders a neutral skeleton on the server (to
+  // avoid a hydration mismatch on the mobile/desktop switch), so without
+  // these hints the LCP image would only be requested after hydration.
+  preload("/assets/mockups/phone.webp", { as: "image", fetchPriority: "high" });
+  // Same candidates as the <img> below, so the browser preloads exactly the
+  // file it will later pick and never downloads two sizes.
+  preload("/assets/mockups/hand.webp", {
+    as: "image",
+    fetchPriority: "high",
+    media: "(min-width: 1280px)",
+    imageSrcSet: "/assets/mockups/hand-480.webp 480w, /assets/mockups/hand.webp 607w",
+    imageSizes: "480px",
+  });
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
   const handRef = useRef<HTMLDivElement>(null);
@@ -54,7 +90,6 @@ export function HeroVisuals() {
     let rafId: number | null = null;
     let current = 0;
 
-    const EPSILON = 0.001;
 
     // 👉 If reduced motion → set static end state and exit
     if (prefersReducedMotion) {
@@ -81,8 +116,15 @@ export function HeroVisuals() {
     let targetY_about = cachedVh * 0.88;
     let targetY_metric = cachedVh * 1.76;
     let targetY_features = cachedVh * 3.12;
-    let lastPhoneTranslateY = 0;
-    let lastPhoneScale = 1.0;
+    // Layout-derived values cached by updateMeasurements() so the animation
+    // loop itself never queries the DOM (no forced reflows while scrolling).
+    let phoneTopDoc = 0;              // resting top edge of the phone, document px
+    let phoneHeight = 540;            // resting (unscaled) height of the phone
+    let dockLimitBottomDoc = Infinity; // lowest allowed phone bottom edge, document px
+    // Phone-top positions (document px) between which the phone sweeps from
+    // the right side to the centre; see updateMeasurements().
+    let sweepStartTopDoc = 0;
+    let sweepEndTopDoc = 1;
 
     const updateMeasurements = () => {
       cachedVh = window.innerHeight;
@@ -103,7 +145,6 @@ export function HeroVisuals() {
         const aboutRect = aboutEl.getBoundingClientRect();
         const metricRect = metricEl.getBoundingClientRect();
         const featuresRect = featuresEl.getBoundingClientRect();
-        const phoneRect = phoneEl.getBoundingClientRect();
 
         top0 = heroRect.top + sy;
         top1 = aboutRect.top + sy - cachedVh * 0.2;
@@ -112,9 +153,19 @@ export function HeroVisuals() {
         // top3: Features section active (phone moves diagonally to center at targetY_features)
         top3 = featuresRect.top + sy - cachedVh * 0.15;
 
-        const phoneInitialTopDoc = (phoneRect.top + sy) - lastPhoneTranslateY;
-        const phoneInitialBottomDoc = (phoneRect.bottom + sy) - lastPhoneTranslateY;
-        const unscaledPhoneHeight = phoneRect.height / lastPhoneScale;
+        // offsetTop/offsetHeight ignore CSS transforms, so they give the
+        // phone's resting layout position whatever the animation state is.
+        phoneHeight = phoneEl.offsetHeight || phoneHeight;
+        let offsetSum = 0;
+        let node: HTMLElement | null = phoneEl;
+        while (node) {
+          offsetSum += node.offsetTop;
+          node = node.offsetParent as HTMLElement | null;
+        }
+        phoneTopDoc = offsetSum;
+        const phoneInitialTopDoc = phoneTopDoc;
+        const phoneInitialBottomDoc = phoneTopDoc + phoneHeight;
+        const unscaledPhoneHeight = phoneHeight;
 
         // Center phone within About section content area
         const aboutCenterDoc = (aboutRect.top + sy) + aboutRect.height * 0.45;
@@ -124,21 +175,77 @@ export function HeroVisuals() {
         const metricCenterDoc = (metricRect.top + sy) + metricRect.height * 1.5;
         targetY_metric = (metricCenterDoc - unscaledPhoneHeight / 2) - phoneInitialTopDoc;
 
-        if (hoverCueEl) {
+        dockLimitBottomDoc = Infinity;
+        if (marqueeEl) {
+          // Dock the phone behind the feature-card row: its bottom edge sits
+          // DOCK_INSET px above the row's bottom so the cards (which paint
+          // above the phone) cover its lower part like a dock.
+          const cardEl = marqueeEl.querySelector("button") ?? marqueeEl;
+          const dockBottomDoc = cardEl.getBoundingClientRect().bottom + sy + DOCK_OVERHANG;
+          targetY_features = dockBottomDoc - phoneInitialBottomDoc;
+          dockLimitBottomDoc = dockBottomDoc;
+        } else if (hoverCueEl) {
           const hoverCueRect = hoverCueEl.getBoundingClientRect();
           // Position phone bottom safely 16px above the "Hover over the feature cards" title
           const hoverCueTopDoc = hoverCueRect.top + sy - 16;
           targetY_features = hoverCueTopDoc - phoneInitialBottomDoc;
-        } else if (marqueeEl) {
-          const marqueeRect = marqueeEl.getBoundingClientRect();
-          const marqueeBottomDoc = marqueeRect.bottom + sy + 20;
-          targetY_features = marqueeBottomDoc - phoneInitialBottomDoc;
+          dockLimitBottomDoc = hoverCueTopDoc;
         } else if (phoneSlotEl) {
           const slotRect = phoneSlotEl.getBoundingClientRect();
           targetY_features = (slotRect.top + sy) - phoneInitialTopDoc;
         } else {
           targetY_features = (featuresRect.top + sy) - top0;
         }
+
+        // Sweep window. The phone sits on the right through the Metric
+        // section and docks in the centre of Features. It may start moving
+        // once the last Metric content under the *centred* phone (A) is above
+        // its top edge, and must be centred before the right-hand tech-stack
+        // heading (T) reaches its bottom edge. Measured from untransformed
+        // layout (offset*), so the current animation pose doesn't matter.
+        const phoneImg = phoneEl.querySelector("img");
+        let centreLeft = 0;
+        let el: HTMLElement | null = phoneImg;
+        while (el) {
+          centreLeft += el.offsetLeft;
+          el = el.offsetParent as HTMLElement | null;
+        }
+        const centreRight = centreLeft + (phoneImg?.offsetWidth ?? 0);
+        let obstacleBottomDoc = -Infinity;
+        metricEl.querySelectorAll("p, h2, a, img").forEach((node) => {
+          const r = node.getBoundingClientRect();
+          if (r.height === 0 || r.right <= centreLeft || r.left >= centreRight) return;
+          obstacleBottomDoc = Math.max(obstacleBottomDoc, r.bottom + sy);
+        });
+        const techHeading = document.querySelector("#features-top-row h3");
+        const techTopDoc = techHeading
+          ? techHeading.getBoundingClientRect().top + sy
+          : featuresRect.top + sy;
+        if (!Number.isFinite(obstacleBottomDoc)) {
+          obstacleBottomDoc = metricRect.bottom + sy - phoneHeight / 2;
+        }
+        let start = obstacleBottomDoc + SWEEP_CLEARANCE;
+        let end = techTopDoc - SWEEP_CLEARANCE - phoneHeight;
+        const sideways = Math.min(cachedVw * 0.28, cachedVw / 2 - getMarginX(cachedVw));
+        const span = sideways * SWEEP_SPEED_RATIO;
+        if (end - start < span) {
+          // Clear space is shorter than an unhurried slide: centre the slide
+          // on the middle of that space rather than speeding it up.
+          const mid = (start + end) / 2;
+          start = mid - span / 2;
+          end = mid + span / 2;
+        }
+        // The phone stops moving vertically once docked, so the slide must be
+        // complete by then or it would freeze off-centre.
+        const dockTopDoc = Number.isFinite(dockLimitBottomDoc)
+          ? dockLimitBottomDoc - phoneHeight
+          : Infinity;
+        if (end > dockTopDoc) {
+          start -= end - dockTopDoc;
+          end = dockTopDoc;
+        }
+        sweepStartTopDoc = start;
+        sweepEndTopDoc = end;
       }
     };
 
@@ -151,9 +258,6 @@ export function HeroVisuals() {
         rafId = null;
         return;
       }
-
-      // Ensure measurements are fresh
-      updateMeasurements();
 
       const sy = window.scrollY;
 
@@ -175,7 +279,11 @@ export function HeroVisuals() {
       }
 
       target = Math.min(Math.max(target, 0), 3.0);
-      current += (target - current) * 0.12;
+      // No extra easing here: Lenis already smooths the scroll itself, and
+      // lagging behind it made the viewport clamps below switch on and off
+      // while scrolling down, which read as stutter. Driving the phone as a
+      // pure function of scroll position keeps the motion continuous both ways.
+      current = target;
 
       const maxTranslateX = cachedVw / 2 - getMarginX(cachedVw);
 
@@ -194,29 +302,14 @@ export function HeroVisuals() {
         phoneRotate = 0;
       }
 
-      // Horizontal Translation:
-      // current <= 1: moves from center (0) to right side (finalTranslateX)
-      // 1 < current <= 2: STAYS FIXED ON RIGHT SIDE (translates straight downward through Metric section)
-      // 2 < current <= 3: ONLY AFTER Metric section ends, translates diagonally to center (0)
-      const finalTranslateX = Math.min(cachedVw * 0.28, maxTranslateX);
-      let phoneTranslateX = 0;
-      if (current <= 1) {
-        phoneTranslateX = current * finalTranslateX;
-      } else if (current <= 2) {
-        phoneTranslateX = finalTranslateX;
-      } else if (current <= 3) {
-        const progress = Math.min(Math.max(current - 2.0, 0), 1);
-        phoneTranslateX = finalTranslateX * (1 - progress);
-      } else {
-        phoneTranslateX = 0;
-      }
 
-      // Compute dynamic responsive scale for mobile asset (10% smaller scaling as requested)
+      // Responsive scale for the phone: keep it at its hero size and only
+      // shrink it when the viewport is too short to show it whole.
       const phoneEl = phoneRef.current;
-      const basePhoneHeight = phoneEl ? phoneEl.getBoundingClientRect().height / lastPhoneScale : 540;
+      const basePhoneHeight = phoneHeight;
       const maxAvailableHeight = cachedVh - 130; // 75px navbar padding + 55px bottom margin
       const maxScaleByVh = Math.max(0.70, (maxAvailableHeight / (basePhoneHeight || 540)) * 0.90);
-      const targetPhoneScale = Math.min(1.17, maxScaleByVh);
+      const targetPhoneScale = Math.min(MAX_PHONE_SCALE, maxScaleByVh);
 
       let phoneScale = 1.0;
       if (current <= 1) {
@@ -224,7 +317,6 @@ export function HeroVisuals() {
       } else {
         phoneScale = targetPhoneScale;
       }
-      lastPhoneScale = phoneScale;
 
       // Vertical Translation: dynamically interpolated across real DOM target Y coordinates
       let phoneTranslateY = 0;
@@ -236,13 +328,17 @@ export function HeroVisuals() {
         phoneTranslateY = targetY_metric + (current - 2) * (targetY_features - targetY_metric);
       }
 
-      // Bounds Clamping (keeps entire phone 100% visible, above hover title & footer at all times)
-      if (current > 0.1 && phoneEl) {
-        const phoneInitialTopDoc = (phoneEl.getBoundingClientRect().top + sy) - lastPhoneTranslateY;
+      // Bounds Clamping (keeps entire phone 100% visible, above hover title & footer at all times).
+      // Faded in over the first part of the hero exit rather than switched on
+      // at a threshold: with the pose tied directly to scroll position, a hard
+      // switch showed up as a sudden jump of the phone.
+      const unclampedTranslateY = phoneTranslateY;
+      if (phoneEl) {
+        const phoneInitialTopDoc = phoneTopDoc;
         const currentScaledHeight = basePhoneHeight * phoneScale;
         
-        const minAllowedViewportTop = 75; // Below top navbar
-        const maxAllowedViewportBottom = cachedVh - 28; // Above bottom taskbar / screen edge
+        const minAllowedViewportTop = VIEWPORT_TOP_MARGIN;
+        const maxAllowedViewportBottom = cachedVh - VIEWPORT_BOTTOM_MARGIN;
 
         // 1. Viewport bottom clamping
         const currentViewportBottom = (phoneInitialTopDoc + phoneTranslateY) + currentScaledHeight - sy;
@@ -256,17 +352,36 @@ export function HeroVisuals() {
           phoneTranslateY += (minAllowedViewportTop - currentViewportTop);
         }
 
-        // 3. Document bottom clamping relative to hover cue title (never below hover title / footer)
-        const hoverCueEl = document.getElementById("features-hover-cue-row");
-        if (hoverCueEl) {
-          const hoverCueTopDoc = hoverCueEl.getBoundingClientRect().top + sy;
+        // 3. Document bottom clamping: once docked behind the feature cards the
+        //    phone scrolls with the page like regular content, so it never
+        //    slides out below the card row (or the hover title / footer).
+        if (Number.isFinite(dockLimitBottomDoc)) {
           const currentPhoneBottomDoc = phoneInitialTopDoc + currentScaledHeight;
-          const maxAllowedDocBottomY = (hoverCueTopDoc - 16) - currentPhoneBottomDoc;
-          phoneTranslateY = Math.min(phoneTranslateY, maxAllowedDocBottomY);
+          phoneTranslateY = Math.min(phoneTranslateY, dockLimitBottomDoc - currentPhoneBottomDoc);
         }
+
+        const clampWeight = Math.min(Math.max(current / CLAMP_FADE_IN, 0), 1);
+        const k = clampWeight * clampWeight * (3 - 2 * clampWeight);
+        phoneTranslateY = unclampedTranslateY + (phoneTranslateY - unclampedTranslateY) * k;
       }
 
-      lastPhoneTranslateY = phoneTranslateY;
+      // Horizontal Translation: slides centre -> right during the About phase,
+      // stays right through Metric, then sweeps back to the centre as a
+      // function of the phone's own vertical position (sweep window above),
+      // so it is identical whichever way the page is scrolled.
+      const finalTranslateX = Math.min(cachedVw * 0.28, maxTranslateX);
+      let phoneTranslateX: number;
+      if (current <= 1) {
+        phoneTranslateX = current * finalTranslateX;
+      } else {
+        const phoneTopNow = phoneTopDoc + phoneTranslateY;
+        const t = Math.min(
+          Math.max((phoneTopNow - sweepStartTopDoc) / (sweepEndTopDoc - sweepStartTopDoc || 1), 0),
+          1
+        );
+        const eased = t * t * (3 - 2 * t);
+        phoneTranslateX = finalTranslateX * (1 - eased);
+      }
 
       if (handRef.current) {
         handRef.current.style.opacity = `${handOpacity}`;
@@ -327,14 +442,8 @@ export function HeroVisuals() {
       if (metricImgRef.current) metricImgRef.current.style.opacity = `${metricOpacity}`;
       if (featuresImgRef.current) featuresImgRef.current.style.opacity = `${featuresOpacity}`;
 
-      const isSettled = Math.abs(target - current) < EPSILON;
-
-      // 👉 Only continue RAF if needed
-      if (!isSettled) {
-        rafId = requestAnimationFrame(animate);
-      } else {
-        rafId = null;
-      }
+      // One frame per scroll event is enough: the pose depends only on scrollY.
+      rafId = null;
     };
 
     const handleScroll = () => {
@@ -393,48 +502,56 @@ export function HeroVisuals() {
     };
   }, [isMobile]);
 
-  // Neutral skeleton — avoids hydration mismatch on first render
-  if (isMobile === null) {
-    return (
-      <div className="relative w-full max-w-[300px] min-[400px]:max-w-[360px] md:max-w-[480px] mx-auto min-h-[400px]" />
-    );
-  }
-
-  // Mobile layout (no animation)
-  if (isMobile) {
-    return (
-      <div className="w-[226px] sm:w-[266px] aspect-[9/18] relative mx-auto">
-        <Image
+  // Both layouts are always rendered and toggled with CSS at the `xl`
+  // breakpoint, the same 1280px line as MOBILE_BREAKPOINT. Rendering the
+  // real markup on the server lets the browser paint the hero image before
+  // hydration (it used to wait behind a skeleton); `isMobile` now only
+  // decides whether the scroll animation effect runs.
+  return (
+    <>
+      {/* Phone and tablet: static phone, no animation */}
+      <div className="xl:hidden w-[226px] sm:w-[266px] aspect-[9/18] relative mx-auto">
+        <MockupImage
           src="/assets/mockups/phone.webp"
           alt="Resonate app interface"
           fill
           className="object-contain"
+          sizes="(min-width: 640px) 266px, 226px"
           priority
+          placeholderMedia="(min-width: 1280px)"
         />
       </div>
-    );
-  }
 
-  // Desktop layout (with scroll animation)
-  return (
-    <div
-      ref={sectionRef}
-      className="relative w-full max-w-[300px] min-[400px]:max-w-[360px] md:max-w-[480px] mx-auto"
-    >
+      {/* Desktop: hand holding the scroll-animated phone */}
       <div
-        ref={handRef}
-        className="relative w-full left-[7.4%]"
-        style={{ willChange: "opacity" }}
+        ref={sectionRef}
+        className="hidden xl:block relative w-full max-w-[300px] min-[400px]:max-w-[360px] md:max-w-[480px] mx-auto"
       >
-        <Image
-          src="/assets/mockups/hand.webp"
-          alt="Hand holding phone"
-          width={500}
-          height={900}
-          className="w-full h-auto object-contain"
-          priority
-        />
-      </div>
+        <div
+          ref={handRef}
+          className="relative w-full left-[7.4%]"
+          style={{ willChange: "opacity" }}
+        >
+          <picture>
+            {/* Below xl this block is display:none; the 1px source keeps
+                browsers from downloading the real image there. */}
+            <source
+              media="(max-width: 1279px)"
+              srcSet="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            />
+            <img
+              src="/assets/mockups/hand.webp"
+              srcSet="/assets/mockups/hand-480.webp 480w, /assets/mockups/hand.webp 607w"
+              sizes="480px"
+              alt="Hand holding phone"
+              width={500}
+              height={900}
+              className="w-full h-auto object-contain"
+              decoding="async"
+              fetchPriority="high"
+            />
+          </picture>
+        </div>
 
       <div
         ref={phoneRef}
@@ -453,13 +570,15 @@ export function HeroVisuals() {
             className="w-full h-auto transition-opacity duration-100 ease-in-out"
             style={{ opacity: 1, willChange: "opacity" }}
           >
-            <Image
+            <MockupImage
               src="/assets/mockups/phone.webp"
               alt="Resonate app interface"
               width={400}
               height={800}
               className="w-full h-auto"
+              sizes="282px"
               priority
+              placeholderMedia="(max-width: 1279px)"
             />
           </div>
 
@@ -469,13 +588,14 @@ export function HeroVisuals() {
             className="absolute inset-0 w-full h-full transition-opacity duration-100 ease-in-out"
             style={{ opacity: 0, willChange: "opacity" }}
           >
-            <Image
+            <MockupImage
               src="/assets/mockups/phone_about.webp"
               alt="About Resonate app interface"
               width={400}
               height={800}
               className="w-full h-full object-fill"
-              priority
+              sizes="282px"
+              placeholderMedia="(max-width: 1279px)"
             />
           </div>
 
@@ -485,13 +605,14 @@ export function HeroVisuals() {
             className="absolute inset-0 w-full h-full transition-opacity duration-100 ease-in-out"
             style={{ opacity: 0, willChange: "opacity" }}
           >
-            <Image
+            <MockupImage
               src="/assets/mockups/phone_metric.webp"
               alt="Metric Resonate app interface"
               width={400}
               height={800}
               className="w-full h-full object-fill"
-              priority
+              sizes="282px"
+              placeholderMedia="(max-width: 1279px)"
             />
           </div>
 
@@ -501,17 +622,19 @@ export function HeroVisuals() {
             className="absolute inset-0 w-full h-full transition-opacity duration-100 ease-in-out"
             style={{ opacity: 0, willChange: "opacity" }}
           >
-            <Image
+            <MockupImage
               src="/assets/mockups/phone_features.webp"
               alt="Features Resonate app interface"
               width={400}
               height={800}
               className="w-full h-full object-fill"
-              priority
+              sizes="282px"
+              placeholderMedia="(max-width: 1279px)"
             />
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 }

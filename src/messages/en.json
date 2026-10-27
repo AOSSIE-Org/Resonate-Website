@@ -11,7 +11,10 @@
     "toggleMenu": "Toggle menu",
     "close": "Close",
     "menu": "Menu",
-    "selectLanguage": "Select language"
+    "selectLanguage": "Select language",
+    "skipToContent": "Skip to content",
+    "primaryNav": "Primary navigation",
+    "mobileNav": "Mobile menu"
   },
   "Hero": {
     "headline": "The Open-Source Voice of the Internet",
@@ -62,7 +65,8 @@
       }
     },
     "copyright": "© 2026 Resonate",
-    "madeWith": "Made with 🤍 by AOSSIE Community"
+    "madeWith": "Made with 🤍 by AOSSIE Community",
+    "navLabel": "Footer links"
   },
   "ThemeToggle": {
     "toggleTheme": "Toggle theme",

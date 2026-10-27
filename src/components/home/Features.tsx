@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Button } from "../ui/Button";
 import { useIntersectionObserver } from "../ui/useIntersectionObserver";
+import { FeatureIllustration, type FeatureKind } from "./FeatureIllustrations";
+import { MockupImage } from "../ui/MockupImage";
 
 export function Features() {
   const t = useTranslations("Features");
@@ -18,13 +20,13 @@ export function Features() {
 
   const minSwipeDistance = 50;
 
-  const features = [
-    { id: 0, cardKey: "card1", titleKey: "feature1Title" },
-    { id: 1, cardKey: "card2", titleKey: "feature2Title" },
-    { id: 2, cardKey: "card3", titleKey: "feature3Title" },
-    { id: 3, cardKey: "card4", titleKey: "feature4Title" },
-    { id: 4, cardKey: "card5", titleKey: "feature5Title" },
-    { id: 5, cardKey: "card6", titleKey: "feature6Title" },
+  const features: { id: number; cardKey: string; titleKey: string; kind: FeatureKind }[] = [
+    { id: 0, cardKey: "card1", titleKey: "feature1Title", kind: "live-rooms" },
+    { id: 1, cardKey: "card2", titleKey: "feature2Title", kind: "scheduled-rooms" },
+    { id: 2, cardKey: "card3", titleKey: "feature3Title", kind: "stories" },
+    { id: 3, cardKey: "card4", titleKey: "feature4Title", kind: "friends-calls" },
+    { id: 4, cardKey: "card5", titleKey: "feature5Title", kind: "audio-spaces" },
+    { id: 5, cardKey: "card6", titleKey: "feature6Title", kind: "moderation" },
   ];
 
   const handlePrev = () => {
@@ -62,7 +64,7 @@ export function Features() {
   return (
     <section id="section-features" className="relative flex flex-col pt-16 sm:pt-24 xl:pt-56 overflow-hidden min-h-screen" ref={revealRef}>
 
-      <div className="w-full px-4 md:px-8 xl:px-0 2xl:px-16 flex-1 flex flex-col gap-12 relative z-10">
+      <div className="w-full px-4 md:px-8 xl:px-0 2xl:px-16 flex-1 flex flex-col gap-12 relative">
         
         {/* ========================================================================= */}
         {/* DESKTOP LAYOUT (xl+) */}
@@ -70,15 +72,15 @@ export function Features() {
         <div className="hidden xl:flex flex-col gap-6 xl:gap-6 flex-1">
           
           {/* Top Row: Community Info (Left) and Tech Stack (Right) */}
-          <div className="grid grid-cols-[1.2fr_0.8fr_1fr] gap-x-8 items-start">
-            
+          <div id="features-top-row" className="relative z-10 grid grid-cols-[minmax(0,1fr)_340px_minmax(0,1fr)] gap-x-8 items-start">
+
             {/* Left: Community Block */}
-            <div className="flex flex-col gap-6 text-left">
-              <h2 className={`text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight uppercase leading-none ${isVisible ? 'animate-luxury-reveal-1' : 'opacity-0'}`}>
+            <div className="flex flex-col gap-6 text-left min-w-0">
+              <h2 className={`text-4xl xl:text-5xl 2xl:text-6xl font-bold tracking-tight uppercase leading-none text-balance ${isVisible ? 'animate-luxury-reveal-1' : 'opacity-0'}`}>
                 <span className="text-(--foreground)">{t("joinCommunity").split(" ").slice(0, 2).join(" ")} </span>
                 <span className="text-highlight">{t("joinCommunity").split(" ").slice(2).join(" ")}</span>
               </h2>
-              <p className="text-(--foreground-muted) text-base lg:text-lg max-w-md xl:max-w-lg leading-relaxed">
+              <p className="text-(--foreground-muted) text-base lg:text-lg max-w-lg leading-relaxed text-pretty">
                 {t("communityDescription")}
               </p>
               <div className="mt-2">
@@ -103,11 +105,11 @@ export function Features() {
             </div>
 
             {/* Middle Column Spacer: Top part of the moving phone mockup */}
-            <div id="features-phone-slot" className="w-full max-w-[280px] lg:max-w-[340px] xl:max-w-[400px] mx-auto pointer-events-none self-stretch" />
+            <div id="features-phone-slot" className="w-full pointer-events-none self-stretch" />
 
             {/* Right: Tech Stack Block */}
-            <div className="flex flex-col gap-6 text-left justify-self-end w-full max-w-sm xl:max-w-md">
-              <h3 className="italic font-light uppercase tracking-tight text-2xl lg:text-4xl text-(--foreground) leading-tight">
+            <div className="flex flex-col gap-6 text-left justify-self-end w-full max-w-md min-w-0">
+              <h3 className="italic font-light uppercase tracking-tight text-2xl xl:text-3xl 2xl:text-4xl text-(--foreground) leading-tight text-balance">
                 {t("techStack")}
               </h3>
               
@@ -146,7 +148,7 @@ export function Features() {
           </div>
 
           {/* Bottom Row: Scrolling Feature Cards Marquee */}
-          <div id="features-marquee-row" className="flex flex-col gap-8 relative z-10 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden mt-2 xl:mt-3">
+          <div id="features-marquee-row" className="flex flex-col gap-8 relative z-30 w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden mt-2 xl:-mt-[2px]">
             {/* Embedded styles for marquee animation */}
             <style dangerouslySetInnerHTML={{ __html: `
               @keyframes marquee {
@@ -175,9 +177,26 @@ export function Features() {
                     onMouseLeave={() => setHoveredFeature(null)}
                     onFocus={() => setHoveredFeature(feat.id)}
                     onBlur={() => setHoveredFeature(null)}
-                    className="flex items-center justify-center p-6 rounded-2xl border border-card text-center transition-all duration-300 cursor-pointer select-none w-64 md:w-80 h-28 md:h-36 shrink-0 bg-feature-card shadow-card text-foreground backdrop-blur-md hover:bg-brand-yellow hover:text-black hover:border-brand-yellow dark:hover:bg-brand-yellow/10 dark:hover:text-brand-yellow dark:hover:border-brand-yellow hover:scale-[1.04] hover:shadow-xl hover:shadow-brand-yellow/20 font-sans text-left"
+                    className="group relative flex h-36 w-80 shrink-0 flex-col justify-end overflow-hidden rounded-2xl border border-card bg-feature-card p-5 text-left font-sans shadow-card transition-all duration-500 ease-out cursor-pointer select-none hover:-translate-y-1 hover:border-brand-yellow/60 hover:shadow-xl hover:shadow-brand-yellow/10 focus-visible:outline-none focus-visible:border-brand-yellow motion-reduce:hover:translate-y-0"
                   >
-                    <span className="text-lg xl:text-xl font-bold tracking-wider uppercase">
+                    {/* Corner glow (cheap: gradient + opacity, no blur filter) */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[radial-gradient(closest-side,var(--color-brand-yellow),transparent)] opacity-0 transition-opacity duration-500 group-hover:opacity-20"
+                    />
+                    {/* Top sheen line */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-(--foreground)/20 to-transparent"
+                    />
+                    <FeatureIllustration
+                      kind={feat.kind}
+                      className="absolute right-4 top-4 h-16 w-16 text-(--foreground-muted) transition-all duration-500 ease-out group-hover:scale-105 group-hover:text-(--foreground)"
+                    />
+                    <span className="text-[11px] font-semibold tracking-[0.22em] text-(--foreground-muted) uppercase">
+                      {String(feat.id + 1).padStart(2, "0")}
+                    </span>
+                    <span className="mt-1 text-balance text-lg font-bold uppercase leading-tight tracking-wider text-(--foreground) transition-colors duration-500 group-hover:text-highlight">
                       {t(feat.cardKey)}
                     </span>
                   </button>
@@ -187,7 +206,7 @@ export function Features() {
           </div>
 
           {/* Centered Active Feature Text below Phone mockup */}
-          <div id="features-hover-cue-row" className="text-center pt-5 pb-5 relative z-30 flex items-center justify-center gap-3 min-h-[80px]">
+          <div id="features-hover-cue-row" aria-live="polite" className="text-center pt-5 pb-5 relative z-30 flex items-center justify-center gap-3 min-h-[80px]">
             {hoveredFeature !== null ? (
               <p className="text-xl lg:text-2xl xl:text-3xl font-medium text-(--foreground) transition-opacity duration-300">
                 {t(features[hoveredFeature].titleKey)}
@@ -301,17 +320,22 @@ export function Features() {
                 onTouchEnd={onTouchEnd}
                 className="w-[226px] sm:w-[266px] aspect-[9/18] relative select-none flex items-center justify-center cursor-grab active:cursor-grabbing"
               >
-                <Image
+                <MockupImage
                   src="/assets/mockups/phone_features.webp"
                   alt={t("resonateAppInterface")}
                   fill
                   className="object-contain"
-                  priority
+                  sizes="(min-width: 640px) 266px, 226px"
+                placeholderMedia="(min-width: 1280px)"
                 />
 
                 {/* Overlaid Card */}
-                <div className="absolute bottom-[12%] left-1/2 -translate-x-1/2 z-10 w-[85%] aspect-[16/9] flex items-center justify-center p-4 rounded-2xl border border-card bg-feature-card shadow-card backdrop-blur-md text-center transition-all duration-300">
-                  <span className="text-sm sm:text-base font-bold tracking-wider uppercase text-highlight">
+                <div className="group absolute bottom-[12%] left-1/2 -translate-x-1/2 z-10 w-[85%] flex items-center gap-3 p-4 rounded-2xl border border-card bg-feature-card shadow-card backdrop-blur-md text-left transition-all duration-300">
+                  <FeatureIllustration
+                    kind={features[activeFeature].kind}
+                    className="h-12 w-12 shrink-0 text-(--foreground)"
+                  />
+                  <span className="text-sm sm:text-base font-bold tracking-wider uppercase text-highlight leading-tight">
                     {t(features[activeFeature].cardKey)}
                   </span>
                 </div>
@@ -331,7 +355,7 @@ export function Features() {
             </div>
 
             {/* Active Feature Name or Swipe Cue */}
-            <div className="text-center min-h-[80px] flex items-center justify-center px-4 mt-2">
+            <div aria-live="polite" className="text-center min-h-[80px] flex items-center justify-center px-4 mt-2">
               {hasSwiped ? (
                 <p className="text-base sm:text-lg font-semibold text-(--foreground) animate-in fade-in duration-200">
                   {t(features[activeFeature].titleKey)}

@@ -74,7 +74,7 @@ const Footer = () => {
             />
 
             {/* Nav columns */}
-            <nav className="flex justify-center md:justify-end gap-6 sm:gap-10 md:gap-14">
+            <nav aria-label={t("navLabel")} className="flex justify-center md:justify-end gap-6 sm:gap-10 md:gap-14">
               {NAV_CONFIG.map((col) => (
                 <div key={col.titleKey}>
                   <p className="text-(--footer-headings) text-sm sm:text-lg font-bold mb-3">
