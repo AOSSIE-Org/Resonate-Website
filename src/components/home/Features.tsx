@@ -158,8 +158,12 @@ export function Features() {
               .animate-marquee {
                 animation: marquee 25s linear infinite;
               }
-              .animate-marquee:hover,
-              .animate-marquee:focus-within {
+              @media (hover: hover) {
+                .animate-marquee:hover {
+                  animation-play-state: paused;
+                }
+              }
+              .animate-marquee:has(:focus-visible) {
                 animation-play-state: paused;
               }
             `}} />
@@ -172,7 +176,10 @@ export function Features() {
                   <button
                     type="button"
                     key={`${feat.id}-${index}`}
-                    onClick={() => setActiveFeature(feat.id)}
+                    onClick={(e) => {
+                      setActiveFeature(feat.id);
+                      e.currentTarget.blur();
+                    }}
                     onMouseEnter={() => setHoveredFeature(feat.id)}
                     onMouseLeave={() => setHoveredFeature(null)}
                     onFocus={() => setHoveredFeature(feat.id)}
