@@ -178,7 +178,9 @@ export function Features() {
                     key={`${feat.id}-${index}`}
                     onClick={(e) => {
                       setActiveFeature(feat.id);
-                      e.currentTarget.blur();
+                      if (e.detail > 0) {
+                        e.currentTarget.blur();
+                      }
                     }}
                     onMouseEnter={() => setHoveredFeature(feat.id)}
                     onMouseLeave={() => setHoveredFeature(null)}

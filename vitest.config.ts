@@ -19,6 +19,7 @@ export default defineConfig({
         'src/components/ui/MockupImage.tsx',
         'src/components/ui/useIntersectionObserver.ts',
         'src/components/LanguageSwitcher.tsx',
+        'src/components/home/Features.tsx',
       ],
       thresholds: { lines: 90, functions: 90, branches: 90, statements: 90 },
     },
