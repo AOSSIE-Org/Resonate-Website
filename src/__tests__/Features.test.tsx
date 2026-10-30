@@ -62,6 +62,19 @@ describe('Features Component', () => {
 
   describe('Feature Card Pointer vs Keyboard Click Activation', () => {
     it('blurs button on pointer or touch click (detail > 0) to allow marquee to resume', () => {
+      // Mock matchMedia so (hover: hover) returns false (simulating a touch device)
+      const originalMatchMedia = window.matchMedia;
+      window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+        matches: query === '(hover: hover)' ? false : false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }));
+
       const { container } = render(<Features />);
       const marqueeRow = container.querySelector('#features-marquee-row');
       const buttons = marqueeRow?.querySelectorAll('button') || [];
@@ -72,10 +85,13 @@ describe('Features Component', () => {
       firstCard.focus();
       expect(document.activeElement).toBe(firstCard);
 
-      // Keyboard activation via Enter/Space sets event detail to 0
-      fireEvent.click(firstCard, { detail: 0 });
+      // Pointer/touch click sets event detail to 1 (or higher)
+      fireEvent.click(firstCard, { detail: 1 });
 
-      expect(document.activeElement).toBe(firstCard);
+      // After a pointer click on a non-hover device, the card should lose focus
+      expect(document.activeElement).not.toBe(firstCard);
+
+      window.matchMedia = originalMatchMedia;
     });
 
     it('preserves button focus on keyboard activation with Enter or Space (detail === 0)', () => {
