@@ -158,8 +158,12 @@ export function Features() {
               .animate-marquee {
                 animation: marquee 25s linear infinite;
               }
-              .animate-marquee:hover,
-              .animate-marquee:focus-within {
+              @media (hover: hover) {
+                .animate-marquee:hover {
+                  animation-play-state: paused;
+                }
+              }
+              .animate-marquee:has(:focus-visible) {
                 animation-play-state: paused;
               }
             `}} />
@@ -172,11 +176,22 @@ export function Features() {
                   <button
                     type="button"
                     key={`${feat.id}-${index}`}
-                    onClick={() => setActiveFeature(feat.id)}
-                    onMouseEnter={() => setHoveredFeature(feat.id)}
-                    onMouseLeave={() => setHoveredFeature(null)}
-                    onFocus={() => setHoveredFeature(feat.id)}
-                    onBlur={() => setHoveredFeature(null)}
+
+
+                  onClick={(e) => {
+                    setActiveFeature(feat.id);
+                    if (e.detail > 0 && !window.matchMedia("(hover: hover)").matches) {
+                      e.currentTarget.blur();
+                    }
+                  }}
+                  onMouseEnter={() => setHoveredFeature(feat.id)}
+                  onMouseLeave={() => setHoveredFeature(null)}
+                  onFocus={() => setHoveredFeature(feat.id)}
+                  onBlur={() => {
+                    setHoveredFeature(null);
+                  }}
+
+
                     className="group relative flex h-36 w-80 shrink-0 flex-col justify-end overflow-hidden rounded-2xl border border-card bg-feature-card p-5 text-left font-sans shadow-card transition-[translate,border-color,box-shadow] duration-500 ease-out cursor-pointer select-none hover:-translate-y-1 hover:border-brand-yellow/60 hover:shadow-xl hover:shadow-brand-yellow/10 focus-visible:outline-none focus-visible:border-brand-yellow motion-reduce:hover:translate-y-0"
                   >
                     {/* Corner glow (cheap: gradient + opacity, no blur filter) */}
