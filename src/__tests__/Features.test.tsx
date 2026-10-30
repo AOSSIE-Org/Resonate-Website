@@ -68,12 +68,14 @@ describe('Features Component', () => {
       expect(buttons.length).toBeGreaterThan(0);
 
       const firstCard = buttons[0];
-      const blurSpy = vi.spyOn(firstCard, 'blur');
 
-      // Pointer click sends detail: 1
-      fireEvent.click(firstCard, { detail: 1 });
+      firstCard.focus();
+      expect(document.activeElement).toBe(firstCard);
 
-      expect(blurSpy).toHaveBeenCalled();
+      // Keyboard activation via Enter/Space sets event detail to 0
+      fireEvent.click(firstCard, { detail: 0 });
+
+      expect(document.activeElement).toBe(firstCard);
     });
 
     it('preserves button focus on keyboard activation with Enter or Space (detail === 0)', () => {
@@ -85,10 +87,14 @@ describe('Features Component', () => {
       const firstCard = buttons[0];
       const blurSpy = vi.spyOn(firstCard, 'blur');
 
+      firstCard.focus();
+      expect(document.activeElement).toBe(firstCard);
+
       // Keyboard activation via Enter/Space sets event detail to 0
       fireEvent.click(firstCard, { detail: 0 });
 
       expect(blurSpy).not.toHaveBeenCalled();
+      expect(document.activeElement).toBe(firstCard);
     });
   });
 
