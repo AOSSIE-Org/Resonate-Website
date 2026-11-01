@@ -140,5 +140,13 @@
     "nextFeature": "अगली विशेषता",
     "resonateAppInterface": "रेसोनेट ऐप इंटरफ़ेस",
     "swipeCue": "स्वाइप संकेत"
+  },
+  "Contributors": {
+    "titlePart1": "हमारे",
+    "titlePart2": "योगदानकर्ता",
+    "description": "रेसोनेट एक ओपन-सोर्स समुदाय द्वारा बनाया गया है। कोड, दस्तावेज़, डिज़ाइन और विचारों में योगदान देने वाले सभी का धन्यवाद।",
+    "becomeContributor": "योगदानकर्ता बनें",
+    "avatarAlt": "{login} का GitHub अवतार",
+    "visitProfile": "GitHub पर {login} देखें (नया टैब)"
   }
 }

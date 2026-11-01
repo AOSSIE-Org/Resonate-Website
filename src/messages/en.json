@@ -140,5 +140,13 @@
     "nextFeature": "Next Feature",
     "resonateAppInterface": "Resonate app interface",
     "swipeCue": "Swipe Cue"
+  },
+  "Contributors": {
+    "titlePart1": "MEET OUR",
+    "titlePart2": "CONTRIBUTORS",
+    "description": "Resonate is built by an open-source community. Thank you to everyone who has contributed code, documentation, design, and ideas to this project.",
+    "becomeContributor": "Become a Contributor",
+    "avatarAlt": "{login}'s GitHub avatar",
+    "visitProfile": "Visit {login} on GitHub (opens in new tab)"
   }
 }
