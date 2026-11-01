@@ -5,15 +5,20 @@ import Image from "next/image";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { ThemeToggle } from "../ui/theme-toggle";
 import { LanguageDropdown } from "../ui/LanguageDropdown";
-import { DownloadModal } from "../ui/DownloadModal";
+import { DownloadModal, type DeviceType } from "../ui/DownloadModal";
 import { Button } from "../ui/Button";
 import { CONTACT_SECTION_ID } from "../ui/Footer";
 import { useTranslations } from "next-intl";
+import { Link as LocaleLink, usePathname } from "@/i18n/navigation";
+import { AOSSIE_URL, PLAY_STORE_URL, GITHUB_ORG_URL, DISCORD_URL } from "@/config/links";
 
 export function Navbar() {
   const t = useTranslations("Navbar");
+  // On the home page the logo scrolls back to the top; elsewhere it links home
+  const isHome = usePathname() === "/";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
+  const [downloadDevice, setDownloadDevice] = useState<DeviceType>("android");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isNavHovered, setIsNavHovered] = useState(false);
   const [isIslandFocused, setIsIslandFocused] = useState(false);
@@ -92,11 +97,11 @@ export function Navbar() {
                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
     if (isAndroid) {
-      window.open("https://play.google.com/store/apps/details?id=com.resonate.resonate", "_blank", "noopener,noreferrer");
-    } else if (isIOS) {
-      window.open("https://apps.apple.com/app/resonate", "_blank", "noopener,noreferrer");
+      window.open(PLAY_STORE_URL, "_blank", "noopener,noreferrer");
     } else {
-      // For Desktop, Nest Hub, Fuchsia, or other non-mobile OS, show the QR code modal
+      // iOS opens the modal on its "coming soon" tab (no App Store listing yet); desktop, Nest Hub,
+      // Fuchsia and other non-mobile OSes get the QR code modal
+      setDownloadDevice(isIOS ? "ios" : "android");
       setIsDownloadModalOpen(true);
     }
   }, []);
@@ -124,9 +129,10 @@ export function Navbar() {
       >
         <div className="mx-auto flex lg:grid lg:grid-cols-[1fr_auto_1fr] py-3 sm:py-4 items-center justify-between lg:justify-normal px-4 sm:px-6 lg:px-9">
           {/* LEFT: Logo */}
-          <Link
-            href="#"
+          <LocaleLink
+            href="/"
             onClick={(e) => {
+              if (!isHome) return;
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
@@ -144,7 +150,7 @@ export function Navbar() {
             <span className="text-xl sm:text-2xl font-medium tracking-tight text-primary">
               Resonate
             </span>
-          </Link>
+          </LocaleLink>
 
           {/* CENTER: Desktop Navigation */}
           <nav
@@ -179,13 +185,13 @@ export function Navbar() {
             >
               {/* Language Switcher — now inside the island */}
               <LanguageDropdown />
-              <NavLink href="https://github.com/AOSSIE-Org" external>
+              <NavLink href={GITHUB_ORG_URL} external>
                 {t("developers")}
               </NavLink>
-              <NavLink href="https://discord.gg/hjUhu33uAn" external>
+              <NavLink href={DISCORD_URL} external>
                 {t("community")}
               </NavLink>
-              <NavLink href="https://aossie.org" external>
+              <NavLink href={AOSSIE_URL} external>
                 {t("aossie")}
               </NavLink>
               <NavLink href={`#${CONTACT_SECTION_ID}`} onClick={scrollToContact}>
@@ -270,21 +276,21 @@ export function Navbar() {
           <div className="lg:hidden border-t border-default px-4 sm:px-6 py-4 shadow-xl animate-in slide-in-from-top-5 rounded-b-3xl">
             <nav aria-label={t("mobileNav")} className="flex flex-col gap-3 sm:gap-4">
               <MobileNavLink
-                href="https://github.com/AOSSIE-Org"
+                href={GITHUB_ORG_URL}
                 external
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t("developers")}
               </MobileNavLink>
               <MobileNavLink
-                href="https://discord.gg/hjUhu33uAn"
+                href={DISCORD_URL}
                 external
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t("community")}
               </MobileNavLink>
               <MobileNavLink
-                href="https://aossie.org"
+                href={AOSSIE_URL}
                 external
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -323,6 +329,7 @@ export function Navbar() {
       <DownloadModal 
         isOpen={isDownloadModalOpen} 
         onClose={() => setIsDownloadModalOpen(false)} 
+        initialDevice={downloadDevice}
       />
     </>
   );

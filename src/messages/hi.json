@@ -31,7 +31,8 @@
     "scanInstruction": "अपने मोबाइल डिवाइस से स्कैन करें",
     "or": "या",
     "redirectToPlayStore": "प्लेस्टोर वेब पर जाएं",
-    "redirectToAppStore": "ऐप स्टोर वेब पर जाएं",
+    "iosComingSoonTitle": "iOS ऐप जल्द आ रहा है",
+    "iosComingSoonBody": "रेज़ोनेट अभी ऐप स्टोर पर उपलब्ध नहीं है। आप आज ही गूगल प्ले से Android ऐप ले सकते हैं।",
     "switchBetweenDevices": "डिवाइस बदलें",
     "closeLabel": "मोडल बंद करें",
     "closeAlt": "बंद करें",
@@ -66,8 +67,9 @@
       }
     },
     "copyright": "© 2026 रेज़ोनेट",
-    "madeWith": "AOSSIE समुदाय द्वारा 🤍 से निर्मित",
-    "navLabel": "फ़ुटर लिंक"
+    "madeWith": "<logo>AOSSIE</logo> द्वारा 🤍 से निर्मित",
+    "navLabel": "फ़ुटर लिंक",
+    "supportLink": "समर्थन करें"
   },
   "ThemeToggle": {
     "toggleTheme": "थीम बदलें",
@@ -106,7 +108,7 @@
     "tagline2": "सीमाओं के",
     "videoButton": "वीडियो देखें",
     "playStoreAlt": "प्ले स्टोर",
-    "appStoreAlt": "ऐप स्टोर",
+    "appStoreComingSoon": "ऐप स्टोर (जल्द आ रहा है)",
     "availability1": "मोबाइल ऐप",
     "availability2": "अब उपलब्ध है",
     "learnMore": "और जानें",
@@ -140,5 +142,32 @@
     "nextFeature": "अगली विशेषता",
     "resonateAppInterface": "रेसोनेट ऐप इंटरफ़ेस",
     "swipeCue": "स्वाइप संकेत"
+  },
+  "Legal": {
+    "englishOnly": "यह दस्तावेज़ केवल अंग्रेज़ी में उपलब्ध है।",
+    "privacy": {
+      "title": "गोपनीयता नीति",
+      "description": "रेज़ोनेट वेबसाइट आपकी जानकारी को कैसे संभालती है।"
+    },
+    "terms": {
+      "title": "सेवा की शर्तें",
+      "description": "रेज़ोनेट वेबसाइट के उपयोग की शर्तें।"
+    }
+  },
+  "Share": {
+    "trigger": "यह पेज शेयर करें",
+    "share": "शेयर करें",
+    "close": "बंद करें",
+    "copy": "कॉपी करें",
+    "copied": "कॉपी हो गया!",
+    "copyFailed": "विफल",
+    "urlLabel": "शेयर करने का URL"
+  },
+  "Support": {
+    "title": "रेज़ोनेट का समर्थन करें",
+    "description": "रेज़ोनेट को निःशुल्क और ओपन सोर्स बनाए रखने में मदद करें।",
+    "madeBy": "द्वारा बनाया गया प्रोजेक्ट",
+    "supportedBy": "समर्थक",
+    "aossieDescription": "AOSSIE एक ऑस्ट्रेलियाई गैर-लाभकारी संगठन है जो ओपन-सोर्स प्रोजेक्ट्स का समर्थन करता है और उन्हें एक साथ लाता है।"
   }
 }

@@ -19,6 +19,9 @@ const TRANSLATION_SPEED = 0.75;
 
 // Vertical squiggling speed
 const UNDULATION_SPEED = 0.055;
+
+// Fraction of the canvas that must be on screen before the animation runs.
+const VISIBILITY_THRESHOLD = 0.01;
 // ──────────────────────────────────────────────────────────────────
 
 const BackgroundTile = () => {
@@ -242,7 +245,7 @@ const BackgroundTile = () => {
           }
         }
       },
-      { threshold: 0.01 }
+      { threshold: VISIBILITY_THRESHOLD }
     );
     observer.observe(canvas);
 
