@@ -3,6 +3,7 @@
 // AOSSIE organisation
 export const AOSSIE_URL = 'https://aossie.org';
 export const AOSSIE_PROJECTS_URL = 'https://aossie.org/projects';
+export const AOSSIE_EMAIL_URL = 'mailto:aossie.oss@gmail.com';
 // Donations to AOSSIE, linked from the support page
 export const GITHUB_SPONSORS_URL = 'https://github.com/sponsors/AOSSIE-Org';
 // Supporters listed on the support page

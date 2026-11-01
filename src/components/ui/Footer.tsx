@@ -131,10 +131,7 @@ const Footer = () => {
         <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 xl:gap-x-4">
           {(Object.keys(LEGAL_PAGES) as LegalPage[]).map((page) => (
             <li key={page}>
-              <Link
-                href={LEGAL_PAGES[page].path}
-                className="text-(--footer-text) font-light hover:text-yellow-600 transition-colors"
-              >
+              <Link href={LEGAL_PAGES[page].path} className={BOTTOM_BAR_LINK_CLASSES}>
                 {tLegal(`${page}.title`)}
               </Link>
             </li>

@@ -9,10 +9,14 @@ import { SUPPORT_LOGOS, SUPPORT_PAGE_PATH } from '@/config/support';
 afterEach(() => vi.unstubAllEnvs());
 
 describe('external links', () => {
-  const { SOCIAL_LINKS, ...urls } = links;
+  const { SOCIAL_LINKS, AOSSIE_EMAIL_URL, ...urls } = links;
 
   it.each(Object.entries({ ...urls, ...SOCIAL_LINKS }))('%s is an absolute https:// URL', (_name, url) => {
     expect(new URL(url).protocol).toBe('https:');
+  });
+
+  it('mails AOSSIE through a mailto: link', () => {
+    expect(new URL(AOSSIE_EMAIL_URL).protocol).toBe('mailto:');
   });
 
   it('sends supporters to AOSSIE on GitHub Sponsors', () => {

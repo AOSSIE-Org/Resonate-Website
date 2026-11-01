@@ -46,6 +46,9 @@ export function SiteShareButton({ className }: { className?: string }) {
         labels: { share, close, copy, copied, copyFailed, urlLabel },
       });
       instanceRef.current = instance;
+    }).catch((error: unknown) => {
+      // The share dialog is optional: if the library cannot load, the button simply does nothing
+      console.error("Could not load the share dialog", error);
     });
 
     return () => {

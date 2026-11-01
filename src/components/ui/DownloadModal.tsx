@@ -230,6 +230,7 @@ export function DownloadModal({ isOpen, onClose, initialDevice = "android" }: Do
         <div className="flex gap-4 w-full">
           <button 
             onClick={() => setActiveDevice("android")}
+            aria-pressed={activeDevice === "android"}
             className={`flex-1 flex justify-center items-center py-3 rounded-lg transition-all hover:scale-[1.02] active:scale-[0.98] border ${
               activeDevice === "android" 
                 ? "bg-(--button-secondary-bg) border-(--border-subtle) shadow-lg scale-105" 
@@ -246,6 +247,7 @@ export function DownloadModal({ isOpen, onClose, initialDevice = "android" }: Do
           </button>
           <button 
             onClick={() => setActiveDevice("ios")}
+            aria-pressed={activeDevice === "ios"}
             className={`flex-1 flex justify-center items-center py-3 rounded-lg transition-all hover:scale-[1.02] active:scale-[0.98] border ${
               activeDevice === "ios" 
                 ? "bg-(--button-secondary-bg) border-(--border-subtle) shadow-lg scale-105" 

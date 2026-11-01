@@ -7,7 +7,9 @@ import { useTranslations } from "next-intl";
 
 export function ThemeToggle({ isMobile = false }: { isMobile?: boolean }) {
   const t = useTranslations("ThemeToggle");
-  const { setTheme, theme } = useTheme();
+  // The resolved theme, so a "system" preference that resolves to dark still switches to light
+  const { setTheme, resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
   const [mounted, setMounted] = React.useState(false);
 
   // Avoid hydration mismatch
@@ -33,7 +35,7 @@ export function ThemeToggle({ isMobile = false }: { isMobile?: boolean }) {
   if (isMobile) {
     return (
       <button
-        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        onClick={() => setTheme(isDark ? "light" : "dark")}
         className="flex items-center justify-between w-full hover:bg-(--hover-background) mt-2 px-4 py-1 rounded-full transition-all active:scale-[0.98] bg-(--button-subtle-bg)"
         aria-label={t("toggleTheme")}
       >
@@ -41,7 +43,7 @@ export function ThemeToggle({ isMobile = false }: { isMobile?: boolean }) {
           {t("switchTheme")}
         </span>
         <div className="flex items-center justify-center h-9 w-9">
-          {theme === "dark" ? (
+          {isDark ? (
             <Image 
               src="/assets/icons/sun.svg"
               alt={t("lightMode")}
@@ -66,11 +68,11 @@ export function ThemeToggle({ isMobile = false }: { isMobile?: boolean }) {
   // Desktop version - just the icon button
   return (
     <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
       className="relative inline-flex h-9 w-9 items-center justify-center rounded-md bg-transparent hover:scale-105 hover:bg-(--hover-background) transition-colors"
       aria-label={t("toggleTheme")}
     >
-      {theme === "dark" ? (
+      {isDark ? (
         <Image 
           src="/assets/icons/sun.svg"
           alt={t("lightMode")}

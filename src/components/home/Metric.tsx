@@ -7,7 +7,7 @@ import BackgroundTile from "../ui/BackgroundTile";
 import { MockupImage } from "../ui/MockupImage";
 import { Link } from "@/i18n/navigation";
 import { useIntersectionObserver } from "../ui/useIntersectionObserver";
-import { GITHUB_ORG_URL, GITLAB_URL, DISCORD_URL, TWITTER_URL } from "@/config/links";
+import { AOSSIE_EMAIL_URL, GITHUB_ORG_URL, GITLAB_URL, DISCORD_URL, TWITTER_URL } from "@/config/links";
 
 // Start the background phone animation 100px before the section scrolls into view.
 const ANIMATION_ROOT_MARGIN = "100px 0px 100px 0px";
@@ -282,7 +282,7 @@ export function Metric() {
               </div>
               <div className="flex flex-wrap items-center justify-center xl:justify-start gap-3">
                 <Link
-                  href="mailto:aossie.oss@gmail.com"
+                  href={AOSSIE_EMAIL_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border p-4 rounded-full active:scale-95 hover:scale-105 transition-transform smooth shrink-0"

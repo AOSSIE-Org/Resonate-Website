@@ -28,7 +28,7 @@ describe('Metric content', () => {
     renderWithIntl(<Metric />);
     const t = messages.en.Metric;
     const expected: [string, string][] = [
-      [t.gmailAlt, 'mailto:aossie.oss@gmail.com'],
+      [t.gmailAlt, links.AOSSIE_EMAIL_URL],
       [t.discordAlt, links.DISCORD_URL],
       [t.twitterAlt, links.TWITTER_URL],
       [t.githubAlt, links.GITHUB_ORG_URL],

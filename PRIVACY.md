@@ -48,7 +48,7 @@ Links on the Website (AOSSIE, GitHub, Google Play, Discord and social media) tak
 
 The **Share** button in the footer opens the platform you choose (WhatsApp, X, LinkedIn, Telegram or your email app) with the address of the page you are on, or copies that address. That platform's own privacy policy applies to what you share there. The Website does not record what you share.
 
-The **Support** page links to [GitHub Sponsors](https://github.com/sponsors/AOSSIE-Org). If you choose to donate, you do so on GitHub, and GitHub's privacy statement applies; The Website does not receive any payment details.
+The **Support** page links to [GitHub Sponsors](https://github.com/sponsors/AOSSIE-Org). If you choose to donate, you do so on GitHub, and GitHub's privacy statement applies. The Website does not receive any payment details.
 
 Where a third party processes information, its handling of that information is governed by its own privacy policy and terms of service.
 

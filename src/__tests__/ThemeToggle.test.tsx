@@ -27,11 +27,14 @@ describe('ThemeToggle', () => {
     expect(themeState.setTheme).toHaveBeenLastCalledWith('dark');
   });
 
-  it('treats the system theme as light and offers dark mode', () => {
-    setTheme('system', 'dark');
+  it.each([
+    ['dark', 'light'],
+    ['light', 'dark'],
+  ] as const)('with a system preference that resolves to %s, switches to %s', (resolved, next) => {
+    setTheme('system', resolved);
     renderWithIntl(<ThemeToggle />);
     fireEvent.click(screen.getByRole('button'));
-    expect(themeState.setTheme).toHaveBeenCalledWith('dark');
+    expect(themeState.setTheme).toHaveBeenCalledWith(next);
   });
 
   it.each(LOCALES)('labels the mobile row in %s', (locale) => {

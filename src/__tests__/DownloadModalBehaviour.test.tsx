@@ -126,6 +126,13 @@ describe('DownloadModal', () => {
     expect(document.activeElement).toBe(middle);
   });
 
+  it('shows a coming-soon notice and no store link on the iOS tab', () => {
+    renderWithIntl(<DownloadModal isOpen onClose={() => {}} initialDevice="ios" />);
+    expect(screen.getByRole('status')).toHaveTextContent(messages.en.DownloadModal.iosComingSoonTitle);
+    expect(screen.queryByRole('link')).toBeNull();
+    expect(document.querySelector('a[href*="apps.apple.com"]')).toBeNull();
+  });
+
   it('starts on the requested tab each time it opens', () => {
     renderWithIntl(<Harness device="ios" />);
     fireEvent.click(screen.getByRole('button', { name: 'open' }));
@@ -141,7 +148,10 @@ describe('DownloadModal', () => {
     renderWithIntl(<DownloadModal isOpen onClose={() => {}} initialDevice="ios" />);
     const android = screen.getByAltText('Play Store').closest('button')!;
     const ios = screen.getByAltText('App Store').closest('button')!;
-    expect(ios.className).toContain('shadow-lg');
-    expect(android.className).not.toContain('shadow-lg');
+    expect(ios).toHaveAttribute('aria-pressed', 'true');
+    expect(android).toHaveAttribute('aria-pressed', 'false');
+    fireEvent.click(android);
+    expect(android).toHaveAttribute('aria-pressed', 'true');
+    expect(ios).toHaveAttribute('aria-pressed', 'false');
   });
 });
