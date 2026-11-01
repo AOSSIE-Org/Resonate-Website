@@ -99,7 +99,7 @@ Status of the GSoC / AOSSIE project checklist for this website:
    - [x] Has a footer and header with AOSSIE logos and social handles.
    - [x] Uses React Server Components by default, introducing Client Components (`"use client"`) only when interactivity or client hooks are required.
    - [x] Is deployed to GitHub Pages via a GitHub Workflow (`.github/workflows/nextjs.yml`).
-   - [x] Has automated CI lint, test (90% coverage gate) and build validation (`.github/workflows/ci.yml`).
+   - [x] Has automated CI lint, test (90% coverage gate on the whole code base) and build validation (`.github/workflows/ci.yml`).
    - [x] Has a `sitemap.xml` and a `robots.txt` that blocks `/pr-preview/`.
    - [x] Has OpenSSF Scorecard analysis (`.github/workflows/scorecard.yml`) and a security policy (`SECURITY.md`).
    - [x] Has CodeRabbit automated AI code review tailored to this project (`.coderabbit.yml`).
@@ -156,7 +156,7 @@ Here is a breakdown of the key i18n directories and files:
 │   │   ├── en.json             # English translation dictionary
 │   │   └── hi.json             # Hindi translation dictionary
 │   ├── app/
-│   │   ├── (root)/             # Bare `/`: full metadata + meta-refresh to /en (static export)
+│   │   ├── (root)/             # Bare `/`: full metadata + instant redirect to /en (static export)
 │   │   ├── sitemap.ts          # Statically generated localized sitemaps
 │   │   └── [locale]/           # Localized route group
 │   │       ├── layout.tsx      # Multi-lingual layout injecting client context & translations
@@ -305,10 +305,12 @@ This generates an optimized static export in the `./out` directory, fully config
 
 ```bash
 npm run test            # run the Vitest suite once
-npm run test:coverage   # with coverage; fails below 90% (same as CI)
+npm run test:coverage   # with coverage; fails below 90% lines/statements/functions/branches (same as CI)
 ```
 
-Tests in [`src/__tests__/`](src/__tests__/) cover SEO metadata, the sitemap, translation-catalog parity, responsive `MockupImage` variants (every referenced file must exist), the intersection-observer hook, the navbar and the language switcher, including [fast-check](https://fast-check.dev) property tests.
+Coverage is measured on the whole code base: every file in `src/` (pages, layouts, components, hooks, config and i18n). The only exclusions are type declarations (`*.d.ts`) and the tests themselves, listed with their reasons in [`vitest.config.ts`](vitest.config.ts).
+
+Tests in [`src/__tests__/`](src/__tests__/) render every page and component with React Testing Library in jsdom, inside `NextIntlClientProvider` with the real English and Hindi catalogs. They cover links, ARIA attributes, menus, the download modal (focus trap, Escape), the theme toggle and language switchers, the feature carousel, the scroll animations, SEO metadata, the sitemap and translation-catalog parity. [fast-check](https://fast-check.dev) property tests check invariants such as the 404 page redirecting exactly the `/room/<id>` links, any requested locale resolving to a supported one, and the scroll-driven phone pose staying within bounds. Shared mocks for what jsdom lacks (`next/navigation`, observers, canvas) live in [`src/__tests__/setup.ts`](src/__tests__/setup.ts) and [`src/__tests__/helpers/`](src/__tests__/helpers/).
 
 ---
 

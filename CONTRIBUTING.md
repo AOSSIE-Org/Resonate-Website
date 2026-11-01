@@ -47,10 +47,10 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
    Run the same checks as CI before submitting:
    ```bash
    npm run lint
-   npm run test:coverage   # Vitest; fails below 90% coverage
+   npm run test:coverage   # Vitest; fails below 90% coverage of the whole code base
    npm run build
    ```
-3. **Tests are required for new logic:** changes to `src/config/`, `src/i18n/`, `src/app/sitemap.ts` or shared UI helpers (`MockupImage`, hooks) must add or update tests in `src/__tests__/`. Prefer [fast-check](https://fast-check.dev) property tests where the input space is large.
+3. **Tests are required for new code:** coverage is measured on everything in `src/` (pages, layouts, components, hooks, config, i18n), and CI fails below 90% lines, statements, functions and branches. New or changed code must add or update tests in `src/__tests__/`: render components with React Testing Library inside the real message catalogs (see `src/__tests__/helpers/intl.tsx`) and assert behaviour, not snapshots. Prefer [fast-check](https://fast-check.dev) property tests where the input space is large. Only type declarations and the tests themselves are excluded from coverage; the list and reasons are in [`vitest.config.ts`](vitest.config.ts), and new exclusions need a reason there.
 4. **Commit Messages:**
    Use clear, descriptive commit messages following Conventional Commits (e.g., `feat: add social share buttons`, `fix: header logo alignment`).
 5. **Developer Certificate of Origin (DCO):**
