@@ -53,6 +53,16 @@ describe('Navbar Component', () => {
     expect(screen.getAllByText('Download Now').length).toBeGreaterThan(0);
   });
 
+  it('links the logo home instead of scrolling when on another page', () => {
+    const scrollTo = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+    render(<Navbar />);
+    const logo = screen.getByAltText(/Resonate Logo/i).closest('a')!;
+    expect(logo).toHaveAttribute('href', '/');
+    fireEvent.click(logo);
+    expect(scrollTo).not.toHaveBeenCalled();
+    scrollTo.mockRestore();
+  });
+
   describe('Contact link', () => {
     afterEach(() => {
       document.getElementById('contact')?.remove();

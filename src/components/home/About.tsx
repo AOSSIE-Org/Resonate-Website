@@ -7,6 +7,7 @@ import { MockupImage } from "../ui/MockupImage";
 import { Button } from "../ui/Button";
 import { Link } from "@/i18n/navigation";
 import { useIntersectionObserver } from "../ui/useIntersectionObserver";
+import { PLAY_STORE_URL, YOUTUBE_URL } from "@/config/links";
 
 export function About() {
   const t = useTranslations("About");
@@ -62,7 +63,7 @@ export function About() {
               <Button 
                 variant="type2" 
                 right_arrow 
-                href="https://www.youtube.com/@AOSSIE-Org"
+                href={YOUTUBE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -80,7 +81,7 @@ export function About() {
               </div>
               <div className="flex items-center gap-6">
                 <Link 
-                  href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
+                  href={PLAY_STORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border p-4 rounded-full active:scale-95 hover:scale-105 transition-transform smooth shrink-0"
@@ -93,20 +94,19 @@ export function About() {
                     className="h-4 w-4 md:h-6 md:w-6 icon-secondary"
                   />
                 </Link>
-                <Link 
-                  href="https://apps.apple.com/app/resonate"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border p-4 rounded-full active:scale-95 hover:scale-105 transition-transform smooth shrink-0"
+                {/* Not on the App Store yet: shown as "coming soon" instead of a link */}
+                <span
+                  title={t("appStoreComingSoon")}
+                  className="border p-4 rounded-full shrink-0 opacity-50 cursor-not-allowed"
                 >
                   <Image
                     src="/assets/icons/apple.svg"
-                    alt={t("appStoreAlt")}
+                    alt={t("appStoreComingSoon")}
                     width={24}
                     height={24}
                     className="h-4 w-4 md:h-6 md:w-6 icon-secondary theme-icon"
                   />
-                </Link>
+                </span>
               </div>
             </div>
           </div>

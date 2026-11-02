@@ -7,6 +7,10 @@ import BackgroundTile from "../ui/BackgroundTile";
 import { MockupImage } from "../ui/MockupImage";
 import { Link } from "@/i18n/navigation";
 import { useIntersectionObserver } from "../ui/useIntersectionObserver";
+import { AOSSIE_EMAIL_URL, GITHUB_ORG_URL, GITLAB_URL, DISCORD_URL, TWITTER_URL } from "@/config/links";
+
+// Start the background phone animation 100px before the section scrolls into view.
+const ANIMATION_ROOT_MARGIN = "100px 0px 100px 0px";
 
 export function Metric() {
   const t = useTranslations("Metric");
@@ -155,7 +159,7 @@ export function Metric() {
         }
       },
       {
-        rootMargin: "100px 0px 100px 0px",
+        rootMargin: ANIMATION_ROOT_MARGIN,
         threshold: 0,
       }
     );
@@ -278,7 +282,7 @@ export function Metric() {
               </div>
               <div className="flex flex-wrap items-center justify-center xl:justify-start gap-3">
                 <Link
-                  href="mailto:aossie.oss@gmail.com"
+                  href={AOSSIE_EMAIL_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border p-4 rounded-full active:scale-95 hover:scale-105 transition-transform smooth shrink-0"
@@ -292,7 +296,7 @@ export function Metric() {
                   />
                 </Link>
                 <Link
-                  href="https://discord.gg/hjUhu33uAn"
+                  href={DISCORD_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border p-4 rounded-full active:scale-95 hover:scale-105 transition-transform smooth shrink-0"
@@ -306,7 +310,7 @@ export function Metric() {
                   />
                 </Link>
                 <Link
-                  href="https://twitter.com/aossie_org"
+                  href={TWITTER_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border p-4 rounded-full active:scale-95 hover:scale-105 transition-transform smooth shrink-0"
@@ -320,7 +324,7 @@ export function Metric() {
                   />
                 </Link>
                 <Link
-                  href="https://github.com/AOSSIE-Org"
+                  href={GITHUB_ORG_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border p-4 rounded-full active:scale-95 hover:scale-105 transition-transform smooth shrink-0"
@@ -334,7 +338,7 @@ export function Metric() {
                   />
                 </Link>
                 <Link
-                  href="https://gitlab.com/aossie"
+                  href={GITLAB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border p-4 rounded-full active:scale-95 hover:scale-105 transition-transform smooth shrink-0"
