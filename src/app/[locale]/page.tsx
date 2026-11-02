@@ -1,43 +1,36 @@
-'use client';
+import enMessages from "@/messages/en.json";
+import hiMessages from "@/messages/hi.json";
+import { Contributors, type ContributorLabels } from "@/components/home/Contributors";
+import { HomePageClient } from "@/components/home/HomePageClient";
+import { fetchGitHubContributors } from "@/lib/github-contributors";
+import { routing } from "@/i18n/routing";
 
-import Footer from '@/components/ui/Footer';
-import { Hero } from '@/components/home/Hero';
-import { About } from '@/components/home/About';
-import { Metric } from '@/components/home/Metric';
-import { Features } from '@/components/home/Features';
-import { AOSSIE_URL } from '@/config/links';
-import { SITE_URL } from '@/config/site';
+const messagesMap: Record<string, typeof enMessages> = {
+  en: enMessages,
+  hi: hiMessages,
+};
 
-export default function Home() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Resonate - Open Source Social Voice Platform",
-    "description": "The Open-Source Voice of the Internet. Real-time audio communication, scheduled rooms, and pair chatting for open-source communities.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "AOSSIE",
-      "url": AOSSIE_URL,
-      "logo": `${SITE_URL}/brand/icons/aossie_logo.svg`,
-    },
-  };
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const resolvedLocale = routing.locales.includes(
+    locale as (typeof routing.locales)[number],
+  )
+    ? locale
+    : routing.defaultLocale;
+  const messages = messagesMap[resolvedLocale] ?? enMessages;
+  const labels = messages.Contributors as ContributorLabels;
+
+  const contributors = await fetchGitHubContributors();
 
   return (
-    <div className="flex min-h-screen flex-col mx-4 sm:mx-8 lg:mx-16 2xl:mx-48">
-      <script
-        id="schema-jsonld"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <div className="min-h-screen md:min-h-[400vh] h-auto">
-        <Hero />
-        <About />
-        <Metric />
-        <Features />
-      </div>
-      <div className="bottom-0 pb-4 pt-24">
-        <Footer />
-      </div>
-    </div>
+    <HomePageClient
+      contributorsSlot={
+        <Contributors contributors={contributors} labels={labels} />
+      }
+    />
   );
 }
