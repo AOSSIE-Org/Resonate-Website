@@ -140,7 +140,7 @@
   - *Evidence URL:* `npm test` / `npm run test:coverage` (https://github.com/AOSSIE-Org/Resonate-Website/blob/main/package.json)
 
 - [x] 🔵 **test_most** — The test suite covers most code branches and functionality. *(SUGGESTED)*
-  - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/blob/main/vitest.config.ts (90% line/branch/function thresholds on logic modules, enforced in CI)
+  - *Evidence URL:* https://github.com/AOSSIE-Org/Resonate-Website/blob/main/vitest.config.ts (coverage measured on all of `src/`, excluding only type declarations and tests; 90% line/statement/function/branch thresholds enforced in CI)
 
 ### New Functionality Testing Policy
 

@@ -4,19 +4,27 @@ import React, { useEffect, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
+import { PLAY_STORE_URL } from "@/config/links";
+
+export type DeviceType = "android" | "ios";
 
 interface DownloadModalProps {
   isOpen: boolean;
   onClose: () => void;
+  /** Tab shown each time the modal opens. */
+  initialDevice?: DeviceType;
 }
-
-type DeviceType = "android" | "ios";
 
 const emptySubscribe = () => () => {};
 
-export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
+export function DownloadModal({ isOpen, onClose, initialDevice = "android" }: DownloadModalProps) {
   const t = useTranslations("DownloadModal");
-  const [activeDevice, setActiveDevice] = useState<DeviceType>("android");
+  const [activeDevice, setActiveDevice] = useState<DeviceType>(initialDevice);
+  const [wasOpen, setWasOpen] = useState(isOpen);
+  if (isOpen !== wasOpen) {
+    setWasOpen(isOpen);
+    if (isOpen) setActiveDevice(initialDevice);
+  }
   const { theme, resolvedTheme } = useTheme();
   const mounted = useSyncExternalStore(
     emptySubscribe,
@@ -86,20 +94,12 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
 
   const isDarkMode = mounted && (resolvedTheme === "dark" || theme === "dark");
 
-  const config = {
-    android: {
-      qr: isDarkMode ? "/assets/images/qr_android.svg" : "/assets/images/qr_light_android.svg",
-      href: "https://play.google.com/store/apps/details?id=com.resonate.resonate",
-      label: t("redirectToPlayStore"),
-    },
-    ios: {
-      qr: isDarkMode ? "/assets/images/qr_apple.svg" : "/assets/images/qr_light_apple.svg",
-      href: "https://apps.apple.com/app/resonate", // Placeholder link
-      label: t("redirectToAppStore"),
-    },
+  // Resonate is not on the App Store yet, so the iOS tab shows a notice instead of a QR code and link.
+  const android = {
+    qr: isDarkMode ? "/assets/images/qr_android.svg" : "/assets/images/qr_light_android.svg",
+    href: PLAY_STORE_URL,
+    label: t("redirectToPlayStore"),
   };
-
-  const current = config[activeDevice];
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -138,9 +138,26 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
           </h2>
         </div>
 
+        {activeDevice === "ios" ? (
+        <div
+          role="status"
+          className="flex w-full flex-col items-center justify-center gap-4 border p-6 sm:p-8 border-(--border) rounded-3xl bg-white/5 text-center"
+        >
+          <Image
+            src="/assets/icons/apple.svg"
+            alt=""
+            width={48}
+            height={48}
+            className="h-12 w-12 theme-icon opacity-60"
+          />
+          <p className="font-bold text-lg sm:text-xl">{t("iosComingSoonTitle")}</p>
+          <p className="text-sm sm:text-base text-(--foreground-muted)">{t("iosComingSoonBody")}</p>
+        </div>
+        ) : (
+        <>
         <div className="flex items-center justify-center border p-6 sm:p-8 border-(--border) rounded-3xl bg-white/5">
           <Image
-            src={current.qr}
+            src={android.qr}
             alt={t("qrAlt", { device: activeDevice })}
             width={200}
             height={200}
@@ -171,14 +188,14 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
         </div>
 
         <div className="w-full">
-          <a 
-            href={current.href}
+          <a
+            href={android.href}
             target="_blank"
             rel="noopener noreferrer"
             className="flex w-full items-center justify-center gap-2 bg-(--button-primary-bg) text-(--button-primary-text) border border-(--border-subtle) hover:bg-(--button-primary-hover-bg) px-6 py-3 rounded-lg transition-all font-bold group"
           >
            <span>
-            {current.label}
+            {android.label}
            </span>
            <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -198,6 +215,8 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
             </svg>
           </a>
         </div>
+        </>
+        )}
 
         {/* SWITCH BETWEEN DEVICES Divider */}
         <div className="flex items-center w-full gap-4 mt-8 mb-6">
@@ -211,6 +230,7 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
         <div className="flex gap-4 w-full">
           <button 
             onClick={() => setActiveDevice("android")}
+            aria-pressed={activeDevice === "android"}
             className={`flex-1 flex justify-center items-center py-3 rounded-lg transition-all hover:scale-[1.02] active:scale-[0.98] border ${
               activeDevice === "android" 
                 ? "bg-(--button-secondary-bg) border-(--border-subtle) shadow-lg scale-105" 
@@ -227,6 +247,7 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
           </button>
           <button 
             onClick={() => setActiveDevice("ios")}
+            aria-pressed={activeDevice === "ios"}
             className={`flex-1 flex justify-center items-center py-3 rounded-lg transition-all hover:scale-[1.02] active:scale-[0.98] border ${
               activeDevice === "ios" 
                 ? "bg-(--button-secondary-bg) border-(--border-subtle) shadow-lg scale-105" 

@@ -4,6 +4,8 @@ import sitemap from '@/app/sitemap';
 import { generateLocaleMetadata } from '@/i18n/metadata';
 import { routing } from '@/i18n/routing';
 import { defaultLanguage, languages } from '@/config/languages';
+import { LEGAL_PAGES, type LegalPage } from '@/config/legal';
+import { SUPPORT_PAGE_PATH } from '@/config/support';
 import en from '@/messages/en.json';
 import hi from '@/messages/hi.json';
 
@@ -29,8 +31,10 @@ describe('locale configuration', () => {
 });
 
 describe('sitemap', () => {
-  it('lists one production URL per locale', () => {
-    expect(sitemap().map((e) => e.url)).toEqual(routing.locales.map((l) => `${SITE}/${l}`));
+  it('lists the home page, the legal pages and the support page for every locale', () => {
+    expect(sitemap().map((e) => e.url)).toEqual(
+      routing.locales.flatMap((l) => [`${SITE}/${l}`, `${SITE}/${l}/privacy`, `${SITE}/${l}/terms`, `${SITE}/${l}/support`]),
+    );
   });
 
   it('property: NEXT_PUBLIC_SITE_URL with or without a trailing slash yields clean locale URLs', () => {
@@ -38,7 +42,7 @@ describe('sitemap', () => {
       fc.property(fc.domain(), fc.boolean(), (domain, slash) => {
         vi.stubEnv('NEXT_PUBLIC_SITE_URL', `https://${domain}${slash ? '/' : ''}`);
         for (const entry of sitemap()) {
-          expect(entry.url).toMatch(new RegExp(`^https://${domain.replace(/\./g, '\\.')}/(en|hi)$`));
+          expect(entry.url).toMatch(new RegExp(`^https://${domain.replace(/\./g, '\\.')}/(en|hi)(/privacy|/terms|/support)?$`));
         }
       }),
     );
@@ -64,6 +68,38 @@ describe('generateLocaleMetadata', () => {
     const meta = await generateLocaleMetadata('hi');
     expect(meta.alternates?.canonical).toBe(`${SITE}/hi`);
     expect(meta.alternates?.languages).toEqual({ en: `${SITE}/en`, hi: `${SITE}/hi`, 'x-default': `${SITE}/en` });
+    expect(sitemap().map((e) => e.url)).toContain(meta.alternates?.canonical);
+  });
+
+  it.each(Object.keys(LEGAL_PAGES) as LegalPage[])(
+    'gives the %s page its own title, canonical and hreflang alternates',
+    async (page) => {
+      const path = LEGAL_PAGES[page].path;
+      const meta = await generateLocaleMetadata('hi', page);
+      expect(meta.title).toBe(hi.Legal[page].title);
+      expect(meta.description).toBe(hi.Legal[page].description);
+      expect(meta.alternates?.canonical).toBe(`${SITE}/hi${path}`);
+      expect(meta.alternates?.languages).toEqual({
+        en: `${SITE}/en${path}`,
+        hi: `${SITE}/hi${path}`,
+        'x-default': `${SITE}/en${path}`,
+      });
+      expect(meta.openGraph).toMatchObject({ url: `${SITE}/hi${path}` });
+      expect(sitemap().map((e) => e.url)).toContain(meta.alternates?.canonical);
+    },
+  );
+
+  it('gives the support page its own title, canonical and hreflang alternates', async () => {
+    const meta = await generateLocaleMetadata('hi', 'support');
+    expect(meta.title).toBe(hi.Support.title);
+    expect(meta.description).toBe(hi.Support.description);
+    expect(meta.alternates?.canonical).toBe(`${SITE}/hi${SUPPORT_PAGE_PATH}`);
+    expect(meta.alternates?.languages).toEqual({
+      en: `${SITE}/en${SUPPORT_PAGE_PATH}`,
+      hi: `${SITE}/hi${SUPPORT_PAGE_PATH}`,
+      'x-default': `${SITE}/en${SUPPORT_PAGE_PATH}`,
+    });
+    expect(meta.openGraph).toMatchObject({ url: `${SITE}/hi${SUPPORT_PAGE_PATH}` });
     expect(sitemap().map((e) => e.url)).toContain(meta.alternates?.canonical);
   });
 

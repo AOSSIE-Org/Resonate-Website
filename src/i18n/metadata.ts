@@ -1,22 +1,29 @@
 import type { Metadata } from 'next';
 import enMessages from '@/messages/en.json';
 import hiMessages from '@/messages/hi.json';
+import { getSiteUrl } from '@/config/site';
+import { LEGAL_PAGES, type LegalPage } from '@/config/legal';
+import { SUPPORT_PAGE_PATH } from '@/config/support';
+
+/** A page with its own metadata: a legal page or the support page. */
+export type MetadataPage = LegalPage | 'support';
 
 const messagesMap: Record<string, typeof enMessages> = {
   en: enMessages,
   hi: hiMessages,
 };
 
+/** Metadata for the home page, or for the legal or support page when `page` is given. */
 export async function generateLocaleMetadata(
   locale: string,
-  namespace: 'metadata' = 'metadata'
+  page?: MetadataPage
 ): Promise<Metadata> {
   const messages = messagesMap[locale] || enMessages;
-  const meta = messages[namespace] || enMessages.metadata;
+  const meta = !page ? messages.metadata : page === 'support' ? messages.Support : messages.Legal[page];
 
-  const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://resonate.aossie.org';
-  const siteUrl = rawSiteUrl.replace(/\/$/, '');
-  const localeUrl = `${siteUrl}/${locale}`;
+  const siteUrl = getSiteUrl();
+  const path = !page ? '' : page === 'support' ? SUPPORT_PAGE_PATH : LEGAL_PAGES[page].path;
+  const localeUrl = `${siteUrl}/${locale}${path}`;
 
   return {
     title: meta.title,
@@ -34,9 +41,9 @@ export async function generateLocaleMetadata(
     alternates: {
       canonical: localeUrl,
       languages: {
-        en: `${siteUrl}/en`,
-        hi: `${siteUrl}/hi`,
-        'x-default': `${siteUrl}/en`,
+        en: `${siteUrl}/en${path}`,
+        hi: `${siteUrl}/hi${path}`,
+        'x-default': `${siteUrl}/en${path}`,
       },
     },
     openGraph: {

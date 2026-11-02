@@ -7,6 +7,7 @@ import { Button } from "../ui/Button";
 import { useIntersectionObserver } from "../ui/useIntersectionObserver";
 import { FeatureIllustration, type FeatureKind } from "./FeatureIllustrations";
 import { MockupImage } from "../ui/MockupImage";
+import { GITHUB_APP_REPO_URL } from "@/config/links";
 
 export function Features() {
   const t = useTranslations("Features");
@@ -86,7 +87,7 @@ export function Features() {
               <div className="mt-2">
                 <Button 
                   variant="type2"
-                  href="https://github.com/AOSSIE-Org/Resonate"
+                  href={GITHUB_APP_REPO_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -244,7 +245,7 @@ export function Features() {
             <div className="mt-1">
               <Button 
                 variant="type2"
-                href="https://github.com/AOSSIE-Org/Resonate"
+                href={GITHUB_APP_REPO_URL}
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
   },
+  experimental: {
+    // `redirects()` is ignored with `output: "export"`. src/app/global-not-found.tsx becomes
+    // out/404.html, which GitHub Pages serves for /room/<id> and forwards to the Play Store.
+    globalNotFound: true,
+  },
 };
 
 export default withNextIntl(nextConfig);

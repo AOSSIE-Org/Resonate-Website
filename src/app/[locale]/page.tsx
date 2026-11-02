@@ -5,6 +5,8 @@ import { Hero } from '@/components/home/Hero';
 import { About } from '@/components/home/About';
 import { Metric } from '@/components/home/Metric';
 import { Features } from '@/components/home/Features';
+import { AOSSIE_URL } from '@/config/links';
+import { SITE_URL } from '@/config/site';
 
 export default function Home() {
   const jsonLd = {
@@ -15,8 +17,8 @@ export default function Home() {
     "publisher": {
       "@type": "Organization",
       "name": "AOSSIE",
-      "url": "https://aossie.org",
-      "logo": "https://resonate.aossie.org/brand/icons/aossie_logo.svg",
+      "url": AOSSIE_URL,
+      "logo": `${SITE_URL}/brand/icons/aossie_logo.svg`,
     },
   };
 
