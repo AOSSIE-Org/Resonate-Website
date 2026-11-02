@@ -31,6 +31,10 @@ const VIEWPORT_BOTTOM_MARGIN = 28; // above the bottom screen edge
 // Portion of the hero -> About phase over which those clamps fade in.
 const CLAMP_FADE_IN = 0.35;
 
+// Keep the scroll animation running while the section is within five viewport
+// heights above or below the screen, so the phone is already posed on arrival.
+const ANIMATION_ROOT_MARGIN = "500% 0px 500% 0px";
+
 const getMarginX = (viewportWidth: number): number => {
   if (viewportWidth >= 1536) return 192;
   if (viewportWidth >= 1024) return 64;
@@ -483,7 +487,7 @@ export function HeroVisuals() {
         }
       },
       {
-        rootMargin: "500% 0px 500% 0px",
+        rootMargin: ANIMATION_ROOT_MARGIN,
         threshold: 0,
       }
     );

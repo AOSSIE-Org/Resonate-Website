@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { HeroVisuals } from "./HeroVisuals";
 import { useTranslations } from "next-intl";
+import { AOSSIE_URL, PLAY_STORE_URL } from "@/config/links";
 
 export function Hero() {
   const t = useTranslations("Hero");
@@ -26,7 +27,7 @@ export function Hero() {
         <div className="inline-flex flex-wrap justify-center items-center gap-2 text-lg sm:text-2xl text-muted animate-luxury-reveal-3">
           <span>{t("maintainedBy")}</span>
           <Link
-            href="https://aossie.org"
+            href={AOSSIE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="underline inline-flex items-center gap-1"
@@ -54,7 +55,7 @@ export function Hero() {
 
         {/* Download button — mobile only */}
         <Link
-          href="https://play.google.com/store/apps/details?id=com.resonate.resonate"
+          href={PLAY_STORE_URL}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t("downloadAria")}

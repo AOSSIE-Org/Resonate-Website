@@ -31,7 +31,8 @@
     "scanInstruction": "Scan with your mobile device",
     "or": "OR",
     "redirectToPlayStore": "Redirect to Play Store Web",
-    "redirectToAppStore": "Redirect to App Store Web",
+    "iosComingSoonTitle": "iOS app coming soon",
+    "iosComingSoonBody": "Resonate is not on the App Store yet. You can get the Android app on Google Play today.",
     "switchBetweenDevices": "SWITCH BETWEEN DEVICES",
     "closeLabel": "Close modal",
     "closeAlt": "Close",
@@ -66,8 +67,9 @@
       }
     },
     "copyright": "© 2026 Resonate",
-    "madeWith": "Made with 🤍 by AOSSIE Community",
-    "navLabel": "Footer links"
+    "madeWith": "Made with 🤍 by <logo>AOSSIE</logo>",
+    "navLabel": "Footer links",
+    "supportLink": "Support us"
   },
   "ThemeToggle": {
     "toggleTheme": "Toggle theme",
@@ -106,7 +108,7 @@
     "tagline2": "Limits",
     "videoButton": "Watch Video",
     "playStoreAlt": "Play Store",
-    "appStoreAlt": "App Store",
+    "appStoreComingSoon": "App Store (coming soon)",
     "availability1": "The Mobile app",
     "availability2": "is available now",
     "learnMore": "Learn More",
