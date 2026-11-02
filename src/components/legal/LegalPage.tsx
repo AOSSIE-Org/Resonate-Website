@@ -16,7 +16,8 @@ const DOCUMENT_CLASSES = [
   '[&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:text-secondary [&_li]:my-2 [&_li]:marker:text-muted',
   '[&_strong]:font-semibold [&_strong]:text-primary',
   '[&_a]:rounded-sm [&_a]:underline [&_a]:underline-offset-4 [&_a]:transition-colors [&_a:hover]:text-yellow-600',
-  '[&_a:focus-visible]:outline-none [&_a:focus-visible]:ring-2 [&_a:focus-visible]:ring-brand-yellow',
+  // The focus ring takes the link's own colour, which contrasts with the page in both themes (brand yellow did not in light mode)
+  '[&_a:focus-visible]:outline-none [&_a:focus-visible]:ring-2 [&_a:focus-visible]:ring-current',
   '[&_code]:rounded [&_code]:border [&_code]:border-default [&_code]:bg-card [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm',
 ].join(' ');
 

@@ -23,9 +23,13 @@ import { SiteShareButton } from "./SiteShareButton";
 
 const emptySubscribe = () => () => {};
 
-/** Bottom-bar link style: the legal links' look plus a visible keyboard focus ring. */
+/**
+ * Bottom-bar link style: the legal links' look plus a visible keyboard focus ring. The ring uses the footer heading
+ * colour (near-black in light mode, white in dark), which keeps well above 3:1 contrast against the footer in both
+ * themes; brand yellow was only about 1.5:1 on the light footer.
+ */
 const BOTTOM_BAR_LINK_CLASSES =
-  "rounded-sm text-(--footer-text) font-light hover:text-yellow-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow";
+  "rounded-sm text-(--footer-text) font-light hover:text-yellow-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--footer-headings)";
 
 /** Anchor id of the footer, used by the navbar's Contact link. */
 export const CONTACT_SECTION_ID = "contact";

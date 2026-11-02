@@ -32,7 +32,7 @@ This stays in your browser and is never sent to us.
 
 ## Data Storage
 
-All information is stored locally on your device and is not uploaded to or maintained on any remote server.
+Only the preferences listed above are stored by the Website, in your browser on your device; they are not uploaded to or kept on any server. Loading the Website still sends standard request details (such as your IP address) to its host, GitHub Pages, as described below.
 
 ## Data Sharing
 
