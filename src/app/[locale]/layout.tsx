@@ -9,6 +9,7 @@ import enMessages from "@/messages/en.json";
 import hiMessages from "@/messages/hi.json";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { DEFAULT_THEME, THEME_STORAGE_KEY, themeInitScript } from "@/components/providers/theme-script";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { Navbar } from "@/components/layout/Navbar";
 
@@ -72,11 +73,16 @@ export default async function LocaleLayout({
       className={`${inter.variable} ${devanagari.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Sets the theme class before <body> is parsed, so the first paint is never the wrong theme */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="antialiased font-sans bg-background text-foreground">
         <NextIntlClientProvider locale={locale} messages={messages} formats={{}} timeZone="UTC" now={new Date(0)}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            storageKey={THEME_STORAGE_KEY}
+            defaultTheme={DEFAULT_THEME}
             enableSystem
             disableTransitionOnChange
           >

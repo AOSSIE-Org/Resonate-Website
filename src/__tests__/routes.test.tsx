@@ -38,6 +38,7 @@ import SupportPage, { generateMetadata as supportMetadata } from '@/app/[locale]
 import getRequestConfig from '@/i18n/request';
 import { generateLocaleMetadata } from '@/i18n/metadata';
 import { routing } from '@/i18n/routing';
+import { themeInitScript } from '@/components/providers/theme-script';
 import { PLAY_STORE_URL, AOSSIE_URL } from '@/config/links';
 
 const SITE = 'https://resonate.aossie.org';
@@ -147,6 +148,8 @@ describe('locale layout', () => {
     expect(doc.querySelector('a[href="#main-content"]')!.textContent).toBe(messages[locale].Navbar.skipToContent);
     expect(doc.querySelector('header nav')!.getAttribute('aria-label')).toBe(messages[locale].Navbar.primaryNav);
     expect(doc.querySelector('main#main-content #page')).not.toBeNull();
+    // The theme is applied from <head>, before <body> exists, so the first paint is never the wrong theme
+    expect(doc.head.querySelector('script')!.textContent).toBe(themeInitScript);
   });
 
   it('404s for an unknown locale', async () => {
