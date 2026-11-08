@@ -141,7 +141,8 @@
     "prevFeature": "पिछली विशेषता",
     "nextFeature": "अगली विशेषता",
     "resonateAppInterface": "रेसोनेट ऐप इंटरफ़ेस",
-    "swipeCue": "स्वाइप संकेत"
+    "swipeCue": "स्वाइप संकेत",
+    "featuresCarousel": "फीचर्स कैरोसेल"
   },
   "Legal": {
     "englishOnly": "यह दस्तावेज़ केवल अंग्रेज़ी में उपलब्ध है।",

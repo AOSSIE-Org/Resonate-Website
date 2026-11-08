@@ -167,8 +167,8 @@ describe('Features', () => {
     renderWithIntl(<Features />);
     const phone = screen.getByAltText(t.resonateAppInterface).closest('div')!;
     const swipe = (from: number, to?: number) => {
-      fireEvent.touchStart(phone, { targetTouches: [{ clientX: from }] });
-      if (to !== undefined) fireEvent.touchMove(phone, { targetTouches: [{ clientX: to }] });
+      fireEvent.touchStart(phone, { targetTouches: [{ clientX: from, clientY: 100 }] });
+      if (to !== undefined) fireEvent.touchMove(phone, { targetTouches: [{ clientX: to, clientY: 100 }] });
       fireEvent.touchEnd(phone);
     };
     swipe(300, 200);
@@ -213,5 +213,98 @@ describe('Features', () => {
     renderWithIntl(<Features />);
     expect(screen.getAllByRole('heading', { level: 3, name: t.techStack })).toHaveLength(2);
     expect(within(document.getElementById('features-tech-card')!).getByText(t.mobileDev)).toBeInTheDocument();
+  });
+});
+
+describe('Features mobile carousel', () => {
+  const t = messages.en.Features;
+  const getCarousel = () => screen.getByRole('region', { name: t.featuresCarousel });
+  const getActiveSlide = () => getCarousel().querySelector('span.text-highlight')?.textContent;
+
+  const swipe = (
+    carousel: HTMLElement,
+    from: { x: number; y: number },
+    to?: { x: number; y: number },
+  ) => {
+    fireEvent.touchStart(carousel, { targetTouches: [{ clientX: from.x, clientY: from.y }] });
+    if (to) {
+      fireEvent.touchMove(carousel, { targetTouches: [{ clientX: to.x, clientY: to.y }] });
+    }
+    fireEvent.touchEnd(carousel);
+  };
+
+  it('exposes carousel accessibility attributes and styling', () => {
+    renderWithIntl(<Features />);
+    const carousel = getCarousel();
+    expect(carousel).toHaveAttribute('aria-roledescription', 'carousel');
+    expect(carousel).toHaveAttribute('aria-label', t.featuresCarousel);
+    expect(carousel).toHaveAttribute('tabIndex', '0');
+    expect(carousel).toHaveClass('touch-pan-y');
+  });
+
+  it('ignores vertical drags so page scroll does not advance slides', () => {
+    renderWithIntl(<Features />);
+    const carousel = getCarousel();
+    expect(getActiveSlide()).toBe(t.card1);
+
+    // Pure vertical swipe
+    swipe(carousel, { x: 200, y: 200 }, { x: 200, y: 100 });
+    expect(getActiveSlide()).toBe(t.card1);
+
+    // Diagonal drag where vertical movement dominates
+    swipe(carousel, { x: 200, y: 200 }, { x: 180, y: 100 });
+    expect(getActiveSlide()).toBe(t.card1);
+
+    // Equal deltaX and deltaY (|deltaX| <= |deltaY|)
+    swipe(carousel, { x: 200, y: 200 }, { x: 140, y: 140 });
+    expect(getActiveSlide()).toBe(t.card1);
+  });
+
+  it('advances on left swipe and goes back on right swipe when horizontal movement dominates', () => {
+    renderWithIntl(<Features />);
+    const carousel = getCarousel();
+    expect(getActiveSlide()).toBe(t.card1);
+
+    // Left swipe (deltaX > 0 and |deltaX| > |deltaY| and |deltaX| >= 50)
+    swipe(carousel, { x: 200, y: 200 }, { x: 130, y: 210 });
+    expect(getActiveSlide()).toBe(t.card2);
+
+    // Right swipe (deltaX < 0 and |deltaX| > |deltaY| and |deltaX| >= 50)
+    swipe(carousel, { x: 130, y: 210 }, { x: 210, y: 200 });
+    expect(getActiveSlide()).toBe(t.card1);
+  });
+
+  it('ignores horizontal drags shorter than the threshold and taps with no move', () => {
+    renderWithIntl(<Features />);
+    const carousel = getCarousel();
+    expect(getActiveSlide()).toBe(t.card1);
+
+    // Short drag (< 50px)
+    swipe(carousel, { x: 200, y: 200 }, { x: 160, y: 200 });
+    expect(getActiveSlide()).toBe(t.card1);
+
+    // Tap without move
+    swipe(carousel, { x: 200, y: 200 });
+    expect(getActiveSlide()).toBe(t.card1);
+  });
+
+  it('navigates with ArrowRight and ArrowLeft keyboard keys', () => {
+    renderWithIntl(<Features />);
+    const carousel = getCarousel();
+    expect(getActiveSlide()).toBe(t.card1);
+
+    fireEvent.keyDown(carousel, { key: 'ArrowRight' });
+    expect(getActiveSlide()).toBe(t.card2);
+
+    fireEvent.keyDown(carousel, { key: 'ArrowLeft' });
+    expect(getActiveSlide()).toBe(t.card1);
+
+    // Wrapping backwards
+    fireEvent.keyDown(carousel, { key: 'ArrowLeft' });
+    expect(getActiveSlide()).toBe(t.card6);
+
+    // Other keys are ignored
+    fireEvent.keyDown(carousel, { key: 'Tab' });
+    expect(getActiveSlide()).toBe(t.card6);
   });
 });
