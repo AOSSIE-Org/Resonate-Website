@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Button } from "../ui/Button";
@@ -16,8 +16,8 @@ export function Features() {
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
 
   const [hasSwiped, setHasSwiped] = useState(false);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const touchEndRef = useRef<{ x: number; y: number } | null>(null);
 
   const minSwipeDistance = 50;
 
@@ -41,23 +41,42 @@ export function Features() {
   };
 
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    const { clientX, clientY } = e.targetTouches[0];
+    touchEndRef.current = null;
+    touchStartRef.current = { x: clientX, y: clientY };
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    const { clientX, clientY } = e.targetTouches[0];
+    touchEndRef.current = { x: clientX, y: clientY };
   };
 
   const onTouchEnd = () => {
-    if (touchStart === null || touchEnd === null) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
+    const start = touchStartRef.current;
+    const end = touchEndRef.current;
+    touchStartRef.current = null;
+    touchEndRef.current = null;
+    if (!start || !end) return;
 
-    if (isLeftSwipe) {
+    const deltaX = start.x - end.x;
+    const deltaY = start.y - end.y;
+
+    if (Math.abs(deltaX) <= Math.abs(deltaY)) return;
+    if (Math.abs(deltaX) < minSwipeDistance) return;
+
+    if (deltaX > 0) {
       handleNext();
-    } else if (isRightSwipe) {
+    } else {
+      handlePrev();
+    }
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      handleNext();
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
       handlePrev();
     }
   };
@@ -316,10 +335,15 @@ export function Features() {
               
               {/* Static Mobile Mockup with Overlaid Card */}
               <div 
+                role="region"
+                aria-roledescription="carousel"
+                aria-label={t("featuresCarousel")}
+                tabIndex={0}
+                onKeyDown={onKeyDown}
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
-                className="w-[226px] sm:w-[266px] aspect-[9/18] relative select-none flex items-center justify-center cursor-grab active:cursor-grabbing"
+                className="w-[226px] sm:w-[266px] aspect-[9/18] relative select-none flex items-center justify-center cursor-grab active:cursor-grabbing touch-pan-y"
               >
                 <MockupImage
                   src="/assets/mockups/phone_features.webp"

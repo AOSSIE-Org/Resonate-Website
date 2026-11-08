@@ -141,7 +141,8 @@
     "prevFeature": "Previous Feature",
     "nextFeature": "Next Feature",
     "resonateAppInterface": "Resonate app interface",
-    "swipeCue": "Swipe Cue"
+    "swipeCue": "Swipe Cue",
+    "featuresCarousel": "Features carousel"
   },
   "Legal": {
     "englishOnly": "This document is available in English only.",
