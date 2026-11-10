@@ -23,7 +23,7 @@ export function About() {
               <span className="block">{t("title1")}</span>
               <span className="block">{t("title2")}</span>
             </h2>
-            <p className="w-full xl:max-w-[calc((50%+28vw-220px)*0.85)] text-(--foreground-muted) md:text-lg/relaxed pt-8 px-4 xl:px-0 text-center xl:text-left text-pretty">
+           <p className="w-full max-w-2xl text-(--foreground-muted) md:text-lg/relaxed pt-8 px-4 xl:px-0 text-center xl:text-left">
               {t("description")}
             </p>
             <div className="xl:hidden w-[226px] sm:w-[266px] aspect-[9/18] relative mt-10 sm:mt-14">
