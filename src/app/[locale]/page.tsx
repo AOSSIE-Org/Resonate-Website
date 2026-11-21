@@ -5,6 +5,7 @@ import { Hero } from '@/components/home/Hero';
 import { About } from '@/components/home/About';
 import { Metric } from '@/components/home/Metric';
 import { Features } from '@/components/home/Features';
+import { Contribute } from '@/components/home/Contribute';
 import { AOSSIE_URL } from '@/config/links';
 import { SITE_URL } from '@/config/site';
 
@@ -34,6 +35,7 @@ export default function Home() {
         <About />
         <Metric />
         <Features />
+        <Contribute />
       </div>
       <div className="bottom-0 pb-4 pt-24">
         <Footer />

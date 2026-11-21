@@ -169,5 +169,10 @@
     "madeBy": "द्वारा बनाया गया प्रोजेक्ट",
     "supportedBy": "समर्थक",
     "aossieDescription": "AOSSIE एक ऑस्ट्रेलियाई गैर-लाभकारी संगठन है जो ओपन-सोर्स प्रोजेक्ट्स का समर्थन करता है और उन्हें एक साथ लाता है।"
+  },
+  "Contribute": {
+    "title": "Contribute to Resonate",
+    "description": "Resonate is an open-source project built by the community. Report issues, improve the docs or write code - every contribution helps make the platform better for everyone.",
+    "cta": "Contribute on GitHub"
   }
 }
