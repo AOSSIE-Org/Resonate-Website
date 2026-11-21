@@ -7,6 +7,7 @@ import { setIntersecting } from './helpers/observers';
 import { Hero } from '@/components/home/Hero';
 import { About } from '@/components/home/About';
 import { Features } from '@/components/home/Features';
+import { Contribute } from '@/components/home/Contribute';
 import { FeatureIllustration, type FeatureKind } from '@/components/home/FeatureIllustrations';
 import * as links from '@/config/links';
 
@@ -213,5 +214,25 @@ describe('Features', () => {
     renderWithIntl(<Features />);
     expect(screen.getAllByRole('heading', { level: 3, name: t.techStack })).toHaveLength(2);
     expect(within(document.getElementById('features-tech-card')!).getByText(t.mobileDev)).toBeInTheDocument();
+  });
+});
+
+describe('Contribute', () => {
+  it.each(LOCALES)('shows the %s contribution copy and GitHub call to action', (locale) => {
+    renderWithIntl(<Contribute />, locale);
+    const c = messages[locale].Contribute;
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(c.title);
+    expect(screen.getByText(c.description)).toBeInTheDocument();
+    const link = screen.getByRole('link', { name: c.cta });
+    expect(link).toHaveAttribute('href', links.GITHUB_APP_REPO_URL);
+    expectNewTab(link);
+  });
+
+  it('reveals its content when the section enters the viewport', () => {
+    renderWithIntl(<Contribute />);
+    const content = screen.getByRole('heading', { level: 2 }).parentElement!;
+    expect(content).toHaveClass('opacity-0');
+    setIntersecting(true);
+    expect(content).toHaveClass('animate-luxury-reveal-1');
   });
 });
